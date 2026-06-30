@@ -1,0 +1,62 @@
+[
+  {
+    "monthKey": "2026-03",
+    "lunarYear": 2026,
+    "lunarMonth": 3,
+    "isLeapMonth": false,
+    "monthIndexInYear": 3,
+    "monthSize": "large",
+    "dayCount": 30,
+    "newMoonDate": null,
+    "newMoonDatetimeJst": null,
+    "nextNewMoonDate": "2026-05-17",
+    "nextNewMoonDatetimeJst": null,
+    "containsChuki": null,
+    "chukiName": null,
+    "chukiDate": null,
+    "sourceStatus": "sample_cross_checked",
+    "verification": {
+      "status": "matched",
+      "sources": [
+        {
+          "name": "手元万年暦",
+          "type": "book",
+          "checkedAt": "2026-05-19",
+          "result": "matched"
+        }
+      ],
+      "diffs": []
+    },
+    "sourceNote": "30日サンプルでは2026-05-16=旧暦3月30日まで確認。月全体の朔日は正式生成時に補完する。"
+  },
+  {
+    "monthKey": "2026-04",
+    "lunarYear": 2026,
+    "lunarMonth": 4,
+    "isLeapMonth": false,
+    "monthIndexInYear": 4,
+    "monthSize": "large",
+    "dayCount": 30,
+    "newMoonDate": "2026-05-17",
+    "newMoonDatetimeJst": null,
+    "nextNewMoonDate": "2026-06-16",
+    "nextNewMoonDatetimeJst": null,
+    "containsChuki": true,
+    "chukiName": "小満",
+    "chukiDate": "2026-05-21",
+    "sourceStatus": "sample_cross_checked",
+    "verification": {
+      "status": "matched",
+      "sources": [
+        {
+          "name": "手元万年暦",
+          "type": "book",
+          "checkedAt": "2026-05-19",
+          "result": "matched"
+        }
+      ],
+      "diffs": []
+    },
+    "sourceNote": "2026-05-17=旧暦4月1日、2026-06-14=旧暦4月29日まで確認。2026-06-15=旧暦4月30日、2026-06-16=次朔の想定は正式生成時に再検算する。"
+  }
+]

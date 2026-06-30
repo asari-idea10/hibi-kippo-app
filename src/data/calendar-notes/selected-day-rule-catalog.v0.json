@@ -1,0 +1,301 @@
+{
+  "schemaVersion": "selected_day_rule_catalog.v0",
+  "policy": {
+    "goldenReference": "こよみのページ 暦注計算",
+    "goldenReferenceUrl": "https://koyomi8.com/sub/rekicyuu.html",
+    "methodReferenceUrls": [
+      "https://koyomi8.com/sub/rekicyuu_doc02.html",
+      "https://koyomi8.com/sub/rekicyuu_doc03.html"
+    ],
+    "principle": "選日はこよみのページの出力結果を検証正本とし、計算ルールで生成した結果をサンプル日で照合してから採用する。",
+    "implementationOrder": [
+      "sexagenary_day_rules",
+      "solar_month_and_branch_rules",
+      "lunar_calendar_rules",
+      "lower_calendar_note_rules",
+      "manual_reference_only_rules"
+    ]
+  },
+  "groups": [
+    {
+      "id": "sexagenary_day_rules",
+      "label": "日の干支・干支番号で判定できる候補",
+      "priority": 1,
+      "requiredInputs": ["dayPillar", "daySexagenaryNumber"],
+      "notes": [
+        "既に年月日マスターに日の干支・干支番号があるため、最初にルール実装しやすい。",
+        "こよみのページと数日単位で照合してから1900〜2050年へ広げる。"
+      ],
+      "candidates": [
+        {
+          "code": "kasshi",
+          "name": "甲子",
+          "currentStatus": "definition_exists",
+          "ruleStatus": "straightforward",
+          "adoption": "calculate_and_compare"
+        },
+        {
+          "code": "koushin",
+          "name": "庚申",
+          "currentStatus": "definition_exists",
+          "ruleStatus": "straightforward",
+          "adoption": "calculate_and_compare"
+        },
+        {
+          "code": "tsuchinoto_mi",
+          "name": "己巳",
+          "currentStatus": "definition_exists",
+          "ruleStatus": "straightforward",
+          "adoption": "calculate_and_compare"
+        },
+        {
+          "code": "hassen",
+          "name": "八専",
+          "currentStatus": "definition_exists",
+          "ruleStatus": "needs_manichi_rules",
+          "adoption": "calculate_and_compare"
+        },
+        {
+          "code": "jippo_gure",
+          "name": "十方暮",
+          "currentStatus": "definition_exists",
+          "ruleStatus": "needs_range_rules",
+          "adoption": "calculate_and_compare"
+        },
+        {
+          "code": "tenichi_tenjo",
+          "name": "天一天上",
+          "currentStatus": "definition_exists",
+          "ruleStatus": "needs_range_rules",
+          "adoption": "calculate_and_compare"
+        }
+      ]
+    },
+    {
+      "id": "solar_month_and_branch_rules",
+      "label": "節月・月支・日支で判定する候補",
+      "priority": 2,
+      "requiredInputs": ["setsuiri", "solarMonthBranch", "dayBranch"],
+      "notes": [
+        "節入り境界の扱いが重要。日次暦と出生時刻計算を分ける。",
+        "一粒万倍日・三隣亡はここを重点検証する。"
+      ],
+      "candidates": [
+        {
+          "code": "ichiryumanbaibi",
+          "name": "一粒万倍日",
+          "currentStatus": "definition_exists",
+          "ruleStatus": "needs_koyomi_reference_check",
+          "adoption": "golden_sample_then_calculate"
+        },
+        {
+          "code": "sanrinbou",
+          "name": "三隣亡",
+          "currentStatus": "definition_exists",
+          "ruleStatus": "needs_koyomi_reference_check",
+          "adoption": "golden_sample_then_calculate"
+        }
+      ]
+    },
+    {
+      "id": "lunar_calendar_rules",
+      "label": "旧暦月日で判定する候補",
+      "priority": 3,
+      "requiredInputs": ["lunarMonth", "lunarDay", "isLeapMonth"],
+      "notes": [
+        "旧暦マスターが整備済みなので、次に計算検証できる。",
+        "閏月の扱いは必ずこよみページと照合する。"
+      ],
+      "candidates": [
+        {
+          "code": "fujoju",
+          "name": "不成就日",
+          "currentStatus": "definition_exists",
+          "ruleStatus": "needs_lunar_rule_table",
+          "adoption": "golden_sample_then_calculate"
+        }
+      ]
+    },
+    {
+      "id": "lower_calendar_note_rules",
+      "label": "下段・その他暦注として正式化したい候補",
+      "priority": 4,
+      "requiredInputs": [
+        "calendarMonth",
+        "dayPillar",
+        "daySexagenaryNumber",
+        "solarMonthBranch",
+        "lunarCalendar"
+      ],
+      "notes": [
+        "こよみページでは主要選日の後ろに ※ 付きで出ることが多い。",
+        "商品・鑑定文では重要だが、計算式の流派差が出やすいため段階採用する。",
+        "天赦日・天轉殺・地轉殺・四癈日は手元万年暦の季節別日干支表をv0正本候補として扱う。"
+      ],
+      "candidates": [
+        {
+          "code": "tensha_bi",
+          "name": "天赦日",
+          "currentStatus": "definition_exists",
+          "ruleStatus": "hand_almanac_season_day_pillar_v0",
+          "adoption": "calculate_and_merge_with_reference"
+        },
+        {
+          "code": "tenten_satsu",
+          "name": "天轉殺",
+          "currentStatus": "definition_exists",
+          "ruleStatus": "hand_almanac_season_day_pillar_v0",
+          "adoption": "calculate_and_compare"
+        },
+        {
+          "code": "jiten_satsu",
+          "name": "地轉殺",
+          "currentStatus": "definition_exists",
+          "ruleStatus": "hand_almanac_season_day_pillar_v0",
+          "adoption": "calculate_and_compare"
+        },
+        {
+          "code": "shihai_nichi",
+          "name": "四癈日",
+          "currentStatus": "definition_exists",
+          "ruleStatus": "hand_almanac_season_day_pillar_v0",
+          "adoption": "calculate_and_compare"
+        },
+        {
+          "code": "daimyo_nichi",
+          "name": "大明日",
+          "currentStatus": "definition_exists",
+          "ruleStatus": "needs_rule_table",
+          "adoption": "reference_override_then_calculate"
+        },
+        {
+          "code": "tenon_nichi",
+          "name": "天恩日",
+          "currentStatus": "definition_exists",
+          "ruleStatus": "needs_rule_table",
+          "adoption": "reference_override_then_calculate"
+        },
+        {
+          "code": "shinnyu",
+          "name": "神吉日",
+          "currentStatus": "definition_exists",
+          "ruleStatus": "needs_rule_table",
+          "adoption": "reference_override_then_calculate"
+        },
+        {
+          "code": "jikabi",
+          "name": "地火日",
+          "currentStatus": "definition_exists",
+          "ruleStatus": "needs_rule_table",
+          "adoption": "reference_override_then_calculate"
+        },
+        {
+          "code": "taika_nichi",
+          "name": "大禍日",
+          "currentStatus": "definition_exists",
+          "ruleStatus": "needs_rule_table",
+          "adoption": "reference_override_then_calculate"
+        },
+        {
+          "code": "boko_nichi",
+          "name": "母倉日",
+          "currentStatus": "summary_only",
+          "ruleStatus": "needs_definition_and_rule",
+          "adoption": "after_reference_samples"
+        },
+        {
+          "code": "gettoku_nichi",
+          "name": "月徳日",
+          "currentStatus": "summary_only",
+          "ruleStatus": "needs_definition_and_rule",
+          "adoption": "after_reference_samples"
+        },
+        {
+          "code": "ju_nichi",
+          "name": "重日",
+          "currentStatus": "summary_only",
+          "ruleStatus": "needs_definition_and_rule",
+          "adoption": "after_reference_samples"
+        },
+        {
+          "code": "gomu",
+          "name": "五墓",
+          "currentStatus": "summary_only",
+          "ruleStatus": "needs_definition_and_rule",
+          "adoption": "after_reference_samples"
+        },
+        {
+          "code": "fukunichi",
+          "name": "復日",
+          "currentStatus": "summary_only",
+          "ruleStatus": "needs_definition_and_rule",
+          "adoption": "after_reference_samples"
+        },
+        {
+          "code": "metsumon_nichi",
+          "name": "滅門日",
+          "currentStatus": "summary_only",
+          "ruleStatus": "needs_definition_and_rule",
+          "adoption": "after_reference_samples"
+        }
+      ]
+    },
+    {
+      "id": "manual_reference_only_rules",
+      "label": "まずは正本サンプルで保持する候補",
+      "priority": 5,
+      "requiredInputs": ["koyomiReferenceSamples"],
+      "notes": [
+        "計算式の採用流派を決めるまで、外部正本サンプルで上書きする。",
+        "サンプルが増えたら候補を上位グループへ移す。"
+      ],
+      "candidates": [
+        {
+          "code": "otsuchi_start",
+          "name": "大土始まり",
+          "currentStatus": "definition_exists",
+          "ruleStatus": "needs_range_rules",
+          "adoption": "reference_only_until_rule_confirmed"
+        },
+        {
+          "code": "roujitsu",
+          "name": "老日",
+          "currentStatus": "definition_exists",
+          "ruleStatus": "needs_rule_source",
+          "adoption": "reference_only_until_rule_confirmed"
+        }
+      ]
+    }
+  ],
+  "goldenSamples": [
+    {
+      "date": "1976-03-19",
+      "source": "こよみのページ 暦注計算",
+      "summary": "大土始まり ※大明日/神吉日/地火日/大禍日",
+      "codes": [
+        "otsuchi_start",
+        "daimyo_nichi",
+        "shinnyu",
+        "jikabi",
+        "taika_nichi"
+      ]
+    },
+    {
+      "date": "2021-02-03",
+      "source": "こよみのページ 暦注計算PDF",
+      "summary": "立春/一粒万倍日/不成就日 ※大明日/天恩日/神吉日",
+      "codes": [
+        "ichiryumanbaibi",
+        "fujoju",
+        "daimyo_nichi",
+        "tenon_nichi",
+        "shinnyu"
+      ]
+    }
+  ],
+  "nextActions": [
+    "一粒万倍日・三隣亡・不成就日の計算ルール候補を実装する",
+    "2021年2月のこよみページPDF結果と30日分照合する",
+    "一致率を開発者画面に出し、ズレた日だけ検証正本サンプルへ追加する"
+  ]
+}

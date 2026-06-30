@@ -1,0 +1,182 @@
+{
+  "chart_definition": {
+    "columns": {
+      "year": {
+        "label": "年柱",
+        "period": "初年期 (0〜20歳頃)",
+        "theme": "ルーツ、第一印象、社会に対する表面的な顔"
+      },
+      "month": {
+        "label": "月柱",
+        "period": "青年期 (20〜40歳頃)",
+        "theme": "社会性、仕事、オフィシャルな立場"
+      },
+      "day": {
+        "label": "日柱",
+        "period": "中年期 (40〜60歳頃)",
+        "theme": "自分自身の核、プライベート、配偶者"
+      },
+      "time": {
+        "label": "時柱",
+        "period": "晩年期 (60歳以降)",
+        "theme": "最終的な結果、子供・部下、未来"
+      }
+    },
+    "rows": {
+      "heavenly_stem": {
+        "label": "天干",
+        "description": "表面に現れる性質、意識、看板"
+      },
+      "earthly_branch": {
+        "label": "地支",
+        "description": "現実の環境、肉体、無意識の行動パターン"
+      },
+      "hidden_stems_main": {
+        "label": "蔵干 主",
+        "description": "本元。最も強く発揮されるメインの才能"
+      },
+      "hidden_stems_middle": {
+        "label": "蔵干 中",
+        "description": "中気。環境や状況によって引き出されるサブスキル"
+      },
+      "hidden_stems_extra": {
+        "label": "蔵干 余",
+        "description": "初気。無意識のベースとなる潜在的な気質"
+      },
+      "nine_stars": {
+        "label": "九星",
+        "description": "その柱が持つエネルギーの波、タイミング"
+      },
+      "story": {
+        "label": "ストーリー",
+        "description": "天干・地支・蔵干を統合した、その時期/領域における人生の物語"
+      }
+    },
+    "matrix_content": {
+      "year": {
+        "heavenly_stem": {
+          "meaning": "社会や目上の人に見せる第一印象",
+          "challenge": "表面的な自分と内面のギャップの統合"
+        },
+        "earthly_branch": {
+          "meaning": "生まれ育った環境、家系的な基盤",
+          "challenge": "過去や初期環境への依存からの自立"
+        },
+        "hidden_stems_main": {
+          "meaning": "先祖から受け継いだ主力の才能",
+          "challenge": "自分の初期設定として受け入れ、表に出すこと"
+        },
+        "hidden_stems_middle": {
+          "meaning": "育った環境で引き出される補助的な資質",
+          "challenge": "周囲との関係性の中で眠る力を扱うこと"
+        },
+        "hidden_stems_extra": {
+          "meaning": "無意識の奥にある家系的な気質",
+          "challenge": "癖や反応パターンを自覚し、肯定的に使うこと"
+        },
+        "nine_stars": {
+          "meaning": "初年期の運気の波",
+          "challenge": "成長期におけるエネルギーの制御"
+        },
+        "story": {
+          "meaning": "ルーツから旅立つまでの序章",
+          "challenge": "自己の初期設定（OS）の受容",
+          "value": ""
+        }
+      },
+      "month": {
+        "heavenly_stem": {
+          "meaning": "仕事のスタイル、社会での目標",
+          "challenge": "自身の適性を社会ニーズに適合させること"
+        },
+        "earthly_branch": {
+          "meaning": "職場環境、親兄弟との関係",
+          "challenge": "組織や社会環境への適応と自己実現の両立"
+        },
+        "hidden_stems_main": {
+          "meaning": "仕事で最も使いやすい実務能力",
+          "challenge": "主力スキルとして磨き、社会に実装すること"
+        },
+        "hidden_stems_middle": {
+          "meaning": "職場や役割によって引き出されるサブスキル",
+          "challenge": "環境変化に応じて柔軟に能力を切り替えること"
+        },
+        "hidden_stems_extra": {
+          "meaning": "社会生活の底に流れる潜在的な仕事観",
+          "challenge": "無意識のこだわりや苦手意識を整理すること"
+        },
+        "nine_stars": {
+          "meaning": "社会生活における運勢のバイオリズム",
+          "challenge": "キャリア構築におけるタイミングの掌握"
+        },
+        "story": {
+          "meaning": "社会という舞台での戦いと成長の物語",
+          "challenge": "社会的な役割（役職や肩書き）の獲得と更新",
+          "value": ""
+        }
+      },
+      "day": {
+        "heavenly_stem": {
+          "meaning": "自分自身の核、精神的本質",
+          "challenge": "ブレない軸の形成、本当の自分の確立"
+        },
+        "earthly_branch": {
+          "meaning": "配偶者、家庭、現実の安心できる足場",
+          "challenge": "パートナーシップの構築、プライベートの充実"
+        },
+        "hidden_stems_main": {
+          "meaning": "自分の奥底で最も強く働く本音",
+          "challenge": "本心を隠さず、自分の核として扱うこと"
+        },
+        "hidden_stems_middle": {
+          "meaning": "関係性の中で現れるサブの欲求や感情",
+          "challenge": "相手や状況によって変わる自分を理解すること"
+        },
+        "hidden_stems_extra": {
+          "meaning": "無意識に求めている安心感や条件",
+          "challenge": "言語化しづらい願いを丁寧に拾い上げること"
+        },
+        "nine_stars": {
+          "meaning": "自分自身のバイオリズムの基盤",
+          "challenge": "日常的な気力・体力のコントロール"
+        },
+        "story": {
+          "meaning": "本当の自分に還る、人生のメインストーリー",
+          "challenge": "社会的仮面を脱いだ後の自己実現",
+          "value": ""
+        }
+      },
+      "time": {
+        "heavenly_stem": {
+          "meaning": "晩年の目標、目下（部下・子供）に見せる顔",
+          "challenge": "後進への継承、人生の集大成のビジョン構築"
+        },
+        "earthly_branch": {
+          "meaning": "晩年の環境、老後の生活基盤",
+          "challenge": "理想的な晩年環境の準備、世代交代"
+        },
+        "hidden_stems_main": {
+          "meaning": "晩年に主力として残る才能や遺産",
+          "challenge": "人生経験を統合し、次世代へ渡すこと"
+        },
+        "hidden_stems_middle": {
+          "meaning": "晩年の環境で引き出される補助的な役割",
+          "challenge": "肩書きに縛られず、必要な場で力を出すこと"
+        },
+        "hidden_stems_extra": {
+          "meaning": "人生の最後まで残る潜在的な気質",
+          "challenge": "自分の歩みを意味づけ、静かに成熟させること"
+        },
+        "nine_stars": {
+          "meaning": "人生の着地点に向かう運気の波",
+          "challenge": "引き際や次世代へのバトンタッチのタイミング"
+        },
+        "story": {
+          "meaning": "人生の結末と次世代へ託すエピローグ",
+          "challenge": "自己の人生の総括と意味付け",
+          "value": ""
+        }
+      }
+    }
+  }
+}

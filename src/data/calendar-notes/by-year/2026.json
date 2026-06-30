@@ -1,0 +1,1160 @@
+{
+  "schemaVersion": "calendar_note_occurrences.v0",
+  "year": "2026",
+  "range": {
+    "start": "2026-05-16",
+    "end": "2026-06-14",
+    "count": 30
+  },
+  "sourceStatus": "sample",
+  "verificationStatus": "legacy_spreadsheet",
+  "note": "30日サンプルから生成した日別暦注発生マスター。意味文はcalendar-note-definitions側を参照する。",
+  "days": [
+    {
+      "date": "2026-05-16",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46158,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "納",
+        "nijuhachishuku": "胃",
+        "selectedDayCodes": [],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "※母倉日/月徳日/滅門日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": false,
+        "tenichi_tenjo": false,
+        "fujoju": false,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": false,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-05-17",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46159,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "開",
+        "nijuhachishuku": "昴",
+        "selectedDayCodes": [
+          "ichiryumanbaibi"
+        ],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "一粒万倍日 ※神吉日/母倉日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": true,
+        "tenichi_tenjo": false,
+        "fujoju": false,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": false,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-05-18",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46160,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "閉",
+        "nijuhachishuku": "畢",
+        "selectedDayCodes": [
+          "ichiryumanbaibi"
+        ],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "一粒万倍日 ※大明日/五墓/復日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": true,
+        "tenichi_tenjo": false,
+        "fujoju": false,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": false,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-05-19",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46161,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "建",
+        "nijuhachishuku": "觜",
+        "selectedDayCodes": [
+          "tenichi_tenjo",
+          "jippo_gure"
+        ],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "十方暮終わり/天一天上始まり ※受死日/重日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": false,
+        "tenichi_tenjo": true,
+        "fujoju": false,
+        "sanrinbou": false,
+        "jippo_gure": true,
+        "hassen": false,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-05-20",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46162,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "除",
+        "nijuhachishuku": "参",
+        "selectedDayCodes": [
+          "tensha_bi",
+          "fujoju"
+        ],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "不成就日 ※神吉日/天赦日"
+      },
+      "rawFlags": {
+        "tensha_bi": true,
+        "ichiryumanbaibi": false,
+        "tenichi_tenjo": false,
+        "fujoju": true,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": false,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-05-21",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46163,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "満",
+        "nijuhachishuku": "井",
+        "selectedDayCodes": [],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "小満 ※大明日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": false,
+        "tenichi_tenjo": false,
+        "fujoju": false,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": false,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-05-22",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46164,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "平",
+        "nijuhachishuku": "鬼",
+        "selectedDayCodes": [],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "※鬼宿日/神吉日/血忌日/復日/地火日/大禍日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": false,
+        "tenichi_tenjo": false,
+        "fujoju": false,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": false,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-05-23",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46165,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "定",
+        "nijuhachishuku": "柳",
+        "selectedDayCodes": [],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "※神吉日/十死日/天火日/狼藉日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": false,
+        "tenichi_tenjo": false,
+        "fujoju": false,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": false,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-05-24",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46166,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "執",
+        "nijuhachishuku": "星",
+        "selectedDayCodes": [],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": null
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": false,
+        "tenichi_tenjo": false,
+        "fujoju": false,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": false,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-05-25",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46167,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "破",
+        "nijuhachishuku": "張",
+        "selectedDayCodes": [
+          "sanrinbou"
+        ],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "三隣亡 ※神吉日/重日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": false,
+        "tenichi_tenjo": false,
+        "fujoju": false,
+        "sanrinbou": true,
+        "jippo_gure": false,
+        "hassen": false,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-05-26",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46168,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "危",
+        "nijuhachishuku": "翼",
+        "selectedDayCodes": [],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "※神吉日/月徳日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": false,
+        "tenichi_tenjo": false,
+        "fujoju": false,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": false,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-05-27",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46169,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "成",
+        "nijuhachishuku": "軫",
+        "selectedDayCodes": [],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "※神吉日/帰忌日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": false,
+        "tenichi_tenjo": false,
+        "fujoju": false,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": false,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-05-28",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46170,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "納",
+        "nijuhachishuku": "角",
+        "selectedDayCodes": [
+          "fujoju"
+        ],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "不成就日 ※大明日/母倉日/復日/滅門日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": false,
+        "tenichi_tenjo": false,
+        "fujoju": true,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": false,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-05-29",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46171,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "開",
+        "nijuhachishuku": "亢",
+        "selectedDayCodes": [
+          "ichiryumanbaibi"
+        ],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "一粒万倍日 ※神吉日/母倉日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": true,
+        "tenichi_tenjo": false,
+        "fujoju": false,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": false,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-05-30",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46172,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "閉",
+        "nijuhachishuku": "氏",
+        "selectedDayCodes": [
+          "ichiryumanbaibi"
+        ],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "一粒万倍日 ※大明日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": true,
+        "tenichi_tenjo": false,
+        "fujoju": false,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": false,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-05-31",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46173,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "建",
+        "nijuhachishuku": "房",
+        "selectedDayCodes": [],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "※大明日/神吉日/受死日/重日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": false,
+        "tenichi_tenjo": false,
+        "fujoju": false,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": false,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-06-01",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46174,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "除",
+        "nijuhachishuku": "心",
+        "selectedDayCodes": [],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "※大明日/神吉日/復日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": false,
+        "tenichi_tenjo": false,
+        "fujoju": false,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": false,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-06-02",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46175,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "満",
+        "nijuhachishuku": "尾",
+        "selectedDayCodes": [],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "※大明日/神吉日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": false,
+        "tenichi_tenjo": false,
+        "fujoju": false,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": false,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-06-03",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46176,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "平",
+        "nijuhachishuku": "箕",
+        "selectedDayCodes": [
+          "tenichi_tenjo"
+        ],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "天一天上終わり ※神吉日/血忌日/地火日/大禍日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": false,
+        "tenichi_tenjo": true,
+        "fujoju": false,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": false,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-06-04",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46177,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "定",
+        "nijuhachishuku": "斗",
+        "selectedDayCodes": [],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "※大明日/天恩日/神吉日/十死日/天火日/狼藉日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": false,
+        "tenichi_tenjo": false,
+        "fujoju": false,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": false,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-06-05",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46178,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "執",
+        "nijuhachishuku": "牛",
+        "selectedDayCodes": [
+          "fujoju"
+        ],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "不成就日 ※大明日/天恩日/月徳日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": false,
+        "tenichi_tenjo": false,
+        "fujoju": true,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": false,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-06-06",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46179,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "執",
+        "nijuhachishuku": "女",
+        "selectedDayCodes": [],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "芒種 ※大明日/天恩日/神吉日/重日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": false,
+        "tenichi_tenjo": false,
+        "fujoju": false,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": false,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-06-07",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46180,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "破",
+        "nijuhachishuku": "虚",
+        "selectedDayCodes": [
+          "hassen"
+        ],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "八専入り ※天恩日/神吉日/受死日/天火日/狼藉日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": false,
+        "tenichi_tenjo": false,
+        "fujoju": false,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": true,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-06-08",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46181,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "危",
+        "nijuhachishuku": "危",
+        "selectedDayCodes": [
+          "hassen"
+        ],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "八専間日 ※天恩日/復日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": false,
+        "tenichi_tenjo": false,
+        "fujoju": false,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": true,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-06-09",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46182,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "成",
+        "nijuhachishuku": "室",
+        "selectedDayCodes": [
+          "sanrinbou"
+        ],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "三隣亡 ※母倉日/帰忌日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": false,
+        "tenichi_tenjo": false,
+        "fujoju": false,
+        "sanrinbou": true,
+        "jippo_gure": false,
+        "hassen": false,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-06-10",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46183,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "納",
+        "nijuhachishuku": "壁",
+        "selectedDayCodes": [],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "※神吉日/母倉日/血忌日/大禍日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": false,
+        "tenichi_tenjo": false,
+        "fujoju": false,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": false,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-06-11",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46184,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "開",
+        "nijuhachishuku": "奎",
+        "selectedDayCodes": [
+          "hassen"
+        ],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "八専間日 ※大明日/月徳日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": false,
+        "tenichi_tenjo": false,
+        "fujoju": false,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": true,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-06-12",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46185,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "閉",
+        "nijuhachishuku": "婁",
+        "selectedDayCodes": [
+          "ichiryumanbaibi"
+        ],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "一粒万倍日 ※十死日/重日/復日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": true,
+        "tenichi_tenjo": false,
+        "fujoju": false,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": false,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-06-13",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46186,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "建",
+        "nijuhachishuku": "胃",
+        "selectedDayCodes": [
+          "ichiryumanbaibi",
+          "fujoju",
+          "hassen"
+        ],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "一粒万倍日/不成就日/八専間日 ※大明日/神吉日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": true,
+        "tenichi_tenjo": false,
+        "fujoju": true,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": true,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    },
+    {
+      "date": "2026-06-14",
+      "source": {
+        "workbook": "★フォーチューンマイレージマスタ",
+        "sheet": "年月日",
+        "row": 46187,
+        "sourceStatus": "sample",
+        "verificationStatus": "legacy_spreadsheet"
+      },
+      "notes": {
+        "junichoku": "除",
+        "nijuhachishuku": "昴",
+        "selectedDayCodes": [],
+        "doyo": {
+          "isDoyo": false,
+          "label": null,
+          "isManichi": false,
+          "doyoSatsuDirection": null
+        },
+        "legacySummary": "※大明日/神吉日"
+      },
+      "rawFlags": {
+        "tensha_bi": false,
+        "ichiryumanbaibi": false,
+        "tenichi_tenjo": false,
+        "fujoju": false,
+        "sanrinbou": false,
+        "jippo_gure": false,
+        "hassen": false,
+        "roujitsu": false,
+        "kasshi": false,
+        "koushin": false,
+        "shinnyu": false,
+        "tsuchinoto_mi": false
+      },
+      "diffs": []
+    }
+  ]
+}

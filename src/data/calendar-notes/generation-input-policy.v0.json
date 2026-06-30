@@ -1,0 +1,225 @@
+{
+  "schemaVersion": "calendar_note_generation_input_policy.v0",
+  "targetRange": {
+    "startYear": 1900,
+    "endYear": 2050,
+    "futureExtension": [2100, 2150]
+  },
+  "output": {
+    "directory": "src/data/calendar-notes/by-year",
+    "schemaVersion": "calendar_note_occurrences.v0",
+    "splitByYear": true
+  },
+  "sources": {
+    "legacySpreadsheet": {
+      "id": "legacy_spreadsheet",
+      "label": "★フォーチューンマイレージマスタ > 年月日",
+      "priority": "primary_initial_source",
+      "note": "既存の暦注判定を失わないため、1900〜2050拡張の初期入力として優先する。"
+    },
+    "solarTerms": {
+      "id": "solar_terms_verified",
+      "path": "src/data/solar-terms-1900-2050.verified.json",
+      "priority": "calculation_source",
+      "note": "土用、節分、彼岸、八十八夜など太陽暦・節入り起算の暦注に使う。"
+    },
+    "lunarCalendar": {
+      "id": "lunar_calendar_generated",
+      "path": "src/data/lunar-calendar/by-year",
+      "priority": "calculation_source",
+      "note": "旧暦、六曜、旧暦由来行事、不成就日検算に使う。"
+    },
+    "sexagenary": {
+      "id": "sexagenary_calendar",
+      "priority": "legacy_then_calculated",
+      "note": "甲子、庚申、己巳、八専、十方暮、天一天上など干支番号由来の暦注に使う。"
+    },
+    "manualAlmanac": {
+      "id": "manual_almanac",
+      "priority": "verification_source",
+      "note": "手元万年暦で重要年・重要日のサンプリング検証を行う。"
+    },
+    "koyomiPage": {
+      "id": "koyomi_page",
+      "label": "こよみのページ 暦注計算",
+      "url": "https://koyomi8.com/sub/rekicyuu.html",
+      "priority": "golden_reference",
+      "note": "十二直・二十八宿・主要選日の検証正本として扱う。計算式で生成した結果はこの出力に寄せて照合する。"
+    }
+  },
+  "notePolicies": [
+    {
+      "code": "junichoku",
+      "name": "十二直",
+      "initialSource": "legacy_spreadsheet",
+      "calculationSource": "sexagenary_calendar",
+      "generationMode": "legacy_first_calculated_fallback",
+      "verificationStatus": "rule_checked_v0"
+    },
+    {
+      "code": "nijuhachishuku",
+      "name": "二十八宿",
+      "initialSource": "legacy_spreadsheet",
+      "calculationSource": "sexagenary_calendar",
+      "generationMode": "legacy_first_calculated_fallback",
+      "verificationStatus": "rule_checked_v0"
+    },
+    {
+      "code": "tensha_bi",
+      "name": "天赦日",
+      "initialSource": "legacy_spreadsheet",
+      "calculationSource": "sexagenary_calendar",
+      "generationMode": "extract_first_calculate_later",
+      "verificationStatus": "needs_rule_check"
+    },
+    {
+      "code": "ichiryumanbaibi",
+      "name": "一粒万倍日",
+      "initialSource": "legacy_spreadsheet",
+      "calculationSource": "sexagenary_calendar",
+      "generationMode": "extract_first_calculate_later",
+      "verificationStatus": "needs_rule_check"
+    },
+    {
+      "code": "fujoju",
+      "name": "不成就日",
+      "initialSource": "legacy_spreadsheet",
+      "calculationSource": "lunar_calendar_generated",
+      "generationMode": "extract_first_calculate_later",
+      "verificationStatus": "needs_rule_check"
+    },
+    {
+      "code": "sanrinbou",
+      "name": "三隣亡",
+      "initialSource": "legacy_spreadsheet",
+      "calculationSource": "sexagenary_calendar",
+      "generationMode": "extract_first_calculate_later",
+      "verificationStatus": "needs_rule_check"
+    },
+    {
+      "code": "hassen",
+      "name": "八専",
+      "initialSource": "legacy_spreadsheet",
+      "calculationSource": "sexagenary_calendar",
+      "generationMode": "extract_and_cross_check",
+      "verificationStatus": "needs_rule_check"
+    },
+    {
+      "code": "jippo_gure",
+      "name": "十方暮",
+      "initialSource": "legacy_spreadsheet",
+      "calculationSource": "sexagenary_calendar",
+      "generationMode": "extract_and_cross_check",
+      "verificationStatus": "needs_rule_check"
+    },
+    {
+      "code": "tenichi_tenjo",
+      "name": "天一天上",
+      "initialSource": "legacy_spreadsheet",
+      "calculationSource": "sexagenary_calendar",
+      "generationMode": "extract_and_cross_check",
+      "verificationStatus": "needs_rule_check"
+    },
+    {
+      "code": "roujitsu",
+      "name": "老日",
+      "initialSource": "legacy_spreadsheet",
+      "calculationSource": "unknown",
+      "generationMode": "extract_only_until_rule_confirmed",
+      "verificationStatus": "needs_review"
+    },
+    {
+      "code": "kasshi",
+      "name": "甲子",
+      "initialSource": "legacy_spreadsheet",
+      "calculationSource": "sexagenary_calendar",
+      "generationMode": "extract_and_cross_check",
+      "verificationStatus": "needs_rule_check"
+    },
+    {
+      "code": "koushin",
+      "name": "庚申",
+      "initialSource": "legacy_spreadsheet",
+      "calculationSource": "sexagenary_calendar",
+      "generationMode": "extract_and_cross_check",
+      "verificationStatus": "needs_rule_check"
+    },
+    {
+      "code": "shinnyu",
+      "name": "神吉日",
+      "initialSource": "legacy_spreadsheet",
+      "calculationSource": "unknown",
+      "generationMode": "extract_only_until_rule_confirmed",
+      "verificationStatus": "needs_review"
+    },
+    {
+      "code": "tsuchinoto_mi",
+      "name": "己巳",
+      "initialSource": "legacy_spreadsheet",
+      "calculationSource": "sexagenary_calendar",
+      "generationMode": "extract_and_cross_check",
+      "verificationStatus": "needs_rule_check"
+    },
+    {
+      "code": "otsuchi_start",
+      "name": "大土始まり",
+      "initialSource": "external_reference",
+      "calculationSource": "unknown",
+      "generationMode": "external_reference_until_rule_confirmed",
+      "verificationStatus": "needs_review"
+    },
+    {
+      "code": "daimyo_nichi",
+      "name": "大明日",
+      "initialSource": "external_reference",
+      "calculationSource": "unknown",
+      "generationMode": "external_reference_until_rule_confirmed",
+      "verificationStatus": "needs_review"
+    },
+    {
+      "code": "tenon_nichi",
+      "name": "天恩日",
+      "initialSource": "external_reference",
+      "calculationSource": "sexagenary_calendar",
+      "generationMode": "external_reference_until_rule_confirmed",
+      "verificationStatus": "needs_rule_check"
+    },
+    {
+      "code": "jikabi",
+      "name": "地火日",
+      "initialSource": "external_reference",
+      "calculationSource": "unknown",
+      "generationMode": "external_reference_until_rule_confirmed",
+      "verificationStatus": "needs_review"
+    },
+    {
+      "code": "taika_nichi",
+      "name": "大禍日",
+      "initialSource": "external_reference",
+      "calculationSource": "unknown",
+      "generationMode": "external_reference_until_rule_confirmed",
+      "verificationStatus": "needs_review"
+    },
+    {
+      "code": "doyo",
+      "name": "土用",
+      "initialSource": "solar_terms_verified",
+      "calculationSource": "solar_terms_verified",
+      "generationMode": "calculate_and_manual_check",
+      "verificationStatus": "rule_checked_v0"
+    }
+  ],
+  "deferredSummaryNotes": [
+    "母倉日",
+    "月徳日",
+    "重日",
+    "五墓",
+    "復日",
+    "滅門日"
+  ],
+  "nextImplementation": [
+    "selected-day-rule-catalog.v0 を元に選日を入力別に分解する",
+    "一粒万倍日・三隣亡・不成就日から計算候補を作る",
+    "こよみのページのPDF/画面出力を正本サンプルとして照合する"
+  ]
+}

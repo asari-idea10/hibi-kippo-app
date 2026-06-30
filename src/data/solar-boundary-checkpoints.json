@@ -1,0 +1,38 @@
+[
+  {
+    "id": "manual-almanac-2025-risshun",
+    "date": "2025-02-03",
+    "name": "立春",
+    "solarLongitude": 315,
+    "expectedDatetimeJst": "2025-02-03T23:10:00+09:00",
+    "expectedPrecision": "minute",
+    "expectedSource": "manual_almanac",
+    "affectsYearBoundary": true,
+    "affectsMonthBoundary": true,
+    "note": "ユーザー手元の万年暦メモ。2025年立春は2月3日23時10分。"
+  },
+  {
+    "id": "naoj-2026-risshun",
+    "date": "2026-02-04",
+    "name": "立春",
+    "solarLongitude": 315,
+    "expectedDatetimeJst": "2026-02-04T05:02:00+09:00",
+    "expectedPrecision": "minute",
+    "expectedSource": "naoj",
+    "affectsYearBoundary": true,
+    "affectsMonthBoundary": true,
+    "note": "国立天文台2026年暦要項および手元万年暦写真と一致。"
+  },
+  {
+    "id": "naoj-2026-boshu",
+    "date": "2026-06-06",
+    "name": "芒種",
+    "solarLongitude": 75,
+    "expectedDatetimeJst": "2026-06-06T00:48:00+09:00",
+    "expectedPrecision": "minute",
+    "expectedSource": "naoj",
+    "affectsYearBoundary": false,
+    "affectsMonthBoundary": true,
+    "note": "国立天文台2026年暦要項および手元万年暦写真と一致。"
+  }
+]

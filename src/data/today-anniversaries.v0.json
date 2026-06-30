@@ -1,0 +1,223 @@
+[
+  {
+    "monthDay": "03-19",
+    "sourceStatus": "external_culture_reference_v0",
+    "sourceName": "雑学ネタ帳",
+    "sourceUrl": "https://zatsuneta.com/archives/a0319.html",
+    "sourceNote": "今日は何の日の文化・雑学レイヤー。占術正本ではなく、日次コンテンツの補助情報として扱う。",
+    "entries": [
+      {
+        "name": "ミュージックの日",
+        "category": "記念日",
+        "priority": "primary"
+      },
+      {
+        "name": "彼岸",
+        "category": "雑節",
+        "priority": "primary"
+      },
+      {
+        "name": "カメラ発明記念日",
+        "category": "記念日",
+        "priority": "secondary"
+      },
+      {
+        "name": "立庁記念日（神奈川県）",
+        "category": "記念日",
+        "priority": "secondary"
+      },
+      {
+        "name": "ミックの日",
+        "category": "記念日",
+        "priority": "secondary"
+      },
+      {
+        "name": "ウィッグ（Wig）の日",
+        "category": "記念日",
+        "priority": "secondary"
+      },
+      {
+        "name": "眠育の日",
+        "category": "記念日",
+        "priority": "secondary"
+      },
+      {
+        "name": "クレープの日",
+        "category": "毎月記念日",
+        "priority": "monthly"
+      },
+      {
+        "name": "シュークリームの日",
+        "category": "毎月記念日",
+        "priority": "monthly"
+      },
+      {
+        "name": "食育の日",
+        "category": "毎月記念日",
+        "priority": "monthly"
+      }
+    ],
+    "events": [
+      {
+        "year": 1882,
+        "label": "サグラダ・ファミリアの建設開始"
+      },
+      {
+        "year": 1915,
+        "label": "冥王星が初めて写真に捉えられる"
+      },
+      {
+        "year": 2003,
+        "label": "イラク戦争開戦"
+      }
+    ]
+  },
+  {
+    "monthDay": "05-26",
+    "sourceStatus": "external_culture_reference_v0",
+    "sourceName": "雑学ネタ帳",
+    "sourceUrl": "https://zatsuneta.com/archives/a0526.html",
+    "sourceNote": "今日は何の日の文化・雑学レイヤー。占術正本ではなく、日次コンテンツの補助情報として扱う。",
+    "entries": [
+      {
+        "name": "東名高速道路全通記念日",
+        "category": "記念日",
+        "priority": "primary"
+      },
+      {
+        "name": "ラッキーゾーンの日",
+        "category": "記念日",
+        "priority": "secondary"
+      },
+      {
+        "name": "ル・マンの日",
+        "category": "記念日",
+        "priority": "secondary"
+      },
+      {
+        "name": "県民防災の日（秋田県）",
+        "category": "記念日",
+        "priority": "secondary"
+      },
+      {
+        "name": "源泉かけ流し温泉の日",
+        "category": "記念日",
+        "priority": "secondary"
+      },
+      {
+        "name": "風呂カビ予防の日",
+        "category": "記念日",
+        "priority": "secondary"
+      },
+      {
+        "name": "メープルもみじの日",
+        "category": "記念日",
+        "priority": "secondary"
+      },
+      {
+        "name": "竹内洋岳・8000m峰14座登頂の日",
+        "category": "記念日",
+        "priority": "secondary"
+      },
+      {
+        "name": "空き家の将来を考える日",
+        "category": "記念日",
+        "priority": "secondary"
+      },
+      {
+        "name": "風呂の日",
+        "category": "毎月記念日",
+        "priority": "monthly"
+      },
+      {
+        "name": "プルーンの日",
+        "category": "毎月記念日",
+        "priority": "monthly"
+      },
+      {
+        "name": "ツローの日",
+        "category": "毎月記念日",
+        "priority": "monthly"
+      }
+    ],
+    "events": [
+      {
+        "year": 1969,
+        "label": "東名高速道路が全線開通"
+      }
+    ]
+  },
+  {
+    "monthDay": "07-26",
+    "sourceStatus": "external_culture_reference_v0",
+    "sourceName": "雑学ネタ帳",
+    "sourceUrl": "https://zatsuneta.com/archives/a0726.html",
+    "sourceNote": "今日は何の日の文化・雑学レイヤー。占術正本ではなく、日次コンテンツの補助情報として扱う。",
+    "entries": [
+      {
+        "name": "夏の土用の丑の日",
+        "category": "雑節",
+        "priority": "primary"
+      },
+      {
+        "name": "ポツダム宣言記念日",
+        "category": "記念日",
+        "priority": "primary"
+      },
+      {
+        "name": "日光の日",
+        "category": "記念日",
+        "priority": "secondary"
+      },
+      {
+        "name": "幽霊の日",
+        "category": "記念日",
+        "priority": "secondary"
+      },
+      {
+        "name": "夏風呂の日",
+        "category": "記念日",
+        "priority": "secondary"
+      },
+      {
+        "name": "うな次郎の日",
+        "category": "記念日",
+        "priority": "secondary"
+      },
+      {
+        "name": "親子の日",
+        "category": "記念日",
+        "priority": "secondary"
+      },
+      {
+        "name": "風呂の日",
+        "category": "毎月記念日",
+        "priority": "monthly"
+      },
+      {
+        "name": "プルーンの日",
+        "category": "毎月記念日",
+        "priority": "monthly"
+      },
+      {
+        "name": "ツローの日",
+        "category": "毎月記念日",
+        "priority": "monthly"
+      }
+    ],
+    "events": [
+      {
+        "year": 1847,
+        "label": "リベリアが独立"
+      },
+      {
+        "year": 1945,
+        "label": "ポツダム宣言が発表される"
+      },
+      {
+        "year": 1965,
+        "label": "モルディブがイギリスから独立"
+      }
+    ]
+  }
+]

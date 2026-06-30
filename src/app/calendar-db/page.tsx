@@ -1,0 +1,365 @@
+import Link from "next/link";
+
+import { CalendarDbSearchForm } from "@/app/calendar-db/calendar-db-search-form";
+import { actionPurposeOptions } from "@/lib/action-purpose-master";
+import {
+  calendarDbCandidateOptions,
+  calendarDbDirectionColumns,
+  calendarDbDayTypeOptions,
+  calendarDbGoodDirectionMatchOptions,
+  calendarDbKyuseiMatchOptions,
+  calendarDbViewOptions,
+  searchCalendarDb,
+} from "@/lib/calendar-db-view";
+import { getDirectionHeaderMeaning } from "@/lib/direction-meaning-master";
+
+type CalendarDbPageProps = {
+  searchParams?: Promise<{
+    year?: string;
+    start?: string;
+    end?: string;
+    birthDate?: string;
+    keyword?: string;
+    limit?: string;
+    view?: string;
+    dayType?: string;
+    kyuseiMatch?: string;
+    purpose?: string;
+    candidate?: string;
+    goodDirectionMatch?: string;
+  }>;
+};
+
+const limitOptions = [50, 100, 300, 365, 500, 1000];
+
+function getDirectionCellTone(value: string) {
+  if (
+    value.includes("凶方位優先") ||
+    value.includes("五黄殺") ||
+    value.includes("暗剣殺") ||
+    value.includes("本命殺") ||
+    value.includes("的殺") ||
+    value.includes("土用殺") ||
+    value.includes("破")
+  ) {
+    return "directionToneBlock";
+  }
+
+  if (value.includes("最大吉方候補")) {
+    return "directionToneBest";
+  }
+
+  if (value.includes("吉方候補")) {
+    return "directionToneGood";
+  }
+
+  if (value.includes("比和")) {
+    return "directionToneHarmony";
+  }
+
+  if (value.includes("相剋注意")) {
+    return "directionToneCaution";
+  }
+
+  return "";
+}
+
+function isDirectionPurposeCandidate(value: string) {
+  const hasFavorable =
+    value.includes("最大吉方候補") ||
+    value.includes("吉方候補") ||
+    value.includes("比和");
+  const hasBlocking =
+    value.includes("凶方位優先") ||
+    value.includes("五黄殺") ||
+    value.includes("暗剣殺") ||
+    value.includes("本命殺") ||
+    value.includes("的殺") ||
+    value.includes("土用殺") ||
+    value.includes("破");
+
+  return hasFavorable && !hasBlocking;
+}
+
+export default async function CalendarDbPage({
+  searchParams,
+}: CalendarDbPageProps) {
+  const params = (await searchParams) ?? {};
+  const result = searchCalendarDb(params);
+  return (
+    <main className="shell calendarDbShell">
+      <section className="hero calendarDbHero">
+        <p className="eyebrow">Calendar Database Viewer</p>
+        <h1>共通暦データベース参照</h1>
+        <p>
+          1900〜2050年の共通暦から、万年暦照合サマリーの列を横断して確認します。
+          年・日付範囲・キーワードで絞り、目視検証に使うための開発者向けページです。
+        </p>
+        <div className="viewSwitch" aria-label="ページ移動">
+          <Link href="/">ユーザー向け</Link>
+          <Link href="/?view=dev">開発者向け</Link>
+          <Link className="active" href="/calendar-db">
+            暦DB参照
+          </Link>
+          <Link href="/purpose-calendar">九星方位カレンダー</Link>
+        </div>
+      </section>
+
+      <section className="panel">
+        <CalendarDbSearchForm
+          query={result.query}
+          limitOptions={limitOptions}
+          viewOptions={calendarDbViewOptions}
+          dayTypeOptions={calendarDbDayTypeOptions}
+          kyuseiMatchOptions={calendarDbKyuseiMatchOptions}
+          purposeOptions={actionPurposeOptions}
+          candidateOptions={calendarDbCandidateOptions}
+          goodDirectionMatchOptions={calendarDbGoodDirectionMatchOptions}
+        />
+
+        <div className="calendarDbSummaryGrid">
+          <div>
+            <span>対象期間</span>
+            <strong>
+              {result.query.start} 〜 {result.query.end}
+            </strong>
+          </div>
+          <div>
+            <span>検索前</span>
+            <strong>{result.totalBeforeFilter.toLocaleString()}日</strong>
+          </div>
+          <div>
+            <span>一致件数</span>
+            <strong>{result.totalMatched.toLocaleString()}件</strong>
+          </div>
+          <div>
+            <span>表示</span>
+            <strong>{result.totalReturned.toLocaleString()}件</strong>
+          </div>
+          <div>
+            <span>ビュー</span>
+            <strong>
+              {
+                calendarDbViewOptions.find(
+                  (option) => option.id === result.query.view,
+                )?.label
+              }
+            </strong>
+          </div>
+          <div>
+            <span>日付種別</span>
+            <strong>
+              {calendarDbDayTypeOptions.find(
+                (option) => option.id === result.query.dayType,
+              )?.label}
+            </strong>
+          </div>
+          <div>
+            <span>九星一致</span>
+            <strong>
+              {calendarDbKyuseiMatchOptions.find(
+                (option) => option.id === result.query.kyuseiMatch,
+              )?.label}
+            </strong>
+          </div>
+          <div>
+            <span>目的</span>
+            <strong>{result.purpose.label}</strong>
+          </div>
+          <div>
+            <span>候補</span>
+            <strong>
+              {calendarDbCandidateOptions.find(
+                (option) => option.id === result.query.candidate,
+              )?.label}
+            </strong>
+          </div>
+          <div>
+            <span>吉方一致</span>
+            <strong>
+              {calendarDbGoodDirectionMatchOptions.find(
+                (option) => option.id === result.query.goodDirectionMatch,
+              )?.label}
+            </strong>
+          </div>
+          <div>
+            <span>本命星</span>
+            <strong>
+              {result.personal
+                ? `${result.personal.birthDate} / ${result.personal.honmeiStarDisplay}`
+                : "-"}
+            </strong>
+          </div>
+        </div>
+      </section>
+
+      <section className="panel">
+        <div className="calendarDbTableHeader">
+          <div>
+            <p className="eyebrow">Almanac Rows</p>
+            <h2>万年暦照合サマリー列</h2>
+          </div>
+          <p>
+            列数が多いため横スクロールで確認します。日付を押すと、その日の開発者用検証画面へ移動します。
+          </p>
+        </div>
+        <div className="calendarDbTableWrap">
+          {result.query.view === "kyusei" ? (
+            <table className="referenceCompareTable calendarDbTable calendarDbDirectionMatrixTable">
+              <thead>
+                <tr>
+                  <th>西暦</th>
+                  <th>盤</th>
+                  <th>干支</th>
+                  <th>九星</th>
+                  {calendarDbDirectionColumns.map((direction) => {
+                    const headerMeaning = getDirectionHeaderMeaning(direction);
+
+                    return (
+                      <th
+                        className="directionMatrixDirectionHeader"
+                        key={direction}
+                      >
+                        {headerMeaning ? (
+                          <span className="directionMatrixHeaderStack">
+                            <strong>{headerMeaning.main}</strong>
+                            <span>{headerMeaning.sub}</span>
+                            <small>{headerMeaning.shortMeaning}</small>
+                          </span>
+                        ) : (
+                          direction
+                        )}
+                      </th>
+                    );
+                  })}
+                  <th>土用</th>
+                  <th>旧暦</th>
+                  <th>節入り</th>
+                </tr>
+              </thead>
+              <tbody>
+                {result.rows.flatMap((row) =>
+                  row.kyuseiBoardRows.map((boardRow, index) => (
+                    <tr
+                      key={`${row.date}-${boardRow.board}`}
+                      className={`calendarDbRow-${row.dayType} ${
+                        index === 0 ? "directionMatrixGroupStart" : ""
+                      } ${
+                        result.purpose.emphasizedBoards.includes(boardRow.board)
+                          ? "directionMatrixPurposeEmphasis"
+                          : ""
+                      }`}
+                    >
+                      {index === 0 ? (
+                        <td
+                          className="directionMatrixGroupedCell directionMatrixDateCell"
+                          rowSpan={3}
+                        >
+                          <a
+                            className="calendarDbDateLink"
+                            href={`/?date=${row.date}&view=dev`}
+                          >
+                            {row.values["西暦"]}
+                          </a>
+                        </td>
+                      ) : null}
+                      <td className="directionMatrixBoardCell">
+                        {boardRow.label}
+                      </td>
+                      <td>{boardRow.pillar}</td>
+                      <td className="directionMatrixKyuseiCell">
+                        {boardRow.kyusei}
+                      </td>
+                      {calendarDbDirectionColumns.map((direction) => (
+                        (() => {
+                          const value =
+                            row.directionBoardValues[direction][boardRow.board];
+                          const isPurposeTarget =
+                            result.purpose.emphasizedBoards.includes(
+                              boardRow.board,
+                            ) && isDirectionPurposeCandidate(value);
+
+                          return (
+                            <td
+                              className={`directionMatrixDirectionCell ${getDirectionCellTone(
+                                value,
+                              )} ${
+                                isPurposeTarget
+                                  ? "directionPurposeCandidate"
+                                  : ""
+                              }`}
+                              key={direction}
+                            >
+                              {value}
+                              {isPurposeTarget ? (
+                                <span className="directionPurposeTag">
+                                  {result.purpose.label}
+                                </span>
+                              ) : null}
+                            </td>
+                          );
+                        })()
+                      ))}
+                      {index === 0 ? (
+                        <td className="directionMatrixGroupedCell" rowSpan={3}>
+                          {row.values["土用"]}
+                        </td>
+                      ) : null}
+                      {index === 0 ? (
+                        <td className="directionMatrixGroupedCell" rowSpan={3}>
+                          {row.values["旧暦"]}
+                        </td>
+                      ) : null}
+                      {index === 0 ? (
+                        <td className="directionMatrixGroupedCell" rowSpan={3}>
+                          {row.values["節入り時刻"]}
+                        </td>
+                      ) : null}
+                    </tr>
+                  )),
+                )}
+              </tbody>
+            </table>
+          ) : (
+            <table
+              className={`referenceCompareTable calendarDbTable ${
+                result.query.view === "all" ? "" : "calendarDbTableCompact"
+              }`}
+            >
+              <thead>
+                <tr>
+                  {result.columns.map((column) => (
+                    <th key={column}>{column}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {result.rows.map((row) => (
+                  <tr
+                    key={row.date}
+                    className={`calendarDbRow-${row.dayType}`}
+                  >
+                    {result.columns.map((column) => (
+                      <td key={column}>
+                        {column === "西暦" ? (
+                          <a
+                            className="calendarDbDateLink"
+                            href={`/?date=${row.date}&view=dev`}
+                          >
+                            {row.values[column]}
+                          </a>
+                        ) : (
+                          row.values[column]
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+      </section>
+    </main>
+  );
+}
