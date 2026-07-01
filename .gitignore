@@ -44,7 +44,6 @@ next-env.d.ts
 /src/data/import/*.source.csv
 /src/data/import/chunks/
 /src/data/calendar-master-rows.1900-*.json
-/src/data/calendar-master/by-year/
 /src/data/calendar-note-occurrences.1900-*.json
 /src/data/calendar-note-occurrences/by-year/
 /src/data/lunar-calendar-1900-*.generated.json

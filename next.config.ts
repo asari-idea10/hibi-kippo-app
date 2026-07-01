@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  outputFileTracingIncludes: {
+    "/*": ["./src/data/calendar-master/by-year/**/*.json"],
+  },
 };
 
 export default nextConfig;
