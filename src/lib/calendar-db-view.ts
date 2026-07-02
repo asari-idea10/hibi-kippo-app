@@ -6,6 +6,10 @@ import {
 import { getCalendarDays, type CalendarDay } from "@/lib/calendar-day";
 import { getCalendarNoteVerificationReference } from "@/lib/calendar-note-verification-references";
 import { getChildSatsu } from "@/lib/child-satsu";
+import {
+  getDirectionDeities,
+  type DirectionDeityEntry,
+} from "@/lib/direction-deities";
 import { getDirectionMeaningSummary } from "@/lib/direction-meaning-master";
 import { getDoyoComparison } from "@/lib/doyo";
 import { getGoodFortuneDirections } from "@/lib/good-fortune-directions";
@@ -49,6 +53,7 @@ export type CalendarDbRow = {
   dayType: CalendarDbDayType;
   values: Record<string, string>;
   purposeTags: string[];
+  directionDeityRows: DirectionDeityEntry[];
   kyuseiBoardRows: CalendarDbKyuseiBoardRow[];
   directionBoardValues: Record<
     CalendarDbDirection,
@@ -196,6 +201,7 @@ export const calendarDbColumns = [
   "年/月/日九星",
   "方位別",
   "方位意味",
+  "方位神",
   ...directionDisplayOrder,
   "方位殺",
   "吉神方位",
@@ -222,6 +228,7 @@ export type CalendarDbView =
   | "all"
   | "selected_days"
   | "kyusei"
+  | "direction_deities"
   | "doyo";
 
 export const calendarDbViewOptions: Array<{
@@ -243,6 +250,11 @@ export const calendarDbViewOptions: Array<{
     id: "selected_days",
     label: "選日",
     description: "十二直・宿・主要選日を重点確認",
+  },
+  {
+    id: "direction_deities",
+    label: "方位神",
+    description: "24山・方位神の照合",
   },
   {
     id: "doyo",
@@ -373,6 +385,7 @@ const calendarDbViewColumns: Record<CalendarDbView, CalendarDbColumn[]> = {
     "年/月/日干支",
     "年/月/日九星",
     "方位意味",
+    "方位神",
     "空亡",
     "十二直",
     "二十八宿",
@@ -399,6 +412,7 @@ const calendarDbViewColumns: Record<CalendarDbView, CalendarDbColumn[]> = {
     "年/月/日干支",
     "年/月/日九星",
     "方位意味",
+    "方位神",
     ...directionDisplayOrder,
     "方位殺",
     "吉神方位",
@@ -417,6 +431,14 @@ const calendarDbViewColumns: Record<CalendarDbView, CalendarDbColumn[]> = {
     "年/月/日九星",
     "雑節",
     "土用",
+  ],
+  direction_deities: [
+    "西暦",
+    "年/月/日干支",
+    "方位神",
+    "吉神方位",
+    "天道",
+    "方位殺",
   ],
 };
 
@@ -721,6 +743,23 @@ function getDoyoSummary(day: CalendarDay) {
         comparison.calculated.doyoSatsuDirection ?? "-"
       }`
     : "-";
+}
+
+function getDirectionDeitySummary(entries: DirectionDeityEntry[]) {
+  if (entries.length === 0) {
+    return "-";
+  }
+
+  return entries
+    .map((entry) => {
+      const mountains =
+        entry.mountains.length > 0 ? entry.mountains.join("・") : "中宮/天上";
+      const directions =
+        entry.direction8.length > 0 ? entry.direction8.join("・") : "方位なし";
+
+      return `${entry.name} ${mountains}（${directions}）`;
+    })
+    .join(" / ");
 }
 
 function normalizeDirectionDisplay(direction: string | null | undefined) {
@@ -1249,6 +1288,7 @@ function buildCalendarDbRow(
   const zassetsuEntries = getZassetsuByDate(day.date);
   const todayAnniversaryDisplay = getTodayAnniversaryDisplay(day.date);
   const calendarNoteReference = getCalendarNoteVerificationReference(day.date);
+  const directionDeities = getDirectionDeities(day);
   const selectedSetsuiri = getSetsuiriDisplay(day);
   const latestSetsuiriDisplay = getLatestSetsuiriDisplay(day);
   const directionMatrix = getDirectionMatrix(day);
@@ -1334,6 +1374,7 @@ function buildCalendarDbRow(
     "年/月/日九星": `${day.kyusei.year} / ${day.kyusei.month} / ${day.kyusei.day}`,
     方位別: getDirectionMatrixDisplay(day),
     方位意味: getDirectionMeaningSummary(),
+    方位神: getDirectionDeitySummary(directionDeities.entries),
     ...directionValues,
     方位殺: getDirectionWarningSummary(day),
     吉神方位: getGoodFortuneDirectionDisplay(day),
@@ -1371,6 +1412,7 @@ function buildCalendarDbRow(
     dayType: getCalendarDbDayType(day),
     values,
     purposeTags: getPurposeDirectionTags(directionBoardValues, purpose),
+    directionDeityRows: directionDeities.entries,
     kyuseiBoardRows: [
       {
         board: "year",

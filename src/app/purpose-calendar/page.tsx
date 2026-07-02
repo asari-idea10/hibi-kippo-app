@@ -7,6 +7,12 @@ import {
   type DirectionCompassState,
 } from "@/components/direction-compass";
 import {
+  DirectionMountainRing,
+  type DirectionMountainRingFocus,
+  type DirectionMountainRingNatal,
+  type DirectionMountainRingVoid,
+} from "@/components/direction-mountain-ring";
+import {
   calendarNoteDefinitions,
   getCalendarNoteEntry,
 } from "@/lib/calendar-notes";
@@ -17,6 +23,7 @@ import {
   type CalendarDbKyuseiBoard,
   type CalendarDbRow,
 } from "@/lib/calendar-db-view";
+import type { DirectionDeityEntry } from "@/lib/direction-deities";
 import { getPalaceStarBlend } from "@/lib/direction-palace-blend-master";
 import {
   getHourBoardRowsForCalendarDay,
@@ -33,6 +40,7 @@ import {
   favorablePersonalDirectionLabels,
   getPersonalDirectionCompatibilityLabel,
 } from "@/lib/personal-star-compatibility-master";
+import type { DirectionMountain } from "@/lib/direction-mountains";
 
 type PurposeCalendarPageProps = {
   searchParams?: Promise<{
@@ -84,6 +92,32 @@ const directionOrder: DirectionCompassDirection[] = [
   "西",
   "北西",
 ];
+const stemMountainMap: Record<string, DirectionMountain | null> = {
+  甲: "甲",
+  乙: "乙",
+  丙: "丙",
+  丁: "丁",
+  戊: null,
+  己: null,
+  庚: "庚",
+  辛: "辛",
+  壬: "壬",
+  癸: "癸",
+};
+const branchMountainMap: Record<string, DirectionMountain> = {
+  子: "子",
+  丑: "丑",
+  寅: "寅",
+  卯: "卯",
+  辰: "辰",
+  巳: "巳",
+  午: "午",
+  未: "未",
+  申: "申",
+  酉: "酉",
+  戌: "戌",
+  亥: "亥",
+};
 const highlightedDayKanshi = new Set(["甲子", "己巳", "庚申"]);
 const companionStarNames = [
   "一白水星",
@@ -595,6 +629,93 @@ function formatKanshiWithNacchin(kanshi: string) {
       ? `${entry.id} ${entry.kanshi} / ${entry.nacchin}\n空亡 ${entry.kuubou}\n${entry.meaning}\n${entry.note}`
       : "",
   };
+}
+
+function getKanshiMountainFocus(kanshi: string): DirectionMountainRingFocus[] {
+  if (!kanshi || kanshi === "-" || kanshi.length < 2) {
+    return [];
+  }
+
+  const stem = kanshi.slice(0, 1);
+  const branch = kanshi.slice(1, 2);
+  const focus: DirectionMountainRingFocus[] = [];
+
+  if (stem in stemMountainMap) {
+    focus.push({
+      label: stem,
+      mountain: stemMountainMap[stem],
+      tone: "stem",
+    });
+  }
+
+  if (branch in branchMountainMap) {
+    focus.push({
+      label: branch,
+      mountain: branchMountainMap[branch],
+      tone: "branch",
+    });
+  }
+
+  return focus;
+}
+
+function getKuubouMountainVoid(kuubou: string): DirectionMountainRingVoid[] {
+  if (!kuubou || kuubou === "-") {
+    return [];
+  }
+
+  const branches = Array.from(kuubou).filter(
+    (branch) => branch in branchMountainMap,
+  );
+
+  return branches.map((branch) => ({
+    label: branch,
+    mountain: branchMountainMap[branch],
+    title: `空亡 ${kuubou}`,
+  }));
+}
+
+function getNatalKanshiMountainMarkers(
+  parts: ReturnType<typeof getKanshiParts>,
+  targetPillar?: "year" | "month" | "day",
+): DirectionMountainRingNatal[] {
+  const pillarDefinitions = [
+    { key: "year", label: "年", title: "年柱", kanshi: parts.year },
+    { key: "month", label: "月", title: "月柱", kanshi: parts.month },
+    { key: "day", label: "日", title: "日柱", kanshi: parts.day },
+  ] as const;
+
+  return pillarDefinitions
+    .filter((pillar) => !targetPillar || pillar.key === targetPillar)
+    .flatMap((pillar) => {
+    if (!pillar.kanshi || pillar.kanshi === "-" || pillar.kanshi.length < 2) {
+      return [];
+    }
+
+    const stem = pillar.kanshi.slice(0, 1);
+    const branch = pillar.kanshi.slice(1, 2);
+    const markers: DirectionMountainRingNatal[] = [];
+
+    if (stem in stemMountainMap) {
+      markers.push({
+        label: pillar.label,
+        mountain: stemMountainMap[stem],
+        pillar: pillar.key,
+        title: `${pillar.title} ${pillar.kanshi} / 天干 ${stem}`,
+      });
+    }
+
+    if (branch in branchMountainMap) {
+      markers.push({
+        label: pillar.label,
+        mountain: branchMountainMap[branch],
+        pillar: pillar.key,
+        title: `${pillar.title} ${pillar.kanshi} / 地支 ${branch}`,
+      });
+    }
+
+    return markers;
+  });
 }
 
 function getCalendarNoteTone(
@@ -1258,6 +1379,21 @@ function getFourBoardCandidatesForDate(
         endTime,
       }));
   });
+}
+
+type DirectionDeityCycleFilter = "year" | "month" | "day";
+
+function getDirectionDeityEntries(
+  row: CalendarDbRow | undefined,
+  cycles: DirectionDeityCycleFilter[],
+): DirectionDeityEntry[] {
+  if (!row) {
+    return [];
+  }
+
+  const cycleSet = new Set(cycles);
+
+  return row.directionDeityRows.filter((entry) => cycleSet.has(entry.cycle));
 }
 
 function getDirectionCompassStates(
@@ -2167,7 +2303,7 @@ export default async function PurposeCalendarPage({
   const goodDirectionMatch = candidateCondition.goodDirectionMatch;
   const kyuseiMatch = "all";
   const range = getMonthRange(year, month);
-  const selfContext = birthDate
+  const selfBirthResult = birthDate
     ? searchCalendarDb({
         year: birthDate.slice(0, 4),
         start: birthDate,
@@ -2176,8 +2312,24 @@ export default async function PurposeCalendarPage({
         birthGender,
         limit: 1,
         view: "kyusei",
-      }).personal
+      })
     : null;
+  const selfContext = selfBirthResult?.personal ?? null;
+  const natalKanshiParts = getKanshiParts(selfBirthResult?.rows[0]);
+  const natalYearMountainMarkers = birthDate
+    ? getNatalKanshiMountainMarkers(natalKanshiParts, "year")
+    : [];
+  const natalMonthMountainMarkers = birthDate
+    ? getNatalKanshiMountainMarkers(natalKanshiParts, "month")
+    : [];
+  const natalDayMountainMarkers = birthDate
+    ? getNatalKanshiMountainMarkers(natalKanshiParts, "day")
+    : [];
+  const natalKanshiSummary = {
+    year: formatKanshiWithNacchin(natalKanshiParts.year),
+    month: formatKanshiWithNacchin(natalKanshiParts.month),
+    day: formatKanshiWithNacchin(natalKanshiParts.day),
+  };
   const selectedCompanionStars = companionStarOptions
     .filter((member) => familyStars.includes(member.id))
     .flatMap((member) => {
@@ -2326,10 +2478,13 @@ export default async function PurposeCalendarPage({
   const monthlyTonLabel = getMonthlyTonLabel(fullMonthResult.rows, range.start);
   const monthAnchorRow =
     solarTermEntryRow ?? rowByDate.get(range.start) ?? fullMonthResult.rows[0] ?? null;
+  const todayRowInDisplayedMonth = rowByDate.get(current.date) ?? null;
+  const monthPremiseRow =
+    todayRowInDisplayedMonth ?? rowByDate.get(range.start) ?? monthAnchorRow;
   const yearBoard = monthAnchorRow?.kyuseiBoardRows.find(
     (board) => board.board === "year",
   );
-  const monthBoard = monthAnchorRow?.kyuseiBoardRows.find(
+  const monthBoard = monthPremiseRow?.kyuseiBoardRows.find(
     (board) => board.board === "month",
   );
   const yearMovementWarningChips = getMovementWarningChips(
@@ -2339,11 +2494,17 @@ export default async function PurposeCalendarPage({
     monthAnchorRow?.directionBoardValues,
   );
   const monthMovementWarningChips = getMovementWarningChips(
-    monthAnchorRow?.values["方位殺"],
+    monthPremiseRow?.values["方位殺"],
     ["月"],
     undefined,
-    monthAnchorRow?.directionBoardValues,
+    monthPremiseRow?.directionBoardValues,
   );
+  const yearDirectionDeityEntries = getDirectionDeityEntries(monthAnchorRow, [
+    "year",
+  ]);
+  const monthDirectionDeityEntries = getDirectionDeityEntries(monthPremiseRow, [
+    "month",
+  ]);
   const yearCompassStates = getDirectionCompassStates(
     monthAnchorRow,
     getBoardCompassCandidateTags(
@@ -2358,9 +2519,9 @@ export default async function PurposeCalendarPage({
     "year",
   );
   const monthCompassStates = getDirectionCompassStates(
-    monthAnchorRow,
+    monthPremiseRow,
     getBoardCompassCandidateTags(
-      monthAnchorRow,
+      monthPremiseRow,
       "month",
       selectedCompanionStars,
       companionJudgementMode,
@@ -2371,7 +2532,7 @@ export default async function PurposeCalendarPage({
     "month",
   );
   const premiseDayRow =
-    rowByDate.get(current.date) ?? rowByDate.get(range.start) ?? monthAnchorRow;
+    todayRowInDisplayedMonth ?? rowByDate.get(range.start) ?? monthAnchorRow;
   const premiseDayLabel =
     premiseDayRow && getDateFromRow(premiseDayRow) === current.date
       ? "今日日盤"
@@ -2387,6 +2548,10 @@ export default async function PurposeCalendarPage({
     ["日"],
     premiseDayRow?.values["土用"],
     premiseDayRow?.directionBoardValues,
+  );
+  const premiseDayDirectionDeityEntries = getDirectionDeityEntries(
+    premiseDayRow,
+    ["day"],
   );
   const premiseDayCompassStates = getDirectionCompassStates(
     premiseDayRow,
@@ -2405,10 +2570,24 @@ export default async function PurposeCalendarPage({
   const monthBoardNumber = getKyuseiDisplayNumber(monthBoard?.kyusei);
   const premiseDayBoardNumber = getKyuseiDisplayNumber(premiseDayBoard?.kyusei);
   const anchorKanshi = getKanshiParts(monthAnchorRow);
+  const monthPremiseKanshiParts = getKanshiParts(monthPremiseRow);
   const premiseDayKanshiParts = getKanshiParts(premiseDayRow);
   const yearKanshi = formatKanshiWithNacchin(anchorKanshi.year);
-  const monthKanshi = formatKanshiWithNacchin(anchorKanshi.month);
+  const monthKanshi = formatKanshiWithNacchin(monthPremiseKanshiParts.month);
   const premiseDayKanshi = formatKanshiWithNacchin(premiseDayKanshiParts.day);
+  const monthPremiseHeaderLabel =
+    todayRowInDisplayedMonth &&
+    getDateFromRow(todayRowInDisplayedMonth) === current.date
+      ? "現行"
+      : `${month}月`;
+  const yearKanshiFocus = getKanshiMountainFocus(anchorKanshi.year);
+  const monthKanshiFocus = getKanshiMountainFocus(
+    monthPremiseKanshiParts.month,
+  );
+  const premiseDayKanshiFocus = getKanshiMountainFocus(premiseDayKanshiParts.day);
+  const yearKuubouVoid = getKuubouMountainVoid(yearKanshi.kuubou);
+  const monthKuubouVoid = getKuubouMountainVoid(monthKanshi.kuubou);
+  const premiseDayKuubouVoid = getKuubouMountainVoid(premiseDayKanshi.kuubou);
   const currentDateRow = rowByDate.get(current.date) ?? null;
   const currentCalendarDay = currentDateRow ? getCalendarDay(current.date) : null;
   const currentHourBranchForSummary = getHourBranchByHour(current.hour);
@@ -2902,10 +3081,19 @@ export default async function PurposeCalendarPage({
                     states={yearCompassStates}
                     title={`${year}年 年盤方位`}
                   />
+                  <DirectionMountainRing
+                    centerLabel="年神"
+                    entries={yearDirectionDeityEntries}
+                    focusMountains={yearKanshiFocus}
+                    natalMountains={natalYearMountainMarkers}
+                    orientation={compassOrientation}
+                    title={`${year}年 年盤方位神`}
+                    voidMountains={yearKuubouVoid}
+                  />
                 </div>
                 <div className="purposeCalendarBoardCard">
                   <span className="purposeCalendarCompassHeader">
-                    月盤 <em>{month}</em>
+                    月盤 <em>{monthPremiseHeaderLabel}</em>
                   </span>
                   <div className="purposeCalendarBoardMeta">
                     <strong>{monthBoard?.kyusei ?? "-"}</strong>
@@ -2927,7 +3115,16 @@ export default async function PurposeCalendarPage({
                     openLinksInNewTab
                     orientation={compassOrientation}
                     states={monthCompassStates}
-                    title={`${year}年${month}月 月盤方位`}
+                    title={`${monthPremiseHeaderLabel} 月盤方位`}
+                  />
+                  <DirectionMountainRing
+                    centerLabel="月神"
+                    entries={monthDirectionDeityEntries}
+                    focusMountains={monthKanshiFocus}
+                    natalMountains={natalMonthMountainMarkers}
+                    orientation={compassOrientation}
+                    title={`${monthPremiseHeaderLabel} 月盤方位神`}
+                    voidMountains={monthKuubouVoid}
                   />
                 </div>
                 <div className="purposeCalendarBoardCard">
@@ -2960,6 +3157,15 @@ export default async function PurposeCalendarPage({
                     states={premiseDayCompassStates}
                     title={`${premiseDayDate} 日盤方位`}
                   />
+                  <DirectionMountainRing
+                    centerLabel="日神"
+                    entries={premiseDayDirectionDeityEntries}
+                    focusMountains={premiseDayKanshiFocus}
+                    natalMountains={natalDayMountainMarkers}
+                    orientation={compassOrientation}
+                    title={`${premiseDayDate} 日盤方位神`}
+                    voidMountains={premiseDayKuubouVoid}
+                  />
                 </div>
               </div>
               <div className="purposeCalendarMonthlyNotes">
@@ -2969,6 +3175,30 @@ export default async function PurposeCalendarPage({
                 <p className="purposeCalendarTonNote">
                   <strong>{monthlyTonLabel}</strong>
                 </p>
+                {birthDate ? (
+                  <p className="purposeCalendarNatalKanshiNote">
+                    <span>命式</span>
+                    <strong>{birthDate}</strong>
+                    <em>
+                      年柱 {natalKanshiSummary.year.kanshi}
+                      {natalKanshiSummary.year.nacchin !== "-"
+                        ? ` / ${natalKanshiSummary.year.nacchin}`
+                        : ""}
+                    </em>
+                    <em>
+                      月柱 {natalKanshiSummary.month.kanshi}
+                      {natalKanshiSummary.month.nacchin !== "-"
+                        ? ` / ${natalKanshiSummary.month.nacchin}`
+                        : ""}
+                    </em>
+                    <em>
+                      日柱 {natalKanshiSummary.day.kanshi}
+                      {natalKanshiSummary.day.nacchin !== "-"
+                        ? ` / ${natalKanshiSummary.day.nacchin}`
+                        : ""}
+                    </em>
+                  </p>
+                ) : null}
               </div>
               <div
                 className={`purposeCalendarFourBoardSummary${
@@ -3471,6 +3701,12 @@ export default async function PurposeCalendarPage({
                 <li>本/的: 本命殺・本命的殺</li>
                 <li>土/小: 土用殺・小児殺</li>
                 <li>天道: 吉方位補助。注意重なりは候補外の参考表示</li>
+                <li>
+                  恵方・太歳・歳破・大将など: 方位神（今月の前提の24山リングに表示）
+                </li>
+                <li>
+                  命式レイヤー: 生年月日の年柱・月柱・日柱を外周の年/月/日で表示
+                </li>
               </ul>
             </section>
             <section>

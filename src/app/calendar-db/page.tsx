@@ -81,6 +81,38 @@ function isDirectionPurposeCandidate(value: string) {
   return hasFavorable && !hasBlocking;
 }
 
+function getDirectionDeityCycleLabel(cycle: string) {
+  if (cycle === "year") {
+    return "年";
+  }
+
+  if (cycle === "month") {
+    return "月";
+  }
+
+  if (cycle === "day") {
+    return "日";
+  }
+
+  return cycle;
+}
+
+function getDirectionDeityTone(category: string) {
+  if (category === "吉神") {
+    return "directionToneGood";
+  }
+
+  if (category === "凶神") {
+    return "directionToneBlock";
+  }
+
+  if (category === "吉凶") {
+    return "directionToneCaution";
+  }
+
+  return "";
+}
+
 export default async function CalendarDbPage({
   searchParams,
 }: CalendarDbPageProps) {
@@ -204,7 +236,80 @@ export default async function CalendarDbPage({
           </p>
         </div>
         <div className="calendarDbTableWrap">
-          {result.query.view === "kyusei" ? (
+          {result.query.view === "direction_deities" ? (
+            <table className="referenceCompareTable calendarDbTable calendarDbTableCompact">
+              <thead>
+                <tr>
+                  <th>西暦</th>
+                  <th>周期</th>
+                  <th>方位神</th>
+                  <th>分類</th>
+                  <th>24山</th>
+                  <th>8方位</th>
+                  <th>根拠</th>
+                  <th>意味</th>
+                  <th>行動翻訳</th>
+                  <th>注意</th>
+                  <th>検証</th>
+                </tr>
+              </thead>
+              <tbody>
+                {result.rows.flatMap((row) =>
+                  row.directionDeityRows.map((entry, index) => (
+                    <tr
+                      className={`calendarDbRow-${row.dayType} ${
+                        index === 0 ? "directionMatrixGroupStart" : ""
+                      }`}
+                      key={`${row.date}-${entry.code}`}
+                    >
+                      {index === 0 ? (
+                        <td
+                          className="directionMatrixGroupedCell directionMatrixDateCell"
+                          rowSpan={row.directionDeityRows.length}
+                        >
+                          <a
+                            className="calendarDbDateLink"
+                            href={`/?date=${row.date}&view=dev`}
+                          >
+                            {row.values["西暦"]}
+                          </a>
+                          <span className="calendarDbSmallMeta">
+                            {row.values["年/月/日干支"]}
+                          </span>
+                        </td>
+                      ) : null}
+                      <td>{getDirectionDeityCycleLabel(entry.cycle)}</td>
+                      <td>
+                        <strong>{entry.name}</strong>
+                      </td>
+                      <td className={getDirectionDeityTone(entry.category)}>
+                        {entry.category}
+                      </td>
+                      <td>
+                        {entry.mountains.length > 0
+                          ? entry.mountains.join("・")
+                          : "中宮/天上"}
+                      </td>
+                      <td>
+                        {entry.direction8.length > 0
+                          ? entry.direction8.join("・")
+                          : "方位なし"}
+                      </td>
+                      <td>{entry.basis}</td>
+                      <td>{entry.meaning}</td>
+                      <td>{entry.actionAdvice}</td>
+                      <td>{entry.caution ?? "-"}</td>
+                      <td>
+                        <span>{entry.ruleStatus}</span>
+                        <br />
+                        <small>{entry.verificationStatus}</small>
+                      </td>
+                    </tr>
+                  )),
+                )}
+              </tbody>
+            </table>
+          ) : result.query.view === "kyusei" ? (
             <table className="referenceCompareTable calendarDbTable calendarDbDirectionMatrixTable">
               <thead>
                 <tr>

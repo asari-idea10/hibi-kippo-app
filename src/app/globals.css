@@ -1509,6 +1509,30 @@ h2 {
   min-width: 960px;
 }
 
+.calendarDbSmallMeta {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.calendarDbTable tbody td.directionToneBlock {
+  background: rgba(145, 72, 58, 0.13);
+  box-shadow: inset 3px 0 0 rgba(145, 72, 58, 0.42);
+}
+
+.calendarDbTable tbody td.directionToneGood {
+  background: rgba(95, 132, 89, 0.13);
+  box-shadow: inset 3px 0 0 rgba(95, 132, 89, 0.44);
+}
+
+.calendarDbTable tbody td.directionToneCaution {
+  background: rgba(168, 134, 84, 0.12);
+  box-shadow: inset 3px 0 0 rgba(168, 134, 84, 0.36);
+}
+
 .calendarDbDirectionMatrixTable {
   min-width: 1380px;
 }
@@ -3345,7 +3369,7 @@ h2 {
 }
 
 .purposeCalendarBoardCompasses > .purposeCalendarBoardCard {
-  grid-template-rows: auto auto 1fr;
+  grid-template-rows: auto auto auto auto;
   align-items: start;
   gap: 8px;
   padding: 11px;
@@ -3421,7 +3445,8 @@ h2 {
 }
 
 .purposeCalendarSolarTermNote,
-.purposeCalendarTonNote {
+.purposeCalendarTonNote,
+.purposeCalendarNatalKanshiNote {
   display: inline-flex;
   flex-wrap: wrap;
   align-items: baseline;
@@ -3434,7 +3459,8 @@ h2 {
 }
 
 .purposeCalendarSolarTermNote strong,
-.purposeCalendarTonNote strong {
+.purposeCalendarTonNote strong,
+.purposeCalendarNatalKanshiNote strong {
   color: rgba(41, 72, 63, 0.72);
   font-size: 10.5px;
 }
@@ -3446,9 +3472,220 @@ h2 {
   color: rgba(41, 72, 63, 0.66);
 }
 
+.purposeCalendarNatalKanshiNote {
+  padding: 2px 7px;
+  border: 1px solid rgba(165, 123, 59, 0.18);
+  background: rgba(255, 253, 247, 0.48);
+}
+
+.purposeCalendarNatalKanshiNote span {
+  color: rgba(165, 123, 59, 0.82);
+}
+
+.purposeCalendarNatalKanshiNote em {
+  color: rgba(41, 72, 63, 0.66);
+  font-style: normal;
+  font-weight: 850;
+}
+
 .purposeCalendarBoardCompasses .directionCompass {
   width: 188px;
   margin: 0 auto;
+}
+
+.directionMountainRing {
+  width: 228px;
+  max-width: 100%;
+  margin: 0 auto;
+  color: var(--moss);
+}
+
+.directionMountainRingSvg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.directionMountainRingOuter,
+.directionMountainRingMiddle,
+.directionMountainRingInner {
+  fill: rgba(255, 253, 247, 0.32);
+  stroke: rgba(165, 123, 59, 0.18);
+  stroke-width: 0.7;
+}
+
+.directionMountainRingMiddle {
+  fill: none;
+  stroke-dasharray: 1.5 1.5;
+}
+
+.directionMountainRingInner {
+  fill: rgba(41, 72, 63, 0.055);
+  stroke: rgba(41, 72, 63, 0.14);
+}
+
+.directionMountainRingTick {
+  stroke: rgba(165, 123, 59, 0.22);
+  stroke-width: 0.55;
+}
+
+.directionMountainRingMountainText,
+.directionMountainRingDeityText {
+  text-anchor: middle;
+  dominant-baseline: central;
+  font-weight: 900;
+}
+
+.directionMountainRingMountainText {
+  fill: rgba(41, 72, 63, 0.66);
+  font-size: 4.8px;
+}
+
+.directionMountainRingMountainText-十干 {
+  fill: rgba(41, 72, 63, 0.58);
+}
+
+.directionMountainRingMountainText-十二支 {
+  fill: rgba(41, 72, 63, 0.82);
+}
+
+.directionMountainRingMountainText-四隅 {
+  fill: rgba(165, 123, 59, 0.82);
+}
+
+.directionMountainRingDeityText {
+  fill: #a57b3b;
+  font-size: 4.05px;
+  letter-spacing: 0;
+}
+
+.directionMountainRingMountain-good .directionMountainRingDeityText {
+  fill: #4f7a42;
+}
+
+.directionMountainRingDeityText-more {
+  font-size: 3.1px;
+  opacity: 0.72;
+}
+
+.directionMountainRingFocus circle {
+  fill: rgba(255, 249, 202, 0.88);
+  stroke: rgba(165, 123, 59, 0.76);
+  stroke-width: 0.62;
+}
+
+.directionMountainRingMarkerHalo {
+  pointer-events: none;
+  stroke-width: 0.58;
+}
+
+.directionMountainRingMarkerHalo-focus {
+  fill: rgba(255, 249, 202, 0.22);
+  stroke: rgba(165, 123, 59, 0.34);
+}
+
+.directionMountainRingFocus text {
+  fill: var(--moss);
+  font-size: 4.2px;
+  font-weight: 950;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.directionMountainRingFocus-branch circle {
+  fill: rgba(217, 242, 199, 0.86);
+  stroke: rgba(95, 132, 89, 0.72);
+}
+
+.directionMountainRingFocus-branch text {
+  fill: rgba(41, 72, 63, 0.9);
+}
+
+.directionMountainRingNatal circle {
+  fill: rgba(255, 253, 247, 0.9);
+  stroke-width: 0.78;
+}
+
+.directionMountainRingMarkerHalo-natal {
+  fill: rgba(255, 253, 247, 0.16);
+  stroke: rgba(41, 72, 63, 0.24);
+  stroke-dasharray: 1.2 0.9;
+}
+
+.directionMountainRingNatal text {
+  font-size: 3.45px;
+  font-weight: 950;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.directionMountainRingNatal-year circle {
+  stroke: rgba(91, 112, 156, 0.8);
+}
+
+.directionMountainRingNatal-year text {
+  fill: rgba(67, 82, 121, 0.96);
+}
+
+.directionMountainRingNatal-month circle {
+  stroke: rgba(89, 132, 89, 0.82);
+}
+
+.directionMountainRingNatal-month text {
+  fill: rgba(63, 104, 66, 0.96);
+}
+
+.directionMountainRingNatal-day circle {
+  stroke: rgba(165, 123, 59, 0.84);
+}
+
+.directionMountainRingNatal-day text {
+  fill: rgba(132, 91, 40, 0.98);
+}
+
+.directionMountainRingVoid circle {
+  fill: rgba(72, 76, 70, 0.06);
+  stroke: rgba(69, 73, 68, 0.82);
+  stroke-dasharray: 1.15 0.82;
+  stroke-width: 0.88;
+}
+
+.directionMountainRingMountain-mixed .directionMountainRingDeityText,
+.directionMountainRingMountain-caution .directionMountainRingDeityText {
+  fill: #a17635;
+}
+
+.directionMountainRingMountain-block .directionMountainRingDeityText {
+  fill: #884039;
+}
+
+.directionMountainRingCenterLabel {
+  fill: rgba(41, 72, 63, 0.66);
+  font-size: 5.2px;
+  font-weight: 900;
+  text-anchor: middle;
+}
+
+.directionMountainRingCenterValue {
+  fill: var(--moss);
+  font-size: 6px;
+  font-weight: 950;
+  text-anchor: middle;
+}
+
+.directionMountainRingCenterFocus {
+  fill: #a57b3b;
+  font-size: 4.2px;
+  font-weight: 900;
+  text-anchor: middle;
+}
+
+.directionMountainRingCenterNatal {
+  fill: rgba(41, 72, 63, 0.62);
+  font-size: 3.9px;
+  font-weight: 900;
+  text-anchor: middle;
 }
 
 .purposeCalendarBestCandidates {
@@ -5317,6 +5554,10 @@ pre {
 
   .purposeCalendarBoardCompasses .directionCompass {
     width: min(142px, 100%);
+  }
+
+  .purposeCalendarBoardCompasses .directionMountainRing {
+    width: min(176px, 100%);
   }
 
   .purposeCalendarBestCandidates > div {
