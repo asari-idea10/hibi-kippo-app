@@ -1,0 +1,170 @@
+{
+  "schemaVersion": "calendar_regression_samples.v0",
+  "updatedAt": "2026-07-04",
+  "defaultBaseUrl": "http://127.0.0.1:3000",
+  "notes": [
+    "九星方位カレンダーの代表日を固定し、暦注・節入り・土用・時盤・方位神の壊れやすい箇所を回帰確認する。",
+    "期待値は完全一致ではなく、重要な表示要素が含まれるかを中心に確認する。"
+  ],
+  "samples": [
+    {
+      "id": "2026-07-02-month-day-overlap",
+      "date": "2026-07-02",
+      "label": "月日一致の基本確認",
+      "purpose": "月盤・日盤の重なりと日セル表示の基本形を確認する。",
+      "tags": ["月日一致", "日盤", "暦注"],
+      "expect": {
+        "rokuyo": "仏滅",
+        "junichoku": "危",
+        "nijuhachishuku": "斗",
+        "dayKyusei": "五黄土星",
+        "selectedDayNamesInclude": ["神吉日", "復日"]
+      }
+    },
+    {
+      "id": "2026-07-03-current-baseline",
+      "date": "2026-07-03",
+      "label": "通常日の総合表示",
+      "purpose": "タイトル、六曜、十二直、二十八宿、選日、日盤九星の基本表示を守る。",
+      "tags": ["基準日", "用語リンク", "方位神"],
+      "expect": {
+        "rokuyo": "大安",
+        "junichoku": "成",
+        "nijuhachishuku": "牛",
+        "dayKyusei": "四緑木星",
+        "dayPillar": "戊寅",
+        "kuubou": "申酉",
+        "selectedDayNamesInclude": ["三隣亡", "小土始まり", "母倉日", "帰忌日"],
+        "goodFortuneNamesInclude": ["天道", "天徳"],
+        "hourBoardCount": 12
+      }
+    },
+    {
+      "id": "2026-07-07-setsuiri-shosho",
+      "date": "2026-07-07",
+      "label": "節入り 小暑",
+      "purpose": "節入り日の表示、月盤切替、節気リンクが崩れていないか確認する。",
+      "tags": ["節入り", "小暑", "月盤切替"],
+      "expect": {
+        "rokuyo": "先負",
+        "solarTerm": "小暑",
+        "isSetsuiri": true,
+        "junichoku": "閉",
+        "nijuhachishuku": "室",
+        "dayKyusei": "九紫火星",
+        "selectedDayNamesInclude": ["小暑", "三隣亡", "一粒万倍日", "大明日", "天恩日", "神吉日", "母倉日", "受死日"]
+      }
+    },
+    {
+      "id": "2026-07-08-tendo-candidate",
+      "date": "2026-07-08",
+      "label": "天道該当日の表示確認",
+      "purpose": "日セルの天道カードと方位神盤の天道導線を確認する代表日。",
+      "tags": ["天道", "三合局", "日盤"],
+      "expect": {
+        "rokuyo": "仏滅",
+        "junichoku": "建",
+        "nijuhachishuku": "壁",
+        "dayKyusei": "八白土星",
+        "selectedDayNamesInclude": ["天恩日"],
+        "goodFortuneNamesInclude": ["天道"]
+      }
+    },
+    {
+      "id": "2026-07-12-tendo-candidate",
+      "date": "2026-07-12",
+      "label": "天道該当日の再確認",
+      "purpose": "天道表示が単発ではなく、別日でも安定して出るかを見る。",
+      "tags": ["天道", "三合局", "実用候補"],
+      "expect": {
+        "rokuyo": "友引",
+        "junichoku": "定",
+        "nijuhachishuku": "昴",
+        "dayKyusei": "四緑木星",
+        "selectedDayNamesInclude": ["大明日", "重日"],
+        "goodFortuneNamesInclude": ["天道"]
+      }
+    },
+    {
+      "id": "2026-07-19-tensha-ichiryu",
+      "date": "2026-07-19",
+      "label": "天赦日・一粒万倍日",
+      "purpose": "強い吉日が候補抽出とタグ表示で消えていないか確認する。",
+      "tags": ["天赦日", "一粒万倍日", "強い吉日"],
+      "expect": {
+        "rokuyo": "大安",
+        "junichoku": "閉",
+        "nijuhachishuku": "星",
+        "dayKyusei": "六白金星",
+        "selectedDayNamesInclude": ["三隣亡", "一粒万倍日", "神吉日", "母倉日", "月徳日", "天赦日", "受死日"]
+      }
+    },
+    {
+      "id": "2026-07-20-doyo-start",
+      "date": "2026-07-20",
+      "label": "夏土用入り",
+      "purpose": "土用入り、土用殺、祝日、日セル土用表示の回帰確認。",
+      "tags": ["土用", "土用入り", "土用殺"],
+      "expect": {
+        "rokuyo": "赤口",
+        "junichoku": "建",
+        "nijuhachishuku": "張",
+        "dayKyusei": "五黄土星",
+        "nationalHoliday": "海の日",
+        "doyo": true,
+        "doyoLabelIncludes": ["夏土用"],
+        "selectedDayNamesInclude": ["土用入り", "大明日"]
+      }
+    },
+    {
+      "id": "2026-07-21-doyo-manichi",
+      "date": "2026-07-21",
+      "label": "夏土用 間日",
+      "purpose": "土用期間中の間日表示と土用殺表示を確認する。",
+      "tags": ["土用", "間日"],
+      "expect": {
+        "rokuyo": "先勝",
+        "junichoku": "除",
+        "nijuhachishuku": "翼",
+        "dayKyusei": "四緑木星",
+        "doyo": true,
+        "doyoLabelIncludes": ["間日"],
+        "selectedDayNamesInclude": ["神吉日"]
+      }
+    },
+    {
+      "id": "2026-07-26-doyo-ushi",
+      "date": "2026-07-26",
+      "label": "土用の丑の日",
+      "purpose": "土用の丑の日が土用情報として残るか確認する。",
+      "tags": ["土用", "丑の日"],
+      "expect": {
+        "rokuyo": "赤口",
+        "junichoku": "破",
+        "nijuhachishuku": "房",
+        "dayKyusei": "八白土星",
+        "doyo": true,
+        "doyoLabelIncludes": ["土用の丑の日"],
+        "selectedDayNamesInclude": ["神吉日", "十死日"]
+      }
+    },
+    {
+      "id": "2026-07-28-tendo-doyo-overlap",
+      "date": "2026-07-28",
+      "label": "天道・土用・月日一致の重なり",
+      "purpose": "天道、土用、月日一致が絡む重い表示日の確認。",
+      "tags": ["天道", "土用", "月日一致"],
+      "expect": {
+        "rokuyo": "友引",
+        "junichoku": "成",
+        "nijuhachishuku": "尾",
+        "dayKyusei": "六白金星",
+        "doyo": true,
+        "doyoLabelIncludes": ["間日"],
+        "selectedDayNamesInclude": ["神吉日", "天火日", "狼藉日"],
+        "goodFortuneNamesInclude": ["天道"],
+        "hourBoardCount": 12
+      }
+    }
+  ]
+}

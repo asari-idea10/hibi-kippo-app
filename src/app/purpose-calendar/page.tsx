@@ -10,8 +10,10 @@ import {
   DirectionMountainRing,
   type DirectionMountainRingFocus,
   type DirectionMountainRingNatal,
+  type DirectionMountainRingTendoTriangle,
   type DirectionMountainRingVoid,
 } from "@/components/direction-mountain-ring";
+import { SiteSectionNav } from "@/components/site-section-nav";
 import {
   calendarNoteDefinitions,
   getCalendarNoteEntry,
@@ -33,7 +35,7 @@ import {
 import {
   getActionScaleVirtue,
   getFengShuiVirtueByStar,
-  getTendoTrineByBranch,
+  getTendoTrineByMonthBranch,
 } from "@/lib/feng-shui-virtue-master";
 import { getKanshiByName } from "@/lib/kanshi-master";
 import {
@@ -41,6 +43,7 @@ import {
   getPersonalDirectionCompatibilityLabel,
 } from "@/lib/personal-star-compatibility-master";
 import type { DirectionMountain } from "@/lib/direction-mountains";
+import { getJapaneseEraDateContext } from "@/lib/japanese-era";
 
 type PurposeCalendarPageProps = {
   searchParams?: Promise<{
@@ -390,6 +393,25 @@ function getCurrentDatePartsJst() {
   };
 }
 
+function getDatePartsForDisplay(date: string) {
+  if (!date || date === "-") {
+    return null;
+  }
+
+  const [year, month, day] = date.split("-").map(Number);
+
+  if (!year || !month || !day) {
+    return null;
+  }
+
+  const weekday = new Intl.DateTimeFormat("ja-JP", {
+    timeZone: "Asia/Tokyo",
+    weekday: "short",
+  }).format(new Date(`${date}T00:00:00+09:00`));
+
+  return { year, month, day, weekday };
+}
+
 function normalizeYear(value: string | undefined, fallback: number) {
   const year = Number(value);
 
@@ -675,6 +697,72 @@ function getKuubouMountainVoid(kuubou: string): DirectionMountainRingVoid[] {
   }));
 }
 
+function getTendoTrineTone(name: string): DirectionMountainRingTendoTriangle["tone"] {
+  if (name.includes("水")) {
+    return "water";
+  }
+
+  if (name.includes("金")) {
+    return "metal";
+  }
+
+  if (name.includes("火")) {
+    return "fire";
+  }
+
+  return "wood";
+}
+
+function getTendoTriangleMountains(
+  monthBranch: string,
+  scope: "month" | "day",
+  activeBranch?: string,
+): DirectionMountainRingTendoTriangle[] {
+  if (!monthBranch || monthBranch === "-" || !(monthBranch in branchMountainMap)) {
+    return [];
+  }
+
+  const trine = getTendoTrineByMonthBranch(monthBranch);
+
+  if (!trine) {
+    return [];
+  }
+
+  if (scope === "day" && (!activeBranch || !trine.dayBranches.includes(activeBranch))) {
+    return [];
+  }
+
+  const mountains = trine.dayBranches
+    .map((dayBranch) => branchMountainMap[dayBranch])
+    .filter((mountain): mountain is DirectionMountain => Boolean(mountain));
+
+  if (mountains.length < 3) {
+    return [];
+  }
+
+  const scopeLabel = scope === "month" ? "月天道" : "日天道";
+  const activeTargetBranch = activeBranch ?? monthBranch;
+  const activeMountain = trine.dayBranches.includes(activeTargetBranch)
+    ? branchMountainMap[activeTargetBranch]
+    : null;
+  const activeLabel = activeTargetBranch
+    ? ` / 現在支 ${activeTargetBranch}${
+        activeMountain ? "" : "（該当外）"
+      }`
+    : "";
+
+  return [
+    {
+      activeMountain,
+      effectLabel: trine.virtue,
+      label: "天道",
+      mountains,
+      tone: getTendoTrineTone(trine.name),
+      title: `${scopeLabel} ${trine.name} / ${trine.virtue} / ${trine.dayBranches.join("・")}${activeLabel}`,
+    },
+  ];
+}
+
 function getNatalKanshiMountainMarkers(
   parts: ReturnType<typeof getKanshiParts>,
   targetPillar?: "year" | "month" | "day",
@@ -716,6 +804,134 @@ function getNatalKanshiMountainMarkers(
 
     return markers;
   });
+}
+
+type DirectionMountainGuideItem = {
+  label: string;
+  text: string;
+  tone?: "good" | "caution" | "quiet";
+};
+
+type DirectionMountainScope = "year" | "month" | "day";
+
+const directionMountainScopeCopy: Record<
+  DirectionMountainScope,
+  { guide: string; note: string; tone?: DirectionMountainGuideItem["tone"] }
+> = {
+  year: {
+    guide:
+      "年神を主軸。八将神・歳徳神・金神など、年単位で効く方位神を表示します。",
+    note: "方位神: 年神を主軸",
+  },
+  month: {
+    guide:
+      "月神は補助レイヤー。現段階では天道・三合局を中心に、月の流れとして表示します。",
+    note: "方位神: 月天道を補助",
+    tone: "good",
+  },
+  day: {
+    guide:
+      "日神は限定採用。天一神と、月天道に該当する日の三合局を検証用に表示します。",
+    note: "方位神: 日神を限定採用",
+    tone: "quiet",
+  },
+};
+
+function getDirectionDeityGuideText(entries: DirectionDeityEntry[]) {
+  if (entries.length === 0) {
+    return "方位神の該当なし";
+  }
+
+  const visibleEntries = entries.slice(0, 4).map((entry) => {
+    const mountainLabel =
+      entry.mountains.length > 0 ? entry.mountains.join("・") : "中宮";
+
+    return `${entry.name}:${mountainLabel}`;
+  });
+  const restCount = entries.length - visibleEntries.length;
+
+  return `${visibleEntries.join(" / ")}${
+    restCount > 0 ? ` / ほか${restCount}件` : ""
+  }`;
+}
+
+function getTendoGuideText(
+  triangles: DirectionMountainRingTendoTriangle[],
+  fallback?: string | null,
+) {
+  if (triangles.length === 0) {
+    return fallback ?? "天道の該当表示なし";
+  }
+
+  return triangles
+    .map(
+      (triangle) =>
+        `${triangle.title.replace(/^月天道 |^日天道 /, "")} / 山 ${triangle.mountains.join("・")}`,
+    )
+    .join(" / ");
+}
+
+function getDirectionMountainGuideItems({
+  scope,
+  kanshiLabel,
+  focusMountains,
+  voidMountains,
+  natalMountains,
+  deityEntries,
+  tendoTriangles = [],
+  tendoFallback,
+}: {
+  scope: DirectionMountainScope;
+  kanshiLabel: string;
+  focusMountains: DirectionMountainRingFocus[];
+  voidMountains: DirectionMountainRingVoid[];
+  natalMountains: DirectionMountainRingNatal[];
+  deityEntries: DirectionDeityEntry[];
+  tendoTriangles?: DirectionMountainRingTendoTriangle[];
+  tendoFallback?: string | null;
+}): DirectionMountainGuideItem[] {
+  const focusText = focusMountains
+    .map((focus) => `${focus.label}:${focus.mountain ?? "中宮"}`)
+    .join(" / ");
+  const voidText = voidMountains.map((voidEntry) => voidEntry.mountain).join("・");
+  const natalText = natalMountains
+    .map((natal) => `${natal.label}:${natal.mountain ?? "中宮"}`)
+    .join(" / ");
+
+  return [
+    {
+      label: "採用層",
+      text: directionMountainScopeCopy[scope].guide,
+      tone: directionMountainScopeCopy[scope].tone,
+    },
+    {
+      label: "干支",
+      text: `${kanshiLabel} → ${focusText || "-"}`,
+    },
+    {
+      label: "空亡",
+      text: voidText ? `${voidText} を暗色で表示` : "該当なし",
+      tone: "quiet",
+    },
+    {
+      label: "命式",
+      text: natalText ? `本人 ${natalText}` : "生年月日未設定",
+    },
+    {
+      label: "方位神",
+      text: getDirectionDeityGuideText(deityEntries),
+      tone: deityEntries.some((entry) => entry.category === "凶神")
+        ? "caution"
+        : deityEntries.some((entry) => entry.category === "吉神")
+          ? "good"
+          : undefined,
+    },
+    {
+      label: "天道",
+      text: getTendoGuideText(tendoTriangles, tendoFallback),
+      tone: tendoTriangles.length > 0 ? "good" : undefined,
+    },
+  ];
 }
 
 function getCalendarNoteTone(
@@ -778,6 +994,84 @@ function getSelectedDayChips(value: string) {
       tone: getSelectedDayTone(label),
       premium: isPremiumSelectedDay(label),
     }));
+}
+
+function getCalendarNoteTermHref(
+  kind:
+    | "junichoku"
+    | "nijuhachishuku"
+    | "selected-days"
+    | "rokuyo"
+    | "kyusei"
+    | "nacchin"
+    | "kuubou",
+  name: string,
+) {
+  const normalizedName = normalizeSelectedDayName(name)
+    .replace(/始まり$/, "")
+    .replace(/終わり$/, "")
+    .trim();
+
+  return `/calendar-notes/${kind}/${encodeURIComponent(normalizedName)}`;
+}
+
+function getKyuseiTermHref(value: string | null | undefined) {
+  const starNumber = getKyuseiDisplayNumber(value);
+  const starName = starNumber ? companionStarNames[Number(starNumber) - 1] : null;
+
+  return starName ? getCalendarNoteTermHref("kyusei", starName) : null;
+}
+
+function getNacchinTermHref(value: string | null | undefined) {
+  return value && value !== "-"
+    ? getCalendarNoteTermHref("nacchin", value)
+    : null;
+}
+
+function getKuubouTermHref(value: string | null | undefined) {
+  return value && value !== "-"
+    ? getCalendarNoteTermHref("kuubou", value)
+    : null;
+}
+
+function renderDictionaryLink(
+  label: string,
+  href: string | null,
+  title: string,
+) {
+  if (!href) {
+    return label;
+  }
+
+  return (
+    <a href={href} rel="noreferrer" target="_blank" title={title}>
+      {label}
+    </a>
+  );
+}
+
+function renderKyuseiTermLink(
+  value: string | null | undefined,
+  className?: string,
+) {
+  const href = getKyuseiTermHref(value);
+  const label = value ?? "-";
+
+  if (!href || label === "-") {
+    return className ? <span className={className}>{label}</span> : label;
+  }
+
+  return (
+    <a
+      className={className}
+      href={href}
+      rel="noreferrer"
+      target="_blank"
+      title={`${label}の説明を開く`}
+    >
+      {label}
+    </a>
+  );
 }
 
 function hasAuspiciousSelectedDay(value: string | undefined) {
@@ -1114,57 +1408,6 @@ type FourBoardCandidate = {
   endTime: string;
 };
 
-function getBoardCompassCandidateTags(
-  row: CalendarDbRow | undefined,
-  board: CalendarDbKyuseiBoard,
-  personalStars: Array<{ star: string }>,
-  companionJudgementMode: CompanionJudgementModeId,
-  options: { ignoreBlocking?: boolean } = {},
-): Array<Pick<FamilyPurposeDirectionTag, "direction" | "boards">> {
-  if (!row || personalStars.length === 0) {
-    return [];
-  }
-
-  const primaryStar = personalStars[0];
-  const compatibilityTargets =
-    companionJudgementMode === "strict" ? personalStars : [primaryStar];
-  const blockingKeywords =
-    companionJudgementMode === "loose"
-      ? companionLooseBlockingKeywords
-      : companionStandardBlockingKeywords;
-
-  return directionOrder.flatMap((direction) => {
-    const value = row.directionBoardValues[direction]?.[board];
-    const star = value?.match(/^\[(\d)\]/)?.[1] ?? null;
-
-    if (!star || value?.startsWith("[5]")) {
-      return [];
-    }
-
-    if (
-      !options.ignoreBlocking &&
-      hasDirectionBlockingKeyword(row, direction, [board], blockingKeywords)
-    ) {
-      return [];
-    }
-
-    const isFavorable = compatibilityTargets.every((member) => {
-      const label = getPersonalDirectionCompatibilityLabel(member.star, star);
-
-      return Boolean(label && hourBoardFavorableLabels.has(label));
-    });
-
-    return isFavorable
-      ? [
-          {
-            direction,
-            boards: [board],
-          },
-        ]
-      : [];
-  });
-}
-
 function getBoardStarNumber(
   row: CalendarDbRow | undefined,
   direction: CalendarDbDirection,
@@ -1400,13 +1643,36 @@ function getDirectionCompassStates(
   row: CalendarDbRow | undefined,
   tags: Array<Pick<FamilyPurposeDirectionTag, "direction" | "boards">>,
   warningChips: Array<{ direction: string; detail: string }>,
-  tendoChip: { direction: CalendarDbDirection } | null,
+  tendoChip: { directions: CalendarDbDirection[] } | null,
+  childSatsuChip: { direction: string } | null = null,
   board: CalendarDbKyuseiBoard = "day",
 ): DirectionCompassState[] {
-  const tagByDirection = new Map(tags.map((tag) => [tag.direction, tag]));
+  const tagByDirection = new Map<
+    string,
+    Pick<FamilyPurposeDirectionTag, "direction" | "boards">
+  >();
+
+  tags.forEach((tag) => {
+    const current = tagByDirection.get(tag.direction);
+
+    if (!current) {
+      tagByDirection.set(tag.direction, {
+        direction: tag.direction,
+        boards: [...tag.boards],
+      });
+      return;
+    }
+
+    tag.boards.forEach((candidateBoard) => {
+      if (!current.boards.includes(candidateBoard)) {
+        current.boards.push(candidateBoard);
+      }
+    });
+  });
   const warningByDirection = new Map(
     warningChips.map((chip) => [chip.direction, chip.detail]),
   );
+  const tendoDirections = new Set(tendoChip?.directions ?? []);
 
   return directionOrder.map((direction) => {
     const tag = tagByDirection.get(direction);
@@ -1439,9 +1705,43 @@ function getDirectionCompassStates(
           tag.boards.includes("day"),
       ),
       overlapLevel,
-      tendo: tendoChip?.direction === direction,
+      tendo: tendoDirections.has(direction),
+      childSatsu: childSatsuChip?.direction === direction,
     };
   });
+}
+
+function isBoardDirectionCandidateValue(value: string | undefined) {
+  if (!value || value === "-" || value.startsWith("[5]")) {
+    return false;
+  }
+
+  const hasFavorable = [...favorablePersonalDirectionLabels].some((label) =>
+    value.includes(label),
+  );
+  const hasBlocking = directionBlockingKeywords.some((keyword) =>
+    value.includes(keyword),
+  );
+
+  return hasFavorable && !hasBlocking && !value.includes("凶方位優先");
+}
+
+function getBoardCandidateTags(
+  row: CalendarDbRow | undefined,
+  board: CalendarDbKyuseiBoard,
+): Array<Pick<FamilyPurposeDirectionTag, "direction" | "boards">> {
+  if (!row) {
+    return [];
+  }
+
+  return directionOrder
+    .filter((direction) =>
+      isBoardDirectionCandidateValue(row.directionBoardValues[direction]?.[board]),
+    )
+    .map((direction) => ({
+      direction,
+      boards: [board],
+    }));
 }
 
 function getDirectionOrderIndex(
@@ -1609,18 +1909,6 @@ function getCompanionAvoidanceReason(
   ].join(" / ");
 }
 
-function getTendoDirection(value: string | undefined) {
-  if (!value || value === "-") {
-    return null;
-  }
-
-  const direction = value.match(/^([^（/\s]+)/)?.[1];
-
-  return directionOrder.includes(direction as DirectionCompassDirection)
-    ? (direction as DirectionCompassDirection)
-    : null;
-}
-
 function getDirectionBlendHref(state: DirectionCompassState) {
   if (!state.starNumber) {
     return null;
@@ -1656,10 +1944,32 @@ function getTendoDisplayChip(
   row: CalendarDbRow | undefined,
   memberRows: MemberRowIndex[],
 ) {
-  const value = row?.values["天道"];
-  const direction = getTendoDirection(value);
+  if (!row) {
+    return null;
+  }
 
-  if (!row || !direction || !value) {
+  const kanshiParts = getKanshiParts(row);
+  const monthBranch = kanshiParts.month.match(
+    /[甲乙丙丁戊己庚辛壬癸]?([子丑寅卯辰巳午未申酉戌亥])/,
+  )?.[1];
+  const dayBranch = kanshiParts.day.match(
+    /[甲乙丙丁戊己庚辛壬癸]?([子丑寅卯辰巳午未申酉戌亥])/,
+  )?.[1];
+  const trine = monthBranch ? getTendoTrineByMonthBranch(monthBranch) : null;
+  const isTendoDay = Boolean(
+    trine && dayBranch && trine.dayBranches.includes(dayBranch),
+  );
+
+  if (!trine || !isTendoDay) {
+    return null;
+  }
+
+  const directions = trine.dayDirections.filter(
+    (direction): direction is CalendarDbDirection =>
+      directionOrder.includes(direction as DirectionCompassDirection),
+  );
+
+  if (directions.length === 0) {
     return null;
   }
 
@@ -1667,20 +1977,29 @@ function getTendoDisplayChip(
     .map((member) => member.rowByDate.get(date))
     .filter(Boolean) as CalendarDbRow[];
   const effectiveRows = rowsToCheck.length > 0 ? rowsToCheck : [row];
-  const blocked = effectiveRows.some((targetRow) =>
-    hasDirectionBlocking(targetRow, direction),
+  const blockedDirections = directions.filter((direction) =>
+    effectiveRows.some((targetRow) => hasDirectionBlocking(targetRow, direction)),
+  );
+  const activeDirections = directions.filter(
+    (direction) => !blockedDirections.includes(direction),
   );
 
-  const dayBranch = getKanshiParts(row).day.match(
-    /[甲乙丙丁戊己庚辛壬癸]?([子丑寅卯辰巳午未申酉戌亥])/,
-  )?.[1];
-  const trine = dayBranch ? getTendoTrineByBranch(dayBranch) : null;
-
   return {
-    blocked,
-    direction,
-    effectLabel: trine ? `${trine.name} / ${trine.virtue}` : null,
-    title: blocked ? `${value} / 注意重なり` : value,
+    blocked: blockedDirections.length > 0,
+    blockedDirections,
+    directions,
+    activeDirections,
+    effectLabel: `${trine.name} / ${trine.virtue}`,
+    title: [
+      `天道該当日 ${dayBranch}`,
+      `${trine.dayBranches.join("・")} / ${directions.join("・")}`,
+      `${trine.name} / ${trine.virtue}`,
+      blockedDirections.length > 0
+        ? `注意重なり: ${blockedDirections.join("・")}`
+        : null,
+    ]
+      .filter(Boolean)
+      .join(" / "),
   };
 }
 
@@ -2505,41 +2824,10 @@ export default async function PurposeCalendarPage({
   const monthDirectionDeityEntries = getDirectionDeityEntries(monthPremiseRow, [
     "month",
   ]);
-  const yearCompassStates = getDirectionCompassStates(
-    monthAnchorRow,
-    getBoardCompassCandidateTags(
-      monthAnchorRow,
-      "year",
-      selectedCompanionStars,
-      companionJudgementMode,
-      { ignoreBlocking: true },
-    ),
-    yearMovementWarningChips,
-    null,
-    "year",
-  );
-  const monthCompassStates = getDirectionCompassStates(
-    monthPremiseRow,
-    getBoardCompassCandidateTags(
-      monthPremiseRow,
-      "month",
-      selectedCompanionStars,
-      companionJudgementMode,
-      { ignoreBlocking: true },
-    ),
-    monthMovementWarningChips,
-    null,
-    "month",
-  );
   const premiseDayRow =
     todayRowInDisplayedMonth ?? rowByDate.get(range.start) ?? monthAnchorRow;
-  const premiseDayLabel =
-    premiseDayRow && getDateFromRow(premiseDayRow) === current.date
-      ? "今日日盤"
-      : "月初日盤";
   const premiseDayDate = premiseDayRow ? getDateFromRow(premiseDayRow) : "-";
-  const premiseDayDisplayDate =
-    premiseDayRow?.values["西暦"] ?? premiseDayDate;
+  const premiseDayTags = commonTagsByDate.get(premiseDayDate) ?? [];
   const premiseDayBoard = premiseDayRow?.kyuseiBoardRows.find(
     (board) => board.board === "day",
   );
@@ -2553,33 +2841,122 @@ export default async function PurposeCalendarPage({
     premiseDayRow,
     ["day"],
   );
+  const monthTendoChip = monthPremiseRow
+    ? getTendoDisplayChip(
+        getDateFromRow(monthPremiseRow),
+        monthPremiseRow,
+        familyMemberRows,
+      )
+    : null;
+  const premiseDayTendoChip = premiseDayRow
+    ? getTendoDisplayChip(premiseDayDate, premiseDayRow, familyMemberRows)
+    : null;
+  const premiseDayChildSatsuChip =
+    showChildSatsu && premiseDayRow
+      ? getChildSatsuWarningChip(premiseDayRow.values["小児殺"])
+      : null;
+  const yearCompassStates = getDirectionCompassStates(
+    monthAnchorRow,
+    [...premiseDayTags, ...getBoardCandidateTags(monthAnchorRow, "year")],
+    yearMovementWarningChips,
+    null,
+    null,
+    "year",
+  );
+  const monthCompassStates = getDirectionCompassStates(
+    monthPremiseRow,
+    [...premiseDayTags, ...getBoardCandidateTags(monthPremiseRow, "month")],
+    monthMovementWarningChips,
+    monthTendoChip?.blocked ? null : monthTendoChip,
+    null,
+    "month",
+  );
   const premiseDayCompassStates = getDirectionCompassStates(
     premiseDayRow,
-    getBoardCompassCandidateTags(
-      premiseDayRow,
-      "day",
-      selectedCompanionStars,
-      companionJudgementMode,
-      { ignoreBlocking: true },
-    ),
+    [...premiseDayTags, ...getBoardCandidateTags(premiseDayRow, "day")],
     premiseDayMovementWarningChips,
-    null,
+    premiseDayTendoChip?.blocked ? null : premiseDayTendoChip,
+    premiseDayChildSatsuChip,
     "day",
   );
   const yearBoardNumber = getKyuseiDisplayNumber(yearBoard?.kyusei);
   const monthBoardNumber = getKyuseiDisplayNumber(monthBoard?.kyusei);
   const premiseDayBoardNumber = getKyuseiDisplayNumber(premiseDayBoard?.kyusei);
+  const yearEraContext = getJapaneseEraDateContext(`${year}-01-01`);
+  const yearBoardHeaderLabel = `${yearEraContext.era.display} ${year}年`;
+  const monthBoardHeaderLabel = `${month}月`;
+  const premiseDayRokuyo = premiseDayRow?.values["六曜"] ?? "-";
+  const premiseDayDisplayParts = getDatePartsForDisplay(premiseDayDate);
+  const premiseDayEraContext =
+    premiseDayDate !== "-" ? getJapaneseEraDateContext(premiseDayDate) : null;
+  const premiseDayHeaderLabel = premiseDayDisplayParts
+    ? `${premiseDayDisplayParts.day}日`
+    : "-";
   const anchorKanshi = getKanshiParts(monthAnchorRow);
   const monthPremiseKanshiParts = getKanshiParts(monthPremiseRow);
   const premiseDayKanshiParts = getKanshiParts(premiseDayRow);
   const yearKanshi = formatKanshiWithNacchin(anchorKanshi.year);
   const monthKanshi = formatKanshiWithNacchin(monthPremiseKanshiParts.month);
   const premiseDayKanshi = formatKanshiWithNacchin(premiseDayKanshiParts.day);
-  const monthPremiseHeaderLabel =
-    todayRowInDisplayedMonth &&
-    getDateFromRow(todayRowInDisplayedMonth) === current.date
-      ? "現行"
-      : `${month}月`;
+  const premiseJunichoku = premiseDayRow?.values["十二直"] ?? "-";
+  const premiseNijuhachishuku = premiseDayRow?.values["二十八宿"] ?? "-";
+  const premiseDoyoPeriodChip = getDoyoPeriodChip(premiseDayRow?.values["土用"]);
+  const premiseSelectedDayChips = getSelectedDayChips(
+    premiseDayRow?.values["主要選日"] ?? "-",
+  );
+  const premiseTodayTitle = premiseDayDisplayParts
+    ? `${premiseDayEraContext?.era.display ?? ""}（西暦${premiseDayDisplayParts.year}）${premiseDayDisplayParts.month}月${premiseDayDisplayParts.day}日（${premiseDayDisplayParts.weekday}）${premiseDayRokuyo !== "-" ? ` ${premiseDayRokuyo}` : ""}`
+    : "-";
+  const premiseDetailChips = [
+    premiseDayRokuyo !== "-"
+      ? {
+          label: `六曜 ${premiseDayRokuyo}`,
+          href: getCalendarNoteTermHref("rokuyo", premiseDayRokuyo),
+          tone: "neutral",
+          title: `六曜 ${premiseDayRokuyo}`,
+        }
+      : null,
+    premiseJunichoku !== "-"
+      ? {
+          label: `十二直 ${premiseJunichoku}`,
+          href: getCalendarNoteTermHref("junichoku", premiseJunichoku),
+          tone: getCalendarNoteTone("junichoku", premiseJunichoku),
+          title: `十二直 ${premiseJunichoku}`,
+        }
+      : null,
+    premiseNijuhachishuku !== "-"
+      ? {
+          label: `二十八宿 ${premiseNijuhachishuku}`,
+          href: getCalendarNoteTermHref(
+            "nijuhachishuku",
+            premiseNijuhachishuku,
+          ),
+          tone: getCalendarNoteTone("nijuhachishuku", premiseNijuhachishuku),
+          title: `二十八宿 ${premiseNijuhachishuku}`,
+        }
+      : null,
+    ...premiseSelectedDayChips.map((chip) => ({
+      label: chip.label,
+      href: getCalendarNoteTermHref("selected-days", chip.label),
+      tone: chip.tone,
+      title: `選日 ${chip.label}`,
+    })),
+    premiseDoyoPeriodChip
+      ? {
+          label: `土用 ${premiseDoyoPeriodChip.label}${
+            premiseDoyoPeriodChip.isManichi ? " / 間日" : ""
+          }`,
+          href: null,
+          tone: premiseDoyoPeriodChip.isManichi ? "mixed" : "bad",
+          title: "土用",
+        }
+      : null,
+  ].filter(Boolean) as Array<{
+    href: string | null;
+    label: string;
+    tone: "good" | "mixed" | "bad" | "neutral";
+    title: string;
+  }>;
   const yearKanshiFocus = getKanshiMountainFocus(anchorKanshi.year);
   const monthKanshiFocus = getKanshiMountainFocus(
     monthPremiseKanshiParts.month,
@@ -2588,6 +2965,48 @@ export default async function PurposeCalendarPage({
   const yearKuubouVoid = getKuubouMountainVoid(yearKanshi.kuubou);
   const monthKuubouVoid = getKuubouMountainVoid(monthKanshi.kuubou);
   const premiseDayKuubouVoid = getKuubouMountainVoid(premiseDayKanshi.kuubou);
+  const monthTendoBranch = monthKanshi.kanshi.slice(1, 2);
+  const premiseDayTendoBranch = premiseDayKanshi.kanshi.slice(1, 2);
+  const monthTendoTrine = getTendoTrineByMonthBranch(monthTendoBranch);
+  const monthTendoTriangles = getTendoTriangleMountains(
+    monthTendoBranch,
+    "month",
+  );
+  const premiseDayTendoTriangles = getTendoTriangleMountains(
+    monthTendoBranch,
+    "day",
+    premiseDayTendoBranch,
+  );
+  const premiseDayTendoFallback = monthTendoTrine
+    ? `月天道 ${monthTendoTrine.name} / ${monthTendoTrine.virtue} / ${monthTendoTrine.dayBranches.join("・")} の該当日に表示。今日 ${premiseDayTendoBranch || "-"} は該当外`
+    : null;
+  const yearMountainGuideItems = getDirectionMountainGuideItems({
+    deityEntries: yearDirectionDeityEntries,
+    focusMountains: yearKanshiFocus,
+    kanshiLabel: yearKanshi.kanshi,
+    natalMountains: natalYearMountainMarkers,
+    scope: "year",
+    voidMountains: yearKuubouVoid,
+  });
+  const monthMountainGuideItems = getDirectionMountainGuideItems({
+    deityEntries: monthDirectionDeityEntries,
+    focusMountains: monthKanshiFocus,
+    kanshiLabel: monthKanshi.kanshi,
+    natalMountains: natalMonthMountainMarkers,
+    scope: "month",
+    tendoTriangles: monthTendoTriangles,
+    voidMountains: monthKuubouVoid,
+  });
+  const premiseDayMountainGuideItems = getDirectionMountainGuideItems({
+    deityEntries: premiseDayDirectionDeityEntries,
+    focusMountains: premiseDayKanshiFocus,
+    kanshiLabel: premiseDayKanshi.kanshi,
+    natalMountains: natalDayMountainMarkers,
+    scope: "day",
+    tendoFallback: premiseDayTendoFallback,
+    tendoTriangles: premiseDayTendoTriangles,
+    voidMountains: premiseDayKuubouVoid,
+  });
   const currentDateRow = rowByDate.get(current.date) ?? null;
   const currentCalendarDay = currentDateRow ? getCalendarDay(current.date) : null;
   const currentHourBranchForSummary = getHourBranchByHour(current.hour);
@@ -2625,15 +3044,7 @@ export default async function PurposeCalendarPage({
           年盤・月盤・日盤・時盤を重ね、方位と暦から日々の整え方を読む月間カレンダーです。
           近場から宿泊、特別時刻まで、目的に合わせて見る盤を切り替えます。
         </p>
-        <div className="viewSwitch" aria-label="ページ移動">
-          <Link href="/">ユーザー向け</Link>
-          <Link href="/?view=dev">開発者向け</Link>
-          <Link href="/calendar-db">暦DB参照</Link>
-          <Link className="active" href="/purpose-calendar">
-            九星方位
-          </Link>
-          <Link href="/direction-palace-blends">方位ブレンド</Link>
-        </div>
+        <SiteSectionNav active="purpose-calendar" />
       </section>
 
       <section className="panel purposeCalendarControlPanel">
@@ -3051,25 +3462,74 @@ export default async function PurposeCalendarPage({
             </h2>
             <div className="purposeCalendarMonthlyPremise">
               <div className="purposeCalendarMonthlyPremiseHeader">
-                <span>今月の前提</span>
-                <p>この月は、年盤と月盤を前提にして日盤を読みます。</p>
+                <span>{premiseTodayTitle}</span>
+                {premiseDetailChips.length > 0 ? (
+                  <div className="purposeCalendarPremiseDetailChips">
+                    {premiseDetailChips.map((chip) =>
+                      chip.href ? (
+                        <a
+                          className={`purposeCalendarPremiseDetailChip purposeCalendarPremiseDetailChip-${chip.tone}`}
+                          href={chip.href}
+                          key={`${chip.title}-${chip.label}`}
+                          rel="noreferrer"
+                          target="_blank"
+                          title={`${chip.title}の説明を開く`}
+                        >
+                          {chip.label}
+                        </a>
+                      ) : (
+                        <span
+                          className={`purposeCalendarPremiseDetailChip purposeCalendarPremiseDetailChip-${chip.tone}`}
+                          key={`${chip.title}-${chip.label}`}
+                          title={chip.title}
+                        >
+                          {chip.label}
+                        </span>
+                      ),
+                    )}
+                  </div>
+                ) : null}
               </div>
+              <input
+                className="purposeCalendarMountainGuideToggle"
+                id="purpose-calendar-mountain-guide-toggle"
+                type="checkbox"
+              />
               <div className="purposeCalendarBoardCompasses">
                 <div className="purposeCalendarBoardCard">
                   <span className="purposeCalendarCompassHeader">
-                    年盤 <em>{year}</em>
+                    年盤 <em>{yearBoardHeaderLabel}</em>
                   </span>
                   <div className="purposeCalendarBoardMeta">
-                    <strong>{yearBoard?.kyusei ?? "-"}</strong>
+                    <strong>
+                      {renderKyuseiTermLink(yearBoard?.kyusei)}
+                    </strong>
                     <small>
                       {yearKanshi.id !== "-" ? `${yearKanshi.id} ` : ""}
                       {yearKanshi.kanshi}
                       {yearKanshi.nacchin !== "-"
-                        ? ` / ${yearKanshi.nacchin}`
+                        ? (
+                            <>
+                              {" / "}
+                              {renderDictionaryLink(
+                                yearKanshi.nacchin,
+                                getNacchinTermHref(yearKanshi.nacchin),
+                                `納音 ${yearKanshi.nacchin}の説明を開く`,
+                              )}
+                            </>
+                          )
                         : ""}
                     </small>
                     <small className="purposeCalendarKuubou">
-                      空亡 {yearKanshi.kuubou}
+                      空亡{" "}
+                      {renderDictionaryLink(
+                        yearKanshi.kuubou,
+                        getKuubouTermHref(yearKanshi.kuubou),
+                        `空亡 ${yearKanshi.kuubou}の説明を開く`,
+                      )}
+                    </small>
+                    <small className="purposeCalendarDeityScopeNote">
+                      {directionMountainScopeCopy.year.note}
                     </small>
                   </div>
                   <DirectionCompass
@@ -3087,25 +3547,59 @@ export default async function PurposeCalendarPage({
                     focusMountains={yearKanshiFocus}
                     natalMountains={natalYearMountainMarkers}
                     orientation={compassOrientation}
-                    title={`${year}年 年盤方位神`}
+                    title={`${year}年 年盤方位神盤`}
                     voidMountains={yearKuubouVoid}
                   />
+                  <div className="purposeCalendarMountainGuide">
+                    {yearMountainGuideItems.map((item) => (
+                      <p
+                        className={
+                          item.tone
+                            ? `purposeCalendarMountainGuide-${item.tone}`
+                            : undefined
+                        }
+                        key={item.label}
+                      >
+                        <span>{item.label}</span>
+                        {item.text}
+                      </p>
+                    ))}
+                  </div>
                 </div>
                 <div className="purposeCalendarBoardCard">
                   <span className="purposeCalendarCompassHeader">
-                    月盤 <em>{monthPremiseHeaderLabel}</em>
+                    月盤 <em>{monthBoardHeaderLabel}</em>
                   </span>
                   <div className="purposeCalendarBoardMeta">
-                    <strong>{monthBoard?.kyusei ?? "-"}</strong>
+                    <strong>
+                      {renderKyuseiTermLink(monthBoard?.kyusei)}
+                    </strong>
                     <small>
                       {monthKanshi.id !== "-" ? `${monthKanshi.id} ` : ""}
                       {monthKanshi.kanshi}
                       {monthKanshi.nacchin !== "-"
-                        ? ` / ${monthKanshi.nacchin}`
+                        ? (
+                            <>
+                              {" / "}
+                              {renderDictionaryLink(
+                                monthKanshi.nacchin,
+                                getNacchinTermHref(monthKanshi.nacchin),
+                                `納音 ${monthKanshi.nacchin}の説明を開く`,
+                              )}
+                            </>
+                          )
                         : ""}
                     </small>
                     <small className="purposeCalendarKuubou">
-                      空亡 {monthKanshi.kuubou}
+                      空亡{" "}
+                      {renderDictionaryLink(
+                        monthKanshi.kuubou,
+                        getKuubouTermHref(monthKanshi.kuubou),
+                        `空亡 ${monthKanshi.kuubou}の説明を開く`,
+                      )}
+                    </small>
+                    <small className="purposeCalendarDeityScopeNote">
+                      {directionMountainScopeCopy.month.note}
                     </small>
                   </div>
                   <DirectionCompass
@@ -3115,7 +3609,7 @@ export default async function PurposeCalendarPage({
                     openLinksInNewTab
                     orientation={compassOrientation}
                     states={monthCompassStates}
-                    title={`${monthPremiseHeaderLabel} 月盤方位`}
+                    title={`${monthBoardHeaderLabel} 月盤方位`}
                   />
                   <DirectionMountainRing
                     centerLabel="月神"
@@ -3123,16 +3617,34 @@ export default async function PurposeCalendarPage({
                     focusMountains={monthKanshiFocus}
                     natalMountains={natalMonthMountainMarkers}
                     orientation={compassOrientation}
-                    title={`${monthPremiseHeaderLabel} 月盤方位神`}
+                    tendoTriangles={monthTendoTriangles}
+                    title={`${monthBoardHeaderLabel} 月盤方位神盤`}
                     voidMountains={monthKuubouVoid}
                   />
+                  <div className="purposeCalendarMountainGuide">
+                    {monthMountainGuideItems.map((item) => (
+                      <p
+                        className={
+                          item.tone
+                            ? `purposeCalendarMountainGuide-${item.tone}`
+                            : undefined
+                        }
+                        key={item.label}
+                      >
+                        <span>{item.label}</span>
+                        {item.text}
+                      </p>
+                    ))}
+                  </div>
                 </div>
                 <div className="purposeCalendarBoardCard">
                   <span className="purposeCalendarCompassHeader">
-                    {premiseDayLabel} <em>{premiseDayDisplayDate}</em>
+                    日盤 <em>{premiseDayHeaderLabel}</em>
                   </span>
                   <div className="purposeCalendarBoardMeta">
-                    <strong>{premiseDayBoard?.kyusei ?? "-"}</strong>
+                    <strong>
+                      {renderKyuseiTermLink(premiseDayBoard?.kyusei)}
+                    </strong>
                     <small>
                       {premiseDayKanshi.id !== "-"
                         ? `${premiseDayKanshi.id} `
@@ -3141,11 +3653,28 @@ export default async function PurposeCalendarPage({
                         ? premiseDayKanshi.kanshi
                         : ""}
                       {premiseDayKanshi.nacchin !== "-"
-                        ? ` / ${premiseDayKanshi.nacchin}`
+                        ? (
+                            <>
+                              {" / "}
+                              {renderDictionaryLink(
+                                premiseDayKanshi.nacchin,
+                                getNacchinTermHref(premiseDayKanshi.nacchin),
+                                `納音 ${premiseDayKanshi.nacchin}の説明を開く`,
+                              )}
+                            </>
+                          )
                         : ""}
                     </small>
                     <small className="purposeCalendarKuubou">
-                      空亡 {premiseDayKanshi.kuubou}
+                      空亡{" "}
+                      {renderDictionaryLink(
+                        premiseDayKanshi.kuubou,
+                        getKuubouTermHref(premiseDayKanshi.kuubou),
+                        `空亡 ${premiseDayKanshi.kuubou}の説明を開く`,
+                      )}
+                    </small>
+                    <small className="purposeCalendarDeityScopeNote">
+                      {directionMountainScopeCopy.day.note}
                     </small>
                   </div>
                   <DirectionCompass
@@ -3163,11 +3692,33 @@ export default async function PurposeCalendarPage({
                     focusMountains={premiseDayKanshiFocus}
                     natalMountains={natalDayMountainMarkers}
                     orientation={compassOrientation}
-                    title={`${premiseDayDate} 日盤方位神`}
+                    tendoTriangles={premiseDayTendoTriangles}
+                    title={`${premiseDayDate} 日盤方位神盤`}
                     voidMountains={premiseDayKuubouVoid}
                   />
+                  <div className="purposeCalendarMountainGuide">
+                    {premiseDayMountainGuideItems.map((item) => (
+                      <p
+                        className={
+                          item.tone
+                            ? `purposeCalendarMountainGuide-${item.tone}`
+                            : undefined
+                        }
+                        key={item.label}
+                      >
+                        <span>{item.label}</span>
+                        {item.text}
+                      </p>
+                    ))}
+                  </div>
                 </div>
               </div>
+              <label
+                className="purposeCalendarMountainGuideToggleLabel"
+                htmlFor="purpose-calendar-mountain-guide-toggle"
+              >
+                方位神盤の説明を開く / 閉じる
+              </label>
               <div className="purposeCalendarMonthlyNotes">
                 <p className="purposeCalendarSolarTermNote">
                   節入り <strong>{solarTermEntryLabel}</strong>
@@ -3348,16 +3899,17 @@ export default async function PurposeCalendarPage({
             const childSatsuWarningChip = showChildSatsu
               ? getChildSatsuWarningChip(row?.values["小児殺"])
               : null;
-            const movementWarningDisplayChips = childSatsuWarningChip
-              ? [...movementWarningChips, childSatsuWarningChip]
-              : movementWarningChips;
             const tendoChip = getTendoDisplayChip(date, row, familyMemberRows);
-            const compassTendoChip = tendoChip?.blocked ? null : tendoChip;
+            const compassTendoChip =
+              tendoChip && tendoChip.activeDirections.length > 0
+                ? { directions: tendoChip.activeDirections }
+                : null;
             const compassStates = getDirectionCompassStates(
               row,
               tags,
-              movementWarningDisplayChips,
+              movementWarningChips,
               compassTendoChip,
+              childSatsuWarningChip,
             );
             const doyoPeriodChip = getDoyoPeriodChip(row?.values["土用"]);
             const holidayName = row?.values["祝日"] ?? "-";
@@ -3418,7 +3970,22 @@ export default async function PurposeCalendarPage({
                           {monthlyBestCandidate.label}
                         </span>
                       ) : null}
-                      <span>{row?.values["六曜"] ?? "-"}</span>
+                      {row?.values["六曜"] && row.values["六曜"] !== "-" ? (
+                        <a
+                          className="purposeCalendarRokuyoLink"
+                          href={getCalendarNoteTermHref(
+                            "rokuyo",
+                            row.values["六曜"],
+                          )}
+                          rel="noreferrer"
+                          target="_blank"
+                          title={`六曜 ${row.values["六曜"]}の説明を開く`}
+                        >
+                          {row.values["六曜"]}
+                        </a>
+                      ) : (
+                        <span>{row?.values["六曜"] ?? "-"}</span>
+                      )}
                     </div>
                     <p
                       className={`purposeCalendarSetsuiri${
@@ -3456,10 +4023,28 @@ export default async function PurposeCalendarPage({
                         {dayKanshiInfo.id !== "-" ? `${dayKanshiInfo.id} ` : ""}
                         {dayKanshiInfo.kanshi}
                         {dayKanshiInfo.nacchin !== "-"
-                          ? ` / ${dayKanshiInfo.nacchin}`
+                          ? (
+                              <>
+                                {" / "}
+                                {renderDictionaryLink(
+                                  dayKanshiInfo.nacchin,
+                                  getNacchinTermHref(dayKanshiInfo.nacchin),
+                                  `納音 ${dayKanshiInfo.nacchin}の説明を開く`,
+                                )}
+                              </>
+                            )
                           : ""}
                         {dayKanshiInfo.kuubou !== "-"
-                          ? ` / 空亡 ${dayKanshiInfo.kuubou}`
+                          ? (
+                              <>
+                                {" / 空亡 "}
+                                {renderDictionaryLink(
+                                  dayKanshiInfo.kuubou,
+                                  getKuubouTermHref(dayKanshiInfo.kuubou),
+                                  `空亡 ${dayKanshiInfo.kuubou}の説明を開く`,
+                                )}
+                              </>
+                            )
                           : ""}
                       </p>
                     ) : null}
@@ -3467,7 +4052,7 @@ export default async function PurposeCalendarPage({
                   <div className="purposeCalendarCellBoard">
                     {dayBoard ? (
                       <p className="purposeCalendarDayBoard">
-                        {dayBoard.kyusei}
+                        {renderKyuseiTermLink(dayBoard.kyusei)}
                       </p>
                     ) : null}
                     {boardOverlapStatus ? (
@@ -3500,11 +4085,15 @@ export default async function PurposeCalendarPage({
                         title={tendoChip.title}
                       >
                         <span>天道</span>
-                        <strong>{tendoChip.direction}</strong>
+                        <strong>{tendoChip.directions.join("・")}</strong>
                         {tendoChip.effectLabel ? (
                           <small>{tendoChip.effectLabel}</small>
                         ) : null}
-                        {tendoChip.blocked ? <small>注意重なり</small> : null}
+                        {tendoChip.blockedDirections.length > 0 ? (
+                          <small>
+                            注意: {tendoChip.blockedDirections.join("・")}
+                          </small>
+                        ) : null}
                       </p>
                     ) : null}
                     {currentHourBoard ? (
@@ -3630,39 +4219,58 @@ export default async function PurposeCalendarPage({
                     {junichoku !== "-" || nijuhachishuku !== "-" ? (
                       <div className="purposeCalendarNoteChips">
                         {junichoku !== "-" ? (
-                          <span
+                          <a
                             className={`purposeCalendarNoteChip purposeCalendarNoteChip-${junichokuTone}`}
-                            title={`十二直 ${junichoku}`}
+                            href={getCalendarNoteTermHref(
+                              "junichoku",
+                              junichoku,
+                            )}
+                            rel="noreferrer"
+                            target="_blank"
+                            title={`十二直 ${junichoku}の説明を開く`}
                           >
                             {junichoku}
-                          </span>
+                          </a>
                         ) : null}
                         {junichoku !== "-" && nijuhachishuku !== "-" ? (
                           <span className="purposeCalendarNoteSeparator">|</span>
                         ) : null}
                         {nijuhachishuku !== "-" ? (
-                          <span
+                          <a
                             className={`purposeCalendarNoteChip purposeCalendarNoteChip-${nijuhachishukuTone}`}
-                            title={`二十八宿 ${nijuhachishuku}`}
+                            href={getCalendarNoteTermHref(
+                              "nijuhachishuku",
+                              nijuhachishuku,
+                            )}
+                            rel="noreferrer"
+                            target="_blank"
+                            title={`二十八宿 ${nijuhachishuku}の説明を開く`}
                           >
                             {nijuhachishuku}
-                          </span>
+                          </a>
                         ) : null}
                       </div>
                     ) : null}
                     {selectedDayChips.length > 0 ? (
                       <div className="purposeCalendarSelectedDays">
                         {selectedDayChips.map((chip) => (
-                          <span
+                          <a
                             className={`purposeCalendarSelectedDayChip purposeCalendarSelectedDayChip-${chip.tone}${
                               chip.premium
                                 ? " purposeCalendarSelectedDayChip-premium"
                                 : ""
                             }`}
+                            href={getCalendarNoteTermHref(
+                              "selected-days",
+                              chip.label,
+                            )}
                             key={`${date}-${chip.label}`}
+                            rel="noreferrer"
+                            target="_blank"
+                            title={`${chip.label}の説明を開く`}
                           >
                             {chip.label}
-                          </span>
+                          </a>
                         ))}
                       </div>
                     ) : null}
@@ -3702,7 +4310,7 @@ export default async function PurposeCalendarPage({
                 <li>土/小: 土用殺・小児殺</li>
                 <li>天道: 吉方位補助。注意重なりは候補外の参考表示</li>
                 <li>
-                  恵方・太歳・歳破・大将など: 方位神（今月の前提の24山リングに表示）
+                  恵方・太歳・歳破・大将など: 方位神盤（24山をもとに表示）
                 </li>
                 <li>
                   命式レイヤー: 生年月日の年柱・月柱・日柱を外周の年/月/日で表示

@@ -1,15 +1,9 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
 
+import { SiteSectionNav } from "@/components/site-section-nav";
+import { getAdoptionSourceCatalog } from "@/lib/adoption-status";
 import { getBestDayScores } from "@/lib/best-day-score";
-import {
-  getAdoptionSourceCatalog,
-  getAdoptionStatusInfo,
-} from "@/lib/adoption-status";
-import {
-  getCommonCalendarCompletionItems,
-  getCommonCalendarCompletionSummary,
-} from "@/lib/common-calendar-completion";
 import {
   enrichCalendarNoteOccurrence,
   getCalendarNoteOccurrenceDay,
@@ -64,11 +58,6 @@ import {
   getSolarTerms,
 } from "@/lib/solar-terms";
 import { getSanGenNineUnContext } from "@/lib/san-gen-nine-un";
-import {
-  getSelectedDayAdoptionSummary,
-  getSelectedDayCandidateRows,
-  getSelectedDayImplementedRows,
-} from "@/lib/selected-day-adoption";
 import { getTraditionalMonthName } from "@/lib/month-names";
 import {
   getZassetsuByDate,
@@ -464,10 +453,6 @@ export default async function Home({ searchParams }: HomeProps) {
   const solarTermSummary = getSolarTermMasterSummary();
   const solarTerms2026 =
     activeView === "user" ? getSolarTerms({ year: "2026" }) : [];
-  const selectedDayAdoptionSummary = getSelectedDayAdoptionSummary();
-  const selectedDayImplementedRows = getSelectedDayImplementedRows();
-  const selectedDayCandidateRows = getSelectedDayCandidateRows();
-
   if (!calendarDay) {
     return null;
   }
@@ -840,90 +825,7 @@ export default async function Home({ searchParams }: HomeProps) {
     selectedCandidateCheck.candidates.filter((candidate) =>
       lowerCalendarNoteCodes.has(candidate.code),
     );
-  const adoptionStatusRows = [
-    {
-      item: "年月日マスター",
-      status: calendarDay.source.status,
-      detail: "年/月/日干支・九星・方位殺などの基礎行",
-    },
-    {
-      item: "元号年・西暦年変換",
-      status: selectedJapaneseEra.sourceStatus,
-      detail: `${selectedJapaneseEra.era.display} / ${selectedJapaneseEra.westernYear}年`,
-    },
-    {
-      item: "祝日",
-      status: calendarDay.calendarBase.nationalHoliday.sourceStatus,
-      detail: calendarDay.calendarBase.nationalHoliday.name ?? "該当なし",
-    },
-    {
-      item: "二十四節気",
-      status: calendarDay.solarTerm.official ? "verified_master" : "not_applicable",
-      detail: calendarDay.solarTerm.official
-        ? `${calendarDay.solarTerm.official.name} ${calendarDay.solarTerm.official.timeJst}`
-        : latestSetsuiriDisplay ?? "当日節気なし",
-    },
-    {
-      item: "旧暦・六曜",
-      status: calendarDay.lunarCalendar.sourceStatus,
-      detail: `${calendarDay.lunarCalendar.display ?? "-"} / ${
-        calendarDay.lunarCalendar.rokuyo ?? "-"
-      }`,
-    },
-    {
-      item: "納音",
-      status: selectedDayKanshi ? "verified" : "not_connected",
-      detail: selectedDayKanshi
-        ? `${selectedDayKanshi.kanshi} / ${selectedDayKanshi.nacchin}`
-        : "干支マスター未接続",
-    },
-    {
-      item: "暦注",
-      status: calendarDay.calendarNotes.verificationStatus,
-      detail: `${calendarDay.calendarNotes.sourceStatus} / ${
-        calendarDay.calendarNotes.summary ?? "-"
-      }`,
-    },
-    {
-      item: "外部暦注参照",
-      status: calendarNoteReference?.sourceStatus ?? "not_connected",
-      detail: calendarNoteReference?.sourceName ?? "正本サンプルなし",
-    },
-    {
-      item: "土用",
-      status: selectedDoyoComparison.calculated.sourceStatus,
-      detail: selectedDoyoComparison.calculated.period?.label ?? "土用期間外",
-    },
-    {
-      item: "今日は何の日",
-      status:
-        selectedTodayAnniversaries?.sourceStatus ?? "not_connected",
-      detail:
-        selectedTodayAnniversarySummary
-          ? `${selectedTodayAnniversarySummary.totalEntries}件 / ${selectedTodayAnniversaryDisplay}`
-          : selectedTodayAnniversaryDisplay === "-"
-          ? "未接続"
-          : selectedTodayAnniversaryDisplay,
-    },
-    {
-      item: "雑節",
-      status:
-        selectedZassetsuEntries.find(
-          (entry) => entry.sourceStatus === "interpolated_v0",
-        )?.sourceStatus ??
-        selectedZassetsuEntries[0]?.sourceStatus ??
-        selectedYearZassetsuVerification.adoptionStatus,
-      detail:
-        selectedZassetsuEntries.map((entry) => entry.label).join(" / ") ||
-        `年内 ${selectedYearZassetsuVerification.total}件`,
-    },
-  ].map((row) => ({
-    ...row,
-    info: getAdoptionStatusInfo(row.status),
-  }));
   const adoptionSourceCatalog = getAdoptionSourceCatalog();
-  const commonCalendarCompletionItems = getCommonCalendarCompletionItems();
-  const commonCalendarCompletionSummary = getCommonCalendarCompletionSummary();
   const devStatusCards = [
     {
       label: "正本照合",
@@ -965,8 +867,6 @@ export default async function Home({ searchParams }: HomeProps) {
     },
   ];
 
-  const viewHref = (targetView: "user" | "dev") =>
-    `/?date=${calendarDay.date}&view=${targetView}`;
   const legacyActiveView: "user" | "dev" = activeView;
 
   if (activeView === "user") {
@@ -1164,22 +1064,9 @@ export default async function Home({ searchParams }: HomeProps) {
           `★フォーチューンマイレージマスタ &gt; 年月日` から、
           吉方旅と日々の行動判断につながる暦JSONを組み立てています。
         </p>
-        <div className="viewSwitch" aria-label="表示モード">
-          <a
-            className={legacyActiveView === "user" ? "active" : undefined}
-            href={viewHref("user")}
-          >
-            ユーザー向け
-          </a>
-          <a
-            className={legacyActiveView === "dev" ? "active" : undefined}
-            href={viewHref("dev")}
-          >
-            開発者向け
-          </a>
-          <a href="/calendar-db">暦DB参照</a>
-          <a href="/purpose-calendar">九星方位カレンダー</a>
-        </div>
+        <SiteSectionNav
+          active={legacyActiveView === "dev" ? "developer" : "home"}
+        />
         <form className="dateSearch" action="/" method="get">
           <label htmlFor="date">年月日で検証</label>
           <input
@@ -1913,178 +1800,6 @@ export default async function Home({ searchParams }: HomeProps) {
             <p className="note">{selectedChildSatsu.sourceNote}</p>
           </div>
 
-          <div className="referencePanel">
-            <span>採用ステータス整理</span>
-            <strong>共通暦データの完成度チェック</strong>
-            <p>
-              いま入っている要素を、実装済み / v0検証中 / 未実装 /
-              後回しに分けて管理します。八雲院を精度・導線の外部ベンチマークとして参照しつつ、
-              共通暦、個人命式、AI向けプロンプト提供へ広げます。
-            </p>
-            <div className="sourceGrid">
-              <div>
-                <span>総項目</span>
-                <strong>{commonCalendarCompletionSummary.total}件</strong>
-                <p>共通暦・個人命式入口・上級候補を含む</p>
-              </div>
-              <div>
-                <span>実装済み</span>
-                <strong>{commonCalendarCompletionSummary.implemented}件</strong>
-                <p>本体表示またはAPIに接続済み</p>
-              </div>
-              <div>
-                <span>v0検証中</span>
-                <strong>{commonCalendarCompletionSummary.v0Verifying}件</strong>
-                <p>計算・流派差・外部検証を継続</p>
-              </div>
-              <div>
-                <span>未実装</span>
-                <strong>{commonCalendarCompletionSummary.notImplemented}件</strong>
-                <p>個人命式フェーズ以降</p>
-              </div>
-              <div>
-                <span>後回し</span>
-                <strong>{commonCalendarCompletionSummary.later}件</strong>
-                <p>上級・高コスト候補</p>
-              </div>
-            </div>
-            <div className="tableWrap completionStatusWrap">
-              <table className="referenceCompareTable completionStatusTable">
-                <thead>
-                  <tr>
-                    <th>項目</th>
-                    <th>完成度</th>
-                    <th>採用状態</th>
-                    <th>範囲</th>
-                    <th>ソース</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {commonCalendarCompletionItems.map((item) => {
-                    const info = getAdoptionStatusInfo(item.adoptionStatus);
-
-                    return (
-                      <tr key={item.id}>
-                        <td>
-                          {item.name}
-                          <small className="stackedValue">
-                            {item.categoryLabel} / {item.note}
-                          </small>
-                        </td>
-                        <td>
-                          <span
-                            className={
-                              item.status === "implemented"
-                                ? "matchBadge"
-                                : item.status === "v0_verifying"
-                                  ? "verifyBadge"
-                                  : "pointNeutral"
-                            }
-                          >
-                            {item.statusLabel}
-                          </span>
-                          <small className="stackedValue">{item.status}</small>
-                        </td>
-                        <td>
-                          {info.label}
-                          <small className="stackedValue">
-                            {item.adoptionStatus} / {info.reliability}
-                          </small>
-                        </td>
-                        <td>{item.scope}</td>
-                        <td>
-                          {item.source}
-                          <small className="stackedValue">{info.sourceName}</small>
-                          <small className="stackedValue">次: {item.nextAction}</small>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div className="referencePanel">
-            <span>日付別 採用ステータス</span>
-            <strong>選択日の出力値とソース状態</strong>
-            <p>
-              こちらは現在選択している日付に対して、各表示値の由来と検証状態を確認する表です。
-            </p>
-            <table className="referenceCompareTable">
-              <thead>
-                <tr>
-                  <th>項目</th>
-                  <th>採用状態</th>
-                  <th>信頼段階</th>
-                  <th>主なソース</th>
-                  <th>次の確認</th>
-                </tr>
-              </thead>
-              <tbody>
-                {adoptionStatusRows.map((row) => (
-                  <tr key={row.item}>
-                    <td>
-                      {row.item}
-                      <small className="stackedValue">{row.detail}</small>
-                    </td>
-                    <td>
-                      <span
-                        className={
-                          row.info.tone === "ok"
-                            ? "matchBadge"
-                            : row.info.tone === "warn"
-                              ? "verifyBadge"
-                              : "pointNeutral"
-                        }
-                      >
-                        {row.info.label}
-                      </span>
-                      <small className="stackedValue">{row.status}</small>
-                    </td>
-                    <td>{row.info.reliability}</td>
-                    <td>
-                      {row.info.sourceName}
-                      <small className="stackedValue">{row.info.note}</small>
-                    </td>
-                    <td>{row.info.nextAction}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <div className="referencePanel">
-            <span>参照ソース一覧</span>
-            <strong>このプロジェクトで使う主な検証元</strong>
-            <table className="referenceCompareTable">
-              <thead>
-                <tr>
-                  <th>ソース</th>
-                  <th>役割</th>
-                  <th>優先度</th>
-                  <th>メモ</th>
-                </tr>
-              </thead>
-              <tbody>
-                {adoptionSourceCatalog.map((source) => (
-                  <tr key={source.id}>
-                    <td>
-                      {source.url ? (
-                        <a href={source.url}>{source.name}</a>
-                      ) : (
-                        source.name
-                      )}
-                    </td>
-                    <td>{source.role}</td>
-                    <td>{source.priority}</td>
-                    <td>{source.note}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
           <div className="devCheckLayout">
             <div className="tableWrap">
               <table className="compactTable">
@@ -2267,94 +1982,6 @@ export default async function Home({ searchParams }: HomeProps) {
                 )}
               </tbody>
             </table>
-          </div>
-
-          <div className="referencePanel">
-            <span>主要選日 採用管理</span>
-            <strong>正式リストと未実装候補</strong>
-            <p>
-              現在の主要選日は正式リストとして管理し、未実装候補は追加順・検証元・次アクションを分けて追跡します。
-            </p>
-            <div className="sourceGrid selectedDaySummaryGrid">
-              <div>
-                <span>総項目</span>
-                <strong>{selectedDayAdoptionSummary.total}件</strong>
-                <p>正式リストと候補の合計</p>
-              </div>
-              <div>
-                <span>正式リスト</span>
-                <strong>{selectedDayAdoptionSummary.implemented}件</strong>
-                <p>calendar-note-definitions に接続済み</p>
-              </div>
-              <div>
-                <span>未実装候補</span>
-                <strong>{selectedDayAdoptionSummary.candidates}件</strong>
-                <p>追加・検証待ち</p>
-              </div>
-              <div>
-                <span>分類</span>
-                <strong>{selectedDayAdoptionSummary.categories}系統</strong>
-                <p>大吉日、神事、金運、土地、注意など</p>
-              </div>
-            </div>
-
-            <h3 className="subsectionTitle">現在入っている正式リスト</h3>
-            <div className="tableWrap">
-              <table className="referenceCompareTable selectedDayAdoptionTable">
-                <thead>
-                  <tr>
-                    <th>選日</th>
-                    <th>分類</th>
-                    <th>吉凶</th>
-                    <th>重み</th>
-                    <th>表示文</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {selectedDayImplementedRows.map((row) => (
-                    <tr key={row.code}>
-                      <td>
-                        {row.name}
-                        <small className="stackedValue">{row.code}</small>
-                      </td>
-                      <td>{row.categoryLabel}</td>
-                      <td>{row.fortune}</td>
-                      <td>{row.weight ?? "-"}</td>
-                      <td>{row.note}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            <h3 className="subsectionTitle">未実装だが採用候補</h3>
-            <div className="tableWrap">
-              <table className="referenceCompareTable selectedDayAdoptionTable">
-                <thead>
-                  <tr>
-                    <th>候補</th>
-                    <th>分類</th>
-                    <th>参照元</th>
-                    <th>次アクション</th>
-                    <th>メモ</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {selectedDayCandidateRows.map((row) => (
-                    <tr key={row.code}>
-                      <td>
-                        {row.name}
-                        <small className="stackedValue">{row.code}</small>
-                      </td>
-                      <td>{row.categoryLabel}</td>
-                      <td>{row.source}</td>
-                      <td>{row.nextAction}</td>
-                      <td>{row.note}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
           </div>
 
           {calendarNoteReference ? (
@@ -2899,12 +2526,12 @@ export default async function Home({ searchParams }: HomeProps) {
           <section className="panel">
             <h2>蔵干マスター v0</h2>
             <p className="note">
-              現段階では本採用ではなく照合用です。月支は節入り日数で比較し、
-              年支・日支に同じルールを使うかは保留します。
+              年支・月支・日支の蔵干・司令は PDF十二支月令 v0 を採用方式として確定します。
+              既存スプシ方式は差分監査用に保持し、代表として月支差分を確認します。
             </p>
             <div className="sourceGrid">
               <div>
-                <span>仮採用方式</span>
+                <span>採用方式</span>
                 <strong>{selectedZokanComparison.adoptedMethod.id}</strong>
                 <p>{selectedZokanComparison.adoptedMethod.reason}</p>
               </div>
@@ -2925,8 +2552,9 @@ export default async function Home({ searchParams }: HomeProps) {
                     <th>支</th>
                     <th>節入日数</th>
                     <th>スプシ 余/中/本</th>
-                    <th>v0 余/中/本</th>
-                    <th>v0司令</th>
+                    <th>採用 余/中/本</th>
+                    <th>採用司令</th>
+                    <th>月律v0 余/中/本</th>
                     <th>差分</th>
                   </tr>
                 </thead>
@@ -2960,26 +2588,26 @@ export default async function Home({ searchParams }: HomeProps) {
                     </td>
                     <td>
                       <span className="stackedValue">
-                        余 {selectedZokanComparison.references.monthLaw?.extra ?? "-"}
+                        余 {selectedZokanComparison.references.classicalPdf?.extra ?? "-"}
                       </span>
                       <span className="stackedValue">
                         中{" "}
-                        {selectedZokanComparison.references.monthLaw?.middle ?? "-"}
+                        {selectedZokanComparison.references.classicalPdf?.middle ?? "-"}
                       </span>
                       <span className="stackedValue">
-                        本 {selectedZokanComparison.references.monthLaw?.main ?? "-"}
+                        本 {selectedZokanComparison.references.classicalPdf?.main ?? "-"}
                       </span>
                     </td>
                     <td>
-                      {selectedZokanComparison.references.monthLaw ? (
+                      {selectedZokanComparison.references.classicalPdf ? (
                         <>
                           <span className="stackedValue">
                             {
-                              selectedZokanComparison.references.monthLaw.active
+                              selectedZokanComparison.references.classicalPdf.active
                                 .label
                             }{" "}
                             {
-                              selectedZokanComparison.references.monthLaw.active
+                              selectedZokanComparison.references.classicalPdf.active
                                 .stem
                             }
                           </span>
@@ -2992,6 +2620,18 @@ export default async function Home({ searchParams }: HomeProps) {
                       ) : (
                         "-"
                       )}
+                    </td>
+                    <td>
+                      <span className="stackedValue">
+                        余 {selectedZokanComparison.references.monthLaw?.extra ?? "-"}
+                      </span>
+                      <span className="stackedValue">
+                        中{" "}
+                        {selectedZokanComparison.references.monthLaw?.middle ?? "-"}
+                      </span>
+                      <span className="stackedValue">
+                        本 {selectedZokanComparison.references.monthLaw?.main ?? "-"}
+                      </span>
                     </td>
                     <td>
                       {selectedZokanComparison.diffs.length > 0 ? (
@@ -3024,17 +2664,17 @@ export default async function Home({ searchParams }: HomeProps) {
               <div>
                 <span>差分あり</span>
                 <strong>{zokanComparisonSummary.mismatched}日</strong>
-                <p>スプシ月蔵干と v0 月律分野の差分です。</p>
+                <p>スプシ月蔵干と採用済みPDF方式の差分です。</p>
               </div>
               <div>
                 <span>比較対象</span>
-                <strong>月支 + 節入日数</strong>
-                <p>年支・日支はこの段階では採用判定に含めません。</p>
+                <strong>年支・月支・日支</strong>
+                <p>同じ節入日数ルールを適用し、表では月支差分を代表表示します。</p>
               </div>
               <div>
                 <span>判定</span>
-                <strong>reference_v0</strong>
-                <p>差分は流派・思想差として記録します。</p>
+                <strong>adopted_confirmed</strong>
+                <p>PDF方式を採用値にし、差分は監査ログとして記録します。</p>
               </div>
             </div>
             <div className="tableWrap">
@@ -3046,8 +2686,8 @@ export default async function Home({ searchParams }: HomeProps) {
                     <th>月支</th>
                     <th>節入日数</th>
                     <th>スプシ 余/中/本</th>
-                    <th>v0 余/中/本</th>
-                    <th>v0司令</th>
+                    <th>採用 余/中/本</th>
+                    <th>採用司令</th>
                     <th>差分</th>
                   </tr>
                 </thead>
@@ -3084,20 +2724,20 @@ export default async function Home({ searchParams }: HomeProps) {
                       </td>
                       <td>
                         <span className="stackedValue">
-                          余 {comparison.references.monthLaw?.extra ?? "-"}
+                          余 {comparison.references.classicalPdf?.extra ?? "-"}
                         </span>
                         <span className="stackedValue">
-                          中 {comparison.references.monthLaw?.middle ?? "-"}
+                          中 {comparison.references.classicalPdf?.middle ?? "-"}
                         </span>
                         <span className="stackedValue">
-                          本 {comparison.references.monthLaw?.main ?? "-"}
+                          本 {comparison.references.classicalPdf?.main ?? "-"}
                         </span>
                       </td>
                       <td>
-                        {comparison.references.monthLaw ? (
+                        {comparison.references.classicalPdf ? (
                           <span className="stackedValue">
-                            {comparison.references.monthLaw.active.label}{" "}
-                            {comparison.references.monthLaw.active.stem}
+                            {comparison.references.classicalPdf.active.label}{" "}
+                            {comparison.references.classicalPdf.active.stem}
                           </span>
                         ) : (
                           "-"

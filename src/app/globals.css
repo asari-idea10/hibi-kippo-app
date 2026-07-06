@@ -554,6 +554,54 @@ h2 {
   color: #fffdf7;
 }
 
+.siteSectionNav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.siteSectionNavGroup {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid rgba(41, 72, 63, 0.16);
+  background: rgba(255, 253, 247, 0.7);
+}
+
+.siteSectionNavGroup > span {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 10px;
+  border-right: 1px solid rgba(41, 72, 63, 0.12);
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.siteSectionNavGroup > div {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 3px;
+}
+
+.siteSectionNavGroup a {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 10px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.siteSectionNavGroup a.active {
+  background: var(--moss);
+  color: #fffdf7;
+}
+
 .dateSearch {
   display: flex;
   flex-wrap: wrap;
@@ -840,6 +888,325 @@ h2 {
   background: rgba(41, 72, 63, 0.08);
   color: var(--moss);
   font-size: 13px;
+}
+
+.sanmeiInputPanel {
+  margin-bottom: 16px;
+}
+
+.sanmeiInzenPanel {
+  margin-top: 0;
+}
+
+.sectionHeadingRow {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.sectionHeadingRow h2 {
+  margin: 0;
+  color: var(--moss);
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.sectionHeadingRow p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.sanmeiPillarGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.sanmeiPillarCard {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid rgba(165, 123, 59, 0.24);
+  background: rgba(255, 253, 247, 0.7);
+}
+
+.sanmeiPillarCard > span {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.sanmeiPillarCard h3 {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.sanmeiPillarCard > strong {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--moss);
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.sanmeiPillarCard dl {
+  display: grid;
+  gap: 5px;
+  margin: 0 0 10px;
+}
+
+.sanmeiPillarCard dl div {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 8px;
+}
+
+.sanmeiPillarCard dt,
+.sanmeiPillarCard dd {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.sanmeiPillarCard dd {
+  color: var(--foreground);
+}
+
+.sanmeiPillarCard p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.7;
+}
+
+.sanmeiYosenPanel {
+  margin-top: 16px;
+}
+
+.sanmeiYosenChart {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  max-width: 760px;
+  margin: 18px auto 0;
+}
+
+.sanmeiYosenCell {
+  min-width: 0;
+  min-height: 128px;
+  padding: 13px;
+  border: 1px solid rgba(165, 123, 59, 0.22);
+  background: rgba(255, 253, 247, 0.7);
+  text-align: center;
+}
+
+.sanmeiYosenCell span,
+.sanmeiYosenCell em,
+.sanmeiYosenCell small {
+  display: block;
+}
+
+.sanmeiYosenCell span {
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.sanmeiYosenCell strong {
+  display: block;
+  margin: 8px 0 6px;
+  color: var(--moss);
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+  font-size: clamp(20px, 2.4vw, 30px);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.sanmeiYosenCell em {
+  color: rgba(41, 72, 63, 0.72);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 850;
+  line-height: 1.45;
+}
+
+.sanmeiYosenCell small {
+  margin-top: 7px;
+  color: rgba(41, 72, 63, 0.54);
+  font-size: 10.5px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.sanmeiYosenCellMeta {
+  border-color: rgba(41, 72, 63, 0.16);
+  background: rgba(244, 239, 227, 0.6);
+}
+
+.sanmeiYosenCellMeta strong {
+  font-size: clamp(28px, 4vw, 44px);
+}
+
+.sanmeiYosenCellCenter {
+  border-color: rgba(165, 123, 59, 0.42);
+  background: rgba(255, 249, 202, 0.42);
+  box-shadow: inset 0 0 0 1px rgba(165, 123, 59, 0.18);
+}
+
+.sanmeiYosenCellJuunidai {
+  background: rgba(244, 239, 227, 0.46);
+}
+
+.sanmeiZokanVerificationPanel {
+  margin-top: 16px;
+}
+
+.sanmeiZokanVerificationSummary {
+  margin-top: 14px;
+}
+
+.sanmeiZokanSourceList {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.sanmeiZokanSourceList article {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid rgba(165, 123, 59, 0.2);
+  background: rgba(255, 253, 247, 0.62);
+}
+
+.sanmeiZokanSourceList strong,
+.sanmeiZokanSampleBlock h3 {
+  display: block;
+  margin: 0 0 6px;
+  color: var(--moss);
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+.sanmeiZokanSourceList p,
+.sanmeiZokanSourceList a,
+.sanmeiZokanSampleBlock .sectionHeadingRow p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.6;
+}
+
+.sanmeiZokanSourceList a {
+  display: inline-block;
+  margin-top: 8px;
+  color: var(--gold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.sanmeiZokanSampleBlock {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(165, 123, 59, 0.18);
+}
+
+.sanmeiZokanCurrentGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.sanmeiZokanCurrentGrid div {
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid rgba(41, 72, 63, 0.12);
+  background: rgba(244, 239, 227, 0.48);
+}
+
+.sanmeiZokanCurrentGrid span,
+.sanmeiZokanCurrentGrid small {
+  display: block;
+  color: rgba(41, 72, 63, 0.66);
+  font-size: 11px;
+  font-weight: 850;
+  line-height: 1.45;
+}
+
+.sanmeiZokanCurrentGrid strong {
+  display: block;
+  margin: 5px 0;
+  color: var(--moss);
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+.sanmeiZokanVerificationTable td {
+  vertical-align: top;
+}
+
+.sanmeiZokanVerificationTable th:nth-child(1),
+.sanmeiZokanVerificationTable td:nth-child(1) {
+  width: 150px;
+}
+
+.sanmeiZokanVerificationTable th:nth-child(2),
+.sanmeiZokanVerificationTable td:nth-child(2),
+.sanmeiZokanVerificationTable th:nth-child(4),
+.sanmeiZokanVerificationTable td:nth-child(4),
+.sanmeiZokanVerificationTable th:nth-child(5),
+.sanmeiZokanVerificationTable td:nth-child(5) {
+  width: 118px;
+}
+
+.sanmeiNextPanel {
+  margin-top: 16px;
+}
+
+.sanmeiMasterInventoryPanel {
+  margin-top: 16px;
+}
+
+.sanmeiMasterInventoryPanel .sectionHeadingRow a {
+  color: var(--gold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.sanmeiMasterSummaryGrid {
+  margin-top: 14px;
+}
+
+.sanmeiMasterInventoryTable th:nth-child(1),
+.sanmeiMasterInventoryTable td:nth-child(1) {
+  width: 116px;
+}
+
+.sanmeiMasterInventoryTable th:nth-child(3),
+.sanmeiMasterInventoryTable td:nth-child(3) {
+  width: 118px;
+}
+
+.sanmeiMasterInventoryTable td {
+  vertical-align: top;
+}
+
+.sanmeiMasterInventoryTable td strong {
+  display: block;
+  color: var(--moss);
 }
 
 .devTopSummary {
@@ -1323,6 +1690,141 @@ h2 {
   margin-top: 14px;
 }
 
+.termSeoStatusStrip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 14px;
+}
+
+.termSeoStatusStrip span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 9px;
+  border: 1px solid rgba(165, 123, 59, 0.18);
+  background: rgba(255, 253, 247, 0.7);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.termSeoStatusStrip strong {
+  color: var(--moss);
+  font-size: 13px;
+}
+
+.calendarRegressionTable {
+  table-layout: fixed;
+  font-size: 11px;
+}
+
+.calendarRegressionTable th:nth-child(1),
+.calendarRegressionTable td:nth-child(1) {
+  width: 16%;
+}
+
+.calendarRegressionTable th:nth-child(2),
+.calendarRegressionTable td:nth-child(2) {
+  width: 24%;
+}
+
+.calendarRegressionTable th:nth-child(3),
+.calendarRegressionTable td:nth-child(3) {
+  width: 18%;
+}
+
+.calendarRegressionTable th:nth-child(4),
+.calendarRegressionTable td:nth-child(4) {
+  width: 27%;
+}
+
+.calendarRegressionTable th:nth-child(5),
+.calendarRegressionTable td:nth-child(5) {
+  width: 15%;
+}
+
+.calendarRegressionTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.calendarRegressionTags small {
+  display: inline-flex;
+  padding: 2px 5px;
+  border: 1px solid rgba(165, 123, 59, 0.18);
+  background: rgba(255, 253, 247, 0.64);
+  color: rgba(41, 72, 63, 0.72);
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.verificationRegistryTable {
+  table-layout: fixed;
+  font-size: 11px;
+}
+
+.verificationRegistryTable th:nth-child(1),
+.verificationRegistryTable td:nth-child(1) {
+  width: 14%;
+}
+
+.verificationRegistryTable th:nth-child(2),
+.verificationRegistryTable td:nth-child(2) {
+  width: 10%;
+}
+
+.verificationRegistryTable th:nth-child(3),
+.verificationRegistryTable td:nth-child(3) {
+  width: 18%;
+}
+
+.verificationRegistryTable th:nth-child(4),
+.verificationRegistryTable td:nth-child(4) {
+  width: 15%;
+}
+
+.verificationRegistryTable th:nth-child(5),
+.verificationRegistryTable td:nth-child(5) {
+  width: 20%;
+}
+
+.verificationRegistryTable th:nth-child(6),
+.verificationRegistryTable td:nth-child(6) {
+  width: 12%;
+}
+
+.verificationRegistryTable th:nth-child(7),
+.verificationRegistryTable td:nth-child(7) {
+  width: 11%;
+}
+
+.verificationSourceList {
+  display: grid;
+  gap: 5px;
+}
+
+.verificationSourceList span {
+  display: grid;
+  gap: 2px;
+  padding: 5px 6px;
+  border: 1px solid rgba(165, 123, 59, 0.18);
+  background: rgba(255, 253, 247, 0.64);
+}
+
+.verificationSourceList a {
+  color: var(--moss);
+  font-weight: 850;
+}
+
+.verificationSourceList small {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
 .selectedDayAdoptionTable {
   table-layout: fixed;
   font-size: 11px;
@@ -1330,27 +1832,32 @@ h2 {
 
 .selectedDayAdoptionTable th:nth-child(1),
 .selectedDayAdoptionTable td:nth-child(1) {
-  width: 16%;
+  width: 15%;
 }
 
 .selectedDayAdoptionTable th:nth-child(2),
 .selectedDayAdoptionTable td:nth-child(2) {
-  width: 13%;
+  width: 12%;
 }
 
 .selectedDayAdoptionTable th:nth-child(3),
 .selectedDayAdoptionTable td:nth-child(3) {
-  width: 15%;
+  width: 12%;
 }
 
 .selectedDayAdoptionTable th:nth-child(4),
 .selectedDayAdoptionTable td:nth-child(4) {
-  width: 18%;
+  width: 12%;
 }
 
 .selectedDayAdoptionTable th:nth-child(5),
 .selectedDayAdoptionTable td:nth-child(5) {
-  width: 38%;
+  width: 12%;
+}
+
+.selectedDayAdoptionTable th:nth-child(6),
+.selectedDayAdoptionTable td:nth-child(6) {
+  width: 37%;
 }
 
 .calendarDbShell {
@@ -3206,26 +3713,119 @@ h2 {
 }
 
 .purposeCalendarMonthlyPremiseHeader {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 10px;
-  align-items: baseline;
-  justify-content: space-between;
+  display: grid;
+  gap: 4px;
 }
 
-.purposeCalendarMonthlyPremiseHeader span {
-  color: var(--gold);
-  font-size: 12px;
+.purposeCalendarMonthlyPremiseHeader > span {
+  color: var(--moss);
+  font-size: clamp(17px, 1.6vw, 22px);
   font-weight: 950;
-  letter-spacing: 0.08em;
+  letter-spacing: 0;
+  line-height: 1.35;
 }
 
 .purposeCalendarMonthlyPremiseHeader p {
   margin: 0;
-  color: rgba(41, 72, 63, 0.62);
-  font-size: 11px;
-  font-weight: 800;
+  color: rgba(41, 72, 63, 0.68);
+  font-size: 12px;
+  font-weight: 850;
   line-height: 1.5;
+}
+
+.purposeCalendarPremiseDetailChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 2px;
+}
+
+.purposeCalendarPremiseDetailChip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 21px;
+  padding: 2px 7px;
+  border: 1px solid rgba(41, 72, 63, 0.12);
+  background: rgba(244, 239, 227, 0.42);
+  color: rgba(41, 72, 63, 0.68);
+  font-size: 10px;
+  font-weight: 900;
+  line-height: 1.35;
+  text-decoration: none;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+}
+
+a.purposeCalendarPremiseDetailChip:hover,
+a.purposeCalendarPremiseDetailChip:focus-visible {
+  border-color: rgba(41, 72, 63, 0.28);
+  box-shadow: 0 5px 14px rgba(41, 72, 63, 0.08);
+  transform: translateY(-1px);
+}
+
+.purposeCalendarPremiseDetailChip-good {
+  border-color: rgba(124, 170, 109, 0.34);
+  background: rgba(220, 239, 198, 0.48);
+  color: var(--moss);
+}
+
+.purposeCalendarPremiseDetailChip-mixed {
+  border-color: rgba(226, 189, 78, 0.34);
+  background: rgba(255, 243, 158, 0.36);
+  color: var(--gold);
+}
+
+.purposeCalendarPremiseDetailChip-bad {
+  border-color: rgba(160, 83, 72, 0.24);
+  background: rgba(160, 83, 72, 0.08);
+  color: #8e4c43;
+}
+
+.purposeCalendarMountainGuideToggle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.purposeCalendarMountainGuideToggleLabel {
+  justify-self: start;
+  width: fit-content;
+  padding: 4px 8px;
+  border: 1px solid rgba(165, 123, 59, 0.2);
+  background: rgba(255, 253, 247, 0.72);
+  color: rgba(41, 72, 63, 0.72);
+  cursor: pointer;
+  font-size: 10.5px;
+  font-weight: 950;
+  line-height: 1.3;
+}
+
+.purposeCalendarMountainGuideToggleLabel::before {
+  content: "＋";
+  margin-right: 5px;
+  color: var(--gold);
+}
+
+.purposeCalendarMountainGuideToggle:not(:checked)
+  + .purposeCalendarBoardCompasses
+  .purposeCalendarMountainGuide {
+  display: none;
+}
+
+.purposeCalendarMountainGuideToggle:checked
+  + .purposeCalendarBoardCompasses
+  + .purposeCalendarMountainGuideToggleLabel::before {
+  content: "−";
+}
+
+.purposeCalendarMountainGuideToggle:focus-visible
+  + .purposeCalendarBoardCompasses
+  + .purposeCalendarMountainGuideToggleLabel {
+  outline: 2px solid rgba(165, 123, 59, 0.46);
+  outline-offset: 2px;
 }
 
 .purposeCalendarFourBoardSummary {
@@ -3369,7 +3969,7 @@ h2 {
 }
 
 .purposeCalendarBoardCompasses > .purposeCalendarBoardCard {
-  grid-template-rows: auto auto auto auto;
+  grid-template-rows: 30px 82px 188px 228px auto;
   align-items: start;
   gap: 8px;
   padding: 11px;
@@ -3388,13 +3988,15 @@ h2 {
 
 .purposeCalendarCompassHeader {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
-  gap: 7px;
+  gap: 5px 8px;
+  line-height: 1.25;
 }
 
 .purposeCalendarCompassHeader em {
   color: var(--moss);
-  font-size: 14px;
+  font-size: 15.5px;
   font-style: normal;
   font-weight: 950;
   letter-spacing: 0;
@@ -3432,6 +4034,185 @@ h2 {
   background: rgba(255, 253, 247, 0.54);
   color: rgba(41, 72, 63, 0.62);
   font-size: 9.5px;
+}
+
+.purposeCalendarBoardMeta .purposeCalendarDeityScopeNote {
+  width: fit-content;
+  margin-top: 1px;
+  padding: 1px 5px;
+  border-left: 2px solid rgba(165, 123, 59, 0.32);
+  background: rgba(255, 253, 247, 0.42);
+  color: rgba(41, 72, 63, 0.6);
+  font-size: 9.5px;
+}
+
+.purposeCalendarBoardMeta strong a,
+.purposeCalendarBoardMeta small a,
+.purposeCalendarKanshi a,
+.purposeCalendarDayBoard a,
+.purposeCalendarRokuyoLink {
+  color: inherit;
+  text-decoration-color: rgba(165, 123, 59, 0.34);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: color 0.16s ease, text-decoration-color 0.16s ease;
+}
+
+.purposeCalendarBoardMeta strong a:hover,
+.purposeCalendarBoardMeta strong a:focus-visible,
+.purposeCalendarBoardMeta small a:hover,
+.purposeCalendarBoardMeta small a:focus-visible,
+.purposeCalendarKanshi a:hover,
+.purposeCalendarKanshi a:focus-visible,
+.purposeCalendarDayBoard a:hover,
+.purposeCalendarDayBoard a:focus-visible,
+.purposeCalendarRokuyoLink:hover,
+.purposeCalendarRokuyoLink:focus-visible {
+  color: var(--gold);
+  text-decoration-color: rgba(165, 123, 59, 0.78);
+}
+
+.purposeCalendarMountainGuide {
+  display: grid;
+  justify-self: stretch;
+  gap: 3px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(165, 123, 59, 0.14);
+}
+
+.purposeCalendarMountainGuide p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px 6px;
+  align-items: baseline;
+  margin: 0;
+  color: rgba(41, 72, 63, 0.66);
+  font-size: 10.5px;
+  font-weight: 850;
+  line-height: 1.45;
+}
+
+.purposeCalendarMountainGuide span {
+  flex: 0 0 auto;
+  min-width: 38px;
+  color: var(--gold);
+  font-size: 9.5px;
+  font-weight: 950;
+  letter-spacing: 0.06em;
+}
+
+.purposeCalendarMountainGuide-good {
+  color: rgba(41, 92, 66, 0.78) !important;
+}
+
+.purposeCalendarMountainGuide-caution {
+  color: rgba(116, 62, 54, 0.78) !important;
+}
+
+.purposeCalendarMountainGuide-quiet {
+  color: rgba(78, 86, 82, 0.66) !important;
+}
+
+.purposeCalendarPremiseSignalSlot {
+  display: grid;
+  justify-self: stretch;
+  min-height: 54px;
+}
+
+.purposeCalendarPremiseSignalSlot-empty {
+  pointer-events: none;
+}
+
+.purposeCalendarPremiseSignal {
+  display: grid;
+  justify-self: stretch;
+  gap: 1px;
+  margin: -1px 0 0;
+  padding: 4px 7px;
+  border: 1px solid rgba(165, 123, 59, 0.18);
+  border-left-width: 3px;
+  background: rgba(255, 253, 247, 0.64);
+  color: rgba(41, 72, 63, 0.72);
+  font-size: 9.5px;
+  font-weight: 850;
+  line-height: 1.35;
+}
+
+.purposeCalendarPremiseSignal span {
+  color: var(--gold);
+  font-size: 10px;
+  font-weight: 950;
+}
+
+.purposeCalendarPremiseSignal strong {
+  color: var(--moss);
+  font-size: 10.5px;
+  font-weight: 950;
+}
+
+.purposeCalendarPremiseSignal small {
+  color: rgba(41, 72, 63, 0.62);
+  font-size: 9.5px;
+  font-weight: 850;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.purposeCalendarPremiseSignal.purposeCalendarBoardOverlap-strong {
+  border-color: rgba(232, 202, 88, 0.56);
+  border-left-color: rgba(232, 202, 88, 0.96);
+  background: rgba(255, 249, 202, 0.66);
+}
+
+.purposeCalendarPremiseSignal.purposeCalendarBoardOverlap-practical {
+  border-color: rgba(95, 132, 89, 0.3);
+  border-left-color: rgba(95, 132, 89, 0.76);
+}
+
+.purposeCalendarPremiseSignal.purposeCalendarBoardOverlap-longTerm {
+  border-color: rgba(77, 137, 126, 0.25);
+  border-left-color: rgba(77, 137, 126, 0.72);
+}
+
+.purposeCalendarPremiseSignal.purposeCalendarBoardOverlap-single {
+  border-color: rgba(117, 126, 112, 0.18);
+  border-left-color: rgba(117, 126, 112, 0.52);
+}
+
+.purposeCalendarPremiseAlmanac {
+  display: grid;
+  justify-self: stretch;
+  gap: 5px;
+  margin-top: 1px;
+  padding-top: 7px;
+  border-top: 1px solid rgba(165, 123, 59, 0.14);
+}
+
+.purposeCalendarPremiseDoyo {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  width: fit-content;
+  margin: 0;
+  padding: 2px 7px;
+  border: 1px solid rgba(165, 123, 59, 0.24);
+  background: rgba(165, 123, 59, 0.1);
+  color: rgba(105, 77, 42, 0.86);
+  font-size: 10px;
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.purposeCalendarPremiseDoyo span {
+  color: var(--gold);
+}
+
+.purposeCalendarPremiseDoyo-manichi {
+  border-color: rgba(95, 132, 89, 0.2);
+  background: rgba(233, 241, 221, 0.32);
+  color: rgba(41, 72, 63, 0.7);
 }
 
 .purposeCalendarMonthlyNotes {
@@ -3489,11 +4270,13 @@ h2 {
 }
 
 .purposeCalendarBoardCompasses .directionCompass {
+  align-self: start;
   width: 188px;
   margin: 0 auto;
 }
 
 .directionMountainRing {
+  align-self: start;
   width: 228px;
   max-width: 100%;
   margin: 0 auto;
@@ -3505,6 +4288,42 @@ h2 {
   width: 100%;
   height: auto;
   overflow: visible;
+}
+
+.directionMountainRingEvidence {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 6px;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1.45;
+  color: rgba(41, 72, 63, 0.62);
+}
+
+.directionMountainRingEvidence span {
+  color: rgba(165, 123, 59, 0.78);
+}
+
+.directionMountainRingEvidence a {
+  border: 1px solid rgba(217, 198, 165, 0.82);
+  background: rgba(255, 253, 247, 0.68);
+  color: rgba(41, 72, 63, 0.78);
+  padding: 1px 4px;
+  text-decoration: none;
+}
+
+.directionMountainRingEvidence a:hover,
+.directionMountainRingEvidence a:focus-visible {
+  border-color: rgba(165, 123, 59, 0.58);
+  background: rgba(255, 249, 202, 0.54);
+  color: var(--moss);
+}
+
+.directionMountainRingEvidence .directionMountainRingStatusLink {
+  border-color: rgba(95, 132, 89, 0.34);
+  background: rgba(217, 242, 199, 0.28);
 }
 
 .directionMountainRingOuter,
@@ -3528,6 +4347,33 @@ h2 {
 .directionMountainRingTick {
   stroke: rgba(165, 123, 59, 0.22);
   stroke-width: 0.55;
+}
+
+.directionMountainRingTendoTriangle {
+  fill: rgba(217, 242, 199, 0.09);
+  stroke: rgba(95, 132, 89, 0.28);
+  stroke-width: 0.58;
+  stroke-dasharray: 1.45 1;
+}
+
+.directionMountainRingTendoTriangle-water {
+  fill: rgba(196, 231, 224, 0.12);
+  stroke: rgba(77, 137, 126, 0.34);
+}
+
+.directionMountainRingTendoTriangle-metal {
+  fill: rgba(255, 249, 202, 0.14);
+  stroke: rgba(185, 148, 67, 0.4);
+}
+
+.directionMountainRingTendoTriangle-fire {
+  fill: rgba(244, 213, 203, 0.13);
+  stroke: rgba(169, 91, 75, 0.34);
+}
+
+.directionMountainRingTendoTriangle-wood {
+  fill: rgba(217, 242, 199, 0.12);
+  stroke: rgba(95, 132, 89, 0.34);
 }
 
 .directionMountainRingMountainText,
@@ -3554,10 +4400,62 @@ h2 {
   fill: rgba(165, 123, 59, 0.82);
 }
 
+.directionMountainRingTendo circle {
+  fill: rgba(217, 242, 199, 0.42);
+  stroke: rgba(95, 132, 89, 0.52);
+  stroke-width: 0.78;
+}
+
+.directionMountainRingTendo-active circle {
+  fill: rgba(255, 249, 202, 0.62);
+  stroke: rgba(165, 123, 59, 0.8);
+  stroke-width: 0.95;
+}
+
+.directionMountainRingTendo-water circle {
+  fill: rgba(196, 231, 224, 0.45);
+  stroke: rgba(77, 137, 126, 0.6);
+}
+
+.directionMountainRingTendo-metal circle {
+  fill: rgba(255, 249, 202, 0.5);
+  stroke: rgba(185, 148, 67, 0.66);
+}
+
+.directionMountainRingTendo-fire circle {
+  fill: rgba(244, 213, 203, 0.45);
+  stroke: rgba(169, 91, 75, 0.58);
+}
+
+.directionMountainRingTendo-wood circle {
+  fill: rgba(217, 242, 199, 0.46);
+  stroke: rgba(95, 132, 89, 0.6);
+}
+
+.directionMountainRingTendo-active.directionMountainRingTendo-water circle,
+.directionMountainRingTendo-active.directionMountainRingTendo-metal circle,
+.directionMountainRingTendo-active.directionMountainRingTendo-fire circle,
+.directionMountainRingTendo-active.directionMountainRingTendo-wood circle {
+  fill: rgba(255, 249, 202, 0.66);
+  stroke-width: 1.02;
+}
+
 .directionMountainRingDeityText {
   fill: #a57b3b;
   font-size: 4.05px;
   letter-spacing: 0;
+}
+
+.directionMountainRingDeityText-link {
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: rgba(165, 123, 59, 0.42);
+  text-decoration-thickness: 0.45px;
+}
+
+.directionMountainRingDeityText-link:hover,
+.directionMountainRingDeityText-link:focus-visible {
+  fill: var(--gold);
 }
 
 .directionMountainRingMountain-good .directionMountainRingDeityText {
@@ -4061,6 +4959,19 @@ h2 {
   text-decoration: none;
 }
 
+.purposeCalendarDateLine .purposeCalendarRokuyoLink {
+  flex: 0 0 auto;
+  gap: 0;
+  color: rgba(41, 72, 63, 0.74);
+  font-family: Arial, "Hiragino Sans", "Yu Gothic", sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: 0;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
 .purposeCalendarDateLine > span:not(.purposeCalendarBestDateMark) {
   color: var(--muted);
   font-size: 11px;
@@ -4542,6 +5453,22 @@ h2 {
   letter-spacing: -0.08px;
 }
 
+.directionCompassTendoText {
+  fill: rgba(95, 132, 89, 0.92);
+  font-size: 4.6px;
+  font-weight: 950;
+  letter-spacing: -0.08px;
+  text-anchor: middle;
+}
+
+.directionCompassChildSatsuText {
+  fill: rgba(116, 67, 59, 0.86);
+  font-size: 4.6px;
+  font-weight: 950;
+  letter-spacing: -0.08px;
+  text-anchor: middle;
+}
+
 .directionCompassPoint-warning circle {
   fill: rgba(160, 83, 72, 0.11);
   stroke: rgba(160, 83, 72, 0.58);
@@ -4674,6 +5601,17 @@ h2 {
   font-size: 10px;
   font-weight: 900;
   line-height: 1.35;
+  text-decoration: none;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+}
+
+a.purposeCalendarNoteChip:hover,
+a.purposeCalendarNoteChip:focus-visible,
+a.purposeCalendarSelectedDayChip:hover,
+a.purposeCalendarSelectedDayChip:focus-visible {
+  border-color: rgba(41, 72, 63, 0.26);
+  box-shadow: 0 4px 12px rgba(41, 72, 63, 0.08);
+  transform: translateY(-1px);
 }
 
 .purposeCalendarNoteSeparator {
@@ -5038,6 +5976,8 @@ h2 {
   font-weight: 900;
   line-height: 1.4;
   overflow-wrap: anywhere;
+  text-decoration: none;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
 }
 
 .purposeCalendarSelectedDayChip-good {
@@ -5070,6 +6010,291 @@ h2 {
   grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
   gap: 18px;
   margin-bottom: 18px;
+}
+
+.calendarNoteTermShell {
+  max-width: 980px;
+}
+
+.calendarNoteTermHero h1 {
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+  font-size: clamp(36px, 6vw, 64px);
+  letter-spacing: 0;
+}
+
+.calendarNoteTermPanel {
+  display: grid;
+  gap: 18px;
+}
+
+.calendarNoteTermHeader {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.calendarNoteTermHeader span,
+.calendarNoteTermFortune {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 3px 8px;
+  border: 1px solid rgba(165, 123, 59, 0.2);
+  background: rgba(255, 253, 247, 0.62);
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: 0.06em;
+}
+
+.calendarNoteTermFortune {
+  color: rgba(41, 72, 63, 0.72);
+}
+
+.calendarNoteTermFortune-good {
+  border-color: rgba(124, 170, 109, 0.34);
+  background: rgba(220, 239, 198, 0.5);
+  color: var(--moss);
+}
+
+.calendarNoteTermFortune-mixed {
+  border-color: rgba(226, 189, 78, 0.34);
+  background: rgba(255, 243, 158, 0.38);
+  color: var(--gold);
+}
+
+.calendarNoteTermFortune-bad {
+  border-color: rgba(160, 83, 72, 0.24);
+  background: rgba(160, 83, 72, 0.08);
+  color: #8e4c43;
+}
+
+.calendarNoteTermFortune-unknown {
+  border-color: rgba(105, 116, 108, 0.18);
+  background: rgba(226, 222, 209, 0.34);
+  color: rgba(41, 72, 63, 0.62);
+}
+
+.calendarNoteTermPanel h2 {
+  max-width: 760px;
+  margin: 0;
+  color: var(--moss);
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+  font-size: clamp(22px, 3vw, 34px);
+  line-height: 1.5;
+}
+
+.calendarNoteTermGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.calendarNoteTermGrid > div,
+.calendarNoteTermMeta {
+  padding: 16px;
+  border: 1px solid rgba(165, 123, 59, 0.16);
+  background: rgba(255, 253, 247, 0.46);
+}
+
+.calendarNoteTermGrid h3 {
+  margin: 0 0 10px;
+  color: var(--gold);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+
+.calendarNoteTermGrid ul {
+  display: grid;
+  gap: 7px;
+  padding-left: 1.2em;
+  margin: 0;
+}
+
+.calendarNoteTermGrid li,
+.calendarNoteTermGrid p,
+.calendarNoteTermMeta dd {
+  color: rgba(41, 72, 63, 0.72);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.7;
+}
+
+.calendarNoteTermMeta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 16px;
+  margin: 0;
+}
+
+.calendarNoteTermMeta div {
+  display: grid;
+  gap: 3px;
+}
+
+.calendarNoteTermMeta dt {
+  color: var(--gold);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+}
+
+.calendarNoteTermMeta dd {
+  margin: 0;
+}
+
+.calendarNotesIndexShell {
+  gap: 22px;
+}
+
+.calendarNotesIndexHero h1 {
+  max-width: 760px;
+}
+
+.calendarNotesIndexOverview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  border-left: 4px solid rgba(165, 123, 59, 0.45);
+}
+
+.calendarNotesIndexOverview > div,
+.calendarNotesSeoPanel {
+  background: rgba(255, 253, 247, 0.48);
+}
+
+.calendarNotesIndexOverview span,
+.calendarNotesSeoPanel > span,
+.calendarNotesCategoryHeader span {
+  display: block;
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.calendarNotesIndexOverview strong {
+  display: block;
+  margin-top: 4px;
+  color: var(--moss);
+  font-size: 21px;
+}
+
+.calendarNotesSeoPanel {
+  padding-block: 16px;
+}
+
+.calendarNotesCategoryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.calendarNotesCategoryCard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.calendarNotesCategoryHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.calendarNotesCategoryHeader small {
+  padding: 3px 7px;
+  border: 1px solid rgba(165, 123, 59, 0.2);
+  background: rgba(255, 253, 247, 0.62);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.calendarNotesCategoryCard p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.calendarNotesCategoryCard dl {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid rgba(165, 123, 59, 0.12);
+  background: rgba(255, 253, 247, 0.44);
+}
+
+.calendarNotesCategoryCard dl div {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.calendarNotesCategoryCard dt {
+  color: var(--gold);
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.calendarNotesCategoryCard dd {
+  margin: 0;
+  color: var(--moss);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.calendarNotesTermList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.calendarNotesTermList a,
+.calendarNotesTermList span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 31px;
+  padding: 6px 8px;
+  border: 1px solid rgba(165, 123, 59, 0.18);
+  background: rgba(255, 253, 247, 0.72);
+  color: var(--moss);
+  text-decoration: none;
+  transition: border-color 0.16s ease, background 0.16s ease, transform 0.16s ease;
+}
+
+.calendarNotesTermList a:hover,
+.calendarNotesTermList a:focus-visible {
+  border-color: rgba(165, 123, 59, 0.5);
+  background: rgba(255, 248, 225, 0.82);
+  transform: translateY(-1px);
+}
+
+.calendarNotesTermList strong {
+  font-size: 13px;
+}
+
+.calendarNotesTermList small {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.calendarNotesTermList em {
+  padding: 1px 5px;
+  border-left: 2px solid rgba(165, 123, 59, 0.35);
+  color: var(--gold);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 900;
 }
 
 .panel {
@@ -5455,10 +6680,14 @@ pre {
   .todayAnniversaryDetail,
   .todayAnniversaryDetail ul,
   .verificationStrip,
+  .sanmeiZokanSourceList,
+  .sanmeiZokanCurrentGrid,
   .devCheckLayout,
   .purposeCalendarSearchForm,
   .purposeCalendarSearchPrimary,
   .purposeCalendarActionScaleChecks,
+  .sanmeiPillarGrid,
+  .sanmeiYosenChart,
   .purposeCalendarBirthRow,
   .purposeCalendarSummary,
   .purposeCalendarActionScaleGuide,
@@ -5550,6 +6779,10 @@ pre {
 
   .purposeCalendarBoardCompasses > div {
     padding: 8px;
+  }
+
+  .purposeCalendarBoardCompasses > .purposeCalendarBoardCard {
+    grid-template-rows: auto auto auto auto;
   }
 
   .purposeCalendarBoardCompasses .directionCompass {
@@ -5644,6 +6877,15 @@ pre {
 }
 
 @media (max-width: 480px) {
+  .sectionHeadingRow {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .sanmeiPillarGrid {
+    grid-template-columns: 1fr;
+  }
+
   .purposeCalendarSearchPrimary {
     gap: 8px;
   }

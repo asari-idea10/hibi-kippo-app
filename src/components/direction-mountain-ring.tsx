@@ -13,6 +13,7 @@ type DirectionMountainRingProps = {
   orientation?: DirectionCompassOrientation;
   focusMountains?: DirectionMountainRingFocus[];
   natalMountains?: DirectionMountainRingNatal[];
+  tendoTriangles?: DirectionMountainRingTendoTriangle[];
   voidMountains?: DirectionMountainRingVoid[];
 };
 
@@ -32,6 +33,15 @@ export type DirectionMountainRingNatal = {
   label: string;
   mountain: DirectionMountain | null;
   pillar: "year" | "month" | "day";
+  title: string;
+};
+
+export type DirectionMountainRingTendoTriangle = {
+  activeMountain: DirectionMountain | null;
+  effectLabel: string;
+  label: string;
+  mountains: DirectionMountain[];
+  tone: "water" | "metal" | "fire" | "wood";
   title: string;
 };
 
@@ -82,6 +92,16 @@ function getEntryTitle(mountain: DirectionMountain, entries: DirectionDeityEntry
   ].join(" / ");
 }
 
+function getDirectionDeityDictionaryHref(name: string) {
+  return `/calendar-notes/direction-deities/${encodeURIComponent(name)}`;
+}
+
+function getDirectionDeityStatusHref(name: string) {
+  return name === "天道"
+    ? "/adoption-status#term-status-tendo"
+    : "/adoption-status#term-status-direction-deities";
+}
+
 export function DirectionMountainRing({
   entries,
   centerLabel,
@@ -89,15 +109,20 @@ export function DirectionMountainRing({
   orientation = "north-top",
   focusMountains = [],
   natalMountains = [],
+  tendoTriangles = [],
   voidMountains = [],
 }: DirectionMountainRingProps) {
   const entriesByMountain = new Map<DirectionMountain, DirectionDeityEntry[]>();
   const centerEntries = entries.filter((entry) => entry.mountains.length === 0);
   const focusByMountain = new Map<DirectionMountain, DirectionMountainRingFocus[]>();
   const natalByMountain = new Map<DirectionMountain, DirectionMountainRingNatal[]>();
+  const tendoByMountain = new Map<DirectionMountain, DirectionMountainRingTendoTriangle[]>();
   const voidByMountain = new Map<DirectionMountain, DirectionMountainRingVoid[]>();
   const centerFocus = focusMountains.filter((focus) => !focus.mountain);
   const centerNatal = natalMountains.filter((natal) => !natal.mountain);
+  const uniqueEntries = Array.from(
+    new Map(entries.map((entry) => [entry.name, entry])).values(),
+  );
 
   for (const entry of entries) {
     for (const mountain of entry.mountains) {
@@ -127,6 +152,14 @@ export function DirectionMountainRing({
     natalByMountain.set(natal.mountain, next);
   }
 
+  for (const triangle of tendoTriangles) {
+    for (const mountain of triangle.mountains) {
+      const next = tendoByMountain.get(mountain) ?? [];
+      next.push(triangle);
+      tendoByMountain.set(mountain, next);
+    }
+  }
+
   for (const voidEntry of voidMountains) {
     const next = voidByMountain.get(voidEntry.mountain) ?? [];
     next.push(voidEntry);
@@ -147,6 +180,37 @@ export function DirectionMountainRing({
         <circle className="directionMountainRingOuter" cx="50" cy="50" r="45" />
         <circle className="directionMountainRingMiddle" cx="50" cy="50" r="35" />
         <circle className="directionMountainRingInner" cx="50" cy="50" r="21" />
+        {tendoTriangles.map((triangle) => {
+          const points = triangle.mountains
+            .map((mountainName) =>
+              directionMountains.find(
+                (mountain) => mountain.mountain === mountainName,
+              ),
+            )
+            .filter(
+              (
+                mountain,
+              ): mountain is (typeof directionMountains)[number] =>
+                Boolean(mountain),
+            )
+            .map((mountain) =>
+              getPoint(getVisualDegree(mountain.centerDegree, orientation), 38.8),
+            );
+
+          if (points.length < 3) {
+            return null;
+          }
+
+          return (
+            <polygon
+              className={`directionMountainRingTendoTriangle directionMountainRingTendoTriangle-${triangle.tone}`}
+              key={`${triangle.label}-${triangle.mountains.join("-")}`}
+              points={points.map((point) => `${point.x},${point.y}`).join(" ")}
+            >
+              <title>{triangle.title}</title>
+            </polygon>
+          );
+        })}
         {directionMountains.map((mountain) => {
           const visualDegree = getVisualDegree(mountain.centerDegree, orientation);
           const tickOuter = getPoint(visualDegree, 45);
@@ -158,12 +222,12 @@ export function DirectionMountainRing({
           const mountainEntries = entriesByMountain.get(mountain.mountain) ?? [];
           const focusEntries = focusByMountain.get(mountain.mountain) ?? [];
           const natalEntries = natalByMountain.get(mountain.mountain) ?? [];
+          const tendoEntries = tendoByMountain.get(mountain.mountain) ?? [];
           const voidEntries = voidByMountain.get(mountain.mountain) ?? [];
           const tone = getEntryTone(mountainEntries);
-          const deityLabels = mountainEntries
-            .map(getDirectionDeityShortLabel)
-            .slice(0, 2);
-          const hasMoreDeities = mountainEntries.length > deityLabels.length;
+          const visibleDeityEntries = mountainEntries.slice(0, 2);
+          const hasMoreDeities =
+            mountainEntries.length > visibleDeityEntries.length;
 
           return (
             <g
@@ -178,6 +242,22 @@ export function DirectionMountainRing({
                 y1={tickInner.y}
                 y2={tickOuter.y}
               />
+              {tendoEntries.length > 0 ? (
+                <g
+                  className={`directionMountainRingTendo ${
+                    tendoEntries.some(
+                      (triangle) => triangle.activeMountain === mountain.mountain,
+                    )
+                      ? "directionMountainRingTendo-active"
+                      : ""
+                  } directionMountainRingTendo-${tendoEntries[0]?.tone ?? "wood"}`}
+                >
+                  <title>
+                    {tendoEntries.map((entry) => entry.title).join(" / ")}
+                  </title>
+                  <circle cx={labelPoint.x} cy={labelPoint.y} r="5.15" />
+                </g>
+              ) : null}
               <text
                 className={`directionMountainRingMountainText directionMountainRingMountainText-${mountain.kind}`}
                 x={labelPoint.x}
@@ -193,21 +273,31 @@ export function DirectionMountainRing({
                   <circle cx={labelPoint.x} cy={labelPoint.y} r="4.4" />
                 </g>
               ) : null}
-              {deityLabels.map((deityLabel, index) => (
-                <text
-                  className="directionMountainRingDeityText"
-                  key={`${mountain.mountain}-${deityLabel}`}
-                  x={deityPoint.x}
-                  y={deityPoint.y + (index - (deityLabels.length - 1) / 2) * 4.25}
+              {visibleDeityEntries.map((deityEntry, index) => (
+                <a
+                  href={getDirectionDeityDictionaryHref(deityEntry.name)}
+                  key={`${mountain.mountain}-${deityEntry.code}`}
+                  rel="noreferrer"
+                  target="_blank"
                 >
-                  {deityLabel}
-                </text>
+                  <title>{`${deityEntry.name}の説明を開く`}</title>
+                  <text
+                    className="directionMountainRingDeityText directionMountainRingDeityText-link"
+                    x={deityPoint.x}
+                    y={
+                      deityPoint.y +
+                      (index - (visibleDeityEntries.length - 1) / 2) * 4.25
+                    }
+                  >
+                    {getDirectionDeityShortLabel(deityEntry)}
+                  </text>
+                </a>
               ))}
               {hasMoreDeities ? (
                 <text
                   className="directionMountainRingDeityText directionMountainRingDeityText-more"
                   x={deityPoint.x}
-                  y={deityPoint.y + (deityLabels.length + 0.25) * 3.4}
+                  y={deityPoint.y + (visibleDeityEntries.length + 0.25) * 3.4}
                 >
                   …
                 </text>
@@ -258,7 +348,7 @@ export function DirectionMountainRing({
         <text className="directionMountainRingCenterValue" x="50" y="57">
           {centerEntries.length > 0
             ? centerEntries.map(getDirectionDeityShortLabel).join("")
-            : "24山"}
+            : "神盤"}
         </text>
         {centerFocus.length > 0 ? (
           <text className="directionMountainRingCenterFocus" x="50" y="66">
@@ -271,6 +361,34 @@ export function DirectionMountainRing({
           </text>
         ) : null}
       </svg>
+      {uniqueEntries.length > 0 ? (
+        <div className="directionMountainRingEvidence" aria-label={`${title}の根拠確認`}>
+          <span>根拠確認</span>
+          {uniqueEntries.map((entry) => (
+            <a
+              href={getDirectionDeityDictionaryHref(entry.name)}
+              key={entry.name}
+              rel="noreferrer"
+              target="_blank"
+              title={`${entry.name} / ${entry.category} / ${entry.basis}`}
+            >
+              {entry.name}
+            </a>
+          ))}
+          <a
+            className="directionMountainRingStatusLink"
+            href={getDirectionDeityStatusHref(
+              uniqueEntries.some((entry) => entry.name === "天道")
+                ? "天道"
+                : uniqueEntries[0]?.name ?? "",
+            )}
+            rel="noreferrer"
+            target="_blank"
+          >
+            採用状態
+          </a>
+        </div>
+      ) : null}
     </div>
   );
 }

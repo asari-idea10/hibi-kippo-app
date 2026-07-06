@@ -15,6 +15,23 @@ export type DirectionDeityRuleStatus =
   | "partial_rule_v0"
   | "planned";
 
+export type DirectionDeityAdoptionStatus =
+  | "正式採用"
+  | "検証中"
+  | "将来対応";
+
+export type DirectionDeityAdoptionEntry = {
+  name: string;
+  cycle: DirectionDeityCycle | "multi";
+  category: DirectionDeityCategory;
+  adoptionStatus: DirectionDeityAdoptionStatus;
+  displayLayer: "通常表示" | "説明内表示" | "未表示";
+  implementationStatus: DirectionDeityRuleStatus;
+  currentScope: string;
+  nextCheck: string;
+  note: string;
+};
+
 export type DirectionDeityEntry = {
   code: string;
   name: string;
@@ -29,6 +46,229 @@ export type DirectionDeityEntry = {
   ruleStatus: DirectionDeityRuleStatus;
   verificationStatus: "needs_manual_almanac_check";
 };
+
+export const directionDeityAdoptionMaster = [
+  {
+    name: "歳徳神",
+    cycle: "year",
+    category: "吉神",
+    adoptionStatus: "正式採用",
+    displayLayer: "通常表示",
+    implementationStatus: "rule_v0",
+    currentScope: "年干から恵方を24山で算出",
+    nextCheck: "手元万年暦と年干ごとの恵方表を照合する",
+    note: "年の福徳を司る吉神。九星の吉方と重なる場合の後押しとして扱う。",
+  },
+  {
+    name: "太歳神",
+    cycle: "year",
+    category: "吉凶",
+    adoptionStatus: "正式採用",
+    displayLayer: "通常表示",
+    implementationStatus: "rule_v0",
+    currentScope: "年支と同じ24山に配置",
+    nextCheck: "動土・伐採など行動別の注意表現を調整する",
+    note: "万事に吉の側面と、破壊的行為への注意を併せ持つため吉凶扱い。",
+  },
+  {
+    name: "歳破神",
+    cycle: "year",
+    category: "凶神",
+    adoptionStatus: "正式採用",
+    displayLayer: "通常表示",
+    implementationStatus: "rule_v0",
+    currentScope: "年支の冲を24山で算出",
+    nextCheck: "九星の年破との表示重複を整理する",
+    note: "大きな予定では強い注意。日常利用では確認・見直しへ翻訳する。",
+  },
+  {
+    name: "大将軍",
+    cycle: "year",
+    category: "凶神",
+    adoptionStatus: "正式採用",
+    displayLayer: "通常表示",
+    implementationStatus: "rule_v0",
+    currentScope: "年支の三年塞がりを24山で算出",
+    nextCheck: "遊行期間の例外表を追加する",
+    note: "建築・移転・動土のような大きく動かす行為で重視する。",
+  },
+  {
+    name: "太陰神",
+    cycle: "year",
+    category: "吉神",
+    adoptionStatus: "正式採用",
+    displayLayer: "通常表示",
+    implementationStatus: "rule_v0",
+    currentScope: "太歳から三支戻りで算出",
+    nextCheck: "手元資料で年支別配置を照合する",
+    note: "学問・芸術・女性や出産に関わる吉神として採用。",
+  },
+  {
+    name: "歳刑神",
+    cycle: "year",
+    category: "凶神",
+    adoptionStatus: "正式採用",
+    displayLayer: "通常表示",
+    implementationStatus: "partial_rule_v0",
+    currentScope: "十二支の刑表から算出",
+    nextCheck: "刑の採用表に流派差がないか確認する",
+    note: "契約・種まきなどに慎重さを求める年の注意神。",
+  },
+  {
+    name: "歳殺神",
+    cycle: "year",
+    category: "凶神",
+    adoptionStatus: "正式採用",
+    displayLayer: "通常表示",
+    implementationStatus: "partial_rule_v0",
+    currentScope: "三合局から見た殺方を複数24山で算出",
+    nextCheck: "方位帯の幅と対象山を万年暦で照合する",
+    note: "単一山ではなく方位帯として扱うため、表示密度に注意する。",
+  },
+  {
+    name: "黄幡神",
+    cycle: "year",
+    category: "凶神",
+    adoptionStatus: "正式採用",
+    displayLayer: "通常表示",
+    implementationStatus: "partial_rule_v0",
+    currentScope: "三合局の墓から算出",
+    nextCheck: "三合墓の採用表を手元資料で確認する",
+    note: "土動かし・武事に注意とされる方位神。",
+  },
+  {
+    name: "豹尾神",
+    cycle: "year",
+    category: "凶神",
+    adoptionStatus: "正式採用",
+    displayLayer: "通常表示",
+    implementationStatus: "partial_rule_v0",
+    currentScope: "黄幡神の反対方位で算出",
+    nextCheck: "黄幡神との対応表を手元資料で確認する",
+    note: "不浄を嫌うとされるため、清掃・浄化の行動翻訳に寄せる。",
+  },
+  {
+    name: "金神",
+    cycle: "year",
+    category: "凶神",
+    adoptionStatus: "正式採用",
+    displayLayer: "通常表示",
+    implementationStatus: "partial_rule_v0",
+    currentScope: "年干から一部の複数24山を算出",
+    nextCheck: "丁壬・戊癸、巡金神、遊行例外を整理する",
+    note: "現状は年金神の一部採用。月・日金神とは分けて扱う。",
+  },
+  {
+    name: "天道",
+    cycle: "month",
+    category: "吉神",
+    adoptionStatus: "正式採用",
+    displayLayer: "通常表示",
+    implementationStatus: "rule_v0",
+    currentScope: "月支から三合局を算出し、日支一致時のみ日盤に表示",
+    nextCheck: "日運シートCX:DMと継続照合する",
+    note: "月盤は月の天道候補、日盤は該当日だけ三角ラインを表示する。",
+  },
+  {
+    name: "天一神",
+    cycle: "day",
+    category: "注意",
+    adoptionStatus: "正式採用",
+    displayLayer: "説明内表示",
+    implementationStatus: "partial_rule_v0",
+    currentScope: "日干支番号の一部範囲のみ実装",
+    nextCheck: "60日周期の完全巡行表を高島易断・万年暦で確認する",
+    note: "天一天上を含め、候補除外ではなく検証用の注意情報として扱う。",
+  },
+  {
+    name: "天一天上",
+    cycle: "day",
+    category: "吉神",
+    adoptionStatus: "正式採用",
+    displayLayer: "説明内表示",
+    implementationStatus: "partial_rule_v0",
+    currentScope: "日干支30〜45を天上期間として扱う",
+    nextCheck: "始点・終点の表記と日付照合を確認する",
+    note: "天一神が天上へ帰る期間。方位の障りが弱まりやすい期間として表示。",
+  },
+  {
+    name: "月金神",
+    cycle: "month",
+    category: "凶神",
+    adoptionStatus: "検証中",
+    displayLayer: "未表示",
+    implementationStatus: "planned",
+    currentScope: "未実装",
+    nextCheck: "月干支ごとの巡金神表を確定する",
+    note: "年金神と混ざると画面が重くなるため、検証後に説明内表示から始める。",
+  },
+  {
+    name: "日金神",
+    cycle: "day",
+    category: "凶神",
+    adoptionStatus: "検証中",
+    displayLayer: "未表示",
+    implementationStatus: "planned",
+    currentScope: "未実装",
+    nextCheck: "日干支ごとの巡金神表を確定する",
+    note: "日盤に入れるとノイズが強いため、行動別の影響度設計が必要。",
+  },
+  {
+    name: "日遊神",
+    cycle: "day",
+    category: "注意",
+    adoptionStatus: "検証中",
+    displayLayer: "未表示",
+    implementationStatus: "planned",
+    currentScope: "未実装",
+    nextCheck: "日の十干別配置を資料で照合する",
+    note: "動土・伐採を嫌う日神として、通常移動とは別扱いにする。",
+  },
+  {
+    name: "大将軍遊行",
+    cycle: "day",
+    category: "吉凶",
+    adoptionStatus: "検証中",
+    displayLayer: "未表示",
+    implementationStatus: "planned",
+    currentScope: "未実装",
+    nextCheck: "遊行期間の年別・日別表を追加する",
+    note: "大将軍の凶作用例外。導入すると精度が上がるが表の確認が必要。",
+  },
+  {
+    name: "天徳・月徳",
+    cycle: "month",
+    category: "吉神",
+    adoptionStatus: "検証中",
+    displayLayer: "未表示",
+    implementationStatus: "planned",
+    currentScope: "未実装",
+    nextCheck: "採用流派と月支/月干の算出方式を決める",
+    note: "吉神追加候補。天道と役割が近いため、表示名と作用の差を整理する。",
+  },
+  {
+    name: "目的地24山判定",
+    cycle: "multi",
+    category: "注意",
+    adoptionStatus: "将来対応",
+    displayLayer: "未表示",
+    implementationStatus: "planned",
+    currentScope: "未実装",
+    nextCheck: "現在地から目的地の方位角を算出し24山へ落とす",
+    note: "8方位判定では拾えない方位神の本命機能。地図連携後に実装する。",
+  },
+  {
+    name: "行動別影響度",
+    cycle: "multi",
+    category: "注意",
+    adoptionStatus: "将来対応",
+    displayLayer: "未表示",
+    implementationStatus: "planned",
+    currentScope: "未実装",
+    nextCheck: "移動・引越し・土動かし・参拝で方位神の重みを分ける",
+    note: "方位神を不安表示にせず、行動の選び方へ翻訳するための中核設計。",
+  },
+] satisfies DirectionDeityAdoptionEntry[];
 
 const saitokuByYearStem: Record<string, DirectionMountain> = {
   甲: "甲",

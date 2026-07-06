@@ -13,6 +13,8 @@ export type SelectedDayAdoptionCategory =
   | "period_caution"
   | "folk_custom";
 
+export type SeoArticleStatus = "未着手" | "下書き" | "公開候補" | "公開済み";
+
 export type SelectedDayAdoptionRow = {
   code: string;
   name: string;
@@ -20,6 +22,7 @@ export type SelectedDayAdoptionRow = {
   categoryLabel: string;
   status: "implemented" | "candidate";
   statusLabel: string;
+  seoArticleStatus: SeoArticleStatus;
   fortune: CalendarNoteDefinition["fortune"] | "unknown";
   weight: number | null;
   source: string;
@@ -250,6 +253,7 @@ function toImplementedRow(
     categoryLabel: categoryLabels[category],
     status: "implemented",
     statusLabel: "正式リスト",
+    seoArticleStatus: "未着手",
     fortune: definition.fortune,
     weight: definition.weight,
     source: "calendar-note-definitions",
@@ -266,6 +270,7 @@ function toCandidateRow(
     categoryLabel: categoryLabels[candidate.category],
     status: "candidate",
     statusLabel: "未実装候補",
+    seoArticleStatus: "未着手",
     fortune: "unknown",
     weight: null,
   };
@@ -295,5 +300,6 @@ export function getSelectedDayAdoptionSummary() {
     implemented: implementedRows.length,
     candidates: candidateRows.length,
     categories: Object.values(categoryLabels).length,
+    seoNotStarted: implementedRows.length + candidateRows.length,
   };
 }

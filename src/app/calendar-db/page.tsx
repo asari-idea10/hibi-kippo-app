@@ -1,6 +1,5 @@
-import Link from "next/link";
-
 import { CalendarDbSearchForm } from "@/app/calendar-db/calendar-db-search-form";
+import { SiteSectionNav } from "@/components/site-section-nav";
 import { actionPurposeOptions } from "@/lib/action-purpose-master";
 import {
   calendarDbCandidateOptions,
@@ -12,6 +11,10 @@ import {
   searchCalendarDb,
 } from "@/lib/calendar-db-view";
 import { getDirectionHeaderMeaning } from "@/lib/direction-meaning-master";
+import {
+  directionDeityAdoptionMaster,
+  type DirectionDeityAdoptionStatus,
+} from "@/lib/direction-deities";
 
 type CalendarDbPageProps = {
   searchParams?: Promise<{
@@ -113,6 +116,18 @@ function getDirectionDeityTone(category: string) {
   return "";
 }
 
+function getDirectionDeityAdoptionTone(status: DirectionDeityAdoptionStatus) {
+  if (status === "正式採用") {
+    return "directionToneGood";
+  }
+
+  if (status === "検証中") {
+    return "directionToneCaution";
+  }
+
+  return "";
+}
+
 export default async function CalendarDbPage({
   searchParams,
 }: CalendarDbPageProps) {
@@ -127,14 +142,7 @@ export default async function CalendarDbPage({
           1900〜2050年の共通暦から、万年暦照合サマリーの列を横断して確認します。
           年・日付範囲・キーワードで絞り、目視検証に使うための開発者向けページです。
         </p>
-        <div className="viewSwitch" aria-label="ページ移動">
-          <Link href="/">ユーザー向け</Link>
-          <Link href="/?view=dev">開発者向け</Link>
-          <Link className="active" href="/calendar-db">
-            暦DB参照
-          </Link>
-          <Link href="/purpose-calendar">九星方位カレンダー</Link>
-        </div>
+        <SiteSectionNav active="calendar-db" />
       </section>
 
       <section className="panel">
@@ -224,6 +232,67 @@ export default async function CalendarDbPage({
           </div>
         </div>
       </section>
+
+      {result.query.view === "direction_deities" ? (
+        <section className="panel">
+          <div className="calendarDbTableHeader">
+            <div>
+              <p className="eyebrow">Direction Deity Master</p>
+              <h2>方位神マスター採用ステータス</h2>
+            </div>
+            <p>
+              方位神は年を主軸に、月・日は検証済みのものだけ補助表示します。
+              正式採用・検証中・将来対応を分け、通常画面に出す範囲を管理します。
+            </p>
+          </div>
+          <div className="calendarDbTableWrap">
+            <table className="referenceCompareTable calendarDbTable calendarDbTableCompact">
+              <thead>
+                <tr>
+                  <th>採用</th>
+                  <th>方位神/機能</th>
+                  <th>周期</th>
+                  <th>分類</th>
+                  <th>表示層</th>
+                  <th>実装</th>
+                  <th>現在の範囲</th>
+                  <th>次に確認すること</th>
+                  <th>メモ</th>
+                </tr>
+              </thead>
+              <tbody>
+                {directionDeityAdoptionMaster.map((entry) => (
+                  <tr key={`${entry.name}-${entry.cycle}`}>
+                    <td
+                      className={getDirectionDeityAdoptionTone(
+                        entry.adoptionStatus,
+                      )}
+                    >
+                      <strong>{entry.adoptionStatus}</strong>
+                    </td>
+                    <td>
+                      <strong>{entry.name}</strong>
+                    </td>
+                    <td>
+                      {entry.cycle === "multi"
+                        ? "複合"
+                        : getDirectionDeityCycleLabel(entry.cycle)}
+                    </td>
+                    <td className={getDirectionDeityTone(entry.category)}>
+                      {entry.category}
+                    </td>
+                    <td>{entry.displayLayer}</td>
+                    <td>{entry.implementationStatus}</td>
+                    <td>{entry.currentScope}</td>
+                    <td>{entry.nextCheck}</td>
+                    <td>{entry.note}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      ) : null}
 
       <section className="panel">
         <div className="calendarDbTableHeader">

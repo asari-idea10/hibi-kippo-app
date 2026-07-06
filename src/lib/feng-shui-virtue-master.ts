@@ -179,6 +179,78 @@ export const tendoTrineVirtueMaster = [
     virtue: "才能・発展",
     virtueTags: ["才能", "発展", "成長"],
   },
+  {
+    branch: "辰",
+    monthDirection: "南東",
+    dayBranches: ["申", "子", "辰"],
+    dayDirections: ["南西", "北", "南東"],
+    name: "三合水局",
+    virtue: "人脈",
+    virtueTags: ["人脈", "相談", "交流"],
+  },
+  {
+    branch: "巳",
+    monthDirection: "南東",
+    dayBranches: ["巳", "酉", "丑"],
+    dayDirections: ["南東", "西", "北東"],
+    name: "三合金局",
+    virtue: "金運",
+    virtueTags: ["金運", "収穫", "資金"],
+  },
+  {
+    branch: "午",
+    monthDirection: "南",
+    dayBranches: ["寅", "午", "戌"],
+    dayDirections: ["北東", "南", "北西"],
+    name: "三合火局",
+    virtue: "名誉・名声",
+    virtueTags: ["名誉", "発表", "評価"],
+  },
+  {
+    branch: "未",
+    monthDirection: "南西",
+    dayBranches: ["亥", "卯", "未"],
+    dayDirections: ["北西", "東", "南西"],
+    name: "三合木局",
+    virtue: "才能・発展",
+    virtueTags: ["才能", "発展", "成長"],
+  },
+  {
+    branch: "申",
+    monthDirection: "南西",
+    dayBranches: ["申", "子", "辰"],
+    dayDirections: ["南西", "北", "南東"],
+    name: "三合水局",
+    virtue: "人脈",
+    virtueTags: ["人脈", "相談", "交流"],
+  },
+  {
+    branch: "酉",
+    monthDirection: "西",
+    dayBranches: ["巳", "酉", "丑"],
+    dayDirections: ["南東", "西", "北東"],
+    name: "三合金局",
+    virtue: "金運",
+    virtueTags: ["金運", "収穫", "資金"],
+  },
+  {
+    branch: "戌",
+    monthDirection: "北西",
+    dayBranches: ["寅", "午", "戌"],
+    dayDirections: ["北東", "南", "北西"],
+    name: "三合火局",
+    virtue: "名誉・名声",
+    virtueTags: ["名誉", "発表", "評価"],
+  },
+  {
+    branch: "亥",
+    monthDirection: "北西",
+    dayBranches: ["亥", "卯", "未"],
+    dayDirections: ["北西", "東", "南西"],
+    name: "三合木局",
+    virtue: "才能・発展",
+    virtueTags: ["才能", "発展", "成長"],
+  },
 ] satisfies TendoTrineVirtueEntry[];
 
 export const actionScaleVirtueMaster = [
@@ -239,4 +311,10 @@ export function getTendoTrineByBranch(branch: string) {
       entry.dayBranches.includes(baseBranch),
     ) ?? null
   );
+}
+
+export function getTendoTrineByMonthBranch(branch: string) {
+  const baseBranch = branch.trim();
+
+  return tendoTrineVirtueMaster.find((entry) => entry.branch === baseBranch) ?? null;
 }

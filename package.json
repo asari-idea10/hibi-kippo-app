@@ -44,7 +44,8 @@
     "data:koyomi:sync-range": "node scripts/sync-koyomi-reference-range.mjs",
     "data:selected-days:compare": "node scripts/compare-selected-day-candidates.mjs",
     "data:selected-days:report": "node scripts/generate-selected-day-candidate-report.mjs",
-    "data:calendar-notes:fill-verification-csv": "node scripts/fill-calendar-verification-csv.mjs"
+    "data:calendar-notes:fill-verification-csv": "node scripts/fill-calendar-verification-csv.mjs",
+    "verify:calendar-regression": "node scripts/verify-calendar-regression-samples.mjs"
   },
   "dependencies": {
     "next": "16.2.6",

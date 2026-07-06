@@ -20,6 +20,7 @@ export type DirectionCompassState = {
   strong?: boolean;
   overlapLevel?: 0 | 1 | 2 | 3;
   tendo?: boolean;
+  childSatsu?: boolean;
 };
 
 type DirectionCompassProps = {
@@ -71,13 +72,16 @@ function getPosition(
   return position;
 }
 
+function getOuterLabelPosition(position: { x: number; y: number }) {
+  return {
+    x: 50 + (position.x - 50) * 1.18,
+    y: 50 + (position.y - 50) * 1.18,
+  };
+}
+
 function getStateTone(state: DirectionCompassState | undefined) {
   if (!state) {
     return "neutral";
-  }
-
-  if (state.warning) {
-    return "warning";
   }
 
   if (state.strong) {
@@ -86,6 +90,10 @@ function getStateTone(state: DirectionCompassState | undefined) {
 
   if (state.candidate) {
     return "candidate";
+  }
+
+  if (state.warning) {
+    return "warning";
   }
 
   if (state.tendo) {
@@ -113,6 +121,7 @@ function getDirectionTitle(state: DirectionCompassState | undefined) {
           : null,
     state.candidate ? "吉方候補" : null,
     state.tendo ? "天道" : null,
+    state.childSatsu ? "小児殺" : null,
   ].filter(Boolean);
 
   return details.join(" / ");
@@ -223,6 +232,30 @@ export function DirectionCompass({
                   y={position.y + 11.4}
                 >
                   {state.warningCodes.join("")}
+                </text>
+              ) : null}
+              {state?.tendo ? (
+                <text
+                  className="directionCompassTendoText"
+                  x={getOuterLabelPosition(position).x}
+                  y={
+                    getOuterLabelPosition(position).y -
+                    (state.childSatsu ? 2.8 : 0)
+                  }
+                >
+                  天道
+                </text>
+              ) : null}
+              {state?.childSatsu ? (
+                <text
+                  className="directionCompassChildSatsuText"
+                  x={getOuterLabelPosition(position).x}
+                  y={
+                    getOuterLabelPosition(position).y +
+                    (state.tendo ? 3.2 : 0)
+                  }
+                >
+                  小児
                 </text>
               ) : null}
             </g>

@@ -1,5 +1,4 @@
-import Link from "next/link";
-
+import { SiteSectionNav } from "@/components/site-section-nav";
 import {
   directionPalaceMaster,
   getPalaceStarBlend,
@@ -78,15 +77,7 @@ export default async function DirectionPalaceBlendsPage({
           行動に翻訳するためのマスターです。方位の気質を読みながら、
           方位の気質を読み、今その方位で何を整えるかを見ます。
         </p>
-        <div className="viewSwitch" aria-label="ページ移動">
-          <Link href="/">ユーザー向け</Link>
-          <Link href="/?view=dev">開発者向け</Link>
-          <Link href="/calendar-db">暦DB参照</Link>
-          <Link href="/purpose-calendar">九星方位カレンダー</Link>
-          <Link className="active" href="/direction-palace-blends">
-            方位ブレンド
-          </Link>
-        </div>
+        <SiteSectionNav active="direction-palace-blends" />
       </section>
 
       {selectedBlend ? (
