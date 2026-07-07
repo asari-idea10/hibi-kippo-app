@@ -2829,18 +2829,19 @@ export default async function PurposeCalendarPage({
   const selectedDayRowInDisplayedMonth = rowByDate.get(selectedDate) ?? null;
   const datePremiseRow =
     selectedDayRowInDisplayedMonth ?? rowByDate.get(range.start) ?? monthAnchorRow;
+  const yearPremiseRow = datePremiseRow;
   const monthPremiseRow = datePremiseRow;
-  const yearBoard = monthAnchorRow?.kyuseiBoardRows.find(
+  const yearBoard = yearPremiseRow?.kyuseiBoardRows.find(
     (board) => board.board === "year",
   );
   const monthBoard = monthPremiseRow?.kyuseiBoardRows.find(
     (board) => board.board === "month",
   );
   const yearMovementWarningChips = getMovementWarningChips(
-    monthAnchorRow?.values["方位殺"],
+    yearPremiseRow?.values["方位殺"],
     ["年"],
     undefined,
-    monthAnchorRow?.directionBoardValues,
+    yearPremiseRow?.directionBoardValues,
   );
   const monthMovementWarningChips = getMovementWarningChips(
     monthPremiseRow?.values["方位殺"],
@@ -2848,7 +2849,7 @@ export default async function PurposeCalendarPage({
     undefined,
     monthPremiseRow?.directionBoardValues,
   );
-  const yearDirectionDeityEntries = getDirectionDeityEntries(monthAnchorRow, [
+  const yearDirectionDeityEntries = getDirectionDeityEntries(yearPremiseRow, [
     "year",
   ]);
   const monthDirectionDeityEntries = getDirectionDeityEntries(monthPremiseRow, [
@@ -2885,8 +2886,8 @@ export default async function PurposeCalendarPage({
       ? getChildSatsuWarningChip(premiseDayRow.values["小児殺"])
       : null;
   const yearCompassStates = getDirectionCompassStates(
-    monthAnchorRow,
-    [...premiseDayTags, ...getBoardCandidateTags(monthAnchorRow, "year")],
+    yearPremiseRow,
+    [...premiseDayTags, ...getBoardCandidateTags(yearPremiseRow, "year")],
     yearMovementWarningChips,
     null,
     null,
@@ -2926,7 +2927,7 @@ export default async function PurposeCalendarPage({
   const premiseDayHeaderLabel = premiseDayDisplayParts
     ? `${premiseDayDisplayParts.day}日`
     : "-";
-  const anchorKanshi = getKanshiParts(monthAnchorRow);
+  const anchorKanshi = getKanshiParts(yearPremiseRow);
   const monthPremiseKanshiParts = getKanshiParts(monthPremiseRow);
   const premiseDayKanshiParts = getKanshiParts(premiseDayRow);
   const yearKanshi = formatKanshiWithNacchin(anchorKanshi.year);
