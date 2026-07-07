@@ -1098,6 +1098,32 @@ function renderKyuseiTermLink(
   );
 }
 
+function renderKyuseiShortTermLink(
+  value: string | null | undefined,
+  className?: string,
+) {
+  const href = getKyuseiTermHref(value);
+  const label = value ?? "-";
+  const starNumber = getKyuseiDisplayNumber(value);
+  const shortLabel = starNumber ? (kyuseiShortNames[starNumber] ?? label) : label;
+
+  if (!href || label === "-") {
+    return className ? <span className={className}>{shortLabel}</span> : shortLabel;
+  }
+
+  return (
+    <a
+      className={className}
+      href={href}
+      rel="noreferrer"
+      target="_blank"
+      title={`${label}の説明を開く`}
+    >
+      {shortLabel}
+    </a>
+  );
+}
+
 function hasAuspiciousSelectedDay(value: string | undefined) {
   return getSelectedDayChips(value ?? "-").some((chip) =>
     auspiciousSelectedDayNames.has(normalizeSelectedDayName(chip.label)),
@@ -4019,6 +4045,12 @@ export default async function PurposeCalendarPage({
                 )
               : [];
             const tags = commonTagsByDate.get(date) ?? [];
+            const yearCellBoard = row?.kyuseiBoardRows.find(
+              (board) => board.board === "year",
+            );
+            const monthCellBoard = row?.kyuseiBoardRows.find(
+              (board) => board.board === "month",
+            );
             const dayBoard = row?.kyuseiBoardRows.find(
               (board) => board.board === "day",
             );
@@ -4192,9 +4224,20 @@ export default async function PurposeCalendarPage({
                     ) : null}
                   </div>
                   <div className="purposeCalendarCellBoard">
-                    {dayBoard ? (
+                    {yearCellBoard || monthCellBoard || dayBoard ? (
                       <p className="purposeCalendarDayBoard">
-                        {renderKyuseiTermLink(dayBoard.kyusei)}
+                        <span>
+                          <small>年</small>
+                          {renderKyuseiShortTermLink(yearCellBoard?.kyusei)}
+                        </span>
+                        <span>
+                          <small>月</small>
+                          {renderKyuseiShortTermLink(monthCellBoard?.kyusei)}
+                        </span>
+                        <span>
+                          <small>日</small>
+                          {renderKyuseiShortTermLink(dayBoard?.kyusei)}
+                        </span>
                       </p>
                     ) : null}
                     {boardOverlapStatus ? (
