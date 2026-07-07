@@ -10,6 +10,9 @@ if (!inputPath || !outputPath) {
 }
 
 const rows = JSON.parse(fs.readFileSync(inputPath, "utf8"));
+const doyoPeriods = JSON.parse(
+  fs.readFileSync("src/data/doyo-periods-1900-2050.koyomi-v0.json", "utf8"),
+);
 
 const selectedDayFlags = [
   ["legacyTenshaBi", "tensha_bi"],
@@ -92,6 +95,19 @@ function dateToUtcIndex(date) {
   return Math.floor(Date.UTC(year, month - 1, day) / 86_400_000);
 }
 
+function getDoyoPeriodByDate(date) {
+  const dateIndex = dateToUtcIndex(date);
+
+  return (
+    doyoPeriods.find((period) => {
+      const startIndex = dateToUtcIndex(period.startDate);
+      const endIndex = dateToUtcIndex(period.endDate);
+
+      return dateIndex >= startIndex && dateIndex <= endIndex;
+    }) ?? null
+  );
+}
+
 function calculateJunichoku(monthBranch, dayBranch) {
   const monthIndex = branches.indexOf(monthBranch);
   const dayIndex = branches.indexOf(dayBranch);
@@ -133,6 +149,10 @@ const days = rows.map((row) => {
   const junichoku = row.legacyJunichoku || calculatedJunichoku;
   const nijuhachishuku = legacyNijuhachishuku || calculatedNijuhachishuku;
   const usedCalculated = !row.legacyJunichoku || !legacyNijuhachishuku;
+  const doyoPeriod = row.doyoFlag !== "" ? getDoyoPeriodByDate(row.date) : null;
+  const isDoyoManichi = Boolean(
+    doyoPeriod?.manichiBranches?.includes(row.duplicateDay),
+  );
 
   return {
     date: row.date,
@@ -151,8 +171,8 @@ const days = rows.map((row) => {
       doyo: {
         isDoyo: row.doyoFlag !== "",
         label: row.doyoLabel || null,
-        isManichi: false,
-        doyoSatsuDirection: null,
+        isManichi: isDoyoManichi,
+        doyoSatsuDirection: doyoPeriod?.doyoSatsuDirection ?? null,
       },
       legacySummary: row.legacySummary || null,
     },

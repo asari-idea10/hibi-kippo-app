@@ -63,6 +63,7 @@ type PurposeCalendarPageProps = {
     candidate?: string;
     goodDirectionMatch?: string;
     kyuseiMatch?: string;
+    selectedDate?: string;
   }>;
 };
 
@@ -443,6 +444,29 @@ function getMonthRange(year: number, month: number) {
     end: formatDate(year, month, lastDay),
     lastDay,
   };
+}
+
+function isDateInRange(date: string, range: { start: string; end: string }) {
+  return date >= range.start && date <= range.end;
+}
+
+function normalizeSelectedDate(
+  value: string | undefined,
+  range: { start: string; end: string },
+  currentDate: string,
+) {
+  if (value && isDateInRange(value, range)) {
+    return value;
+  }
+
+  return isDateInRange(currentDate, range) ? currentDate : range.start;
+}
+
+function addDays(date: string, days: number) {
+  const [year, month, day] = date.split("-").map((value) => Number(value));
+  const next = new Date(Date.UTC(year, month - 1, day + days));
+
+  return next.toISOString().slice(0, 10);
 }
 
 const calendarComputationPurpose = "yuki_tori";
@@ -2622,6 +2646,11 @@ export default async function PurposeCalendarPage({
   const goodDirectionMatch = candidateCondition.goodDirectionMatch;
   const kyuseiMatch = "all";
   const range = getMonthRange(year, month);
+  const selectedDate = normalizeSelectedDate(
+    params.selectedDate,
+    range,
+    current.date,
+  );
   const selfBirthResult = birthDate
     ? searchCalendarDb({
         year: birthDate.slice(0, 4),
@@ -2797,9 +2826,10 @@ export default async function PurposeCalendarPage({
   const monthlyTonLabel = getMonthlyTonLabel(fullMonthResult.rows, range.start);
   const monthAnchorRow =
     solarTermEntryRow ?? rowByDate.get(range.start) ?? fullMonthResult.rows[0] ?? null;
-  const todayRowInDisplayedMonth = rowByDate.get(current.date) ?? null;
-  const monthPremiseRow =
-    todayRowInDisplayedMonth ?? rowByDate.get(range.start) ?? monthAnchorRow;
+  const selectedDayRowInDisplayedMonth = rowByDate.get(selectedDate) ?? null;
+  const datePremiseRow =
+    selectedDayRowInDisplayedMonth ?? rowByDate.get(range.start) ?? monthAnchorRow;
+  const monthPremiseRow = datePremiseRow;
   const yearBoard = monthAnchorRow?.kyuseiBoardRows.find(
     (board) => board.board === "year",
   );
@@ -2824,8 +2854,7 @@ export default async function PurposeCalendarPage({
   const monthDirectionDeityEntries = getDirectionDeityEntries(monthPremiseRow, [
     "month",
   ]);
-  const premiseDayRow =
-    todayRowInDisplayedMonth ?? rowByDate.get(range.start) ?? monthAnchorRow;
+  const premiseDayRow = datePremiseRow;
   const premiseDayDate = premiseDayRow ? getDateFromRow(premiseDayRow) : "-";
   const premiseDayTags = commonTagsByDate.get(premiseDayDate) ?? [];
   const premiseDayBoard = premiseDayRow?.kyuseiBoardRows.find(
@@ -2885,6 +2914,11 @@ export default async function PurposeCalendarPage({
   const yearEraContext = getJapaneseEraDateContext(`${year}-01-01`);
   const yearBoardHeaderLabel = `${yearEraContext.era.display} ${year}年`;
   const monthBoardHeaderLabel = `${month}月`;
+  const monthBoardSourceDate = monthPremiseRow ? getDateFromRow(monthPremiseRow) : "-";
+  const monthBoardSourceParts = getDatePartsForDisplay(monthBoardSourceDate);
+  const monthBoardSourceLabel = monthBoardSourceParts
+    ? `表示日 ${monthBoardSourceParts.month}/${monthBoardSourceParts.day}時点`
+    : "表示日基準";
   const premiseDayRokuyo = premiseDayRow?.values["六曜"] ?? "-";
   const premiseDayDisplayParts = getDatePartsForDisplay(premiseDayDate);
   const premiseDayEraContext =
@@ -3034,6 +3068,47 @@ export default async function PurposeCalendarPage({
           branch: currentHourBoardForSummary.branch,
         }))
     : [];
+  const previousSelectedDate = addDays(selectedDate, -1);
+  const nextSelectedDate = addDays(selectedDate, 1);
+  const previousSelectedDateHref = isDateInRange(previousSelectedDate, range)
+    ? buildPurposeCalendarHref(previousSelectedDate)
+    : null;
+  const nextSelectedDateHref = isDateInRange(nextSelectedDate, range)
+    ? buildPurposeCalendarHref(nextSelectedDate)
+    : null;
+
+  function appendPurposeCalendarParams(
+    formData: URLSearchParams,
+    date: string,
+  ) {
+    formData.set("purpose", calendarComputationPurpose);
+    formData.set("candidateCondition", candidateCondition.id);
+    formData.set("birthDate", birthDate);
+    formData.set("birthGender", birthGender);
+    familyStars.forEach((star) => formData.append("familyStars", star));
+    formData.set("year", String(year));
+    formData.set("month", String(month));
+    formData.set("compassOrientation", compassOrientation);
+    formData.set("keyword", keyword);
+    formData.set("actionScale", actionScale);
+    formData.set("companionJudgementMode", companionJudgementMode);
+    formData.set("selectedDate", date);
+
+    if (auspiciousOnly) {
+      formData.set("auspiciousOnly", "on");
+    }
+
+    if (showChildSatsu) {
+      formData.set("showChildSatsu", "on");
+    }
+  }
+
+  function buildPurposeCalendarHref(date: string) {
+    const formData = new URLSearchParams();
+    appendPurposeCalendarParams(formData, date);
+
+    return `/purpose-calendar?${formData.toString()}`;
+  }
 
   return (
     <main className="shell purposeCalendarShell">
@@ -3490,6 +3565,71 @@ export default async function PurposeCalendarPage({
                   </div>
                 ) : null}
               </div>
+              <div className="purposeCalendarPremiseDateSwitch">
+                {previousSelectedDateHref ? (
+                  <Link href={previousSelectedDateHref}>前日</Link>
+                ) : (
+                  <span>前日</span>
+                )}
+                <form action="/purpose-calendar">
+                  <input
+                    type="hidden"
+                    name="purpose"
+                    value={calendarComputationPurpose}
+                  />
+                  <input
+                    type="hidden"
+                    name="candidateCondition"
+                    value={candidateCondition.id}
+                  />
+                  <input type="hidden" name="birthDate" value={birthDate} />
+                  <input type="hidden" name="birthGender" value={birthGender} />
+                  {familyStars.map((star) => (
+                    <input
+                      key={`selected-date-family-${star}`}
+                      type="hidden"
+                      name="familyStars"
+                      value={star}
+                    />
+                  ))}
+                  <input type="hidden" name="year" value={year} />
+                  <input type="hidden" name="month" value={month} />
+                  <input
+                    type="hidden"
+                    name="compassOrientation"
+                    value={compassOrientation}
+                  />
+                  <input type="hidden" name="keyword" value={keyword} />
+                  <input type="hidden" name="actionScale" value={actionScale} />
+                  <input
+                    type="hidden"
+                    name="companionJudgementMode"
+                    value={companionJudgementMode}
+                  />
+                  {auspiciousOnly ? (
+                    <input type="hidden" name="auspiciousOnly" value="on" />
+                  ) : null}
+                  {showChildSatsu ? (
+                    <input type="hidden" name="showChildSatsu" value="on" />
+                  ) : null}
+                  <label>
+                    表示日
+                    <input
+                      max={range.end}
+                      min={range.start}
+                      name="selectedDate"
+                      type="date"
+                      defaultValue={selectedDate}
+                    />
+                  </label>
+                  <button type="submit">切替</button>
+                </form>
+                {nextSelectedDateHref ? (
+                  <Link href={nextSelectedDateHref}>翌日</Link>
+                ) : (
+                  <span>翌日</span>
+                )}
+              </div>
               <input
                 className="purposeCalendarMountainGuideToggle"
                 id="purpose-calendar-mountain-guide-toggle"
@@ -3569,6 +3709,7 @@ export default async function PurposeCalendarPage({
                 <div className="purposeCalendarBoardCard">
                   <span className="purposeCalendarCompassHeader">
                     月盤 <em>{monthBoardHeaderLabel}</em>
+                    <small>{monthBoardSourceLabel}</small>
                   </span>
                   <div className="purposeCalendarBoardMeta">
                     <strong>

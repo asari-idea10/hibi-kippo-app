@@ -28,6 +28,10 @@ const referencesPath = readOption(
   "--references",
   defaultKoyomiReferenceSamplesDir,
 );
+const doyoPeriodsPath = readOption(
+  "--doyo-periods",
+  "src/data/doyo-periods-1900-2050.koyomi-v0.json",
+);
 const outputPath = readOption("--output", null);
 const outputDir = readOption("--output-dir", null);
 const startDate = readOption("--start-date", null);
@@ -45,6 +49,7 @@ if (!outputPath && !outputDir) {
 
 const rows = JSON.parse(await readFile(calendarMasterPath, "utf8"));
 const policy = JSON.parse(await readFile(policyPath, "utf8"));
+const doyoPeriods = JSON.parse(await readFile(doyoPeriodsPath, "utf8"));
 const referenceSamples = await readKoyomiReferenceSamples(referencesPath);
 
 const selectedDayFlags = [
@@ -146,6 +151,19 @@ function dateToUtcIndex(date) {
   return Math.floor(Date.UTC(year, month - 1, day) / 86_400_000);
 }
 
+function getDoyoPeriodByDate(date) {
+  const dateIndex = dateToUtcIndex(date);
+
+  return (
+    doyoPeriods.find((period) => {
+      const startIndex = dateToUtcIndex(period.startDate);
+      const endIndex = dateToUtcIndex(period.endDate);
+
+      return dateIndex >= startIndex && dateIndex <= endIndex;
+    }) ?? null
+  );
+}
+
 function calculateJunichoku(monthBranch, dayBranch) {
   const monthIndex = branches.indexOf(monthBranch);
   const dayIndex = branches.indexOf(dayBranch);
@@ -222,6 +240,10 @@ function toOccurrenceDay(row) {
     legacyNijuhachishuku ||
     calculatedNijuhachishuku;
   const nanajushichishuku = externalReference?.nanajushichishuku ?? null;
+  const doyoPeriod = row.doyoFlag !== "" ? getDoyoPeriodByDate(row.date) : null;
+  const isDoyoManichi = Boolean(
+    doyoPeriod?.manichiBranches?.includes(row.duplicateDay),
+  );
   const diffs = [
     !externalReference?.junichoku &&
     row.legacyJunichoku &&
@@ -265,8 +287,8 @@ function toOccurrenceDay(row) {
       doyo: {
         isDoyo: row.doyoFlag !== "",
         label: row.doyoLabel || null,
-        isManichi: false,
-        doyoSatsuDirection: null,
+        isManichi: isDoyoManichi,
+        doyoSatsuDirection: doyoPeriod?.doyoSatsuDirection ?? null,
       },
       legacySummary: externalReference?.summary || row.legacySummary || null,
       reference: externalReference
