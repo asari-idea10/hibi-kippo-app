@@ -103,6 +103,19 @@ type CalendarNoteTerm =
       sourceStatus: string;
       verificationStatus: string;
       note: string;
+    }
+  | {
+      kind: "sanmeigaku";
+      kindLabel: string;
+      name: string;
+      reading: string;
+      fortune: "neutral";
+      summary: string;
+      recommended: string[];
+      caution: string[];
+      sourceStatus: string;
+      verificationStatus: string;
+      note: string;
     };
 
 const calendarNoteKindLabels: Record<string, string> = {
@@ -114,6 +127,7 @@ const calendarNoteKindLabels: Record<string, string> = {
   kuubou: "空亡",
   "selected-days": "選日・暦注",
   "direction-deities": "方位神",
+  sanmeigaku: "算命学",
 };
 
 const kyuseiNameToNumber = new Map(
@@ -166,6 +180,36 @@ function getSelectedDayCandidate(name: string) {
 function getCalendarNoteTerm(kind: string, name: string): CalendarNoteTerm | null {
   const normalizedKind = decodeURIComponent(kind);
   const normalizedName = normalizeCalendarNoteTermName(name);
+
+  if (normalizedKind === "sanmeigaku") {
+    if (normalizedName !== "陽占 人体星図") {
+      return null;
+    }
+
+    return {
+      kind: normalizedKind,
+      kindLabel: calendarNoteKindLabels[normalizedKind],
+      name: "陽占 人体星図",
+      reading: "ようせん じんたいせいず",
+      fortune: "neutral",
+      summary:
+        "日干を基準に十大主星と十二大従星を人体図へ配置し、社会面・内面・人生段階を読むための陽占表示です。",
+      recommended: [
+        "陰占の年柱・月柱・日柱から、どの干や支を使って星を出したか確認する。",
+        "頭・左手・中心・右手・腹の十大主星で、対外面、家庭面、本質、社会面、目下面の読み口を分ける。",
+        "初年運・中年運・老年運の十二大従星とエネルギー値を、人生段階の補助情報として見る。",
+      ],
+      caution: [
+        "人体星図だけで断定せず、陰占、蔵干司令、十二大従星、位相法などと合わせて読む。",
+        "流派差が出るため、蔵干の採用ルールと外部照合結果を分けて検証する。",
+      ],
+      sourceStatus:
+        "参照マスタ: 算命計算 B538:V550 / 十大主星 A552:E562, A565:E615, A618:B654",
+      verificationStatus: "sanmeigaku_yosen_v0_reference",
+      note:
+        "スプレッドシートの該当範囲を参照マスタとして、/sanmeigaku の陽占 人体星図 v0 に接続しています。",
+    };
+  }
 
   if (normalizedKind === "junichoku" || normalizedKind === "nijuhachishuku") {
     const entry = getCalendarNoteEntry(normalizedKind, normalizedName);

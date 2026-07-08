@@ -28,7 +28,9 @@ type SanmeigakuPageProps = {
 };
 
 const yosenChartReferenceUrl =
-  "https://docs.google.com/spreadsheets/d/128NYUsqnlhEuzYsBPQl6zhtG8Mhl8HrWJco0O88jUbU/edit?gid=1833310362#gid=1833310362";
+  "/calendar-notes/sanmeigaku/%E9%99%BD%E5%8D%A0%20%E4%BA%BA%E4%BD%93%E6%98%9F%E5%9B%B3";
+const yosenChartReferenceRange =
+  "参照範囲 算命計算 B538:V550 / 十大主星 A552:E562, A565:E615, A618:B654";
 const pillarOrder = ["year", "month", "day", "time"] as const;
 
 export const metadata = {
@@ -226,15 +228,18 @@ export default async function SanmeigakuPage({
                   <Link
                     className="sectionHeadingLink"
                     href={yosenChartReferenceUrl}
-                    rel="noreferrer"
                     target="_blank"
-                    title="参照: 算命計算 B538:V550 / 十大主星 A552:E562, A565:E615, A618:B654"
+                    title="陽占 人体星図の説明ページを開く"
                   >
                     陽占 人体星図
                   </Link>
                 </h2>
               </div>
-              <p>{profile.yosenChart.source}</p>
+              <p>
+                {profile.yosenChart.source}
+                <br />
+                {yosenChartReferenceRange}
+              </p>
             </div>
             <p className="note">
               日干「{profile.yosenChart.dayStem}」を基準に、年干・月干・蔵干司令・地支を当てて、
