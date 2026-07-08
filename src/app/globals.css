@@ -914,6 +914,19 @@ h2 {
   font-weight: 500;
 }
 
+.sectionHeadingLink {
+  color: inherit;
+  text-decoration-color: rgba(165, 123, 59, 0.32);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.sectionHeadingLink:hover,
+.sectionHeadingLink:focus-visible {
+  color: var(--gold);
+  text-decoration-color: rgba(165, 123, 59, 0.82);
+}
+
 .sectionHeadingRow p {
   margin: 0;
   color: var(--muted);

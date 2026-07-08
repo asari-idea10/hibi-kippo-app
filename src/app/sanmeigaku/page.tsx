@@ -27,7 +27,8 @@ type SanmeigakuPageProps = {
   }>;
 };
 
-const defaultBirthDate = "1976-03-19";
+const yosenChartReferenceUrl =
+  "https://docs.google.com/spreadsheets/d/128NYUsqnlhEuzYsBPQl6zhtG8Mhl8HrWJco0O88jUbU/edit?gid=1833310362#gid=1833310362";
 const pillarOrder = ["year", "month", "day", "time"] as const;
 
 export const metadata = {
@@ -40,8 +41,8 @@ export default async function SanmeigakuPage({
   searchParams,
 }: SanmeigakuPageProps) {
   const params = await searchParams;
-  const birthDate = params?.birthDate?.trim() || defaultBirthDate;
-  const profile = getSanmeigakuProfile(birthDate);
+  const birthDate = params?.birthDate?.trim() ?? "";
+  const profile = birthDate ? getSanmeigakuProfile(birthDate) : null;
   const masterInventoryItems = getSanmeigakuMasterInventoryItems();
   const masterInventorySummary = getSanmeigakuMasterInventorySummary();
   const zokanVerificationSamples = getZokanVerificationSamples();
@@ -75,7 +76,14 @@ export default async function SanmeigakuPage({
         </p>
       </section>
 
-      {!profile ? (
+      {!birthDate ? (
+        <section className="panel">
+          <h2>生年月日を入力してください</h2>
+          <p>
+            生年月日を指定すると、年柱・月柱・日柱をもとに陰占と陽占を表示します。
+          </p>
+        </section>
+      ) : !profile ? (
         <section className="panel">
           <h2>命式を表示できません</h2>
           <p>
@@ -214,7 +222,17 @@ export default async function SanmeigakuPage({
             <div className="sectionHeadingRow">
               <div>
                 <p className="eyebrow">Yosen Chart</p>
-                <h2>陽占 人体星図</h2>
+                <h2>
+                  <Link
+                    className="sectionHeadingLink"
+                    href={yosenChartReferenceUrl}
+                    rel="noreferrer"
+                    target="_blank"
+                    title="参照: 算命計算 B538:V550 / 十大主星 A552:E562, A565:E615, A618:B654"
+                  >
+                    陽占 人体星図
+                  </Link>
+                </h2>
               </div>
               <p>{profile.yosenChart.source}</p>
             </div>
