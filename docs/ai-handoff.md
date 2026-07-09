@@ -314,3 +314,46 @@ TODO:
 - Confirm source spreadsheet sheets/ranges for 十大主星 and 十二大従星 explanation text.
 - Replace placeholder wording with source-confirmed explanation text only after the master is connected.
 - Decide whether to add a 算命学 category to `/calendar-notes` index.
+
+## Sanmeigaku Star Detail Preview Review
+
+Date: 2026-07-09
+
+Branch:
+
+- `feature/sanmeigaku-star-links`
+
+Commit:
+
+- `8513e952cb6359990c169e5c5b56322fc8e9afa6`
+
+Vercel Preview:
+
+- Base URL: `https://hibi-kippo-app-git-feature-sanmeigaku-star-links-toshi-mar19.vercel.app`
+- GitHub/Vercel status: deployment completed.
+- Vercel Authentication / SSO is enabled. AI-side direct unauthenticated checks may redirect to Vercel SSO, so final visual confirmation should be done by Toshi or through shared screenshots.
+
+Review URLs:
+
+- `https://hibi-kippo-app-git-feature-sanmeigaku-star-links-toshi-mar19.vercel.app/sanmeigaku?birthDate=1976-03-19`
+- `https://hibi-kippo-app-git-feature-sanmeigaku-star-links-toshi-mar19.vercel.app/calendar-notes/sanmeigaku/%E8%BB%8A%E9%A8%8E%E6%98%9F`
+- `https://hibi-kippo-app-git-feature-sanmeigaku-star-links-toshi-mar19.vercel.app/calendar-notes/sanmeigaku/%E5%8F%B8%E7%A6%84%E6%98%9F`
+- `https://hibi-kippo-app-git-feature-sanmeigaku-star-links-toshi-mar19.vercel.app/calendar-notes/sanmeigaku/%E5%A4%A9%E5%8D%B0%E6%98%9F`
+- `https://hibi-kippo-app-git-feature-sanmeigaku-star-links-toshi-mar19.vercel.app/calendar-notes/sanmeigaku/%E9%99%BD%E5%8D%A0%20%E4%BA%BA%E4%BD%93%E6%98%9F%E5%9B%B3`
+
+Manual review checklist:
+
+- `/sanmeigaku?birthDate=1976-03-19` renders.
+- 陽占人体星図 star names are clickable.
+- Star clicks navigate in the same tab.
+- 車騎星, 司禄星, and 天印星 detail pages do not 404.
+- Detail pages show preparation wording such as `説明文準備中`.
+- Existing `/calendar-notes/sanmeigaku/陽占 人体星図` remains available.
+- Calculation output, star names, and chart placement remain unchanged from before the link-only implementation.
+- Mobile layout has no major breakage.
+
+Status:
+
+- Manual Vercel Preview review is pending because of Vercel Authentication / SSO.
+- Do not merge to `main` until the Preview review is accepted.
+- Do not promote this branch to Production during Preview review.
