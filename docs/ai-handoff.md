@@ -33,6 +33,26 @@ When handing this project to ChatGPT or Gemini, include:
 - The specific code files being reviewed, not the whole repository by default.
 - A clear instruction to preserve the distinction between confirmed specification, current code behavior, and TODO.
 
+## NotebookLM Drive Sync
+
+Use `scripts/sync-docs-to-drive.sh` after documentation updates when NotebookLM should read the latest project docs from Google Drive.
+
+Command:
+
+```bash
+bash scripts/sync-docs-to-drive.sh
+```
+
+The script:
+
+- copies only `AGENTS.md` and top-level `docs/*.md`
+- copies into `/Users/asaritoshiyuki/Library/CloudStorage/GoogleDrive-asari.graphic@gmail.com/マイドライブ/hibi-kippo-app-notebooklm`
+- prints the copy target and file list before copying
+- requires typing `yes`
+- checks the destination for disallowed names such as `src`, `.env`, `secret`, `credential`, `token`, `node_modules`, `.next`, and `.vercel`
+
+Do not use the script to sync source code, environment files, credentials, build output, or dependencies.
+
 ## Current Baseline Handoff
 
 Date: 2026-07-09
