@@ -84,6 +84,36 @@ Last updated: 2026-07-09
 - 十大主星 and 十二大従星 star names now resolve to placeholder detail pages.
 - Star explanation text is not implemented yet; pages show preparation wording until the source master is connected.
 
+### Phase 1 URL Behavior
+
+Status: `implemented`, `production_released`
+
+- `/sanmeigaku` 陽占人体星図の星名リンクは同一タブで this route に遷移する。
+- Link format: `/calendar-notes/sanmeigaku/[星名]`.
+- Example paths:
+  - `/calendar-notes/sanmeigaku/車騎星`
+  - `/calendar-notes/sanmeigaku/司禄星`
+  - `/calendar-notes/sanmeigaku/天印星`
+- `/calendar-notes/sanmeigaku/[星名]` currently does not require query parameters.
+- Current star detail pages are placeholders and show `この星の説明文は準備中です。`.
+- Existing `/calendar-notes/sanmeigaku/陽占 人体星図` continues to resolve.
+
+Production check URLs:
+
+- `https://hibi-kippo-app.vercel.app/sanmeigaku?birthDate=1976-03-19`
+- `https://hibi-kippo-app.vercel.app/calendar-notes/sanmeigaku/%E8%BB%8A%E9%A8%8E%E6%98%9F`
+- `https://hibi-kippo-app.vercel.app/calendar-notes/sanmeigaku/%E5%8F%B8%E7%A6%84%E6%98%9F`
+- `https://hibi-kippo-app.vercel.app/calendar-notes/sanmeigaku/%E5%A4%A9%E5%8D%B0%E6%98%9F`
+- `https://hibi-kippo-app.vercel.app/calendar-notes/sanmeigaku/%E9%99%BD%E5%8D%A0%20%E4%BA%BA%E4%BD%93%E6%98%9F%E5%9B%B3`
+
+### Phase 2 URL Notes
+
+Status: `implementation_pending`, `source_review_required`
+
+- Phase 2 should connect explanation body text without changing the existing URL format if possible.
+- Do not rename `/calendar-notes/sanmeigaku/[name]` without a migration note.
+- `/calendar-notes` index exposure for sanmeigaku terms is a separate product/UI task.
+
 ### TODO
 
 - Confirm exact spreadsheet source ranges for star explanation text.

@@ -88,6 +88,32 @@ Last updated: 2026-07-09
 - 陽占 人体星図の十大主星・十二大従星の星名は、`/calendar-notes/sanmeigaku/[name]` への同一タブリンクとして表示される。
 - 星名リンク先の説明本文は未接続で、現時点では準備中文言を表示する。
 
+### Star Link Phase 1
+
+Status: `implemented`, `production_released`
+
+- 陽占人体星図内の十大主星・十二大従星の星名をリンク化した。
+- リンク先は `/calendar-notes/sanmeigaku/[星名]`。
+- Examples:
+  - `/calendar-notes/sanmeigaku/車騎星`
+  - `/calendar-notes/sanmeigaku/司禄星`
+  - `/calendar-notes/sanmeigaku/天印星`
+- 星名リンクは同一タブ遷移。
+- `/calendar-notes/sanmeigaku/[星名]` は現在 404 ではなく、準備中ページとして表示される。
+- 準備中ページには `この星の説明文は準備中です。` を表示する。
+- 既存の `/calendar-notes/sanmeigaku/陽占 人体星図` の用語詳細ページは維持されている。
+- 算命学ロジック、星の算出ロジック、人体星図の配置ロジックは変更していない。
+
+### Star Detail Phase 2 UI Considerations
+
+Status: `implementation_pending`, `source_review_required`
+
+- 十二大従星 master candidate range: `算命計算!B512:N524`.
+- 十大主星 master candidate range: `算命計算!A528:E577`.
+- 身強・身中・身弱 helper candidate range: `算命計算!A580:B616`.
+- 十大主星 range is position-based, not only a simple one-row-per-star description. The detail UI may need to show position-specific explanations such as `中心 × 車騎星`, `頭 × 車騎星`, `腹 × 車騎星`, `右手 × 車騎星`, and `左手 × 車騎星`.
+- 身強・身中・身弱 should probably be treated as an energy-total/helper explanation for the whole chart, not directly as a star detail page field, but this is not final.
+
 ### TODO
 
 - Confirm which sanmeigaku sections should remain on one page and which should become linked term/detail pages.

@@ -186,6 +186,81 @@ The effective candidate condition is currently derived from `actionScale`.
 - 十大主星・十二大従星の星名 detail routes are available under `/calendar-notes/sanmeigaku/[name]`.
 - Current star detail pages are placeholders only; they do not contain inferred meanings.
 
+### Star Link Phase 1
+
+Status: `implemented`, `production_released`
+
+- `/sanmeigaku` の陽占人体星図で、十大主星・十二大従星の星名をリンク化した。
+- Link route format: `/calendar-notes/sanmeigaku/[星名]`.
+- The linked pages currently show `この星の説明文は準備中です。`.
+- Existing `/calendar-notes/sanmeigaku/陽占 人体星図` remains available.
+- This Phase 1 did not change 算命学 calculation logic, star derivation logic, or 陽占人体星図 placement logic.
+
+### Star Explanation Master Phase 2
+
+Status: `implementation_pending`, `source_review_required`
+
+Target spreadsheet:
+
+- `https://docs.google.com/spreadsheets/d/1cA4_swLTarSTJkz2nSxvF6oBlrAo363A4U5xTWOQv7g/edit?gid=1235637842#gid=1235637842`
+
+Target sheet:
+
+- `算命計算`
+
+Target ranges:
+
+- 十二大従星: `算命計算!B512:N524`
+- 十大主星: `算命計算!A528:E577`
+- 身強・身中・身弱: `算命計算!A580:B616`
+
+十二大従星 master expected columns / fields:
+
+- 星名
+- パワー数
+- エネルギー
+- 相当年齢
+- 身強／身弱
+- 動物占い
+- グループ
+- 種族
+- 表記
+- 軸
+- 目標／状況
+- カラー
+- 特徴
+
+十大主星 master structure:
+
+- `算命計算!A528:E577` is not simply one generic explanation per star.
+- It appears to be position-specific 人体星図 explanation data.
+- Examples:
+  - 中心 × 車騎星
+  - 頭 × 車騎星
+  - 腹 × 車騎星
+  - 右手 × 車騎星
+  - 左手 × 車騎星
+- Expected fields:
+  - `position`
+  - `star`
+  - `key`
+  - `theme`
+  - `description`
+
+身強・身中・身弱 helper master:
+
+- `算命計算!A580:B616` is a helper master for classifying 身弱・身中・身強 from total energy.
+- Current direction: treat it as a candidate for whole-chart energy judgement and supplementary explanation, not as direct star-detail body text.
+- Final placement and display behavior are not yet decided.
+
+Do not implement yet:
+
+- Do not add explanation text from outside the confirmed ranges.
+- Do not infer meanings for stars.
+- Do not change 算命学 logic, star calculation logic, or chart placement logic.
+- Do not decide 身強・身中・身弱 usage without Phase 2 design.
+- Do not add a 算命学 category to `/calendar-notes` index unless it is handled as a separate task.
+
 ### TODO
 
 - Confirm all external master ranges and source statuses for 陽占 人体星図 and related term pages.

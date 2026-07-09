@@ -396,3 +396,100 @@ Remaining TODO:
 
 - Phase 2 remains: connect source-confirmed 十大主星・十二大従星 explanation text after the spreadsheet sheets/ranges are finalized.
 - Do not add inferred star meaning text before the source master is confirmed.
+
+## NotebookLM Clarification: Sanmeigaku Star Links Phase 1 / Phase 2
+
+Date: 2026-07-09
+
+Purpose:
+
+- Make `/sanmeigaku` star-link Phase 1 and the remaining Phase 2 task explicit enough for NotebookLM, ChatGPT, Gemini, and Codex to read consistently.
+- Keyword for NotebookLM retrieval: `sanmeigaku 星名リンク`.
+
+Phase 1 status:
+
+- Status: `implemented`, `production_released`.
+- `feature/sanmeigaku-star-links` was fast-forward merged into `main`.
+- Production is reflected at `https://hibi-kippo-app.vercel.app`.
+- `/sanmeigaku` 陽占人体星図 now links 十大主星・十二大従星 names to existing `/calendar-notes/[kind]/[name]`.
+- Link format: `/calendar-notes/sanmeigaku/[星名]`.
+- Example star detail paths:
+  - `/calendar-notes/sanmeigaku/車騎星`
+  - `/calendar-notes/sanmeigaku/司禄星`
+  - `/calendar-notes/sanmeigaku/天印星`
+- Star links navigate in the same tab.
+- `/calendar-notes/sanmeigaku/[星名]` is not 404.
+- Current star detail pages show `この星の説明文は準備中です。`.
+- Existing `/calendar-notes/sanmeigaku/陽占 人体星図` remains available.
+- Phase 1 did not change 算命学 logic, star calculation logic, or 陽占人体星図 placement logic.
+
+Production check URLs:
+
+- `https://hibi-kippo-app.vercel.app/sanmeigaku?birthDate=1976-03-19`
+- `https://hibi-kippo-app.vercel.app/calendar-notes/sanmeigaku/%E8%BB%8A%E9%A8%8E%E6%98%9F`
+- `https://hibi-kippo-app.vercel.app/calendar-notes/sanmeigaku/%E5%8F%B8%E7%A6%84%E6%98%9F`
+- `https://hibi-kippo-app.vercel.app/calendar-notes/sanmeigaku/%E5%A4%A9%E5%8D%B0%E6%98%9F`
+- `https://hibi-kippo-app.vercel.app/calendar-notes/sanmeigaku/%E9%99%BD%E5%8D%A0%20%E4%BA%BA%E4%BD%93%E6%98%9F%E5%9B%B3`
+
+Phase 2 status:
+
+- Status: `implementation_pending`, `source_review_required`.
+- Next recommended Codex task: `算命学星説明マスター Phase 2 調査・設計`.
+- Do not immediately connect body text. First investigate and design the master structure and UI display.
+
+Phase 2 source candidate:
+
+- Spreadsheet: `https://docs.google.com/spreadsheets/d/1cA4_swLTarSTJkz2nSxvF6oBlrAo363A4U5xTWOQv7g/edit?gid=1235637842#gid=1235637842`
+- Sheet: `算命計算`
+- 十二大従星: `算命計算!B512:N524`
+- 十大主星: `算命計算!A528:E577`
+- 身強・身中・身弱: `算命計算!A580:B616`
+
+十二大従星 expected fields:
+
+- 星名
+- パワー数
+- エネルギー
+- 相当年齢
+- 身強／身弱
+- 動物占い
+- グループ
+- 種族
+- 表記
+- 軸
+- 目標／状況
+- カラー
+- 特徴
+
+十大主星 structure:
+
+- `算命計算!A528:E577` is position-specific 人体星図 explanation data, not only one generic explanation per star.
+- Examples: `中心 × 車騎星`, `頭 × 車騎星`, `腹 × 車騎星`, `右手 × 車騎星`, `左手 × 車騎星`.
+- Expected fields: `position`, `star`, `key`, `theme`, `description`.
+
+身強・身中・身弱 handling:
+
+- `算命計算!A580:B616` is a helper master for classifying 身弱・身中・身強 from total energy.
+- Current direction: handle it as whole-chart energy judgement / supplementary explanation candidate, not as direct star-detail text.
+- Final display location is undecided and must be designed in Phase 2.
+
+Phase 2 should investigate:
+
+- Current `src/lib/sanmeigaku-term-master.ts` structure.
+- Type shape for 十二大従星 master.
+- Type shape for 十大主星 position-based explanation master.
+- 身強・身中・身弱 usage and display placement.
+- TypeScript constants versus JSON master.
+- Detail page display proposal.
+- Required docs updates.
+- Minimal implementation plan.
+
+Do not implement without confirmation:
+
+- Do not add explanation text outside the confirmed spreadsheet ranges.
+- Do not infer star meanings.
+- Do not change 算命学 logic.
+- Do not change star calculation logic.
+- Do not change 陽占人体星図 placement logic.
+- Do not implement 身強・身中・身弱 behavior before the Phase 2 design is accepted.
+- Treat `/calendar-notes` index sanmeigaku category exposure as a separate task if needed.

@@ -55,6 +55,70 @@ Last updated: 2026-07-09
 - The current code may still default or derive values differently. This section records product direction only.
 - Any code change must update `docs/url-parameters.md`, `docs/ai-handoff.md`, and relevant regression notes.
 
+## sanmeigaku Star Detail Product Direction
+
+### Phase 1: Production Complete
+
+Status: `accepted`, `implemented`, `production_released`
+
+- `/sanmeigaku` の陽占人体星図で、十大主星・十二大従星の星名をクリック可能にした。
+- 星名リンクは既存の `/calendar-notes/[kind]/[name]` ルートを使う。
+- URL形式は `/calendar-notes/sanmeigaku/[星名]`。
+- Example URLs:
+  - `/calendar-notes/sanmeigaku/車騎星`
+  - `/calendar-notes/sanmeigaku/司禄星`
+  - `/calendar-notes/sanmeigaku/天印星`
+- 星名リンクは同一タブ遷移。
+- `/calendar-notes/sanmeigaku/[星名]` は 404 にならず、現在は `この星の説明文は準備中です。` を表示する。
+- 既存の `/calendar-notes/sanmeigaku/陽占 人体星図` は維持されている。
+- 算命学ロジック、星の算出ロジック、人体星図の配置ロジックは変更していない。
+
+Production URLs:
+
+- `https://hibi-kippo-app.vercel.app/sanmeigaku?birthDate=1976-03-19`
+- `https://hibi-kippo-app.vercel.app/calendar-notes/sanmeigaku/%E8%BB%8A%E9%A8%8E%E6%98%9F`
+- `https://hibi-kippo-app.vercel.app/calendar-notes/sanmeigaku/%E5%8F%B8%E7%A6%84%E6%98%9F`
+- `https://hibi-kippo-app.vercel.app/calendar-notes/sanmeigaku/%E5%A4%A9%E5%8D%B0%E6%98%9F`
+- `https://hibi-kippo-app.vercel.app/calendar-notes/sanmeigaku/%E9%99%BD%E5%8D%A0%20%E4%BA%BA%E4%BD%93%E6%98%9F%E5%9B%B3`
+
+### Phase 2: Spreadsheet Explanation Master Connection
+
+Status: `implementation_pending`, `source_review_required`
+
+Next Codex task name: `算命学星説明マスター Phase 2 調査・設計`
+
+- Do not connect explanation text immediately.
+- First investigate and design the source master structure, types, and display behavior.
+- Target spreadsheet:
+  - `https://docs.google.com/spreadsheets/d/1cA4_swLTarSTJkz2nSxvF6oBlrAo363A4U5xTWOQv7g/edit?gid=1235637842#gid=1235637842`
+- Target sheet:
+  - `算命計算`
+- Target ranges:
+  - 十二大従星: `算命計算!B512:N524`
+  - 十大主星: `算命計算!A528:E577`
+  - 身強・身中・身弱: `算命計算!A580:B616`
+
+Phase 2 should clarify:
+
+- Current `src/lib/sanmeigaku-term-master.ts` structure.
+- Type shape for 十二大従星 master.
+- Type shape for 十大主星 position-based explanation master.
+- How to treat 身強・身中・身弱.
+- Whether to store the master as TypeScript constants or JSON.
+- Detail page display proposal.
+- Required docs updates.
+- Minimal implementation plan.
+
+### Do Not Implement Yet
+
+- Do not add explanation text outside the confirmed spreadsheet ranges.
+- Do not infer star meanings.
+- Do not change 算命学 calculation logic.
+- Do not change star derivation logic.
+- Do not change 陽占人体星図 placement logic.
+- Do not implement 身強・身中・身弱 usage before its display role is designed.
+- Treat `/calendar-notes` index exposure for 算命学 as a separate task if needed.
+
 ## Candidate Ranking Product Direction
 
 ### Design Direction
