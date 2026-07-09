@@ -15,9 +15,9 @@ Last updated: 2026-07-09
 
 | Priority | Task | Difficulty | Impact | Type | Notes |
 | --- | --- | --- | --- | --- | --- |
-| P0 | Design and implement `purpose` default migration | Medium | High | URL/product implementation | Keep explicit `purpose=travel`; move omitted purpose toward `yuki_tori`. |
-| P0 | Design and implement independent `candidateCondition` handling | Medium | High | URL/product implementation | Keep `actionScale` for action burden; use `candidateCondition` for filtering. |
-| P0 | Draft boundary regression sample matrix for 節入り・立春・土用・年盤/月盤/日盤 switching | Medium | High | Test design | Expected values still need source confirmation before tests are authoritative. |
+| P0 | Design and implement `purpose` default migration | Medium | High | URL/product implementation | `accepted`, `implementation_pending`: keep explicit `purpose=travel`; move omitted purpose toward `yuki_tori`. |
+| P0 | Design and implement independent `candidateCondition` handling | Medium | High | URL/product implementation | `accepted`, `implementation_pending`: keep `actionScale` for action burden; use `candidateCondition` for filtering. |
+| P0 | Draft boundary regression sample matrix for 節入り・立春・土用・年盤/月盤/日盤 switching | Medium | High | Test design | `accepted`, `implementation_pending`, `source_review_required`: expected values need source confirmation before tests are authoritative. |
 | P1 | Add initial non-authoritative regression fixtures for boundary dates | Medium | High | Test/docs | Mark expected values TODO until source-confirmed. |
 | P1 | Audit `calendar-db` form parameters and complete URL table | Low | Medium | Docs | Helps API/page consistency. |
 | P1 | Add source-status annotations for 天道, 土用殺, 方位殺, selected-day rules | High | High | Fortune/source review | Requires domain/source confirmation. |
@@ -35,16 +35,18 @@ Last updated: 2026-07-09
 
 ## Blocked / Needs Human Confirmation
 
-- Official meaning and final product status of each candidate rank.
-- Authoritative source for each fortune/calendar rule.
-- Whether current companion judgement modes match intended product behavior.
-- Official expected values for 節入り, 立春, 土用, and board-switching regression samples.
-- Whether birth row year 九星 as 本命星 is final for all users.
-- Whether 天赦日 can be an almanac-only candidate without direction tags.
+- `source_review_required`: Official meaning and final product status of each candidate rank.
+- `source_review_required`: Authoritative source for each fortune/calendar rule.
+- `provisional`, `source_review_required`: Whether current companion judgement modes match intended product behavior.
+- `source_review_required`: Official expected values for 節入り, 立春, 土用, and board-switching regression samples.
+- `pending`, `source_review_required`: Whether birth row year 九星 as 本命星 is final for all users.
+- `pending`, `source_review_required`: Whether 天赦日 can be an almanac-only candidate without direction tags.
 
 ## Decision Timing
 
-- Decided as design direction, not implemented: `purpose` compatibility/default direction, `candidateCondition` vs `actionScale` separation, provisional companion-mode meanings, candidate rank split.
+- `accepted`, `implementation_pending`: `purpose` compatibility/default direction and `candidateCondition` vs `actionScale` separation.
+- `provisional`, `source_review_required`: companion-mode meanings.
+- `accepted`, `implementation_pending`, `source_review_required`: candidate rank split.
 - Implement next: `purpose` migration and independent `candidateCondition` behavior after compatibility plan.
 - Can wait: route screenshots, architecture diagram, public product wording.
-- Requires fortune/source confirmation: 天道, 土用殺, 方位殺, candidate ranks, companion judgement intent, expected values for boundary regression samples.
+- `source_review_required`: 天道, 土用殺, 方位殺, candidate ranks, companion judgement intent, expected values for boundary regression samples.

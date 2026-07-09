@@ -8,6 +8,9 @@ Use this before merging or handing off changes.
 
 - Read `AGENTS.md`.
 - Read the relevant docs for the touched area.
+- Check `docs/decision-log.md` for the current status labels: `accepted`, `provisional`, `pending`, `source_review_required`, and `implementation_pending`.
+- Do not implement items marked `pending` or `source_review_required` without explicit user/source confirmation.
+- For items marked `implementation_pending`, confirm the accepted direction, migration plan, and affected URL/UI behavior before editing code.
 - Identify target files and expected impact.
 - Check `git status --short`.
 - For large changes, present approach and unknowns before editing.

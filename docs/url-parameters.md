@@ -36,7 +36,7 @@ Last updated: 2026-07-09
 - `year` and `month` define the visible monthly calendar range.
 - `selectedDate` changes the top year/month/day board display without changing the visible month when it remains inside that month.
 - Current code: `actionScale` drives `candidateCondition`.
-- Design direction: `actionScale` and `candidateCondition` should be independent query concepts.
+- `accepted`, `implementation_pending`: `actionScale` and `candidateCondition` should be independent query concepts.
 - If `actionScale` is absent, legacy `candidate` and `goodDirectionMatch` may be used to derive an action scale.
 - `familyStars=self` only produces a member when `birthDate` produces personal context.
 - Direct companion stars use `star-1` through `star-9`; labels are 一白水星 through 九紫火星.
@@ -45,24 +45,24 @@ Last updated: 2026-07-09
 
 ### Purpose Compatibility Direction
 
-- Keep existing `purpose=travel` URLs working.
-- Respect explicit `purpose` values in URLs.
-- If `purpose` is omitted, future behavior should move toward `yuki_tori` as the initial/default purpose.
+- `accepted`: Keep existing `purpose=travel` URLs working.
+- `accepted`: Respect explicit `purpose` values in URLs.
+- `accepted`, `implementation_pending`: If `purpose` is omitted, future behavior should move toward `yuki_tori` as the initial/default purpose.
 - This is a documented design direction only; no implementation change has been made yet.
 
 ### Candidate Condition Direction
 
-- `actionScale` should describe 行動の規模・距離感・実行負荷.
-- `candidateCondition` should describe 候補日の有無や絞り込み条件.
-- Future URL and UI design should not collapse these meanings into one control.
+- `accepted`, `implementation_pending`: `actionScale` should describe 行動の規模・距離感・実行負荷.
+- `accepted`, `implementation_pending`: `candidateCondition` should describe 候補日の有無や絞り込み条件.
+- `accepted`: Future URL and UI design should not collapse these meanings into one control.
 - Existing `candidate`, `goodDirectionMatch`, and current derived behavior need a compatibility/migration plan before implementation.
 
 ### TODO
 
-- Design and implement the `purpose` default migration.
-- Design and implement independent `candidateCondition` behavior.
+- `implementation_pending`: Design and implement the `purpose` default migration.
+- `implementation_pending`: Design and implement independent `candidateCondition` behavior.
 - Confirm whether `selectedDate` should allow navigating to another month or always stay constrained to the visible month.
-- Confirm whether `birthGender=male` default is a product decision.
+- `pending`: Confirm whether `birthGender=male` default is a product decision.
 
 ### Compatibility Notes
 

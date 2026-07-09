@@ -140,3 +140,39 @@ Still unresolved:
 
 - Official source basis for 天道, 土用殺, 方位殺, candidate-rank fortune factors, and companion judgement rules.
 - Authoritative expected values for boundary regression samples.
+
+## Decision Status Clarification Follow-up
+
+Date: 2026-07-09
+
+Source:
+
+- NotebookLM follow-up review of copied documentation.
+
+Summary:
+
+- Added canonical decision status labels to keep NotebookLM, ChatGPT, Gemini, and Codex aligned:
+  - `accepted`
+  - `provisional`
+  - `pending`
+  - `source_review_required`
+  - `implementation_pending`
+- Clarified that `purpose=travel` compatibility and respecting explicit `purpose` values are `accepted`.
+- Clarified that omitted `purpose` moving toward `yuki_tori`, independent `candidateCondition`, and candidate-rank split are design directions with `implementation_pending` where code behavior has not changed.
+- Clarified that companion modes are `provisional` and still `source_review_required`.
+- Clarified that 天道, 土用殺, 方位殺, candidate-rank fortune basis, 本命星 handling, and 天赦日 candidate allowance remain source-review or pending topics.
+
+Changed docs:
+
+- `docs/decision-log.md`
+- `docs/product-spec.md`
+- `docs/fortune-rules.md`
+- `docs/url-parameters.md`
+- `docs/task-board.md`
+- `docs/ai-handoff.md`
+- `docs/review-checklist.md`
+
+Verification:
+
+- Documentation-only change.
+- `git diff -- src` should remain empty.

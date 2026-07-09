@@ -6,6 +6,11 @@ This document records what the code currently does. It does not define new fortu
 
 ## Status Terms
 
+- `accepted`: Adopted as product/spec direction.
+- `provisional`: Temporarily adopted for wording or planning, but must be reviewed before implementation or rule changes.
+- `pending`: Not decided.
+- `source_review_required`: Requires fortune/calendar/source confirmation before implementation or rule changes.
+- `implementation_pending`: Direction is known, but code/UI/URL behavior has not been changed yet.
 - Confirmed: a process rule or product rule that has been explicitly accepted.
 - Read From Current Code: implementation behavior observed in the repository.
 - TODO: not confirmed. Do not implement changes from TODO items without user/source confirmation.
@@ -34,7 +39,7 @@ This document records what the code currently does. It does not define new fortu
 
 ### TODO
 
-- Confirm whether using birth row year 九星 as 本命星 is final or temporary for all users.
+- `pending`, `source_review_required`: Confirm whether using birth row year 九星 as 本命星 is final or temporary for all users.
 - Confirm exact supported DB date range from generated data, not only UI constants.
 
 ## purpose-calendar Candidate Flow
@@ -65,15 +70,15 @@ This document records what the code currently does. It does not define new fortu
 ### TODO
 
 - Confirm product meaning of each candidate rank: 最有力候補, 実用候補, 長期候補, 暦後押し候補, 条件つき候補.
-- Confirm whether 天赦日 should be allowed as an almanac-only candidate even without direction tags.
+- `pending`, `source_review_required`: Confirm whether 天赦日 should be allowed as an almanac-only candidate even without direction tags.
 
 ## Candidate Rank Design Direction
 
-### Confirmed Design Direction
+### Design Direction
 
-- Candidate rank should be separated into fortune rank and practical rank.
-- Fortune rank may include 三盤一致, 年月一致, 月日一致, 天道, and bad-direction avoidance.
-- Practical rank may include 近場, 日帰り可, 温泉, 神社, 自然散策, 食事, and other action-ease signals.
+- `accepted`, `implementation_pending`, `source_review_required`: Candidate rank should be separated into fortune rank and practical rank.
+- `source_review_required`: Fortune rank may include 三盤一致, 年月一致, 月日一致, 天道, and bad-direction avoidance, but each factor's official source basis must be confirmed.
+- `accepted`, `implementation_pending`: Practical rank may include 近場, 日帰り可, 温泉, 神社, 自然散策, 食事, and other action-ease signals.
 
 ### Still Unconfirmed
 
@@ -83,13 +88,15 @@ This document records what the code currently does. It does not define new fortu
 
 ## Unconfirmed Items Classification
 
-| Item | Classification | Reason |
+| Item | Status | Reason |
 | --- | --- | --- |
-| `/purpose-calendar` default `purpose` (`travel` vs `yuki_tori`) | Design direction decided; implementation pending | Keep `purpose=travel` compatibility, respect explicit purpose, move omitted purpose toward `yuki_tori`. |
-| `candidateCondition` independent parameter vs `actionScale` derived behavior | Design direction decided; implementation pending | Treat `candidateCondition` as filtering condition and `actionScale` as action scale. |
-| 天道・土用殺・方位殺・候補ランク official adoption basis | Requires fortune/source confirmation | These are domain rules and should not be inferred from code alone. |
-| Companion judgement modes `strict` / `standard` / `loose` official behavior | Provisional product direction recorded; fortune confirmation still required | Current code has behavior and provisional meanings, but final占術 specification is not confirmed. |
-| Regression samples for 節入り・立春・土用・盤 switching | Can start now as test-design work; expected values need confirmation | The list of boundary cases can be prepared, but expected answers should be source-checked. |
+| `/purpose-calendar` default `purpose` (`travel` vs `yuki_tori`) | `accepted`, `implementation_pending` | Keep `purpose=travel` compatibility, respect explicit purpose, move omitted purpose toward `yuki_tori`. |
+| `candidateCondition` independent parameter vs `actionScale` derived behavior | `accepted`, `implementation_pending` | Treat `candidateCondition` as filtering condition and `actionScale` as action scale. |
+| 天道・土用殺・方位殺・候補ランク official adoption basis | `source_review_required` | These are domain rules and should not be inferred from code alone. |
+| Companion judgement modes `strict` / `standard` / `loose` official behavior | `provisional`, `source_review_required` | Current code has behavior and provisional meanings, but final占術 specification is not confirmed. |
+| Regression samples for 節入り・立春・土用・盤 switching | `accepted`, `implementation_pending`, `source_review_required` | The list of boundary cases can be prepared, but expected answers should be source-checked. |
+| Birth row year 九星 as 本命星 | `pending`, `source_review_required` | Current behavior is observed, but final product/fortune specification is not confirmed. |
+| 天赦日 almanac-only candidate allowance | `pending`, `source_review_required` | Current ranking mentions special handling, but final allowance rule is not confirmed. |
 
 ## Action Scale
 
@@ -107,11 +114,11 @@ This document records what the code currently does. It does not define new fortu
 
 The effective candidate condition is currently derived from `actionScale`.
 
-### Confirmed Design Direction
+### Design Direction
 
-- `actionScale` and `candidateCondition` should be separated in future URL/UI design.
-- `actionScale` represents action scale, travel distance, and execution burden.
-- `candidateCondition` represents candidate existence and filtering strictness.
+- `accepted`, `implementation_pending`: `actionScale` and `candidateCondition` should be separated in future URL/UI design.
+- `accepted`: `actionScale` represents action scale, travel distance, and execution burden.
+- `accepted`: `candidateCondition` represents candidate existence and filtering strictness.
 - Existing implementation behavior should not be changed without a URL/design update.
 
 ### TODO
@@ -130,9 +137,9 @@ The effective candidate condition is currently derived from `actionScale`.
 
 ### Provisional Product Direction
 
-- `strict`: prioritize avoiding bad directions for every selected participant.
-- `standard`: recommended normal mode; the user/self remains primary while strong bad directions for companions are avoided.
-- `loose`: user/self remains primary; companion information is closer to reference display.
+- `provisional`, `source_review_required`: `strict` prioritizes avoiding bad directions for every selected participant.
+- `provisional`, `source_review_required`: `standard` is the recommended normal mode; the user/self remains primary while strong bad directions for companions are avoided.
+- `provisional`, `source_review_required`: `loose` keeps the user/self primary; companion information is closer to reference display.
 
 ### TODO
 

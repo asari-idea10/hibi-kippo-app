@@ -41,12 +41,12 @@ Last updated: 2026-07-09
 
 ## purpose-calendar Product Direction
 
-### Confirmed Design Direction
+### Design Direction
 
-- Preserve existing `purpose=travel` URLs for compatibility.
-- Respect an explicitly provided `purpose` query value.
-- When `purpose` is omitted, future product direction is to make `yuki_tori` the initial/default purpose.
-- Treat `actionScale` and `candidateCondition` as separate concepts:
+- `accepted`: Preserve existing `purpose=travel` URLs for compatibility.
+- `accepted`: Respect an explicitly provided `purpose` query value.
+- `accepted`, `implementation_pending`: When `purpose` is omitted, future product direction is to make `yuki_tori` the initial/default purpose.
+- `accepted`, `implementation_pending`: Treat `actionScale` and `candidateCondition` as separate concepts:
   - `actionScale`: 行動の規模・距離感・実行負荷.
   - `candidateCondition`: 候補日の有無や絞り込み条件.
 
@@ -57,9 +57,9 @@ Last updated: 2026-07-09
 
 ## Candidate Ranking Product Direction
 
-### Confirmed Design Direction
+### Design Direction
 
-- Separate candidate ranking into:
+- `accepted`, `implementation_pending`, `source_review_required`: Separate candidate ranking into:
   - fortune rank: 三盤一致, 年月一致, 月日一致, 天道, 凶方位回避, and other calculation-derived signals.
   - practical rank: 近場, 日帰り可, 温泉, 神社, 自然散策, 食事, and other ease-of-action signals.
 
@@ -70,9 +70,14 @@ Last updated: 2026-07-09
 
 ## Product-Spec Status Terms
 
+- `accepted`: Adopted as product/spec direction.
+- `provisional`: Temporarily adopted for wording or planning, but must be reviewed before implementation or rule changes.
+- `pending`: Not decided.
+- `source_review_required`: Requires fortune/calendar/source confirmation before implementation or rule changes.
+- `implementation_pending`: Direction is known, but code/UI/URL behavior has not been changed yet.
 - Confirmed: explicitly requested by the user or already established as an operating rule for future work.
 - Read From Current Code: behavior observed in the current repository. This is not automatically final product specification.
-- TODO: unknown, provisional, or requiring human/source confirmation.
+- TODO: unknown, `pending`, `provisional`, or `source_review_required`.
 
 ## Current Technical Stack
 

@@ -4,6 +4,18 @@ Last updated: 2026-07-09
 
 Record product, architecture, and rule decisions here. Do not use this file to justify guessed fortune logic.
 
+## Status Legend
+
+Use these exact status labels across docs when describing product and rule decisions.
+
+| Status | Meaning |
+| --- | --- |
+| `accepted` | Adopted as product/spec direction. |
+| `provisional` | Temporarily adopted for wording or planning, but must be reviewed before implementation or rule changes. |
+| `pending` | Not decided. Do not implement as if decided. |
+| `source_review_required` | Requires fortune/calendar/source confirmation before implementation or rule changes. |
+| `implementation_pending` | Direction is known, but code/UI/URL behavior has not been changed yet. |
+
 ## Decisions
 
 ### D-0001: Documentation separates confirmed specification from current code behavior
@@ -30,7 +42,7 @@ Record product, architecture, and rule decisions here. Do not use this file to j
 ### D-0004: Keep `purpose=travel` compatibility while moving default intent toward `yuki_tori`
 
 - Date: 2026-07-09
-- Status: accepted as design direction, not implemented
+- Status: `accepted`, `implementation_pending`
 - Decision: Existing `purpose=travel` URLs remain compatible. If `purpose` is explicitly provided in the URL, the app should respect that value. If `purpose` is omitted, the future product direction is to make `yuki_tori` the initial/default purpose for `/purpose-calendar`.
 - Reason: The page is now primarily used as a 九星方位 / 祐気取り calendar, but saved URLs and older links may still rely on `travel`.
 - Implementation note: No code change was made when this decision was recorded.
@@ -38,7 +50,7 @@ Record product, architecture, and rule decisions here. Do not use this file to j
 ### D-0005: Treat `candidateCondition` and `actionScale` as separate concepts
 
 - Date: 2026-07-09
-- Status: accepted as design direction, not implemented
+- Status: `accepted`, `implementation_pending`
 - Decision: `candidateCondition` should be treated as an independent URL parameter. `actionScale` represents 行動の規模・距離感・実行負荷. `candidateCondition` represents candidate existence and filtering strictness.
 - Reason: Combining them makes URL behavior and UI intent harder to reason about. Future URL/UI design should separate "how far / how heavy the action is" from "how strictly candidate days are filtered."
 - Implementation note: Current code behavior may still derive effective candidate filtering from `actionScale`; this document records the desired design direction only.
@@ -46,7 +58,7 @@ Record product, architecture, and rule decisions here. Do not use this file to j
 ### D-0006: Companion judgement mode meanings are provisional product guidance
 
 - Date: 2026-07-09
-- Status: provisional
+- Status: `provisional`, `source_review_required`
 - Decision: Use the following provisional meanings until source/domain review confirms the official rules:
   - `strict`: prioritize avoiding bad directions for every selected participant.
   - `standard`: recommended normal mode; the user/self remains primary while strong bad directions for companions are avoided.
@@ -57,12 +69,27 @@ Record product, architecture, and rule decisions here. Do not use this file to j
 ### D-0007: Split candidate rank design into fortune rank and practical rank
 
 - Date: 2026-07-09
-- Status: accepted as design direction, not implemented
+- Status: `accepted`, `implementation_pending`, `source_review_required`
 - Decision: Future candidate ranking should distinguish fortune-rank factors from practical-rank factors.
 - Fortune-rank factors may include 三盤一致, 年月一致, 月日一致, 天道, and bad-direction avoidance.
 - Practical-rank factors may include 近場, 日帰り可, 温泉, 神社, 自然散策, 食事, and other ease-of-action signals.
 - Reason: Current candidate labels mix calculation strength and real-world usability. Separating them will make future UI and scoring easier to explain.
 - Implementation note: No candidate scoring code was changed when this decision was recorded.
+
+## Decision Status Matrix
+
+| Topic | Status | Implementation status | Source review | Notes |
+| --- | --- | --- | --- | --- |
+| Preserve `purpose=travel` compatibility | `accepted` | Current compatibility must be preserved | Not required for compatibility itself | Do not break saved URLs. |
+| Respect explicit `purpose` URL values | `accepted` | Verify before implementation changes | Not required for URL behavior itself | Explicit user-provided query values should win. |
+| Omitted `purpose` should move toward `yuki_tori` | `accepted`, `implementation_pending` | Not implemented yet | Not required for URL default itself | Requires compatibility/migration plan. |
+| Treat `candidateCondition` and `actionScale` as independent concepts | `accepted`, `implementation_pending` | Not implemented yet | Not required for URL concept itself | `actionScale` is action burden; `candidateCondition` is filtering. |
+| Companion modes `strict` / `standard` / `loose` meanings | `provisional`, `source_review_required` | Do not change logic from wording alone | Required before rule changes | Product wording exists; formal fortune behavior is not confirmed. |
+| Split candidate rank into fortune rank / practical rank | `accepted`, `implementation_pending`, `source_review_required` | Not implemented yet | Required for fortune-rank factors | Practical-rank design can proceed separately from fortune-source confirmation. |
+| Boundary regression samples for 節入り・立春・土用・board switching | `accepted`, `implementation_pending`, `source_review_required` | Test matrix not implemented yet | Required for authoritative expected values | High-priority test design task. |
+| 天道・土用殺・方位殺・candidate-rank fortune basis | `source_review_required` | Do not change logic until reviewed | Required | Keep current behavior documented as code behavior only. |
+| 本命星 handling | `source_review_required`, `pending` | Do not change personal-star logic until reviewed | Required | Current code derives from birth row year 九星. |
+| 天赦日 candidate allowance without direction tags | `source_review_required`, `pending` | Do not change candidate logic until reviewed | Required | Current behavior needs product/source confirmation. |
 
 ## Pending Decisions
 
