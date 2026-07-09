@@ -15,6 +15,7 @@ Last updated: 2026-07-09
 
 - `purpose-calendar` combines calendar DB rows, year/month/day direction boards, personal star context, companion star checks, and monthly candidate summaries.
 - The visible monthly calendar is currently query-driven; saved URLs can reproduce a month, selected date, birth date, companion settings, and display options.
+- The app is positioned as more than a daily good/bad display: existing docs and code point toward a calendar and direction engine that can support 吉方旅, 引越し, best-day search, verification, and future AI-assisted analysis.
 - `calendar-db` exposes searchable calendar DB views for `kyusei`, `summary`, `selected_days`, `direction_deities`, `doyo`, and `all`.
 - `calendar-notes` is a dictionary/index for calendar terms and term detail pages.
 - `adoption-status` shows source/adoption/verification status and sample links.
@@ -37,6 +38,35 @@ Last updated: 2026-07-09
 | `/calendar-db` | Search and inspect calendar DB rows. |
 | `/direction-palace-blends` | 方位ブレンド master view. |
 | `/adoption-status` | Adoption and verification status view. |
+
+## purpose-calendar Product Direction
+
+### Confirmed Design Direction
+
+- Preserve existing `purpose=travel` URLs for compatibility.
+- Respect an explicitly provided `purpose` query value.
+- When `purpose` is omitted, future product direction is to make `yuki_tori` the initial/default purpose.
+- Treat `actionScale` and `candidateCondition` as separate concepts:
+  - `actionScale`: 行動の規模・距離感・実行負荷.
+  - `candidateCondition`: 候補日の有無や絞り込み条件.
+
+### Not Implemented Yet
+
+- The current code may still default or derive values differently. This section records product direction only.
+- Any code change must update `docs/url-parameters.md`, `docs/ai-handoff.md`, and relevant regression notes.
+
+## Candidate Ranking Product Direction
+
+### Confirmed Design Direction
+
+- Separate candidate ranking into:
+  - fortune rank: 三盤一致, 年月一致, 月日一致, 天道, 凶方位回避, and other calculation-derived signals.
+  - practical rank: 近場, 日帰り可, 温泉, 神社, 自然散策, 食事, and other ease-of-action signals.
+
+### TODO
+
+- Confirm official domain meaning and source basis for each fortune-rank factor.
+- Decide how practical-rank signals are collected, stored, and displayed.
 
 ## Product-Spec Status Terms
 

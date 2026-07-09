@@ -67,14 +67,28 @@ This document records what the code currently does. It does not define new fortu
 - Confirm product meaning of each candidate rank: 最有力候補, 実用候補, 長期候補, 暦後押し候補, 条件つき候補.
 - Confirm whether 天赦日 should be allowed as an almanac-only candidate even without direction tags.
 
+## Candidate Rank Design Direction
+
+### Confirmed Design Direction
+
+- Candidate rank should be separated into fortune rank and practical rank.
+- Fortune rank may include 三盤一致, 年月一致, 月日一致, 天道, and bad-direction avoidance.
+- Practical rank may include 近場, 日帰り可, 温泉, 神社, 自然散策, 食事, and other action-ease signals.
+
+### Still Unconfirmed
+
+- Official fortune meaning and source basis for each rank factor.
+- Exact score weights and label thresholds.
+- Whether current labels should be renamed or split in the UI.
+
 ## Unconfirmed Items Classification
 
 | Item | Classification | Reason |
 | --- | --- | --- |
-| `/purpose-calendar` default `purpose` (`travel` vs `yuki_tori`) | Decide now before URL behavior changes | It affects query semantics and saved URL expectations. |
-| `candidateCondition` independent parameter vs `actionScale` derived behavior | Decide now before URL/filter changes | It affects backwards compatibility and UI/filter behavior. |
+| `/purpose-calendar` default `purpose` (`travel` vs `yuki_tori`) | Design direction decided; implementation pending | Keep `purpose=travel` compatibility, respect explicit purpose, move omitted purpose toward `yuki_tori`. |
+| `candidateCondition` independent parameter vs `actionScale` derived behavior | Design direction decided; implementation pending | Treat `candidateCondition` as filtering condition and `actionScale` as action scale. |
 | 天道・土用殺・方位殺・候補ランク official adoption basis | Requires fortune/source confirmation | These are domain rules and should not be inferred from code alone. |
-| Companion judgement modes `strict` / `standard` / `loose` official behavior | Requires product and fortune confirmation | Current code has behavior, but final intent needs human confirmation. |
+| Companion judgement modes `strict` / `standard` / `loose` official behavior | Provisional product direction recorded; fortune confirmation still required | Current code has behavior and provisional meanings, but final占術 specification is not confirmed. |
 | Regression samples for 節入り・立春・土用・盤 switching | Can start now as test-design work; expected values need confirmation | The list of boundary cases can be prepared, but expected answers should be source-checked. |
 
 ## Action Scale
@@ -93,9 +107,16 @@ This document records what the code currently does. It does not define new fortu
 
 The effective candidate condition is currently derived from `actionScale`.
 
+### Confirmed Design Direction
+
+- `actionScale` and `candidateCondition` should be separated in future URL/UI design.
+- `actionScale` represents action scale, travel distance, and execution burden.
+- `candidateCondition` represents candidate existence and filtering strictness.
+- Existing implementation behavior should not be changed without a URL/design update.
+
 ### TODO
 
-- Confirm whether query parameter `candidateCondition` should be independently honored when `actionScale` is present.
+- Update code and tests only after the URL behavior migration is designed.
 
 ## Companion Judgement
 
@@ -107,10 +128,17 @@ The effective candidate condition is currently derived from `actionScale`.
 - `loose`: primary member must qualify; companion blocking labels are reduced compared with standard.
 - Blocking labels include combinations of `暗剣殺`, `五黄殺`, `破`, `本命殺`, `的殺`, `土用殺`, and `凶方位優先`, depending on mode.
 
+### Provisional Product Direction
+
+- `strict`: prioritize avoiding bad directions for every selected participant.
+- `standard`: recommended normal mode; the user/self remains primary while strong bad directions for companions are avoided.
+- `loose`: user/self remains primary; companion information is closer to reference display.
+
 ### TODO
 
 - Confirm whether the first selected member should always be treated as primary.
 - Confirm which blocking labels are official for each mode.
+- Confirm the official fortune specification before changing companion judgement logic.
 
 ## Direction / Warning / 天道
 
