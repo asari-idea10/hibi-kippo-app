@@ -247,3 +247,31 @@ Still unresolved:
 - Project-specific rollback procedure.
 - Production domain ownership/settings confirmation.
 - Regression URL expansion in `docs/preview-urls.md`.
+
+## Preview URL Expansion Follow-up
+
+Date: 2026-07-09
+
+Summary:
+
+- Expanded `docs/preview-urls.md` from placeholder slots into a concrete Vercel Preview regression URL set.
+- Added review entries for `/purpose-calendar` baseline, `purpose`, `candidateCondition`, all current `actionScale` values, companion judgement modes, family star variations, `selectedDate`, alternate birth date, compass orientation, `/sanmeigaku`, `/calendar-db`, `/calendar-notes`, `/adoption-status`, and `/direction-palace-blends`.
+- Each entry records purpose, Production baseline URL, Preview host replacement rule, check points, related parameters, and what must not be broken.
+
+Changed docs:
+
+- `docs/preview-urls.md`
+- `docs/ai-handoff.md`
+- `docs/task-board.md`
+
+Verification:
+
+- Documentation-only change.
+- No URL behavior, UI behavior, app code, or fortune/calendar logic was changed.
+- `git diff -- src` should remain empty.
+
+TODO:
+
+- Add source-confirmed boundary-date URLs for 節入り, 立春, 土用, and year/month/day board switching.
+- Add `/calendar-db` representative query URL after its parameter table is finalized.
+- Add more `/calendar-notes` detail URLs for term categories affected by future changes.

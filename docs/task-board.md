@@ -13,6 +13,7 @@ Last updated: 2026-07-09
 - Vercel Preview / Production workflow documented.
 - Initial `docs/preview-urls.md` created with a Production baseline URL.
 - NotebookLM source-addition behavior documented for newly created docs.
+- `docs/preview-urls.md` expanded with primary Vercel Preview regression URL categories.
 
 ## Next
 
@@ -20,7 +21,6 @@ Last updated: 2026-07-09
 | --- | --- | --- | --- | --- | --- |
 | P0 | Design and implement `purpose` default migration | Medium | High | URL/product implementation | `accepted`, `implementation_pending`: keep explicit `purpose=travel`; move omitted purpose toward `yuki_tori`. |
 | P0 | Design and implement independent `candidateCondition` handling | Medium | High | URL/product implementation | `accepted`, `implementation_pending`: keep `actionScale` for action burden; use `candidateCondition` for filtering. |
-| P0 | Expand regression URL set in `docs/preview-urls.md` | Low | High | Deployment/review docs | Add travel, strict/loose companion, selectedDate, alternate birthDate, familyStars, sanmeigaku, calendar-db, and calendar-notes URLs. |
 | P0 | Draft boundary regression sample matrix for 節入り・立春・土用・年盤/月盤/日盤 switching | Medium | High | Test design | `accepted`, `implementation_pending`, `source_review_required`: expected values need source confirmation before tests are authoritative. |
 | P1 | Confirm NotebookLM source list after new docs are synced | Low | Medium | AI orchestration docs | New Drive files require manual NotebookLM source addition; existing sources update through Drive sync. |
 | P1 | Add initial non-authoritative regression fixtures for boundary dates | Medium | High | Test/docs | Mark expected values TODO until source-confirmed. |
@@ -55,5 +55,6 @@ Last updated: 2026-07-09
 - Implement next: `purpose` migration and independent `candidateCondition` behavior after compatibility plan.
 - Can wait: route screenshots, architecture diagram, public product wording.
 - `source_review_required`: 天道, 土用殺, 方位殺, candidate ranks, companion judgement intent, expected values for boundary regression samples.
-- Deployment flow is documented; next review-infra tasks are filling regression URLs and pairing them with boundary-date samples.
+- Deployment flow is documented; the primary regression URL set is now available for Preview review.
+- Primary regression URL set is documented; next URL work is source-confirmed boundary samples and route-specific details as features change.
 - NotebookLM source behavior is documented; when new docs are created, remember that Google Drive sync alone is not enough.
