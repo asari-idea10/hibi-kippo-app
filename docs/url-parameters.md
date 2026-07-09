@@ -75,6 +75,20 @@ Last updated: 2026-07-09
 | --- | --- | --- | --- |
 | `birthDate` | `YYYY-MM-DD` | Empty string | When present, builds and displays the 算命学 profile. When absent, shows empty-state guidance. |
 
+## `/calendar-notes/sanmeigaku/[name]`
+
+### Read From Current Code
+
+- This route uses a path segment, not query parameters.
+- Existing `/calendar-notes/sanmeigaku/陽占 人体星図` remains available.
+- 十大主星 and 十二大従星 star names now resolve to placeholder detail pages.
+- Star explanation text is not implemented yet; pages show preparation wording until the source master is connected.
+
+### TODO
+
+- Confirm exact spreadsheet source ranges for star explanation text.
+- Decide whether `/calendar-notes` index should expose a 算命学 category.
+
 ## `/calendar-db`
 
 ### Read From Current Code

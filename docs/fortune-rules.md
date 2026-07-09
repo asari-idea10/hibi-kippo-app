@@ -183,7 +183,10 @@ The effective candidate condition is currently derived from `actionScale`.
 - `src/lib/sanmeigaku-profile.ts` builds profile data from calendar DB rows.
 - The page displays 陰占, pillars, 陽占 人体星図, 蔵干 master, and verification content when `birthDate` is provided.
 - Time pillar remains placeholder until birth time and location correction are connected.
+- 十大主星・十二大従星の星名 detail routes are available under `/calendar-notes/sanmeigaku/[name]`.
+- Current star detail pages are placeholders only; they do not contain inferred meanings.
 
 ### TODO
 
 - Confirm all external master ranges and source statuses for 陽占 人体星図 and related term pages.
+- `source_review_required`: Confirm spreadsheet sheets/ranges for 十大主星・十二大従星 explanation text before adding formal meanings.

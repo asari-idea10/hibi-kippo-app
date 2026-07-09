@@ -275,3 +275,42 @@ TODO:
 - Add source-confirmed boundary-date URLs for 節入り, 立春, 土用, and year/month/day board switching.
 - Add `/calendar-db` representative query URL after its parameter table is finalized.
 - Add more `/calendar-notes` detail URLs for term categories affected by future changes.
+
+## Sanmeigaku Star Detail Phase 1
+
+Date: 2026-07-09
+
+Summary:
+
+- Added a small 算命学 star-term master for the 10 十大主星 and 12 十二大従星 names.
+- Made 陽占 人体星図 star names on `/sanmeigaku` link to `/calendar-notes/sanmeigaku/[name]` in the same tab.
+- Extended the existing `calendar-notes` detail route so star terms render placeholder pages instead of 404.
+- Kept `/calendar-notes/sanmeigaku/陽占 人体星図` behavior intact.
+
+Changed files:
+
+- `src/lib/sanmeigaku-term-master.ts`
+- `src/app/sanmeigaku/page.tsx`
+- `src/app/calendar-notes/[kind]/[name]/page.tsx`
+- `docs/screen-design.md`
+- `docs/product-spec.md`
+- `docs/fortune-rules.md`
+- `docs/url-parameters.md`
+- `docs/ai-handoff.md`
+- `docs/task-board.md`
+
+Verification:
+
+- `npm run lint`: passed.
+- `npm run build`: passed.
+- `/sanmeigaku?birthDate=1976-03-19`: returned 200 locally and includes star links.
+- `/calendar-notes/sanmeigaku/車騎星`: returned 200 locally with placeholder text.
+- `/calendar-notes/sanmeigaku/司禄星`: returned 200 locally with placeholder text.
+- `/calendar-notes/sanmeigaku/天印星`: returned 200 locally with placeholder text.
+- `/calendar-notes/sanmeigaku/陽占%20人体星図`: returned 200 locally.
+
+TODO:
+
+- Confirm source spreadsheet sheets/ranges for 十大主星 and 十二大従星 explanation text.
+- Replace placeholder wording with source-confirmed explanation text only after the master is connected.
+- Decide whether to add a 算命学 category to `/calendar-notes` index.

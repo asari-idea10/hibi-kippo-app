@@ -14,6 +14,7 @@ Last updated: 2026-07-09
 - Initial `docs/preview-urls.md` created with a Production baseline URL.
 - NotebookLM source-addition behavior documented for newly created docs.
 - `docs/preview-urls.md` expanded with primary Vercel Preview regression URL categories.
+- `/sanmeigaku` 陽占人体星図の星名リンク Phase 1 implemented with placeholder detail pages.
 
 ## Next
 
@@ -26,6 +27,7 @@ Last updated: 2026-07-09
 | P1 | Add initial non-authoritative regression fixtures for boundary dates | Medium | High | Test/docs | Mark expected values TODO until source-confirmed. |
 | P1 | Audit `calendar-db` form parameters and complete URL table | Low | Medium | Docs | Helps API/page consistency. |
 | P1 | Add source-status annotations for 天道, 土用殺, 方位殺, selected-day rules | High | High | Fortune/source review | Requires domain/source confirmation. |
+| P1 | Connect source-confirmed 算命学 star explanation master | Medium | High | Sanmeigaku content/source implementation | Phase 2: after spreadsheet sheets/ranges are finalized, connect 十大主星・十二大従星 explanation text to `/calendar-notes/sanmeigaku/[name]`. |
 | P2 | Document companion judgement examples for strict/standard/loose | Medium | Medium | Spec/test design | Use current code examples first, then confirm intent. |
 | P2 | Design candidate rank UI/data split into fortune rank and practical rank | Medium | Medium | Product/UI design | Do not change scoring until rank factors are confirmed. |
 
@@ -46,6 +48,7 @@ Last updated: 2026-07-09
 - `source_review_required`: Official expected values for 節入り, 立春, 土用, and board-switching regression samples.
 - `pending`, `source_review_required`: Whether birth row year 九星 as 本命星 is final for all users.
 - `pending`, `source_review_required`: Whether 天赦日 can be an almanac-only candidate without direction tags.
+- `source_review_required`: Exact spreadsheet sheets/ranges for 十大主星・十二大従星 explanation text.
 
 ## Decision Timing
 

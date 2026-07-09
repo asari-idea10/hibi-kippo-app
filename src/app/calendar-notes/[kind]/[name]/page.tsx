@@ -17,6 +17,7 @@ import { getNacchinMasterEntry } from "@/lib/nacchin-master";
 import { getRokuyoEntry, type RokuyoMasterEntry } from "@/lib/rokuyo-master";
 import { getSelectedDayAdoptionRows } from "@/lib/selected-day-adoption";
 import { getDirectionDeityDictionaryEntry } from "@/lib/direction-deity-dictionary";
+import { getSanmeigakuTermMasterEntry } from "@/lib/sanmeigaku-term-master";
 
 type CalendarNoteTermPageProps = {
   params: Promise<{
@@ -182,32 +183,54 @@ function getCalendarNoteTerm(kind: string, name: string): CalendarNoteTerm | nul
   const normalizedName = normalizeCalendarNoteTermName(name);
 
   if (normalizedKind === "sanmeigaku") {
-    if (normalizedName !== "陽占 人体星図") {
+    if (normalizedName === "陽占 人体星図") {
+      return {
+        kind: normalizedKind,
+        kindLabel: calendarNoteKindLabels[normalizedKind],
+        name: "陽占 人体星図",
+        reading: "ようせん じんたいせいず",
+        fortune: "neutral",
+        summary:
+          "日干を基準に十大主星と十二大従星を人体図へ配置し、社会面・内面・人生段階を読むための陽占表示です。",
+        recommended: [
+          "陰占の年柱・月柱・日柱から、どの干や支を使って星を出したか確認する。",
+          "頭・左手・中心・右手・腹の十大主星で、対外面、家庭面、本質、社会面、目下面の読み口を分ける。",
+          "初年運・中年運・老年運の十二大従星とエネルギー値を、人生段階の補助情報として見る。",
+        ],
+        caution: [
+          "人体星図だけで断定せず、陰占、蔵干司令、十二大従星、位相法などと合わせて読む。",
+          "流派差が出るため、蔵干の採用ルールと外部照合結果を分けて検証する。",
+        ],
+        sourceStatus:
+          "参照マスタ: 算命計算 B538:V550 / 十大主星 A552:E562, A565:E615, A618:B654",
+        verificationStatus: "sanmeigaku_yosen_v0_reference",
+        note:
+          "スプレッドシートの該当範囲を参照マスタとして、/sanmeigaku の陽占 人体星図 v0 に接続しています。",
+      };
+    }
+
+    const sanmeigakuTerm = getSanmeigakuTermMasterEntry(normalizedName);
+
+    if (!sanmeigakuTerm) {
       return null;
     }
 
     return {
       kind: normalizedKind,
       kindLabel: calendarNoteKindLabels[normalizedKind],
-      name: "陽占 人体星図",
-      reading: "ようせん じんたいせいず",
+      name: sanmeigakuTerm.name,
+      reading: sanmeigakuTerm.category,
       fortune: "neutral",
-      summary:
-        "日干を基準に十大主星と十二大従星を人体図へ配置し、社会面・内面・人生段階を読むための陽占表示です。",
+      summary: "この星の説明文は準備中です。",
       recommended: [
-        "陰占の年柱・月柱・日柱から、どの干や支を使って星を出したか確認する。",
-        "頭・左手・中心・右手・腹の十大主星で、対外面、家庭面、本質、社会面、目下面の読み口を分ける。",
-        "初年運・中年運・老年運の十二大従星とエネルギー値を、人生段階の補助情報として見る。",
+        "説明マスターの接続後に、正式な解説を表示します。",
       ],
       caution: [
-        "人体星図だけで断定せず、陰占、蔵干司令、十二大従星、位相法などと合わせて読む。",
-        "流派差が出るため、蔵干の採用ルールと外部照合結果を分けて検証する。",
+        "星の意味本文は未確定です。推測による説明文は追加していません。",
       ],
-      sourceStatus:
-        "参照マスタ: 算命計算 B538:V550 / 十大主星 A552:E562, A565:E615, A618:B654",
-      verificationStatus: "sanmeigaku_yosen_v0_reference",
-      note:
-        "スプレッドシートの該当範囲を参照マスタとして、/sanmeigaku の陽占 人体星図 v0 に接続しています。",
+      sourceStatus: sanmeigakuTerm.sourceStatus,
+      verificationStatus: sanmeigakuTerm.verificationStatus,
+      note: `${sanmeigakuTerm.category} / スプレッドシート上の説明マスター範囲確定後に本文を接続します。`,
     };
   }
 

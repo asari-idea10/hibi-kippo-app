@@ -33,6 +33,14 @@ const yosenChartReferenceRange =
   "参照範囲 算命計算 B538:V550 / 十大主星 A552:E562, A565:E615, A618:B654";
 const pillarOrder = ["year", "month", "day", "time"] as const;
 
+function getSanmeigakuTermHref(star: string) {
+  if (!star || star === "-") {
+    return null;
+  }
+
+  return `/calendar-notes/sanmeigaku/${encodeURIComponent(star)}`;
+}
+
 export const metadata = {
   title: "算命学 命式 v0 | 日々吉方",
   description:
@@ -612,6 +620,8 @@ function YosenJuudaiCell({
   isCenter?: boolean;
   position: YosenJuudaiPosition;
 }) {
+  const starHref = getSanmeigakuTermHref(position.star);
+
   return (
     <article
       className={`sanmeiYosenCell sanmeiYosenCellJuudai${
@@ -619,7 +629,15 @@ function YosenJuudaiCell({
       }`}
     >
       <span>{position.label}</span>
-      <strong>{position.star}</strong>
+      <strong>
+        {starHref ? (
+          <Link className="sectionHeadingLink" href={starHref}>
+            {position.star}
+          </Link>
+        ) : (
+          position.star
+        )}
+      </strong>
       <em>{position.theme}</em>
       <small>
         {position.sourceLabel}: {position.dayStem}
@@ -634,10 +652,20 @@ function YosenJuunidaiCell({
 }: {
   position: YosenJuunidaiPosition;
 }) {
+  const starHref = getSanmeigakuTermHref(position.star);
+
   return (
     <article className="sanmeiYosenCell sanmeiYosenCellJuunidai">
       <span>{position.label}</span>
-      <strong>{position.star}</strong>
+      <strong>
+        {starHref ? (
+          <Link className="sectionHeadingLink" href={starHref}>
+            {position.star}
+          </Link>
+        ) : (
+          position.star
+        )}
+      </strong>
       <em>
         {position.theme} / {position.energy ?? "-"}
       </em>

@@ -32,9 +32,9 @@ Last updated: 2026-07-09
 | --- | --- |
 | `/` | Top / developer verification entry point. `?view=dev` is linked as 検証画面. |
 | `/purpose-calendar` | Monthly 九星方位 calendar with purpose, birth date, companion, and direction candidate filtering. |
-| `/sanmeigaku` | 算命学 命式 page. Uses `birthDate` when present. |
+| `/sanmeigaku` | 算命学 命式 page. Uses `birthDate` when present. 陽占人体星図の星名から算命学用語詳細へ遷移できる。 |
 | `/calendar-notes` | 用語辞典 index. |
-| `/calendar-notes/[kind]/[name]` | Calendar / fortune term detail page. |
+| `/calendar-notes/[kind]/[name]` | Calendar / fortune term detail page. `kind=sanmeigaku` also handles 陽占人体星図 and star-term placeholder pages. |
 | `/calendar-db` | Search and inspect calendar DB rows. |
 | `/direction-palace-blends` | 方位ブレンド master view. |
 | `/adoption-status` | Adoption and verification status view. |
@@ -113,3 +113,4 @@ Last updated: 2026-07-09
 - Add regression tests for edge dates around 節入り, 立春, 土用, and month/year switching.
 - Reduce duplicated query parameter concepts between `actionScale`, `candidateCondition`, `candidate`, and `goodDirectionMatch`.
 - Clarify which rules are product decisions and which are temporary implementation choices.
+- Connect source-confirmed 算命学 star explanation masters after spreadsheet ranges are finalized.

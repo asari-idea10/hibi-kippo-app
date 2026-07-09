@@ -85,10 +85,13 @@ Last updated: 2026-07-09
   - 陽占 人体星図.
   - 蔵干 master.
   - Verification references.
+- 陽占 人体星図の十大主星・十二大従星の星名は、`/calendar-notes/sanmeigaku/[name]` への同一タブリンクとして表示される。
+- 星名リンク先の説明本文は未接続で、現時点では準備中文言を表示する。
 
 ### TODO
 
 - Confirm which sanmeigaku sections should remain on one page and which should become linked term/detail pages.
+- Confirm spreadsheet source ranges for 十大主星・十二大従星 explanation text before adding meanings.
 
 ## calendar-db
 
