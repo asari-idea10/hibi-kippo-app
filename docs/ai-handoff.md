@@ -56,6 +56,15 @@ The script:
 
 Do not use the script to sync source code, environment files, credentials, build output, or dependencies.
 
+Important NotebookLM source behavior:
+
+- Google Drive sync updates file contents for Drive files that are already added as NotebookLM sources.
+- New Markdown files copied to Google Drive are not automatically added to an existing NotebookLM note.
+- When new docs are created, run the sync script, then manually add the new Drive files to the NotebookLM source list.
+- During NotebookLM review, confirm that all required new files are visible in the source list.
+- `docs/deployment-workflow.md` and `docs/preview-urls.md` must be added as NotebookLM sources.
+- Codex completion reports should explicitly say "NotebookLM manual source addition is required" when new docs were created.
+
 ## Current Baseline Handoff
 
 Date: 2026-07-09
@@ -213,3 +222,28 @@ TODO:
 - Fill remaining regression URL slots in `docs/preview-urls.md`.
 - Confirm exact Vercel Preview URL recording convention after the next feature-branch deployment.
 - Confirm project-specific rollback procedure before relying on it operationally.
+
+## NotebookLM Source Addition Follow-up
+
+Date: 2026-07-09
+
+Source:
+
+- NotebookLM re-check after adding `docs/deployment-workflow.md` and `docs/preview-urls.md` as sources.
+
+Summary:
+
+- Confirmed that after `docs/deployment-workflow.md` and `docs/preview-urls.md` were manually added to NotebookLM sources, NotebookLM could read the workflow:
+  - `main` is Production.
+  - feature branches are Preview.
+  - Vercel Preview URLs are used for ChatGPT/Gemini review.
+- Clarified NotebookLM operation:
+  - existing Drive source files can update through Drive sync
+  - newly created docs require manual source addition in NotebookLM after Google Drive sync
+
+Still unresolved:
+
+- Whether pull requests should be required before merge to `main`.
+- Project-specific rollback procedure.
+- Production domain ownership/settings confirmation.
+- Regression URL expansion in `docs/preview-urls.md`.

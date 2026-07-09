@@ -11,6 +11,8 @@ This document defines how GitHub, Codex, Vercel, ChatGPT, Gemini, NotebookLM, Go
 - Feature work should be done on feature branches.
 - Google Drive copies are for NotebookLM reading and review, not the canonical source.
 - NotebookLM summaries are review inputs. If they lead to accepted decisions, record those decisions in Git-tracked docs.
+- NotebookLM automatically reflects content changes only for Drive files already added as sources.
+- New docs copied to Google Drive must be manually added to the NotebookLM source list.
 
 ## Branch Flow
 
@@ -62,8 +64,16 @@ After implementation work:
 4. Check the Vercel Preview URL.
 5. Record the Preview URL and verification notes in `docs/ai-handoff.md`.
 6. Run `bash scripts/sync-docs-to-drive.sh` after docs updates that should be visible to NotebookLM.
-7. Ask NotebookLM to review the updated Google Drive docs when appropriate.
-8. Record any accepted decisions in `docs/decision-log.md`.
+7. If new docs were created, manually add those Drive files to the NotebookLM source list.
+8. Confirm the required files are present in NotebookLM sources before asking for review.
+9. Ask NotebookLM to review the updated Google Drive docs when appropriate.
+10. Record any accepted decisions in `docs/decision-log.md`.
+
+Required NotebookLM sources:
+
+- `deployment-workflow.md`
+- `preview-urls.md`
+- Other new docs created for the current workflow or implementation review.
 
 ## Vercel Preview Checklist
 
@@ -90,6 +100,7 @@ Before merging to `main`:
 - Confirm unresolved `pending` or `source_review_required` items are not implemented as if decided.
 - Confirm `docs/ai-handoff.md` contains Preview URL and verification notes when applicable.
 - Confirm docs were synced to Google Drive if NotebookLM should read them.
+- Confirm any newly created docs were manually added to NotebookLM sources when NotebookLM review is expected.
 
 ## Rollback Approach
 

@@ -55,6 +55,15 @@ Use this before merging or handing off changes.
 - For `purpose-calendar` calculation changes, verify at least one ordinary date and one boundary date such as 節入り, 立春, or 土用 when relevant.
 - Record verification in `docs/ai-handoff.md`.
 
+## NotebookLM / Google Drive
+
+- After docs updates that should be reviewed by NotebookLM, run `bash scripts/sync-docs-to-drive.sh`.
+- For existing docs already added as NotebookLM sources, Google Drive sync can update the source contents.
+- For newly created docs, manually add the synced Drive file to NotebookLM sources.
+- Before NotebookLM review, confirm required new files are present in the NotebookLM source list.
+- `deployment-workflow.md` and `preview-urls.md` must be present as NotebookLM sources for Vercel workflow review.
+- If new docs were created, the Codex final report must say that NotebookLM manual source addition is required.
+
 ## Vercel Preview
 
 Use Vercel Preview for feature, UI, URL behavior, logic, and infrastructure changes before merging to `main`.

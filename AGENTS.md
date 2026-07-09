@@ -55,6 +55,8 @@ This repository is a Next.js application for 日々吉方 / 九星方位 / 算�
 - For documentation-only changes, confirm the diff does not include feature code.
 - Report whether `git diff -- src` is empty for documentation-only work.
 - After docs updates that should be visible to NotebookLM, run `bash scripts/sync-docs-to-drive.sh` to sync Google Drive.
+- If new docs were created, state in the final report that NotebookLM needs manual source addition after Google Drive sync.
+- Existing docs already added as NotebookLM sources can update through Drive sync; new files do not automatically become NotebookLM sources.
 - Append a short handoff note to `docs/ai-handoff.md` with:
   - change summary
   - changed files
