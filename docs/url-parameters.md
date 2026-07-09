@@ -1,0 +1,95 @@
+# URL Parameters
+
+Last updated: 2026-07-09
+
+## `/purpose-calendar`
+
+### Confirmed
+
+- This page is controlled by query parameters.
+- Existing parameters should not be removed or repurposed without a documented decision.
+
+### Read From Current Code
+
+| Parameter | Values / format | Current default / fallback | Current use |
+| --- | --- | --- | --- |
+| `year` | Number, 1900-2050 | Current JST year | Visible month year and DB search range. |
+| `month` | Number, 1-12 | Current JST month | Visible month and DB search range. |
+| `selectedDate` | `YYYY-MM-DD` | If valid within visible month: that date. Else today when in month. Else first day of month. | Selected date for top premise and year/month/day board display. |
+| `birthDate` | `YYYY-MM-DD` | Empty string | Creates self personal context and birth chart premise when present. |
+| `birthGender` | `male` or `female` | `male` | Passed to DB search / personal context. |
+| `familyStars` | Comma-separated IDs | `self` | Companion/self star selection. IDs include `self`, `star-1` ... `star-9`. |
+| `purpose` | Purpose ID | `travel` in query parsing; form posts `yuki_tori` | Used by keyword-matched DB search. Full month computation uses `yuki_tori` constant. |
+| `keyword` | Text | Empty string | Filters keyword-matched dates. |
+| `auspiciousOnly` | `on` | Off | Restricts matched dates to rows with selected-day good chips. |
+| `showChildSatsu` | `on` | Off | Controls display of 小児殺-related information. |
+| `compassOrientation` | `north-top`, `south-top` | `north-top` | Direction board orientation. |
+| `actionScale` | `near`, `day_trip`, `overnight`, `base`, `hour_precision` | `near` or legacy-derived value | Determines current action scale and effective candidate condition. |
+| `companionJudgementMode` | `strict`, `standard`, `loose` | `standard` | Companion/family filtering strictness. |
+| `candidateCondition` | `all`, `has_candidate`, `practical`, `long_term`, `strong` | Effective value currently derived from `actionScale` | Legacy / condition concept. Not the primary driver when `actionScale` exists. |
+| `candidate` | `all`, `has_candidate` | Used only for legacy action-scale derivation | Legacy candidate filter concept. |
+| `goodDirectionMatch` | `all`, `year_month_day`, `month_day`, `year_month` | Used only for legacy action-scale derivation and helper mapping | Legacy good-direction match concept. |
+| `kyuseiMatch` | Currently fixed to `all` in page flow | `all` | Passed as fixed value for searches. |
+
+### Parameter Interactions
+
+- `year` and `month` define the visible monthly calendar range.
+- `selectedDate` changes the top year/month/day board display without changing the visible month when it remains inside that month.
+- `actionScale` drives `candidateCondition`.
+- If `actionScale` is absent, legacy `candidate` and `goodDirectionMatch` may be used to derive an action scale.
+- `familyStars=self` only produces a member when `birthDate` produces personal context.
+- Direct companion stars use `star-1` through `star-9`; labels are 一白水星 through 九紫火星.
+- `birthGender` accepts `female`; every other value falls back to `male` in the current page code.
+- `compassOrientation` accepts `south-top`; every other value falls back to `north-top` in the current page code.
+
+### TODO
+
+- Confirm whether `purpose` should default to `yuki_tori` instead of `travel`.
+- Confirm whether `candidateCondition` should be honored directly or remain derived from `actionScale`.
+- Confirm whether `selectedDate` should allow navigating to another month or always stay constrained to the visible month.
+- Confirm whether `birthGender=male` default is a product decision.
+
+### Compatibility Notes
+
+- Treat `candidate`, `goodDirectionMatch`, and `candidateCondition` as compatibility-sensitive until their future role is decided.
+- Do not remove or rename query parameters without a migration note and decision-log entry.
+
+## `/sanmeigaku`
+
+| Parameter | Values / format | Current default / fallback | Current use |
+| --- | --- | --- | --- |
+| `birthDate` | `YYYY-MM-DD` | Empty string | When present, builds and displays the 算命学 profile. When absent, shows empty-state guidance. |
+
+## `/calendar-db`
+
+### Read From Current Code
+
+The page and API use the same search concepts as `searchCalendarDb`, including:
+
+- `year`
+- date range fields
+- `birthDate`
+- `birthGender`
+- `honmeiStar`
+- `keyword`
+- `limit`
+- `view`
+- `dayType`
+- `kyuseiMatch`
+- `purpose`
+- `candidate`
+- `goodDirectionMatch`
+
+### TODO
+
+- Add a full `/calendar-db` parameter table after inspecting the form component in detail.
+
+## API Routes
+
+### Read From Current Code
+
+Several API routes accept simple query parameters such as `date`, `year`, `start`, `end`, and route-specific flags.
+
+### TODO
+
+- Add per-API parameter tables only when those APIs become integration targets.

@@ -1,0 +1,80 @@
+# Product Spec
+
+Last updated: 2026-07-09
+
+## Purpose
+
+### Confirmed
+
+- This app provides screens for 日々吉方, 九星方位カレンダー, 暦DB, 用語辞典, 方位ブレンド, 採用ステータス, and 算命学.
+- The main user-facing navigation is defined in `src/components/site-section-nav.tsx`.
+- `purpose-calendar` is the current monthly 九星方位 calendar screen.
+- `sanmeigaku` displays a 算命学命式 view based on a birth date when one is provided.
+
+### Read From Current Code
+
+- `purpose-calendar` combines calendar DB rows, year/month/day direction boards, personal star context, companion star checks, and monthly candidate summaries.
+- The visible monthly calendar is currently query-driven; saved URLs can reproduce a month, selected date, birth date, companion settings, and display options.
+- `calendar-db` exposes searchable calendar DB views for `kyusei`, `summary`, `selected_days`, `direction_deities`, `doyo`, and `all`.
+- `calendar-notes` is a dictionary/index for calendar terms and term detail pages.
+- `adoption-status` shows source/adoption/verification status and sample links.
+- `direction-palace-blends` displays direction and palace blend information.
+
+### TODO
+
+- Confirm the official product name and short description for public use.
+- Confirm whether `purpose-calendar` should remain the main 九星方位 screen or split into multiple purpose-specific routes later.
+
+## Major Pages
+
+| Route | Current role |
+| --- | --- |
+| `/` | Top / developer verification entry point. `?view=dev` is linked as 検証画面. |
+| `/purpose-calendar` | Monthly 九星方位 calendar with purpose, birth date, companion, and direction candidate filtering. |
+| `/sanmeigaku` | 算命学 命式 page. Uses `birthDate` when present. |
+| `/calendar-notes` | 用語辞典 index. |
+| `/calendar-notes/[kind]/[name]` | Calendar / fortune term detail page. |
+| `/calendar-db` | Search and inspect calendar DB rows. |
+| `/direction-palace-blends` | 方位ブレンド master view. |
+| `/adoption-status` | Adoption and verification status view. |
+
+## Product-Spec Status Terms
+
+- Confirmed: explicitly requested by the user or already established as an operating rule for future work.
+- Read From Current Code: behavior observed in the current repository. This is not automatically final product specification.
+- TODO: unknown, provisional, or requiring human/source confirmation.
+
+## Current Technical Stack
+
+### Read From Current Code
+
+- Next.js `16.2.6`
+- React `19.2.4`
+- TypeScript
+- ESLint 9 with `eslint-config-next`
+- Data is stored under `src/data` and read through helper modules under `src/lib`.
+- UI is implemented mainly with server components in `src/app/**/page.tsx` plus reusable components under `src/components`.
+
+### Common Commands
+
+- `npm run dev`
+- `npm run lint`
+- `npm run build`
+- Calendar/regression scripts are listed in `package.json`; select only the relevant script for the touched area.
+
+## Data Flow Overview
+
+### Read From Current Code
+
+1. Route query parameters are read in a server page.
+2. Parameters are normalized in the route file or a library.
+3. Calendar data is retrieved through `searchCalendarDb`.
+4. Purpose, direction, personal-star, and calendar-note helpers enrich rows.
+5. The page renders panels, boards, tags, candidate summaries, and calendar cells.
+
+## Improvement Candidates
+
+- Formalize source status for every fortune/calendar rule used in `purpose-calendar`.
+- Add regression tests for edge dates around 節入り, 立春, 土用, and month/year switching.
+- Reduce duplicated query parameter concepts between `actionScale`, `candidateCondition`, `candidate`, and `goodDirectionMatch`.
+- Clarify which rules are product decisions and which are temporary implementation choices.
