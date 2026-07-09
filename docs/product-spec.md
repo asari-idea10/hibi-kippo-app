@@ -83,12 +83,14 @@ Production URLs:
 
 ### Phase 2: Spreadsheet Explanation Master Connection
 
-Status: `implementation_pending`, `source_review_required`
+Status: `implemented`, `source_connected`
 
 Next Codex task name: `算命学星説明マスター Phase 2 調査・設計`
 
-- Do not connect explanation text immediately.
-- First investigate and design the source master structure, types, and display behavior.
+- `/calendar-notes/sanmeigaku/[星名]` now connects source-confirmed spreadsheet explanation masters.
+- 十大主星 pages show the 5 人体星図 position explanations.
+- 十二大従星 pages show power, energy, age range, strength class, animal/group attributes, colors, and keywords.
+- 身強・身中・身弱 is available as an energy-total helper master, but direct UI use remains limited to explanatory context.
 - Target spreadsheet:
   - `https://docs.google.com/spreadsheets/d/1cA4_swLTarSTJkz2nSxvF6oBlrAo363A4U5xTWOQv7g/edit?gid=1235637842#gid=1235637842`
 - Target sheet:
@@ -98,16 +100,10 @@ Next Codex task name: `算命学星説明マスター Phase 2 調査・設計`
   - 十大主星: `算命計算!A528:E577`
   - 身強・身中・身弱: `算命計算!A580:B616`
 
-Phase 2 should clarify:
+Implementation files:
 
-- Current `src/lib/sanmeigaku-term-master.ts` structure.
-- Type shape for 十二大従星 master.
-- Type shape for 十大主星 position-based explanation master.
-- How to treat 身強・身中・身弱.
-- Whether to store the master as TypeScript constants or JSON.
-- Detail page display proposal.
-- Required docs updates.
-- Minimal implementation plan.
+- `src/lib/sanmeigaku-star-description-master.ts`
+- `src/app/calendar-notes/[kind]/[name]/page.tsx`
 
 ### Do Not Implement Yet
 

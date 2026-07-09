@@ -108,11 +108,12 @@ Production check URLs:
 
 ### Phase 2 URL Notes
 
-Status: `implementation_pending`, `source_review_required`
+Status: `implemented`, `source_connected`
 
-- Phase 2 should connect explanation body text without changing the existing URL format if possible.
+- Phase 2 connects explanation body text without changing the existing URL format.
 - Do not rename `/calendar-notes/sanmeigaku/[name]` without a migration note.
 - `/calendar-notes` index exposure for sanmeigaku terms is a separate product/UI task.
+- No query parameters were added for Phase 2.
 
 ### TODO
 

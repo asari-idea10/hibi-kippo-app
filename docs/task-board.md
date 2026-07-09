@@ -16,6 +16,7 @@ Last updated: 2026-07-09
 - `docs/preview-urls.md` expanded with primary Vercel Preview regression URL categories.
 - `/sanmeigaku` 陽占人体星図の星名リンク Phase 1 implemented with placeholder detail pages.
 - `/sanmeigaku` 星名リンク Phase 1 promoted to Production after Vercel Preview confirmation.
+- 算命学星説明マスター Phase 2 connected source-confirmed spreadsheet ranges to `/calendar-notes/sanmeigaku/[name]`.
 
 ## Next
 
@@ -28,8 +29,7 @@ Last updated: 2026-07-09
 | P1 | Add initial non-authoritative regression fixtures for boundary dates | Medium | High | Test/docs | Mark expected values TODO until source-confirmed. |
 | P1 | Audit `calendar-db` form parameters and complete URL table | Low | Medium | Docs | Helps API/page consistency. |
 | P1 | Add source-status annotations for 天道, 土用殺, 方位殺, selected-day rules | High | High | Fortune/source review | Requires domain/source confirmation. |
-| P1 | 算命学星説明マスター Phase 2 調査・設計 | Medium | High | Sanmeigaku content/source design | Do not connect text immediately. First inspect `src/lib/sanmeigaku-term-master.ts`, design 十二大従星 (`算命計算!B512:N524`), 十大主星 position explanations (`算命計算!A528:E577`), and 身強・身中・身弱 helper handling (`算命計算!A580:B616`). Decide TS constants vs JSON, detail-page display, docs updates, and minimal implementation plan. |
-| P1 | Connect source-confirmed 算命学 star explanation master | Medium | High | Sanmeigaku content/source implementation | Phase 2 implementation after the investigation/design is accepted: connect 十大主星・十二大従星 explanation text to `/calendar-notes/sanmeigaku/[name]` without inferred meanings or calculation/placement changes. |
+| P1 | Review 算命学 star detail copy in Preview | Low | Medium | Sanmeigaku content QA | Confirm the spreadsheet-derived wording is readable on 十大主星 and 十二大従星 pages. No inferred text was added. |
 | P2 | Document companion judgement examples for strict/standard/loose | Medium | Medium | Spec/test design | Use current code examples first, then confirm intent. |
 | P2 | Design candidate rank UI/data split into fortune rank and practical rank | Medium | Medium | Product/UI design | Do not change scoring until rank factors are confirmed. |
 

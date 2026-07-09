@@ -198,7 +198,7 @@ Status: `implemented`, `production_released`
 
 ### Star Explanation Master Phase 2
 
-Status: `implementation_pending`, `source_review_required`
+Status: `implemented`, `source_connected`
 
 Target spreadsheet:
 
@@ -250,18 +250,18 @@ Target ranges:
 身強・身中・身弱 helper master:
 
 - `算命計算!A580:B616` is a helper master for classifying 身弱・身中・身強 from total energy.
-- Current direction: treat it as a candidate for whole-chart energy judgement and supplementary explanation, not as direct star-detail body text.
-- Final placement and display behavior are not yet decided.
+- Current implementation stores it as `SanmeigakuEnergyStrengthRule`.
+- Direct star-detail body text is not generated from this helper. It remains a whole-chart energy judgement / supplementary explanation candidate.
 
-Do not implement yet:
+Guardrails:
 
 - Do not add explanation text from outside the confirmed ranges.
 - Do not infer meanings for stars.
 - Do not change 算命学 logic, star calculation logic, or chart placement logic.
-- Do not decide 身強・身中・身弱 usage without Phase 2 design.
+- Do not expand 身強・身中・身弱 into direct star-detail body text without a separate design decision.
 - Do not add a 算命学 category to `/calendar-notes` index unless it is handled as a separate task.
 
 ### TODO
 
-- Confirm all external master ranges and source statuses for 陽占 人体星図 and related term pages.
-- `source_review_required`: Confirm spreadsheet sheets/ranges for 十大主星・十二大従星 explanation text before adding formal meanings.
+- Review the spreadsheet-derived wording in Vercel Preview before Production promotion.
+- Decide separately whether to expose 算命学 categories on the `/calendar-notes` index.

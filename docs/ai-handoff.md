@@ -394,8 +394,8 @@ Production checks:
 
 Remaining TODO:
 
-- Phase 2 remains: connect source-confirmed 十大主星・十二大従星 explanation text after the spreadsheet sheets/ranges are finalized.
-- Do not add inferred star meaning text before the source master is confirmed.
+- Phase 2 has since connected the source-confirmed 十大主星・十二大従星 explanation text from the spreadsheet ranges.
+- Continue to avoid inferred star meaning text outside the connected source ranges.
 
 ## NotebookLM Clarification: Sanmeigaku Star Links Phase 1 / Phase 2
 
@@ -433,9 +433,10 @@ Production check URLs:
 
 Phase 2 status:
 
-- Status: `implementation_pending`, `source_review_required`.
-- Next recommended Codex task: `算命学星説明マスター Phase 2 調査・設計`.
-- Do not immediately connect body text. First investigate and design the master structure and UI display.
+- Status: `implemented`, `source_connected`.
+- Source-confirmed explanation masters are connected to `/calendar-notes/sanmeigaku/[星名]`.
+- 十大主星 pages display the 5 position-specific 人体星図 explanations.
+- 十二大従星 pages display power, energy, age range, strength class, animal/group attributes, colors, and keywords.
 
 Phase 2 source candidate:
 
@@ -470,26 +471,59 @@ Phase 2 source candidate:
 身強・身中・身弱 handling:
 
 - `算命計算!A580:B616` is a helper master for classifying 身弱・身中・身強 from total energy.
-- Current direction: handle it as whole-chart energy judgement / supplementary explanation candidate, not as direct star-detail text.
-- Final display location is undecided and must be designed in Phase 2.
+- It is represented as an energy-total helper master.
+- It is not used to generate direct star-detail body text.
+- Broader whole-chart display placement remains a separate follow-up decision.
 
-Phase 2 should investigate:
+Phase 2 implementation files:
 
-- Current `src/lib/sanmeigaku-term-master.ts` structure.
-- Type shape for 十二大従星 master.
-- Type shape for 十大主星 position-based explanation master.
-- 身強・身中・身弱 usage and display placement.
-- TypeScript constants versus JSON master.
-- Detail page display proposal.
-- Required docs updates.
-- Minimal implementation plan.
+- `src/lib/sanmeigaku-star-description-master.ts`
+- `src/app/calendar-notes/[kind]/[name]/page.tsx`
 
-Do not implement without confirmation:
+Guardrails:
 
 - Do not add explanation text outside the confirmed spreadsheet ranges.
 - Do not infer star meanings.
 - Do not change 算命学 logic.
 - Do not change star calculation logic.
 - Do not change 陽占人体星図 placement logic.
-- Do not implement 身強・身中・身弱 behavior before the Phase 2 design is accepted.
+- Do not expand 身強・身中・身弱 into direct star-detail body text without a separate design decision.
 - Treat `/calendar-notes` index sanmeigaku category exposure as a separate task if needed.
+
+## Sanmeigaku Star Explanation Master Phase 2 Implementation
+
+Date: 2026-07-09
+
+Summary:
+
+- Added `src/lib/sanmeigaku-star-description-master.ts`.
+- Connected `/calendar-notes/sanmeigaku/[星名]` to spreadsheet-derived explanation masters.
+- Kept `src/lib/sanmeigaku-term-master.ts` as the thin star-name/category route master.
+- Did not change 算命学 calculation logic, star derivation logic, or 陽占人体星図 placement logic.
+- Did not add explanation text outside the requested spreadsheet ranges.
+
+Source ranges:
+
+- 十二大従星: `算命計算!B512:N524`
+- 十大主星: `算命計算!A528:E577`
+- 身強・身中・身弱: `算命計算!A580:B616`
+
+Changed files:
+
+- `src/lib/sanmeigaku-star-description-master.ts`
+- `src/app/calendar-notes/[kind]/[name]/page.tsx`
+- `docs/product-spec.md`
+- `docs/screen-design.md`
+- `docs/fortune-rules.md`
+- `docs/url-parameters.md`
+- `docs/task-board.md`
+- `docs/ai-handoff.md`
+
+Verification plan:
+
+- `npm run lint`
+- `npm run build`
+- Check `/calendar-notes/sanmeigaku/車騎星` displays 5 position-specific 十大主星 descriptions.
+- Check `/calendar-notes/sanmeigaku/司禄星` displays 5 position-specific 十大主星 descriptions.
+- Check `/calendar-notes/sanmeigaku/天印星` displays 十二大従星 attributes and keywords.
+- Check `/calendar-notes/sanmeigaku/陽占%20人体星図` remains available.

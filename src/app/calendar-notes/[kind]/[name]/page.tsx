@@ -17,6 +17,11 @@ import { getNacchinMasterEntry } from "@/lib/nacchin-master";
 import { getRokuyoEntry, type RokuyoMasterEntry } from "@/lib/rokuyo-master";
 import { getSelectedDayAdoptionRows } from "@/lib/selected-day-adoption";
 import { getDirectionDeityDictionaryEntry } from "@/lib/direction-deity-dictionary";
+import {
+  getJuudaiShuseiPositionDescriptions,
+  getJuunidaiJuseiDescription,
+  sanmeigakuStarDescriptionSource,
+} from "@/lib/sanmeigaku-star-description-master";
 import { getSanmeigakuTermMasterEntry } from "@/lib/sanmeigaku-term-master";
 
 type CalendarNoteTermPageProps = {
@@ -213,6 +218,68 @@ function getCalendarNoteTerm(kind: string, name: string): CalendarNoteTerm | nul
 
     if (!sanmeigakuTerm) {
       return null;
+    }
+
+    if (sanmeigakuTerm.category === "十大主星") {
+      const positionDescriptions =
+        getJuudaiShuseiPositionDescriptions(sanmeigakuTerm.name);
+
+      if (positionDescriptions.length > 0) {
+        return {
+          kind: normalizedKind,
+          kindLabel: calendarNoteKindLabels[normalizedKind],
+          name: sanmeigakuTerm.name,
+          reading: sanmeigakuTerm.category,
+          fortune: "neutral",
+          summary: `${sanmeigakuTerm.name}の人体星図における位置別説明です。`,
+          recommended: positionDescriptions.map(
+            (entry) =>
+              `${entry.position}（${entry.theme}）: ${entry.description}`,
+          ),
+          caution: [
+            "十大主星の説明は人体星図の位置ごとに意味が変わるため、単独の星名だけで断定せず、中心・頭・腹・右手・左手の配置と合わせて確認します。",
+          ],
+          sourceStatus: sanmeigakuStarDescriptionSource.juudaiRange,
+          verificationStatus: "connected_sanmeigaku_juudai_position_text_master",
+          note: `${sanmeigakuTerm.category} / ${sanmeigakuStarDescriptionSource.spreadsheetTitle} の位置別説明マスターから表示しています。`,
+        };
+      }
+    }
+
+    if (sanmeigakuTerm.category === "十二大従星") {
+      const description = getJuunidaiJuseiDescription(sanmeigakuTerm.name);
+
+      if (description) {
+        return {
+          kind: normalizedKind,
+          kindLabel: calendarNoteKindLabels[normalizedKind],
+          name: description.name,
+          reading: sanmeigakuTerm.category,
+          fortune: "neutral",
+          summary: `${description.name}は${description.energy}の十二大従星です。`,
+          recommended: [
+            `パワー数: ${description.power}`,
+            `エネルギー: ${description.energy}`,
+            `相当年齢: ${description.ageRange}`,
+            `身強／身弱: ${description.strengthClass}`,
+            `動物占い: ${description.animal}`,
+            `グループ: ${description.group}`,
+            `種族: ${description.tribe}`,
+            `表記: ${description.notation}`,
+            `軸: ${description.axis}`,
+            `目標／状況: ${description.goalType}`,
+            `カラー: ${description.colors.join("、")}`,
+            `特徴: ${description.keywords.join("、")}`,
+          ],
+          caution: [
+            "十二大従星は初年運・中年運・老年運などの配置と合わせて確認します。",
+            "身強・身中・身弱の総合判定は人体星図全体のエネルギー合計と合わせて扱います。",
+          ],
+          sourceStatus: sanmeigakuStarDescriptionSource.juunidaiRange,
+          verificationStatus: "connected_sanmeigaku_juunidai_text_master",
+          note: `${sanmeigakuTerm.category} / ${sanmeigakuStarDescriptionSource.spreadsheetTitle} の十二大従星マスターから表示しています。`,
+        };
+      }
     }
 
     return {
