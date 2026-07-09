@@ -15,6 +15,7 @@ Last updated: 2026-07-09
 - NotebookLM source-addition behavior documented for newly created docs.
 - `docs/preview-urls.md` expanded with primary Vercel Preview regression URL categories.
 - `/sanmeigaku` 陽占人体星図の星名リンク Phase 1 implemented with placeholder detail pages.
+- `/sanmeigaku` 星名リンク Phase 1 promoted to Production after Vercel Preview confirmation.
 
 ## Next
 

@@ -354,6 +354,45 @@ Manual review checklist:
 
 Status:
 
-- Manual Vercel Preview review is pending because of Vercel Authentication / SSO.
-- Do not merge to `main` until the Preview review is accepted.
-- Do not promote this branch to Production during Preview review.
+- Toshi manually accepted the Vercel Preview on 2026-07-09.
+- Confirmed on Preview: `車騎星` detail page is not 404, placeholder text is shown, existing `/calendar-notes/sanmeigaku/陽占 人体星図` is intact, and the Preview display is usable.
+- The branch is approved for `main` merge and Production promotion.
+
+## Sanmeigaku Star Detail Production Release
+
+Date: 2026-07-09
+
+Branch:
+
+- `main`
+
+Merged source branch:
+
+- `feature/sanmeigaku-star-links`
+
+Production URL:
+
+- `https://hibi-kippo-app.vercel.app`
+
+Commits:
+
+- Feature implementation: `8513e952cb6359990c169e5c5b56322fc8e9afa6`
+- Preview checklist: `7145dce064df353c67606d78be664f47cdb9ad13`
+
+Verification before push:
+
+- `npm run lint`: passed.
+- `npm run build`: passed.
+
+Production checks:
+
+- `https://hibi-kippo-app.vercel.app/sanmeigaku?birthDate=1976-03-19`: HTTP 200.
+- `https://hibi-kippo-app.vercel.app/calendar-notes/sanmeigaku/%E8%BB%8A%E9%A8%8E%E6%98%9F`: HTTP 200 and includes `この星の説明文は準備中です。`
+- `https://hibi-kippo-app.vercel.app/calendar-notes/sanmeigaku/%E5%8F%B8%E7%A6%84%E6%98%9F`: HTTP 200.
+- `https://hibi-kippo-app.vercel.app/calendar-notes/sanmeigaku/%E5%A4%A9%E5%8D%B0%E6%98%9F`: HTTP 200.
+- `https://hibi-kippo-app.vercel.app/calendar-notes/sanmeigaku/%E9%99%BD%E5%8D%A0%20%E4%BA%BA%E4%BD%93%E6%98%9F%E5%9B%B3`: HTTP 200.
+
+Remaining TODO:
+
+- Phase 2 remains: connect source-confirmed 十大主星・十二大従星 explanation text after the spreadsheet sheets/ranges are finalized.
+- Do not add inferred star meaning text before the source master is confirmed.
