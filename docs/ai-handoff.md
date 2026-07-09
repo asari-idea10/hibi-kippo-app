@@ -30,6 +30,9 @@ When handing this project to ChatGPT or Gemini, include:
 - `docs/fortune-rules.md`
 - `docs/url-parameters.md`
 - `docs/decision-log.md`
+- `docs/deployment-workflow.md`
+- `docs/preview-urls.md`
+- The active Vercel Preview URL when reviewing a feature branch.
 - The specific code files being reviewed, not the whole repository by default.
 - A clear instruction to preserve the distinction between confirmed specification, current code behavior, and TODO.
 
@@ -176,3 +179,37 @@ Verification:
 
 - Documentation-only change.
 - `git diff -- src` should remain empty.
+
+## Vercel Workflow Documentation Follow-up
+
+Date: 2026-07-09
+
+Summary:
+
+- Added Vercel Preview / Production workflow documentation for AI-orchestrated development.
+- Recorded GitHub as the source of truth for code and docs.
+- Recorded `main` as the production branch and feature branches as the normal Codex implementation path.
+- Added Preview URL usage for ChatGPT/Gemini review and Production URL usage as stable baseline.
+- Added a regression URL index with the current Production `/purpose-calendar` baseline.
+- Added review-checklist items for Vercel Preview and production merge readiness.
+
+Changed docs:
+
+- `AGENTS.md`
+- `docs/deployment-workflow.md`
+- `docs/preview-urls.md`
+- `docs/ai-handoff.md`
+- `docs/review-checklist.md`
+- `docs/task-board.md`
+
+Verification:
+
+- Documentation-only change.
+- No Vercel settings, GitHub settings, app code, UI code, or fortune/calendar logic were changed.
+- `git diff -- src` should remain empty.
+
+TODO:
+
+- Fill remaining regression URL slots in `docs/preview-urls.md`.
+- Confirm exact Vercel Preview URL recording convention after the next feature-branch deployment.
+- Confirm project-specific rollback procedure before relying on it operationally.

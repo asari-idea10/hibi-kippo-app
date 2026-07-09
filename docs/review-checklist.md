@@ -50,9 +50,29 @@ Use this before merging or handing off changes.
 - For code changes, run `npm run lint` and `npm run build` unless clearly unrelated or blocked.
 - For documentation-only changes, confirm `git diff` does not include feature code.
 - For documentation-only changes, explicitly check `git diff -- src`.
+- Documentation-only changes do not require Vercel Preview verification.
 - For URL behavior changes, manually verify a saved URL with all affected parameters.
 - For `purpose-calendar` calculation changes, verify at least one ordinary date and one boundary date such as 節入り, 立春, or 土用 when relevant.
 - Record verification in `docs/ai-handoff.md`.
+
+## Vercel Preview
+
+Use Vercel Preview for feature, UI, URL behavior, logic, and infrastructure changes before merging to `main`.
+
+- Confirm `/purpose-calendar` displays successfully.
+- Confirm the target URL keeps its query parameters after load and interaction.
+- Confirm `purpose=yuki_tori`, `candidateCondition=has_candidate`, `birthDate`, `birthGender`, `companionJudgementMode`, `familyStars`, and `actionScale` are not broken.
+- Confirm mobile display does not break.
+- Confirm 祐気取り candidate days remain understandable.
+- Confirm existing `/sanmeigaku`, `/calendar-db`, and `/calendar-notes` routes are not negatively affected when relevant.
+- Record the Preview URL and result in `docs/ai-handoff.md`.
+
+## Production Merge
+
+- Confirm `docs/deployment-workflow.md` has been followed.
+- Confirm relevant URLs from `docs/preview-urls.md` were checked on Preview for non-doc changes.
+- Confirm no `pending` or `source_review_required` item was implemented without explicit confirmation.
+- Confirm rollback approach is clear for the change.
 
 ## Handoff
 

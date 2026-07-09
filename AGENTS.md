@@ -32,9 +32,12 @@ This repository is a Next.js application for 日々吉方 / 九星方位 / 算�
 ## Implementation Rules
 
 - Use the smallest practical diff.
+- As a rule, make feature additions, UI changes, URL behavior changes, and logic changes on a feature branch.
+- Avoid direct changes to `main` for implementation work.
 - Prefer existing components, data shapes, and helper functions over new abstractions.
 - Do not casually change existing URLs, query parameters, route behavior, or judgement logic.
 - Preserve backwards-compatible query parameters unless a documented decision says otherwise.
+- Preserve existing URLs, especially `/purpose-calendar` query parameter compatibility.
 - Do not change fortune-telling, calendar, direction, 土用, 天道, or candidate judgement logic by guesswork.
 - Keep "current code behavior" separate from "confirmed product specification" in docs and user-facing summaries.
 - If a TODO blocks implementation, pause and state the specific decision needed instead of filling the gap with assumptions.
@@ -46,8 +49,12 @@ This repository is a Next.js application for 日々吉方 / 九星方位 / 算�
 ## After Work
 
 - For code changes, run the relevant verification command, usually `npm run lint` and `npm run build` unless clearly unnecessary or blocked.
+- For non-documentation changes, expect local verification plus Vercel Preview URL verification before production merge.
+- When a Vercel Preview URL is issued, record it in `docs/ai-handoff.md`.
+- Before production merge, check `docs/review-checklist.md`.
 - For documentation-only changes, confirm the diff does not include feature code.
 - Report whether `git diff -- src` is empty for documentation-only work.
+- After docs updates that should be visible to NotebookLM, run `bash scripts/sync-docs-to-drive.sh` to sync Google Drive.
 - Append a short handoff note to `docs/ai-handoff.md` with:
   - change summary
   - changed files
