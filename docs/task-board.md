@@ -17,6 +17,7 @@ Last updated: 2026-07-11
 - `/sanmeigaku` 陽占人体星図の星名リンク Phase 1 implemented with placeholder detail pages.
 - `/sanmeigaku` 星名リンク Phase 1 promoted to Production after Vercel Preview confirmation.
 - 算命学星説明マスター Phase 2 connected source-confirmed spreadsheet ranges to `/calendar-notes/sanmeigaku/[name]`.
+- `/sanmeigaku` whole-chart total energy and 身弱・身中・身強 judgement connected to `算命計算!A580:B616` boundaries.
 - Vercel Preview public review workflow confirmed: Preview URLs can be shared directly with ChatGPT/Gemini after `HTTP 200` and no SSO redirect are verified.
 
 ## Next
@@ -31,6 +32,7 @@ Last updated: 2026-07-11
 | P1 | Audit `calendar-db` form parameters and complete URL table | Low | Medium | Docs | Helps API/page consistency. |
 | P1 | Add source-status annotations for 天道, 土用殺, 方位殺, selected-day rules | High | High | Fortune/source review | Requires domain/source confirmation. |
 | P1 | Review 算命学 star detail copy by public Preview URL | Low | Medium | Sanmeigaku content QA | Confirm the spreadsheet-derived wording is readable on 十大主星 and 十二大従星 pages. Prefer URL review over screenshots when Preview is public. No inferred text was added. |
+| P1 | Source-confirm 身弱・身中・身強 meaning text | Medium | Medium | Sanmeigaku content QA | Current `/sanmeigaku` display is label-only: total energy, judgement, target positions, and `算命計算!A580:B616`. Add meaning text only after a source master is confirmed. |
 | P2 | Document companion judgement examples for strict/standard/loose | Medium | Medium | Spec/test design | Use current code examples first, then confirm intent. |
 | P2 | Design candidate rank UI/data split into fortune rank and practical rank | Medium | Medium | Product/UI design | Do not change scoring until rank factors are confirmed. |
 

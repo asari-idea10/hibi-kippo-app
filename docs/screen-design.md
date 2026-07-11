@@ -110,12 +110,18 @@ Status: `implemented`, `source_connected`
 
 - 十二大従星 master candidate range: `算命計算!B512:N524`.
 - 十大主星 master candidate range: `算命計算!A528:E577`.
-- 身強・身中・身弱 helper candidate range: `算命計算!A580:B616`.
+- 身強・身中・身弱 helper range: `算命計算!A580:B616`.
 - 十大主星 range is position-based, not only a simple one-row-per-star description. The detail UI may need to show position-specific explanations such as `中心 × 車騎星`, `頭 × 車騎星`, `腹 × 車騎星`, `右手 × 車騎星`, and `左手 × 車騎星`.
-- 身強・身中・身弱 should probably be treated as an energy-total/helper explanation for the whole chart, not directly as a star detail page field, but this is not final.
+- 陽占人体星図のメタセル displays:
+  - 総エネルギー
+  - 判定
+  - 対象: 初年運・中年運・老年運
+  - 参照: `算命計算!A580:B616`
+- 身強・身中・身弱 is treated as a whole-chart energy helper, not as a direct star detail page field.
 - Implemented display:
   - 十大主星 pages display 5 position-specific lines in the main explanation list.
   - 十二大従星 pages display power, energy, age range, strength class, animal/group attributes, colors, and keywords.
+  - `/sanmeigaku` displays the whole-chart energy judgement label only; no inferred meaning text is shown.
   - When a star has no connected master entry, the existing preparation wording remains.
 
 ### TODO

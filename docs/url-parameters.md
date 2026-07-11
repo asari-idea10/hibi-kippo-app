@@ -115,6 +115,16 @@ Status: `implemented`, `source_connected`
 - `/calendar-notes` index exposure for sanmeigaku terms is a separate product/UI task.
 - No query parameters were added for Phase 2.
 
+### Sanmeigaku Energy Strength Display URL Notes
+
+Status: `implemented`, `no_url_change`
+
+- `/sanmeigaku` displays the whole-chart total energy and 身弱・身中・身強 judgement inside the existing page.
+- The display uses existing profile data and `算命計算!A580:B616`.
+- No route was added.
+- No query parameter was added.
+- Existing `/calendar-notes/sanmeigaku/[name]` star detail URLs were not changed.
+
 ### TODO
 
 - Confirm exact spreadsheet source ranges for star explanation text.

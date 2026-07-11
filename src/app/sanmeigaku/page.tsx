@@ -257,7 +257,9 @@ export default async function SanmeigakuPage({
               <div className="sanmeiYosenCell sanmeiYosenCellMeta">
                 <span>総エネルギー</span>
                 <strong>{profile.yosenChart.energyTotal}</strong>
-                <em>{profile.yosenChart.strengthLabel}</em>
+                <em>判定: {profile.yosenChart.strengthLabel}</em>
+                <small>対象: 初年運・中年運・老年運</small>
+                <small>参照: 算命計算!A580:B616</small>
               </div>
               <YosenJuudaiCell position={profile.yosenChart.juudai.head} />
               <YosenJuunidaiCell position={profile.yosenChart.juunidai.early} />

@@ -1,3 +1,5 @@
+import { getEnergyStrengthRule } from "@/lib/sanmeigaku-star-description-master";
+
 export type HeavenlyStem =
   | "甲"
   | "乙"
@@ -311,13 +313,5 @@ export function getEnergyStrengthLabel(total: number) {
     return "未判定";
   }
 
-  if (total <= 14) {
-    return "身弱";
-  }
-
-  if (total <= 28) {
-    return "身中";
-  }
-
-  return "身強";
+  return getEnergyStrengthRule(total)?.strengthClass ?? "未判定";
 }

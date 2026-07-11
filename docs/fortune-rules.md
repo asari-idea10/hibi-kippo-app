@@ -251,14 +251,23 @@ Target ranges:
 
 - `算命計算!A580:B616` is a helper master for classifying 身弱・身中・身強 from total energy.
 - Current implementation stores it as `SanmeigakuEnergyStrengthRule`.
-- Direct star-detail body text is not generated from this helper. It remains a whole-chart energy judgement / supplementary explanation candidate.
+- `/sanmeigaku` uses this helper as a whole-chart energy judgement in the 陽占人体星図 section.
+- The total energy target is the existing three 十二大従星 positions:
+  - 初年運: 日干 × 年支
+  - 中年運: 日干 × 月支
+  - 老年運: 日干 × 日支
+- Boundary values from `算命計算!A580:B616`:
+  - `1-12`: 身弱
+  - `13-24`: 身中
+  - `25-36`: 身強
+- Direct star-detail body text is not generated from this helper. Meaning text for 身強・身中・身弱 remains unconnected.
 
 Guardrails:
 
 - Do not add explanation text from outside the confirmed ranges.
 - Do not infer meanings for stars.
 - Do not change 算命学 logic, star calculation logic, or chart placement logic.
-- Do not expand 身強・身中・身弱 into direct star-detail body text without a separate design decision.
+- Do not expand 身強・身中・身弱 into meaning/body text without a source-confirmed explanation master.
 - Do not add a 算命学 category to `/calendar-notes` index unless it is handled as a separate task.
 
 ### TODO

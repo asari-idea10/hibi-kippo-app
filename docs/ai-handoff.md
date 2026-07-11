@@ -554,3 +554,49 @@ Security guardrails:
 
 - Do not expose secrets, environment variables, credentials, customer data, production-only private data, or authentication tokens in Preview.
 - Production settings and environment variables are outside the scope of the public Preview review workflow.
+
+## Sanmeigaku Energy Strength Display Connection
+
+Date: 2026-07-11
+
+Summary:
+
+- Aligned `/sanmeigaku` whole-chart 身弱・身中・身強 judgement with the spreadsheet-derived helper master.
+- Source range: `算命計算!A580:B616`.
+- Boundary values:
+  - `1-12`: 身弱
+  - `13-24`: 身中
+  - `25-36`: 身強
+- The total energy target remains the existing three 十二大従星 positions:
+  - 初年運: 日干 × 年支
+  - 中年運: 日干 × 月支
+  - 老年運: 日干 × 日支
+- The `/sanmeigaku` 陽占人体星図 meta cell now shows total energy, judgement, target positions, and source range.
+- No URL or query parameter changes were made.
+- No inferred meaning text for 身弱・身中・身強 was added.
+- 算命学 logic, star derivation logic, and 陽占人体星図 placement logic were not changed.
+
+Changed files:
+
+- `src/lib/sanmeigaku-yosen-master.ts`
+- `src/app/sanmeigaku/page.tsx`
+- `docs/product-spec.md`
+- `docs/screen-design.md`
+- `docs/fortune-rules.md`
+- `docs/url-parameters.md`
+- `docs/task-board.md`
+- `docs/ai-handoff.md`
+
+Verification:
+
+- Run `npm run lint`.
+- Run `npm run build`.
+- Check `/sanmeigaku?birthDate=1976-03-19`.
+- Check `/sanmeigaku?birthDate=2008-12-28`.
+- Check `/calendar-notes/sanmeigaku/天印星`.
+- Check `/calendar-notes/sanmeigaku/天報星`.
+
+Remaining TODO:
+
+- Add source-confirmed meaning text for 身弱・身中・身強 only after an explanation master is confirmed.
+- Keep `/calendar-notes` sanmeigaku category/index exposure as a separate task.
