@@ -112,7 +112,8 @@ Status: `implemented`, `source_connected`
 
 - Phase 2 connects explanation body text without changing the existing URL format.
 - Do not rename `/calendar-notes/sanmeigaku/[name]` without a migration note.
-- `/calendar-notes` index exposure for sanmeigaku terms is a separate product/UI task.
+- `/calendar-notes` index now exposes links to existing sanmeigaku term detail pages.
+- The index addition does not create new routes and does not change path encoding behavior.
 - No query parameters were added for Phase 2.
 
 ### Sanmeigaku Energy Strength Display URL Notes
@@ -128,7 +129,7 @@ Status: `implemented`, `no_url_change`
 ### TODO
 
 - Confirm exact spreadsheet source ranges for star explanation text.
-- Decide whether `/calendar-notes` index should expose a 算命学 category.
+- Decide separately whether 身弱・身中・身強 should become `/calendar-notes/sanmeigaku/[name]` dictionary terms after a source-confirmed meaning master exists.
 
 ## `/calendar-db`
 

@@ -599,4 +599,50 @@ Verification:
 Remaining TODO:
 
 - Add source-confirmed meaning text for 身弱・身中・身強 only after an explanation master is confirmed.
-- Keep `/calendar-notes` sanmeigaku category/index exposure as a separate task.
+- Decide whether 身弱・身中・身強 should become dictionary terms after meaning text and route intent are confirmed.
+
+## Calendar Notes Sanmeigaku Index Category
+
+Date: 2026-07-11
+
+Summary:
+
+- Added a 算命学 category to `/calendar-notes`.
+- The category links to existing detail pages only:
+  - `/calendar-notes/sanmeigaku/陽占 人体星図`
+  - 十大主星 pages under `/calendar-notes/sanmeigaku/[星名]`
+  - 十二大従星 pages under `/calendar-notes/sanmeigaku/[星名]`
+- Term chips use meta labels so the index remains compact:
+  - `陽占`
+  - `十大主星`
+  - `十二大従星`
+- 身弱・身中・身強 is intentionally not listed in `/calendar-notes` because it is currently a `/sanmeigaku` whole-chart helper judgement and dictionary meaning text is not connected.
+- No URL or query parameter changes were made.
+- 算命学 logic, star derivation logic, and 陽占人体星図 placement logic were not changed.
+- Existing `/calendar-notes/sanmeigaku/[name]` behavior was not changed.
+
+Changed files:
+
+- `src/app/calendar-notes/page.tsx`
+- `src/lib/term-dictionary-status.ts`
+- `docs/product-spec.md`
+- `docs/screen-design.md`
+- `docs/url-parameters.md`
+- `docs/task-board.md`
+- `docs/ai-handoff.md`
+
+Verification:
+
+- Run `npm run lint`.
+- Run `npm run build`.
+- Check `/calendar-notes`.
+- Check `/calendar-notes/sanmeigaku/陽占%20人体星図`.
+- Check `/calendar-notes/sanmeigaku/車騎星`.
+- Check `/calendar-notes/sanmeigaku/司禄星`.
+- Check `/calendar-notes/sanmeigaku/玉堂星`.
+- Check `/calendar-notes/sanmeigaku/天報星`.
+- Check `/calendar-notes/sanmeigaku/天印星`.
+
+Remaining TODO:
+
+- Decide later whether 身弱・身中・身強 should have dictionary detail pages after source-confirmed meaning text exists.

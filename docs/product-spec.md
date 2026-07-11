@@ -90,6 +90,8 @@ Next Codex task name: `算命学星説明マスター Phase 2 調査・設計`
 - `/calendar-notes/sanmeigaku/[星名]` now connects source-confirmed spreadsheet explanation masters.
 - 十大主星 pages show the 5 人体星図 position explanations.
 - 十二大従星 pages show power, energy, age range, strength class, animal/group attributes, colors, and keywords.
+- `/calendar-notes` index now includes a 算命学 category so users can reach the existing 陽占 人体星図, 十大主星, and 十二大従星 detail pages from the dictionary index.
+- The index addition uses existing `/calendar-notes/sanmeigaku/[name]` URLs and does not add routes or query parameters.
 - `/sanmeigaku` displays 身弱・身中・身強 as a whole-chart helper judgement in the 陽占人体星図 section.
 - The judgement uses the total energy of 初年運・中年運・老年運 and the source range `算命計算!A580:B616`.
 - Boundary values are `1-12: 身弱`, `13-24: 身中`, and `25-36: 身強`.
@@ -116,7 +118,7 @@ Implementation files:
 - Do not change star derivation logic.
 - Do not change 陽占人体星図 placement logic.
 - Do not add inferred meaning text for 身強・身中・身弱 until a source master is confirmed.
-- Treat `/calendar-notes` index exposure for 算命学 as a separate task if needed.
+- Do not list 身弱・身中・身強 in the `/calendar-notes` index until dictionary meaning text and route intent are confirmed.
 
 ## Candidate Ranking Product Direction
 

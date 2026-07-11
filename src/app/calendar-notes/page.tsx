@@ -9,6 +9,8 @@ import { getNacchinMasterEntry } from "@/lib/nacchin-master";
 import { rokuyoMaster } from "@/lib/rokuyo-master";
 import { getSelectedDayAdoptionRows } from "@/lib/selected-day-adoption";
 import { getDirectionDeityDictionaryEntries } from "@/lib/direction-deity-dictionary";
+import { juudaiShuseiTermNames } from "@/lib/sanmeigaku-term-master";
+import type { JuunidaiJusei } from "@/lib/sanmeigaku-yosen-master";
 import {
   termDictionarySeoStatuses,
   getTermDictionaryStatusRows,
@@ -36,6 +38,21 @@ function getCalendarNoteHref(kind: string, name: string) {
 function uniqueValues(values: string[]) {
   return Array.from(new Set(values.filter(Boolean)));
 }
+
+const juunidaiJuseiIndexOrder: JuunidaiJusei[] = [
+  "天報星",
+  "天印星",
+  "天貴星",
+  "天恍星",
+  "天南星",
+  "天禄星",
+  "天将星",
+  "天堂星",
+  "天胡星",
+  "天極星",
+  "天庫星",
+  "天馳星",
+];
 
 function createDictionaryCategories(): DictionaryCategory[] {
   const kanshiEntries = getKanshiMasterEntries();
@@ -132,6 +149,32 @@ function createDictionaryCategories(): DictionaryCategory[] {
         meta: entry.alternateName,
         status: "未着手",
       })),
+    },
+    {
+      id: "sanmeigaku",
+      label: "算命学",
+      description:
+        "陽占 人体星図、十大主星、十二大従星の用語詳細へ辿る入口です。",
+      terms: [
+        {
+          label: "陽占 人体星図",
+          href: getCalendarNoteHref("sanmeigaku", "陽占 人体星図"),
+          meta: "陽占",
+          status: "本文接続済み",
+        },
+        ...juudaiShuseiTermNames.map((name) => ({
+          label: name,
+          href: getCalendarNoteHref("sanmeigaku", name),
+          meta: "十大主星",
+          status: "本文接続済み",
+        })),
+        ...juunidaiJuseiIndexOrder.map((name) => ({
+          label: name,
+          href: getCalendarNoteHref("sanmeigaku", name),
+          meta: "十二大従星",
+          status: "本文接続済み",
+        })),
+      ],
     },
     {
       id: "direction-deities",

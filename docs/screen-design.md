@@ -146,12 +146,18 @@ Status: `implemented`, `source_connected`
 ### Read From Current Code
 
 - `calendar-notes` is a term index and term detail entry point.
+- `calendar-notes` includes a 算命学 category that links to:
+  - `/calendar-notes/sanmeigaku/陽占 人体星図`
+  - 十大主星 detail pages under `/calendar-notes/sanmeigaku/[星名]`
+  - 十二大従星 detail pages under `/calendar-notes/sanmeigaku/[星名]`
+- The 算命学 category uses compact term chips with meta labels: `陽占`, `十大主星`, and `十二大従星`.
+- 身弱・身中・身強 is not listed in the `/calendar-notes` index because it is currently a `/sanmeigaku` whole-chart helper judgement and its meaning text is not connected as a dictionary term.
 - `adoption-status` is a verification and source-status screen.
 - `direction-palace-blends` is a master/reference screen.
 
 ### TODO
 
-- Add screen-level structure for these pages when they are next edited.
+- Add more screen-level structure for `adoption-status` and `direction-palace-blends` when they are next edited.
 
 ## UI Change Rules
 
