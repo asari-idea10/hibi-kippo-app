@@ -1,6 +1,6 @@
 # Task Board
 
-Last updated: 2026-07-09
+Last updated: 2026-07-11
 
 ## Done
 
@@ -17,6 +17,7 @@ Last updated: 2026-07-09
 - `/sanmeigaku` 陽占人体星図の星名リンク Phase 1 implemented with placeholder detail pages.
 - `/sanmeigaku` 星名リンク Phase 1 promoted to Production after Vercel Preview confirmation.
 - 算命学星説明マスター Phase 2 connected source-confirmed spreadsheet ranges to `/calendar-notes/sanmeigaku/[name]`.
+- Vercel Preview public review workflow confirmed: Preview URLs can be shared directly with ChatGPT/Gemini after `HTTP 200` and no SSO redirect are verified.
 
 ## Next
 
@@ -29,7 +30,7 @@ Last updated: 2026-07-09
 | P1 | Add initial non-authoritative regression fixtures for boundary dates | Medium | High | Test/docs | Mark expected values TODO until source-confirmed. |
 | P1 | Audit `calendar-db` form parameters and complete URL table | Low | Medium | Docs | Helps API/page consistency. |
 | P1 | Add source-status annotations for 天道, 土用殺, 方位殺, selected-day rules | High | High | Fortune/source review | Requires domain/source confirmation. |
-| P1 | Review 算命学 star detail copy in Preview | Low | Medium | Sanmeigaku content QA | Confirm the spreadsheet-derived wording is readable on 十大主星 and 十二大従星 pages. No inferred text was added. |
+| P1 | Review 算命学 star detail copy by public Preview URL | Low | Medium | Sanmeigaku content QA | Confirm the spreadsheet-derived wording is readable on 十大主星 and 十二大従星 pages. Prefer URL review over screenshots when Preview is public. No inferred text was added. |
 | P2 | Document companion judgement examples for strict/standard/loose | Medium | Medium | Spec/test design | Use current code examples first, then confirm intent. |
 | P2 | Design candidate rank UI/data split into fortune rank and practical rank | Medium | Medium | Product/UI design | Do not change scoring until rank factors are confirmed. |
 

@@ -527,3 +527,30 @@ Verification plan:
 - Check `/calendar-notes/sanmeigaku/司禄星` displays 5 position-specific 十大主星 descriptions.
 - Check `/calendar-notes/sanmeigaku/天印星` displays 十二大従星 attributes and keywords.
 - Check `/calendar-notes/sanmeigaku/陽占%20人体星図` remains available.
+
+## Vercel Preview Public Review Workflow
+
+Date: 2026-07-11
+
+Summary:
+
+- Vercel Project Settings > Deployment Protection was updated outside the codebase.
+- Vercel Authentication is disabled for Preview review.
+- Production settings and environment variables were not changed as part of this workflow note.
+- Active Preview URL was confirmed to be publicly viewable without Vercel login.
+- `curl -I "https://hibi-kippo-vdghnsawl-toshi-mar19.vercel.app/sanmeigaku?birthDate=1976-03-19"` returned `HTTP/2 200`.
+- The response did not include `location: https://vercel.com/sso-api...`.
+
+Operational rule:
+
+- Use Vercel Preview for UI changes, visible behavior changes, link changes, URL route changes, and other feature changes where browser review is useful.
+- Codex should provide full Preview URLs, not only paths.
+- Before sharing a Preview URL with ChatGPT, Gemini, or another external AI reviewer, confirm unauthenticated access with an incognito/private browser window or `curl -I`.
+- If `curl -I` returns `HTTP 200` and incognito display works, treat the URL as a public Preview even if an external AI fetch tool has a temporary retrieval failure.
+- Prefer URL-based external AI review over screenshots when the Preview URL is publicly accessible.
+- Documentation-only changes do not require Vercel Preview.
+
+Security guardrails:
+
+- Do not expose secrets, environment variables, credentials, customer data, production-only private data, or authentication tokens in Preview.
+- Production settings and environment variables are outside the scope of the public Preview review workflow.

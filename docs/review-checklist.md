@@ -1,6 +1,6 @@
 # Review Checklist
 
-Last updated: 2026-07-09
+Last updated: 2026-07-11
 
 Use this before merging or handing off changes.
 
@@ -68,12 +68,19 @@ Use this before merging or handing off changes.
 
 Use Vercel Preview for feature, UI, URL behavior, logic, and infrastructure changes before merging to `main`.
 
+- Provide full Preview URLs for review, not only paths.
+- Confirm the Preview URL is publicly viewable before sending it to ChatGPT, Gemini, or another external AI reviewer.
+- Confirm unauthenticated access by using a private/incognito browser window or `curl -I "<full-preview-url>"`.
+- Confirm `curl -I` returns `HTTP 200` and does not include `location: https://vercel.com/sso-api...`.
 - Confirm `/purpose-calendar` displays successfully.
 - Confirm the target URL keeps its query parameters after load and interaction.
 - Confirm `purpose=yuki_tori`, `candidateCondition=has_candidate`, `birthDate`, `birthGender`, `companionJudgementMode`, `familyStars`, and `actionScale` are not broken.
 - Confirm mobile display does not break.
 - Confirm 祐気取り candidate days remain understandable.
 - Confirm existing `/sanmeigaku`, `/calendar-db`, and `/calendar-notes` routes are not negatively affected when relevant.
+- Confirm the Preview page does not expose secrets, environment variables, credentials, customer data, production-only private data, or authentication tokens.
+- Prefer direct URL review over screenshots when ChatGPT/Gemini can access the public Preview URL.
+- If an external AI fetch tool temporarily fails but `curl -I` returns `HTTP 200` and incognito browser display works, treat the URL as a public Preview and note the tool-specific failure in the handoff.
 - Record the Preview URL and result in `docs/ai-handoff.md`.
 
 ## Production Merge

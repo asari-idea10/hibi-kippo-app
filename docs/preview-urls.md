@@ -1,12 +1,22 @@
 # Preview URLs
 
-Last updated: 2026-07-09
+Last updated: 2026-07-11
 
 Use this file as the regression URL index for Vercel Preview and Production checks.
 
 For Preview review, replace only the host `https://hibi-kippo-app.vercel.app` with the active Vercel Preview host and keep the path/query unchanged unless the test case says otherwise.
 
 These URLs are review entry points. They do not define new expected fortune results or change URL behavior.
+
+Vercel Preview URLs are expected to be publicly viewable for ChatGPT, Gemini, and other external AI review. Codex should provide the full Preview URL for each checked route.
+
+Before sharing a Preview URL:
+
+- Confirm the URL loads in a private/incognito browser window without Vercel login.
+- Or run `curl -I "<full-preview-url>"` and confirm `HTTP 200`.
+- Confirm the response does not redirect to `https://vercel.com/sso-api...`.
+
+If an external AI fetch tool fails temporarily but the Preview URL returns `HTTP 200` through `curl -I` and loads in an incognito browser, treat it as a public Preview URL and continue with URL-based review rather than screenshots.
 
 ## Common Checks
 

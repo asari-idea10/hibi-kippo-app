@@ -1,6 +1,6 @@
 # Deployment Workflow
 
-Last updated: 2026-07-09
+Last updated: 2026-07-11
 
 This document defines how GitHub, Codex, Vercel, ChatGPT, Gemini, NotebookLM, Google Drive, and local docs should work together. It records workflow policy only. It does not change Vercel settings, GitHub settings, application code, UI, or fortune logic.
 
@@ -47,6 +47,19 @@ When a feature branch is pushed, use the Vercel Preview URL to verify the change
 Preview URLs should be recorded in `docs/ai-handoff.md` when they are available.
 
 Use `docs/preview-urls.md` as the regression URL index. Replace the host with the active Preview URL when checking a branch.
+
+Preview Deployments are intended to be publicly viewable for external AI review. As of 2026-07-11, Vercel Authentication was disabled in Vercel Project Settings > Deployment Protection for this project, and the active Preview URL was confirmed to return `HTTP/2 200` without redirecting to `vercel.com/sso-api`.
+
+Before sharing a Preview URL with ChatGPT, Gemini, or another external reviewer, confirm one of the following:
+
+- Open the full Preview URL in a private/incognito browser window while logged out of Vercel.
+- Run `curl -I "<full-preview-url>"` and confirm the response is `HTTP 200` and does not include a `location: https://vercel.com/sso-api...` header.
+
+If ChatGPT or Gemini has a temporary fetch failure but `curl -I` returns `HTTP 200` and an incognito browser can load the page, treat the URL as a public Preview and prefer URL review over screenshots.
+
+Codex should always provide full Preview URLs, not only paths, when asking for external review.
+
+Never expose secrets, environment variables, credentials, customer data, production-only private data, or authentication tokens in Preview. Production settings and environment variables are outside the scope of the public Preview review workflow.
 
 ## Production Baseline
 
