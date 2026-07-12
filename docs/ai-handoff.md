@@ -674,3 +674,48 @@ Verification:
 Unresolved / TODO:
 
 - None for this label-only change.
+
+## Sanmeigaku Phase UX-1 Implementation
+
+Date: 2026-07-12
+
+Branch:
+
+- `feature/sanmeigaku-ux-phase1`
+
+Summary:
+
+- Updated `/sanmeigaku` hero copy to match the current implementation: birth date displays 陰占 and 陽占, birth time is not used, and 人体星図 star names link to detail pages.
+- Grouped developer / verification sections after 陽占 人体星図 into one initially closed details block labeled `開発・検証情報を表示`.
+- The details block contains the existing 蔵干マスター, 蔵干流派別検証ステータス, and 算命学マスター棚卸し sections in their existing order.
+- Removed the old `陽占マスター接続予定` page section because 陽占, 十大主星, 十二大従星, and star detail pages are already connected.
+- Did not change 算命学 calculation logic, star derivation logic, 人体星図 placement, URLs, query parameters, source ranges, hover behavior, or 時柱 behavior.
+
+Changed files:
+
+- `src/app/sanmeigaku/page.tsx`
+- `src/app/globals.css`
+- `docs/product-spec.md`
+- `docs/screen-design.md`
+- `docs/fortune-rules.md`
+- `docs/url-parameters.md`
+- `docs/task-board.md`
+- `docs/ai-handoff.md`
+
+Verification:
+
+- `npm run lint`: passed.
+- `npm run build`: passed.
+- `git diff --check`: passed.
+- Local `/sanmeigaku`: hero copy and empty state render; old `陽占マスター接続予定` text is absent.
+- Local `/sanmeigaku?birthDate=1976-03-19`: 陰占, 陰占の柱, 陽占 人体星図, total energy `16`, judgement `身中`, and star links render; developer details exists once and is initially closed.
+- Local `/sanmeigaku?birthDate=2008-12-28`: 陰占, 陰占の柱, 陽占 人体星図, total energy `28`, judgement `身強`, and star links render; developer details exists once and is initially closed.
+- Browser mobile check at 390px width: summary displayed without horizontal breakage, details was initially closed, and clicking summary opened all three developer / verification sections.
+
+Preview:
+
+- Pending branch push and Vercel Preview confirmation.
+
+Unresolved / TODO:
+
+- No new TODO from this Phase UX-1 change.

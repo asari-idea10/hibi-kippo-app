@@ -1,6 +1,6 @@
 # Screen Design
 
-Last updated: 2026-07-09
+Last updated: 2026-07-12
 
 ## General UI Direction
 
@@ -86,7 +86,8 @@ Last updated: 2026-07-09
   - 蔵干 master.
   - Verification references.
 - 陽占 人体星図の十大主星・十二大従星の星名は、`/calendar-notes/sanmeigaku/[name]` への同一タブリンクとして表示される。
-- 星名リンク先の説明本文は未接続で、現時点では準備中文言を表示する。
+- 星名リンク先は source-connected spreadsheet explanation masters を表示する。
+- 陽占 人体星図より後の開発・検証情報は、初期状態で閉じた `開発・検証情報を表示` details にまとめる。
 
 ### Star Link Phase 1
 
@@ -99,10 +100,11 @@ Status: `implemented`, `production_released`
   - `/calendar-notes/sanmeigaku/司禄星`
   - `/calendar-notes/sanmeigaku/天印星`
 - 星名リンクは同一タブ遷移。
-- `/calendar-notes/sanmeigaku/[星名]` は現在 404 ではなく、準備中ページとして表示される。
-- 準備中ページには `この星の説明文は準備中です。` を表示する。
+- Phase 1 release時点では `/calendar-notes/sanmeigaku/[星名]` は 404 ではなく、準備中ページとして表示していた。
+- 準備中ページには `この星の説明文は準備中です。` を表示していた。
 - 既存の `/calendar-notes/sanmeigaku/陽占 人体星図` の用語詳細ページは維持されている。
 - 算命学ロジック、星の算出ロジック、人体星図の配置ロジックは変更していない。
+- This phase was superseded by the source-connected Phase 2 detail pages.
 
 ### Star Detail Phase 2 UI Considerations
 
@@ -123,6 +125,18 @@ Status: `implemented`, `source_connected`
   - 十二大従星 pages display power, energy, age range, strength class, animal/group attributes, colors, and keywords.
   - `/sanmeigaku` displays the whole-chart energy judgement label only; no inferred meaning text is shown.
   - When a star has no connected master entry, the existing preparation wording remains.
+
+### Phase UX-1 Layout
+
+Status: `implemented`
+
+- `/sanmeigaku` hero copy describes the current implemented state: birth date displays 陰占 and 陽占, birth time is not used, and 人体星図 star names link to detail pages.
+- The following developer / verification sections are grouped into a single closed details block after 陽占 人体星図:
+  - 蔵干マスター.
+  - 蔵干流派別検証ステータス.
+  - 算命学マスター棚卸し.
+- The old `陽占マスター接続予定` page section was removed because 陽占, 十大主星, 十二大従星, and star detail pages are already connected.
+- User-facing result sections remain always visible: 生年月日入力, 陰占表, 陰占の柱カード, 陽占 人体星図, 総エネルギー, 身弱・身中・身強判定, and star detail links.
 
 ### TODO
 

@@ -1,6 +1,6 @@
 # Fortune Rules
 
-Last updated: 2026-07-09
+Last updated: 2026-07-12
 
 This document records what the code currently does. It does not define new fortune-telling rules.
 
@@ -184,7 +184,7 @@ The effective candidate condition is currently derived from `actionScale`.
 - The page displays 陰占, pillars, 陽占 人体星図, 蔵干 master, and verification content when `birthDate` is provided.
 - Time pillar remains placeholder until birth time and location correction are connected.
 - 十大主星・十二大従星の星名 detail routes are available under `/calendar-notes/sanmeigaku/[name]`.
-- Current star detail pages are placeholders only; they do not contain inferred meanings.
+- Current star detail pages display source-connected spreadsheet explanation masters when available.
 
 ### Star Link Phase 1
 
@@ -192,9 +192,10 @@ Status: `implemented`, `production_released`
 
 - `/sanmeigaku` の陽占人体星図で、十大主星・十二大従星の星名をリンク化した。
 - Link route format: `/calendar-notes/sanmeigaku/[星名]`.
-- The linked pages currently show `この星の説明文は準備中です。`.
+- At the Phase 1 release, the linked pages showed `この星の説明文は準備中です。`.
 - Existing `/calendar-notes/sanmeigaku/陽占 人体星図` remains available.
 - This Phase 1 did not change 算命学 calculation logic, star derivation logic, or 陽占人体星図 placement logic.
+- This phase was superseded by the source-connected Phase 2 detail pages.
 
 ### Star Explanation Master Phase 2
 
@@ -268,7 +269,8 @@ Guardrails:
 - Do not infer meanings for stars.
 - Do not change 算命学 logic, star calculation logic, or chart placement logic.
 - Do not expand 身強・身中・身弱 into meaning/body text without a source-confirmed explanation master.
-- Do not add a 算命学 category to `/calendar-notes` index unless it is handled as a separate task.
+- `/calendar-notes` index has a 算命学 category for existing 陽占 人体星図, 十大主星, and 十二大従星 detail pages.
+- Do not add 身弱・身中・身強 to the `/calendar-notes` index unless dictionary meaning text and route intent are confirmed.
 
 ### TODO
 

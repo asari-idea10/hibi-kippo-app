@@ -1,6 +1,6 @@
 # URL Parameters
 
-Last updated: 2026-07-09
+Last updated: 2026-07-12
 
 ## `/purpose-calendar`
 
@@ -81,8 +81,8 @@ Last updated: 2026-07-09
 
 - This route uses a path segment, not query parameters.
 - Existing `/calendar-notes/sanmeigaku/陽占 人体星図` remains available.
-- 十大主星 and 十二大従星 star names now resolve to placeholder detail pages.
-- Star explanation text is not implemented yet; pages show preparation wording until the source master is connected.
+- 十大主星 and 十二大従星 star names resolve to source-connected detail pages when a master entry exists.
+- Star explanation text is connected from the source-confirmed spreadsheet masters without adding query parameters.
 
 ### Phase 1 URL Behavior
 
@@ -94,8 +94,8 @@ Status: `implemented`, `production_released`
   - `/calendar-notes/sanmeigaku/車騎星`
   - `/calendar-notes/sanmeigaku/司禄星`
   - `/calendar-notes/sanmeigaku/天印星`
-- `/calendar-notes/sanmeigaku/[星名]` currently does not require query parameters.
-- Current star detail pages are placeholders and show `この星の説明文は準備中です。`.
+- `/calendar-notes/sanmeigaku/[星名]` does not require query parameters.
+- At the Phase 1 release, star detail pages were placeholders and showed `この星の説明文は準備中です。`.
 - Existing `/calendar-notes/sanmeigaku/陽占 人体星図` continues to resolve.
 
 Production check URLs:
@@ -128,7 +128,6 @@ Status: `implemented`, `no_url_change`
 
 ### TODO
 
-- Confirm exact spreadsheet source ranges for star explanation text.
 - Decide separately whether 身弱・身中・身強 should become `/calendar-notes/sanmeigaku/[name]` dictionary terms after a source-confirmed meaning master exists.
 
 ## `/calendar-db`

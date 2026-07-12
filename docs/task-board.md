@@ -19,6 +19,7 @@ Last updated: 2026-07-11
 - 算命学星説明マスター Phase 2 connected source-confirmed spreadsheet ranges to `/calendar-notes/sanmeigaku/[name]`.
 - `/sanmeigaku` whole-chart total energy and 身弱・身中・身強 judgement connected to `算命計算!A580:B616` boundaries.
 - `/calendar-notes` index now includes a 算命学 category that links to 陽占 人体星図, 十大主星, and 十二大従星 detail pages.
+- `/sanmeigaku` Phase UX-1 separates user-facing chart results from developer / verification sections behind a closed details block.
 - Vercel Preview public review workflow confirmed: Preview URLs can be shared directly with ChatGPT/Gemini after `HTTP 200` and no SSO redirect are verified.
 
 ## Next
@@ -55,7 +56,6 @@ Last updated: 2026-07-11
 - `source_review_required`: Official expected values for 節入り, 立春, 土用, and board-switching regression samples.
 - `pending`, `source_review_required`: Whether birth row year 九星 as 本命星 is final for all users.
 - `pending`, `source_review_required`: Whether 天赦日 can be an almanac-only candidate without direction tags.
-- `source_review_required`: Exact spreadsheet sheets/ranges for 十大主星・十二大従星 explanation text.
 
 ## Decision Timing
 

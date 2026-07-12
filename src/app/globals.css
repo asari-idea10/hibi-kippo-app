@@ -898,6 +898,43 @@ h2 {
   margin-top: 0;
 }
 
+.sanmeiDeveloperDetails {
+  margin-top: 16px;
+}
+
+.sanmeiDeveloperDetails summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid rgba(165, 123, 59, 0.24);
+  background: rgba(255, 253, 247, 0.78);
+  color: var(--moss);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.sanmeiDeveloperDetails summary::-webkit-details-marker {
+  display: none;
+}
+
+.sanmeiDeveloperDetails summary::after {
+  content: "開く";
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.sanmeiDeveloperDetails[open] summary::after {
+  content: "閉じる";
+}
+
+.sanmeiDeveloperDetailsBody {
+  margin-top: 14px;
+}
+
 .sectionHeadingRow {
   display: flex;
   align-items: end;

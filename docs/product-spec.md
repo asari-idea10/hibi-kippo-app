@@ -1,6 +1,6 @@
 # Product Spec
 
-Last updated: 2026-07-09
+Last updated: 2026-07-12
 
 ## Purpose
 
@@ -34,7 +34,7 @@ Last updated: 2026-07-09
 | `/purpose-calendar` | Monthly 九星方位 calendar with purpose, birth date, companion, and direction candidate filtering. |
 | `/sanmeigaku` | 算命学 命式 page. Uses `birthDate` when present. 陽占人体星図の星名から算命学用語詳細へ遷移できる。 |
 | `/calendar-notes` | 用語辞典 index. |
-| `/calendar-notes/[kind]/[name]` | Calendar / fortune term detail page. `kind=sanmeigaku` also handles 陽占人体星図 and star-term placeholder pages. |
+| `/calendar-notes/[kind]/[name]` | Calendar / fortune term detail page. `kind=sanmeigaku` also handles 陽占人体星図 and source-connected star detail pages. |
 | `/calendar-db` | Search and inspect calendar DB rows. |
 | `/direction-palace-blends` | 方位ブレンド master view. |
 | `/adoption-status` | Adoption and verification status view. |
@@ -69,9 +69,10 @@ Status: `accepted`, `implemented`, `production_released`
   - `/calendar-notes/sanmeigaku/司禄星`
   - `/calendar-notes/sanmeigaku/天印星`
 - 星名リンクは同一タブ遷移。
-- `/calendar-notes/sanmeigaku/[星名]` は 404 にならず、現在は `この星の説明文は準備中です。` を表示する。
+- Phase 1 release時点では `/calendar-notes/sanmeigaku/[星名]` は 404 にならず、`この星の説明文は準備中です。` を表示していた。
 - 既存の `/calendar-notes/sanmeigaku/陽占 人体星図` は維持されている。
 - 算命学ロジック、星の算出ロジック、人体星図の配置ロジックは変更していない。
+- This phase was superseded by Phase 2, which connected source-confirmed star explanation masters.
 
 Production URLs:
 
@@ -178,4 +179,4 @@ Implementation files:
 - Add regression tests for edge dates around 節入り, 立春, 土用, and month/year switching.
 - Reduce duplicated query parameter concepts between `actionScale`, `candidateCondition`, `candidate`, and `goodDirectionMatch`.
 - Clarify which rules are product decisions and which are temporary implementation choices.
-- Connect source-confirmed 算命学 star explanation masters after spreadsheet ranges are finalized.
+- Review source-connected 算命学 star explanation masters in Preview before Production promotion when the display changes.
