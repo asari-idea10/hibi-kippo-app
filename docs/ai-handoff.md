@@ -666,7 +666,11 @@ Verification:
 
 - `npm run lint`: passed.
 - `npm run build`: passed.
+- Vercel Preview deployment for commit `83a4e79`: completed.
+- Preview URL: `https://hibi-kippo-app-git-feature-calendar-notes-sa-a8664b-toshi-mar19.vercel.app/calendar-notes`
+- Preview returned `HTTP/2 200` without a `Location` header or Vercel SSO redirect.
+- Preview category cards displayed `SEO 未着手` from the existing `seoArticleStatus` values.
 
 Unresolved / TODO:
 
-- Confirm the Vercel Preview deployment and public unauthenticated access after push.
+- None for this label-only change.
