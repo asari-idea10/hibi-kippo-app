@@ -714,7 +714,12 @@ Verification:
 
 Preview:
 
-- Pending branch push and Vercel Preview confirmation.
+- Base URL: `https://hibi-kippo-app-git-feature-sanmeigaku-ux-phase1-toshi-mar19.vercel.app`
+- GitHub/Vercel status: deployment completed for commit `7b2e56ea75c0ba4c7244303cdbdeb4ae8edc2cf6`.
+- `https://hibi-kippo-app-git-feature-sanmeigaku-ux-phase1-toshi-mar19.vercel.app/sanmeigaku`: HTTP 200, no `Location` header, no Vercel SSO redirect.
+- `https://hibi-kippo-app-git-feature-sanmeigaku-ux-phase1-toshi-mar19.vercel.app/sanmeigaku?birthDate=1976-03-19`: HTTP 200, no `Location` header, no Vercel SSO redirect.
+- `https://hibi-kippo-app-git-feature-sanmeigaku-ux-phase1-toshi-mar19.vercel.app/sanmeigaku?birthDate=2008-12-28`: HTTP 200, no `Location` header, no Vercel SSO redirect.
+- Preview body checks confirmed updated hero copy, empty state, user-facing result sections, star links, one initially closed developer details block, all three developer / verification sections inside it, and absence of old `陽占マスター接続予定`.
 
 Unresolved / TODO:
 
