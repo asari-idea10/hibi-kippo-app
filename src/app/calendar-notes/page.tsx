@@ -305,7 +305,7 @@ export default function CalendarNotesIndexPage() {
             <article className="panel calendarNotesCategoryCard" key={category.id}>
               <div className="calendarNotesCategoryHeader">
                 <span>{category.label}</span>
-                <small>{statusRow?.seoArticleStatus ?? "未着手"}</small>
+                <small>SEO {statusRow?.seoArticleStatus ?? "未着手"}</small>
               </div>
               <p>{category.description}</p>
               {statusRow ? (

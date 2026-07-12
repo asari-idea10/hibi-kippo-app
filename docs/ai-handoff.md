@@ -646,3 +646,27 @@ Verification:
 Remaining TODO:
 
 - Decide later whether 身弱・身中・身強 should have dictionary detail pages after source-confirmed meaning text exists.
+
+## Calendar Notes SEO Status Label Clarification
+
+Date: 2026-07-12
+
+Summary:
+
+- Changed only the category-card status display on `/calendar-notes` so `seoArticleStatus` is explicitly labeled as SEO status.
+- Display wording is now `SEO 未着手`, `SEO 進行中`, or `SEO 完了` according to the existing data value.
+- The `seoArticleStatus` data values, connection/body status, sanmeigaku category, links, URLs, and logic were not changed.
+
+Changed files:
+
+- `src/app/calendar-notes/page.tsx`
+- `docs/ai-handoff.md`
+
+Verification:
+
+- `npm run lint`: passed.
+- `npm run build`: passed.
+
+Unresolved / TODO:
+
+- Confirm the Vercel Preview deployment and public unauthenticated access after push.
