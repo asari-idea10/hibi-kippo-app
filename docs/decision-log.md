@@ -1,6 +1,6 @@
 # Decision Log
 
-Last updated: 2026-07-14
+Last updated: 2026-07-15
 
 Record product, architecture, and rule decisions here. Do not use this file to justify guessed fortune logic.
 
@@ -86,6 +86,18 @@ Use these exact status labels across docs when describing product and rule decis
 - Reason: Birth time and daiun depend on source-sensitive rules. A design ledger prevents URL/form work from accidentally becoming inferred fortune logic.
 - Implementation note: This decision records docs only. No source code, URL behavior, form behavior, or calculation logic was changed.
 
+### D-0009: Protect Sanmeigaku calculation core before common-master implementation
+
+- Date: 2026-07-15
+- Status: `accepted`, `documentation_only`, `implementation_pending`, `source_review_required`
+- Decision: Step 4A common-master work starts from `docs/common-master-architecture-decision.md`.
+- Decision: The Step 3 十大主星 100 / 100 match and 十二大従星 120 / 120 match are treated as protected current calculation-core evidence.
+- Decision: Step 4B should add regression tests before attempting shared-master refactors or common type extraction.
+- Decision: 通変星 and 十二運 remain research comparison terms; do not add them to the Sanmeigaku UI or calculation model from this evidence alone.
+- Decision: 方位神の破・冲・刑 and Sanmeigaku命式内の支合・冲・害・破・刑 must stay in separate evaluation layers until a source-reviewed architecture explicitly separates pure branch structures from use-case-specific fortune evaluation.
+- Reason: Step 3 found strong evidence that existing Sanmeigaku star calculations are already aligned with the research ledger, while unresolved areas are architectural and source-review problems rather than immediate calculation fixes.
+- Implementation note: This decision records docs only. No source code, data, tests, UI, URL behavior, or calculation logic was changed.
+
 ## Decision Status Matrix
 
 | Topic | Status | Implementation status | Source review | Notes |
@@ -97,6 +109,7 @@ Use these exact status labels across docs when describing product and rule decis
 | Companion modes `strict` / `standard` / `loose` meanings | `provisional`, `source_review_required` | Do not change logic from wording alone | Required before rule changes | Product wording exists; formal fortune behavior is not confirmed. |
 | Split candidate rank into fortune rank / practical rank | `accepted`, `implementation_pending`, `source_review_required` | Not implemented yet | Required for fortune-rank factors | Practical-rank design can proceed separately from fortune-source confirmation. |
 | Sanmeigaku input model before time pillar / daiun | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Docs-only model recorded | Required before time/daiun calculation | Missing gender must not silently become male for Sanmeigaku daiun design. |
+| Sanmeigaku calculation-core protection before common-master implementation | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Docs-only architecture boundary recorded | Required before unresolved common-master rule adoption | Start Step 4B with regression tests for 十大主星 100 and 十二大従星 120. |
 | Boundary regression samples for 節入り・立春・土用・board switching | `accepted`, `implementation_pending`, `source_review_required` | Test matrix not implemented yet | Required for authoritative expected values | High-priority test design task. |
 | 天道・土用殺・方位殺・candidate-rank fortune basis | `source_review_required` | Do not change logic until reviewed | Required | Keep current behavior documented as code behavior only. |
 | 本命星 handling | `source_review_required`, `pending` | Do not change personal-star logic until reviewed | Required | Current code derives from birth row year 九星. |
@@ -114,3 +127,4 @@ Use these exact status labels across docs when describing product and rule decis
 | P-0008 | Whether using birth row year 九星 as 本命星 is final for all users | Fortune/source confirmation | Before changing personal-star calculations | Current behavior is documented but not confirmed as final. |
 | P-0009 | Sanmeigaku time-pillar source rules | Fortune/source confirmation | Before adding `birthTime` to calculation | Includes time branch ranges, 子刻, day boundary, true solar time, longitude, timezone, DST, overseas births, and unknown time. |
 | P-0010 | Sanmeigaku daiun source rules | Fortune/source confirmation | Before implementing daiun | Includes forward/reverse direction, gender relation, stem yin/yang basis, start age, rounding, counted/full age, and stem/branch progression. |
+| P-0011 | Common-master Step 4B regression-test scope | Test design + architecture | Before commonizing shared masters | Start with 十大主星 100, 十二大従星 120, energy values, 初中老年, and 身強弱 boundaries before refactoring. |

@@ -1,6 +1,6 @@
 # Fortune Rules
 
-Last updated: 2026-07-14
+Last updated: 2026-07-15
 
 This document records what the code currently does. It does not define new fortune-telling rules.
 
@@ -186,6 +186,7 @@ The effective candidate condition is currently derived from `actionScale`.
 - 十大主星・十二大従星の星名 detail routes are available under `/calendar-notes/sanmeigaku/[name]`.
 - Current star detail pages display source-connected spreadsheet explanation masters when available.
 - Common master research for 十干・十二支・月建・通変星・十二運・干合・支関係 is tracked in `docs/mannenreki-common-master-research.md`; it is a ChatGPT-organized record from user-provided material and does not define implemented fortune rules.
+- Step 4A common-master architecture boundaries are tracked in `docs/common-master-architecture-decision.md`; 十大主星 100 対応 and 十二大従星 120 対応 are treated as protected current calculation results, while 通変星・十二運 remain research comparison terms rather than UI or rule additions.
 
 ### Star Link Phase 1
 

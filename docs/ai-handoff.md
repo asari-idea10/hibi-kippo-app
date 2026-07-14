@@ -1,6 +1,6 @@
 # AI Handoff
 
-Last updated: 2026-07-14
+Last updated: 2026-07-15
 
 This file is the shared handoff log for Codex, ChatGPT, and Gemini.
 
@@ -794,3 +794,36 @@ Unresolved:
 
 - Source page/colophon confirmation for the user-provided material.
 - Step 3 comparison with current code/data masters and Sanmeigaku-specific sources.
+
+## Common Master Architecture Decision Handoff
+
+Date: 2026-07-15
+
+Summary:
+
+- Added `docs/common-master-architecture-decision.md` as the Step 4A docs-only architecture boundary for future common-master work.
+- Recorded that Step 3 found 十大主星 100 / 100 and 十二大従星 120 / 120 matches between current Sanmeigaku calculation behavior and the research-ledger relationship structures.
+- Treated those matches as protected calculation-core evidence, not as a reason to add 通変星 or 十二運 to the Sanmeigaku UI.
+- Split future common-master candidates into pure structural data, Sanmeigaku-only calculation/display layers, 九星・方位神-only evaluation layers, and research-continuation areas.
+- Recommended Step 4B begin with regression tests before any shared-master refactor.
+
+Changed docs:
+
+- `docs/common-master-architecture-decision.md`
+- `docs/mannenreki-common-master-research.md`
+- `docs/product-spec.md`
+- `docs/fortune-rules.md`
+- `docs/decision-log.md`
+- `docs/task-board.md`
+- `docs/ai-handoff.md`
+
+Verification:
+
+- Documentation-only change.
+- `git diff -- src`, `git diff -- data`, and `git diff -- tests` should remain empty.
+- `git diff --check` should pass.
+
+Unresolved:
+
+- Step 4B regression tests for 十大主星 100, 十二大従星 120, energy values, 初中老年, and 身強弱 boundaries.
+- Source review for 月柱境界, 節入り時刻, 干合, 合化成立, 自化干合, 支合, 害, 破, 刑, 自刑, 半合, 半会, and 位相法.

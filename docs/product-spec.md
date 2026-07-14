@@ -1,6 +1,6 @@
 # Product Spec
 
-Last updated: 2026-07-14
+Last updated: 2026-07-15
 
 ## Purpose
 
@@ -127,6 +127,7 @@ Status: `accepted`, `documentation_only`, `implementation_pending`, `source_revi
 
 Detailed ledger: `docs/sanmeigaku-input-and-time-pillar-research.md`
 Common master research ledger: `docs/mannenreki-common-master-research.md`
+Common master architecture decision: `docs/common-master-architecture-decision.md`
 
 - `/sanmeigaku` currently uses only `birthDate`; this existing behavior and existing `birthDate` URLs must remain compatible.
 - Future input design may include `birthTime`, `birthTimeUnknown`, Sanmeigaku-specific `birthGender`, and later `birthPlace` / `timezone`.
@@ -134,7 +135,7 @@ Common master research ledger: `docs/mannenreki-common-master-research.md`
 - Birth time input alone must not make the time pillar authoritative until time-pillar, true-solar-time, date-boundary, and source rules are confirmed.
 - Time-pillar, true-solar-time, and daiun rules are `source_review_required` before implementation.
 - Dashboard and animation work should consume calculation results through a view model. Animation must not own or duplicate calculation rules.
-- 『改訂版 平成萬年暦』由来の四柱推命系マスター研究は、算命学の正式仕様としては未採用。十干・十二支・月建・通変星・十二運・干合・支関係は、既存算命学マスターとの照合後に判断する。
+- 『改訂版 平成萬年暦』由来の四柱推命系マスター研究は、算命学の正式仕様としては未採用。Step 4A では、十大主星 100 対応と十二大従星 120 対応を現行計算核の保護対象として扱い、通変星・十二運を UI へ追加しない方針を記録している。
 
 ### Input Model V0
 

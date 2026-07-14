@@ -1,6 +1,6 @@
 # 改訂版 平成萬年暦 共通マスター研究
 
-Last updated: 2026-07-14
+Last updated: 2026-07-15
 
 ## 1. Purpose
 
@@ -573,6 +573,8 @@ Keep this as Shichu Suimei reference knowledge unless a future Sanmeigaku-specif
 ## 16. Future Code Comparison Checklist
 
 Step 3 should compare this research ledger with current repository behavior.
+
+Step 4A architecture boundary decisions are recorded in `docs/common-master-architecture-decision.md`. That document treats the Step 3 十大主星 100 / 100 and 十二大従星 120 / 120 matches as protected calculation-core evidence, not as a reason to add 通変星 or 十二運 to the Sanmeigaku UI.
 
 Recommended checks:
 

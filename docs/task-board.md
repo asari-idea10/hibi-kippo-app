@@ -1,6 +1,6 @@
 # Task Board
 
-Last updated: 2026-07-14
+Last updated: 2026-07-15
 
 ## Done
 
@@ -22,6 +22,7 @@ Last updated: 2026-07-14
 - `/sanmeigaku` Phase UX-1 separates user-facing chart results from developer / verification sections behind a closed details block.
 - `/sanmeigaku` input model and time-pillar / daiun research ledger documented in `docs/sanmeigaku-input-and-time-pillar-research.md`.
 - 『改訂版 平成萬年暦』由来の四柱推命・算命学共通マスター研究を `docs/mannenreki-common-master-research.md` に整理。
+- Step 4A common-master architecture boundary documented in `docs/common-master-architecture-decision.md`; 十大主星 100 / 100 and 十二大従星 120 / 120 matches are treated as protected calculation-core evidence.
 - Vercel Preview public review workflow confirmed: Preview URLs can be shared directly with ChatGPT/Gemini after `HTTP 200` and no SSO redirect are verified.
 
 ## Next
@@ -40,7 +41,8 @@ Last updated: 2026-07-14
 | P1 | Decide whether 身弱・身中・身強 should become dictionary terms | Low | Medium | Sanmeigaku content design | They are intentionally not shown in `/calendar-notes` index yet because meaning text and route intent are not confirmed. |
 | P1 | Source-review Sanmeigaku time-pillar rules | High | High | Sanmeigaku source review | `source_review_required`: time branch ranges, 子刻, day boundary, true solar time, longitude, timezone, DST, overseas births, unknown time. |
 | P1 | Source-review Sanmeigaku daiun rules | High | High | Sanmeigaku source review | `source_review_required`: forward/reverse direction, gender relation, stem yin/yang basis, start age, rounding, counted/full age, and stem/branch progression. |
-| P1 | Compare common-master research with current code/data masters | High | High | Docs/source review | Use `docs/mannenreki-common-master-research.md` for Step 3 comparison. Do not adopt Shichu tables as Sanmeigaku rules without source review. |
+| P1 | Add Step 4B regression tests for protected Sanmeigaku calculation core | Medium | High | Test implementation | Start from `docs/common-master-architecture-decision.md`: 十大主星 100, 十二大従星 120, energy values, 初中老年, and 身強弱 boundaries. Do this before common-master refactors. |
+| P1 | Decide minimal common-master extraction scope after regression tests | Medium | High | Architecture implementation | Common candidates are 十干, 十二支, 九星 identity data, pure 三合4局 composition, and result-preserving relation structures. Do not include unresolved 干合・位相法. |
 | P1 | Design `/sanmeigaku` birth-time / unknown-time / gender form | Medium | High | Sanmeigaku UI design | Do after source-review planning. Keep `birthDate`-only URLs compatible and do not use new inputs for calculation until rules are confirmed. |
 | P1 | Draft time-pillar regression sample table | Medium | High | Sanmeigaku test design | Minimum 20 samples; ideal 40-60. Include 23:00 boundary, solar-term boundary, DST, overseas births, and unknown time. |
 | P2 | Document companion judgement examples for strict/standard/loose | Medium | Medium | Spec/test design | Use current code examples first, then confirm intent. |
@@ -65,13 +67,15 @@ Last updated: 2026-07-14
 - `pending`, `source_review_required`: Whether 天赦日 can be an almanac-only candidate without direction tags.
 - `source_review_required`: Sanmeigaku time-pillar, true-solar-time, child-hour, date-boundary, timezone, DST, overseas-birth, and unknown-time rules.
 - `source_review_required`: Sanmeigaku daiun forward/reverse, gender relation, start-age, rounding, counted/full-age, and stem/branch progression rules.
-- `source_review_required`: Common-master research adoption for 通変星→十大主星, 十二運→十二大従星, 干合/自化干合, and 支関係. See `docs/mannenreki-common-master-research.md`.
+- `source_review_required`: Common-master research adoption for 干合/自化干合, 合化成立, 支関係, 半合/半会, and 位相法. See `docs/mannenreki-common-master-research.md` and `docs/common-master-architecture-decision.md`.
+- `implementation_pending`: Step 4B regression tests for protected Sanmeigaku calculation core before common-master refactors.
 
 ## Decision Timing
 
 - `accepted`, `implementation_pending`: `purpose` compatibility/default direction and `candidateCondition` vs `actionScale` separation.
 - `provisional`, `source_review_required`: companion-mode meanings.
 - `accepted`, `implementation_pending`, `source_review_required`: candidate rank split.
+- `accepted`, `documentation_only`, `implementation_pending`, `source_review_required`: common-master Step 4A boundary. Step 4B starts with regression tests, not refactors.
 - Implement next: `purpose` migration and independent `candidateCondition` behavior after compatibility plan.
 - Can wait: route screenshots, architecture diagram, public product wording.
 - `source_review_required`: 天道, 土用殺, 方位殺, candidate ranks, companion judgement intent, expected values for boundary regression samples.
