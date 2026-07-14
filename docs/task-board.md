@@ -24,6 +24,7 @@ Last updated: 2026-07-15
 - 『改訂版 平成萬年暦』由来の四柱推命・算命学共通マスター研究を `docs/mannenreki-common-master-research.md` に整理。
 - Step 4A common-master architecture boundary documented in `docs/common-master-architecture-decision.md`; 十大主星 100 / 100 and 十二大従星 120 / 120 matches are treated as protected calculation-core evidence.
 - Step 4B-1A fixed all 100 日干 × 対象干 十大主星 results as static Vitest regression cases without changing the calculation core.
+- Step 4B-1B fixed all 120 日干 × 対象支 十二大従星 results as static Vitest regression cases without changing the calculation core or energy values.
 - Vercel Preview public review workflow confirmed: Preview URLs can be shared directly with ChatGPT/Gemini after `HTTP 200` and no SSO redirect are verified.
 
 ## Next
@@ -42,7 +43,7 @@ Last updated: 2026-07-15
 | P1 | Decide whether 身弱・身中・身強 should become dictionary terms | Low | Medium | Sanmeigaku content design | They are intentionally not shown in `/calendar-notes` index yet because meaning text and route intent are not confirmed. |
 | P1 | Source-review Sanmeigaku time-pillar rules | High | High | Sanmeigaku source review | `source_review_required`: time branch ranges, 子刻, day boundary, true solar time, longitude, timezone, DST, overseas births, unknown time. |
 | P1 | Source-review Sanmeigaku daiun rules | High | High | Sanmeigaku source review | `source_review_required`: forward/reverse direction, gender relation, stem yin/yang basis, start age, rounding, counted/full age, and stem/branch progression. |
-| P1 | Continue Step 4B regression tests for protected Sanmeigaku calculation core | Medium | High | Test implementation | Step 4B-1A 十大主星 100 is complete. Continue with 十二大従星 120, energy values, 初中老年, and 身強弱 boundaries before common-master refactors. |
+| P1 | Continue Step 4B regression tests for protected Sanmeigaku calculation core | Medium | High | Test implementation | Step 4B-1A 十大主星 100 and Step 4B-1B 十二大従星 120 are complete. Continue with energy values, 初中老年, and 身強弱 boundaries before common-master refactors. |
 | P1 | Decide minimal common-master extraction scope after regression tests | Medium | High | Architecture implementation | Common candidates are 十干, 十二支, 九星 identity data, pure 三合4局 composition, and result-preserving relation structures. Do not include unresolved 干合・位相法. |
 | P1 | Design `/sanmeigaku` birth-time / unknown-time / gender form | Medium | High | Sanmeigaku UI design | Do after source-review planning. Keep `birthDate`-only URLs compatible and do not use new inputs for calculation until rules are confirmed. |
 | P1 | Draft time-pillar regression sample table | Medium | High | Sanmeigaku test design | Minimum 20 samples; ideal 40-60. Include 23:00 boundary, solar-term boundary, DST, overseas births, and unknown time. |

@@ -859,3 +859,32 @@ Unresolved / TODO:
 
 - Continue Step 4B with 十二大従星 120, energy values, 初年・中年・老年, and 身弱・身中・身強 boundary regression tests.
 - Do not begin common-master refactoring until the remaining protected calculation-core tests are fixed.
+
+## Step 4B-1B Juunidai Jusei Regression Handoff
+
+Date: 2026-07-15
+
+Summary:
+
+- Added 120 regression cases covering all 10 day stems × 12 target branches for 十二大従星.
+- Expected star names are a static table in the test file; they are not generated from `getJuunidaiJusei`, the energy table, or `juunidaiJuseiByEnergy`.
+- The assertions cover only the returned `star`; energy-value regression remains a separate Step 4B task.
+- No Sanmeigaku calculation, energy, UI, URL, data, or display behavior was changed.
+
+Changed files:
+
+- `src/lib/sanmeigaku-yosen-master.test.ts`
+- `docs/task-board.md`
+- `docs/ai-handoff.md`
+
+Verification:
+
+- `npm test`: 1 test file passed, 220 tests passed (existing 100 + new 120).
+- `npm run lint`: passed.
+- `npm run build`: passed with Next.js 16.2.6.
+- `git diff --check`: passed.
+
+Unresolved / TODO:
+
+- Continue Step 4B with energy values, 初年・中年・老年, and 身弱・身中・身強 boundary regression tests.
+- Do not begin common-master refactoring until the remaining protected calculation-core tests are fixed.
