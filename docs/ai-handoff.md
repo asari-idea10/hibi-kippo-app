@@ -827,3 +827,35 @@ Unresolved:
 
 - Step 4B regression tests for 十大主星 100, 十二大従星 120, energy values, 初中老年, and 身強弱 boundaries.
 - Source review for 月柱境界, 節入り時刻, 干合, 合化成立, 自化干合, 支合, 害, 破, 刑, 自刑, 半合, 半会, and 位相法.
+
+## Step 4B-1A Juudai Shusei Regression Handoff
+
+Date: 2026-07-15
+
+Summary:
+
+- Added Vitest as the repository test foundation and added the `npm test` script.
+- Added 100 regression cases covering all 10 day stems × 10 target stems for 十大主星.
+- Expected values are a static table in the test file; they are not generated from `getJuudaiShusei` or `juudaiShuseiByStemPair`.
+- No Sanmeigaku calculation, UI, URL, or display behavior was changed.
+
+Changed files:
+
+- `package.json`
+- `package-lock.json`
+- `vitest.config.ts`
+- `src/lib/sanmeigaku-yosen-master.test.ts`
+- `docs/task-board.md`
+- `docs/ai-handoff.md`
+
+Verification:
+
+- `npm test`: 1 test file passed, 100 tests passed.
+- `npm run lint`: passed.
+- `npm run build`: passed with Next.js 16.2.6.
+- `git diff --check`: passed.
+
+Unresolved / TODO:
+
+- Continue Step 4B with 十二大従星 120, energy values, 初年・中年・老年, and 身弱・身中・身強 boundary regression tests.
+- Do not begin common-master refactoring until the remaining protected calculation-core tests are fixed.
