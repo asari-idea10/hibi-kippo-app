@@ -15,10 +15,12 @@ This document is a design and research ledger for future `/sanmeigaku` input exp
 - The time pillar exists in the profile shape as a placeholder with `pending_time_pillar`.
 - Birth time, birth time unknown, Sanmeigaku-specific gender, birth place, timezone, true solar time correction, time-pillar calculation, and daiun calculation are not implemented.
 - `/purpose-calendar` has an existing `birthGender=male|female` query and UI, but its current fallback normalizes unspecified values to `male`.
+- Step 1-2 common-master research from user-provided 『改訂版 平成萬年暦』 material is documented in `docs/mannenreki-common-master-research.md`. It is a comparison ledger, not an implemented Sanmeigaku rule source.
 
 ### Guardrails
 
 - Do not infer time-pillar, true-solar-time, daiun, or gender rules from general knowledge.
+- Do not infer Sanmeigaku rules directly from Shichu Suimei-style tables in `docs/mannenreki-common-master-research.md`.
 - Do not automatically apply the `/purpose-calendar` `male` fallback to Sanmeigaku daiun design.
 - Keep calculation, dashboard, and animation layers separate.
 - Animation must consume calculation results; it must not own calculation rules.
@@ -211,4 +213,3 @@ Future implementation should begin with a small CSS/SVG prototype, then compare 
 | 5 | Daiun calculation with confirmed expected values | Not started |
 | 6 | Fate dashboard view-model and UI | Not started |
 | 7 | Calculation animation presentation layer | Not started |
-

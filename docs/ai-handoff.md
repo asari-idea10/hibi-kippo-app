@@ -761,3 +761,36 @@ Unresolved / TODO:
 - Source-review time-pillar, child-hour, true-solar-time, date-boundary, timezone, DST, overseas-birth, and unknown-time rules.
 - Source-review daiun forward/reverse, gender relation, stem yin/yang basis, start age, rounding, counted/full age, and stem/branch progression rules.
 - Decide final `/sanmeigaku` URL behavior before adding birth-time or gender form fields.
+
+## Mannenreki Common Master Research Handoff
+
+Date: 2026-07-14
+
+Source:
+
+- User-provided 『改訂版 平成萬年暦』 material as interpreted and organized by ChatGPT.
+- Auxiliary Shichu Suimei historical source is noted only for limited comparison.
+
+Summary:
+
+- Added `docs/mannenreki-common-master-research.md` as the central ledger for Step 1-2 common-master research covering 十干, 十二支, 九星, 月建, 二十四節気, 通変星, 十二運, 干合, 自化干合, 支合, 三合, 冲/沖, 害, 破, 刑, 自刑, and visual references.
+- The ledger separates source-transcribed candidates, provisional mappings, source-review items, historical-reference items, and Shichu-only concepts.
+- This is not a Sanmeigaku formal rule adoption and does not change code/data masters.
+
+Changed docs:
+
+- `docs/mannenreki-common-master-research.md`
+- `docs/product-spec.md`
+- `docs/fortune-rules.md`
+- `docs/task-board.md`
+- `docs/sanmeigaku-input-and-time-pillar-research.md`
+
+Verification:
+
+- Documentation-only change.
+- `git diff -- src` should remain empty.
+
+Unresolved:
+
+- Source page/colophon confirmation for the user-provided material.
+- Step 3 comparison with current code/data masters and Sanmeigaku-specific sources.

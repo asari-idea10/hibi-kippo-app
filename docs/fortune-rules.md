@@ -185,6 +185,7 @@ The effective candidate condition is currently derived from `actionScale`.
 - Time pillar remains placeholder until birth time and location correction are connected.
 - 十大主星・十二大従星の星名 detail routes are available under `/calendar-notes/sanmeigaku/[name]`.
 - Current star detail pages display source-connected spreadsheet explanation masters when available.
+- Common master research for 十干・十二支・月建・通変星・十二運・干合・支関係 is tracked in `docs/mannenreki-common-master-research.md`; it is a ChatGPT-organized record from user-provided material and does not define implemented fortune rules.
 
 ### Star Link Phase 1
 
