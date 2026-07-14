@@ -1,6 +1,6 @@
 # Product Spec
 
-Last updated: 2026-07-12
+Last updated: 2026-07-14
 
 ## Purpose
 
@@ -120,6 +120,40 @@ Implementation files:
 - Do not change 陽占人体星図 placement logic.
 - Do not add inferred meaning text for 身強・身中・身弱 until a source master is confirmed.
 - Do not list 身弱・身中・身強 in the `/calendar-notes` index until dictionary meaning text and route intent are confirmed.
+
+## sanmeigaku Input / Time Pillar Product Direction
+
+Status: `accepted`, `documentation_only`, `implementation_pending`, `source_review_required`
+
+Detailed ledger: `docs/sanmeigaku-input-and-time-pillar-research.md`
+
+- `/sanmeigaku` currently uses only `birthDate`; this existing behavior and existing `birthDate` URLs must remain compatible.
+- Future input design may include `birthTime`, `birthTimeUnknown`, Sanmeigaku-specific `birthGender`, and later `birthPlace` / `timezone`.
+- For Sanmeigaku, gender must support an `unspecified` state in the design model; do not silently normalize missing gender to `male` for daiun or time-pillar work.
+- Birth time input alone must not make the time pillar authoritative until time-pillar, true-solar-time, date-boundary, and source rules are confirmed.
+- Time-pillar, true-solar-time, and daiun rules are `source_review_required` before implementation.
+- Dashboard and animation work should consume calculation results through a view model. Animation must not own or duplicate calculation rules.
+
+### Input Model V0
+
+This model is documented for future design only and is not implemented in source code.
+
+```ts
+type SanmeigakuBirthGender = "male" | "female" | "unspecified";
+
+type SanmeigakuProfileInputV0 = {
+  birthDate: string;
+  birthTime?: string;
+  birthTimeUnknown: boolean;
+  birthGender: SanmeigakuBirthGender;
+  birthPlace?: {
+    label?: string;
+    timezone?: string;
+    latitude?: number;
+    longitude?: number;
+  };
+};
+```
 
 ## Candidate Ranking Product Direction
 

@@ -1,6 +1,6 @@
 # Fortune Rules
 
-Last updated: 2026-07-12
+Last updated: 2026-07-14
 
 This document records what the code currently does. It does not define new fortune-telling rules.
 
@@ -272,7 +272,21 @@ Guardrails:
 - `/calendar-notes` index has a 算命学 category for existing 陽占 人体星図, 十大主星, and 十二大従星 detail pages.
 - Do not add 身弱・身中・身強 to the `/calendar-notes` index unless dictionary meaning text and route intent are confirmed.
 
+### Input / Time Pillar / Daiun Research
+
+Status: `documentation_only`, `implementation_pending`, `source_review_required`
+
+Detailed ledger: `docs/sanmeigaku-input-and-time-pillar-research.md`
+
+- Current `/sanmeigaku` behavior uses `birthDate` only.
+- Time pillar remains placeholder until birth time, birth place, timezone, and correction rules are confirmed.
+- The current repository has no implemented Sanmeigaku `birthTime`, `birthTimeUnknown`, `birthPlace`, `timezone`, true-solar-time correction, time-pillar calculation, or daiun calculation.
+- `/purpose-calendar` has `birthGender=male|female`, but its fallback-to-`male` behavior must not be applied to Sanmeigaku daiun or time-pillar design without a separate decision.
+- Time-pillar calculation, time-branch ranges, 子刻, day boundary, true solar time, longitude correction, equation of time, solar-term boundary handling, daylight saving time, overseas births, and unknown-time behavior are all `source_review_required`.
+- Daiun direction, gender relationship, stem yin/yang basis, start age, days-to-solar-term conversion, rounding, counted/full age, stem/branch progression, first-period display, and school differences are all `source_review_required`.
+- Do not implement or change any of these rules from this ledger alone.
+
 ### TODO
 
 - Review the spreadsheet-derived wording in Vercel Preview before Production promotion.
-- Decide separately whether to expose 算命学 categories on the `/calendar-notes` index.
+- Decide separately whether 身弱・身中・身強 should become dictionary terms after source-confirmed meaning text exists.

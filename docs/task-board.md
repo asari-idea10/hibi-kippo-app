@@ -1,6 +1,6 @@
 # Task Board
 
-Last updated: 2026-07-11
+Last updated: 2026-07-14
 
 ## Done
 
@@ -20,6 +20,7 @@ Last updated: 2026-07-11
 - `/sanmeigaku` whole-chart total energy and 身弱・身中・身強 judgement connected to `算命計算!A580:B616` boundaries.
 - `/calendar-notes` index now includes a 算命学 category that links to 陽占 人体星図, 十大主星, and 十二大従星 detail pages.
 - `/sanmeigaku` Phase UX-1 separates user-facing chart results from developer / verification sections behind a closed details block.
+- `/sanmeigaku` input model and time-pillar / daiun research ledger documented in `docs/sanmeigaku-input-and-time-pillar-research.md`.
 - Vercel Preview public review workflow confirmed: Preview URLs can be shared directly with ChatGPT/Gemini after `HTTP 200` and no SSO redirect are verified.
 
 ## Next
@@ -36,6 +37,10 @@ Last updated: 2026-07-11
 | P1 | Review 算命学 star detail copy by public Preview URL | Low | Medium | Sanmeigaku content QA | Confirm the spreadsheet-derived wording is readable on 十大主星 and 十二大従星 pages. Prefer URL review over screenshots when Preview is public. No inferred text was added. |
 | P1 | Source-confirm 身弱・身中・身強 meaning text | Medium | Medium | Sanmeigaku content QA | Current `/sanmeigaku` display is label-only: total energy, judgement, target positions, and `算命計算!A580:B616`. Add meaning text only after a source master is confirmed. |
 | P1 | Decide whether 身弱・身中・身強 should become dictionary terms | Low | Medium | Sanmeigaku content design | They are intentionally not shown in `/calendar-notes` index yet because meaning text and route intent are not confirmed. |
+| P1 | Source-review Sanmeigaku time-pillar rules | High | High | Sanmeigaku source review | `source_review_required`: time branch ranges, 子刻, day boundary, true solar time, longitude, timezone, DST, overseas births, unknown time. |
+| P1 | Source-review Sanmeigaku daiun rules | High | High | Sanmeigaku source review | `source_review_required`: forward/reverse direction, gender relation, stem yin/yang basis, start age, rounding, counted/full age, and stem/branch progression. |
+| P1 | Design `/sanmeigaku` birth-time / unknown-time / gender form | Medium | High | Sanmeigaku UI design | Do after source-review planning. Keep `birthDate`-only URLs compatible and do not use new inputs for calculation until rules are confirmed. |
+| P1 | Draft time-pillar regression sample table | Medium | High | Sanmeigaku test design | Minimum 20 samples; ideal 40-60. Include 23:00 boundary, solar-term boundary, DST, overseas births, and unknown time. |
 | P2 | Document companion judgement examples for strict/standard/loose | Medium | Medium | Spec/test design | Use current code examples first, then confirm intent. |
 | P2 | Design candidate rank UI/data split into fortune rank and practical rank | Medium | Medium | Product/UI design | Do not change scoring until rank factors are confirmed. |
 
@@ -56,6 +61,8 @@ Last updated: 2026-07-11
 - `source_review_required`: Official expected values for 節入り, 立春, 土用, and board-switching regression samples.
 - `pending`, `source_review_required`: Whether birth row year 九星 as 本命星 is final for all users.
 - `pending`, `source_review_required`: Whether 天赦日 can be an almanac-only candidate without direction tags.
+- `source_review_required`: Sanmeigaku time-pillar, true-solar-time, child-hour, date-boundary, timezone, DST, overseas-birth, and unknown-time rules.
+- `source_review_required`: Sanmeigaku daiun forward/reverse, gender relation, start-age, rounding, counted/full-age, and stem/branch progression rules.
 
 ## Decision Timing
 

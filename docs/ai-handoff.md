@@ -1,6 +1,6 @@
 # AI Handoff
 
-Last updated: 2026-07-09
+Last updated: 2026-07-14
 
 This file is the shared handoff log for Codex, ChatGPT, and Gemini.
 
@@ -724,3 +724,40 @@ Preview:
 Unresolved / TODO:
 
 - No new TODO from this Phase UX-1 change.
+
+## Sanmeigaku Input Model and Time Pillar Research Ledger
+
+Date: 2026-07-14
+
+Summary:
+
+- Added a docs-only Sanmeigaku input model and research ledger for future birth-time, unknown-time, gender, birth-place, timezone, time-pillar, daiun, dashboard, and animation work.
+- Created `docs/sanmeigaku-input-and-time-pillar-research.md` as the detailed ledger.
+- Documented `SanmeigakuProfileInputV0` as a future design model only; no source code was added.
+- Recorded that existing `/sanmeigaku?birthDate=YYYY-MM-DD` URLs must remain compatible.
+- Recorded that Sanmeigaku gender design must support `unspecified`; missing gender must not be silently normalized to `male` for daiun or time-pillar work.
+- Recorded that birth time input must not make the time pillar authoritative until time-pillar, true-solar-time, date-boundary, and source rules are confirmed.
+- Recorded that calculation, dashboard view-model, and animation presentation layers should stay separated. Animation must not own fortune calculation rules.
+
+Changed files:
+
+- `docs/sanmeigaku-input-and-time-pillar-research.md`
+- `docs/product-spec.md`
+- `docs/fortune-rules.md`
+- `docs/screen-design.md`
+- `docs/url-parameters.md`
+- `docs/decision-log.md`
+- `docs/task-board.md`
+- `docs/ai-handoff.md`
+
+Verification:
+
+- Confirm `git diff -- src` is empty.
+- Run `git diff --check`.
+- Confirm docs treat time-pillar and daiun items as `source_review_required` and do not describe them as implemented.
+
+Unresolved / TODO:
+
+- Source-review time-pillar, child-hour, true-solar-time, date-boundary, timezone, DST, overseas-birth, and unknown-time rules.
+- Source-review daiun forward/reverse, gender relation, stem yin/yang basis, start age, rounding, counted/full age, and stem/branch progression rules.
+- Decide final `/sanmeigaku` URL behavior before adding birth-time or gender form fields.

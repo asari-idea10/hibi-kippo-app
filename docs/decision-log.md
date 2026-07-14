@@ -1,6 +1,6 @@
 # Decision Log
 
-Last updated: 2026-07-09
+Last updated: 2026-07-14
 
 Record product, architecture, and rule decisions here. Do not use this file to justify guessed fortune logic.
 
@@ -76,6 +76,16 @@ Use these exact status labels across docs when describing product and rule decis
 - Reason: Current candidate labels mix calculation strength and real-world usability. Separating them will make future UI and scoring easier to explain.
 - Implementation note: No candidate scoring code was changed when this decision was recorded.
 
+### D-0008: Document Sanmeigaku input model before adding birth-time or daiun behavior
+
+- Date: 2026-07-14
+- Status: `accepted`, `documentation_only`, `implementation_pending`, `source_review_required`
+- Decision: Future `/sanmeigaku` birth-time, unknown-time, gender, birth-place, timezone, time-pillar, daiun, dashboard, and animation work should start from `docs/sanmeigaku-input-and-time-pillar-research.md`.
+- Decision: Sanmeigaku input design includes `birthGender: "male" | "female" | "unspecified"`; missing gender must not be silently normalized to `male` for daiun or time-pillar work.
+- Decision: Calculation, dashboard view-model, and animation presentation layers should remain separated. Animation must not own fortune calculation rules.
+- Reason: Birth time and daiun depend on source-sensitive rules. A design ledger prevents URL/form work from accidentally becoming inferred fortune logic.
+- Implementation note: This decision records docs only. No source code, URL behavior, form behavior, or calculation logic was changed.
+
 ## Decision Status Matrix
 
 | Topic | Status | Implementation status | Source review | Notes |
@@ -86,6 +96,7 @@ Use these exact status labels across docs when describing product and rule decis
 | Treat `candidateCondition` and `actionScale` as independent concepts | `accepted`, `implementation_pending` | Not implemented yet | Not required for URL concept itself | `actionScale` is action burden; `candidateCondition` is filtering. |
 | Companion modes `strict` / `standard` / `loose` meanings | `provisional`, `source_review_required` | Do not change logic from wording alone | Required before rule changes | Product wording exists; formal fortune behavior is not confirmed. |
 | Split candidate rank into fortune rank / practical rank | `accepted`, `implementation_pending`, `source_review_required` | Not implemented yet | Required for fortune-rank factors | Practical-rank design can proceed separately from fortune-source confirmation. |
+| Sanmeigaku input model before time pillar / daiun | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Docs-only model recorded | Required before time/daiun calculation | Missing gender must not silently become male for Sanmeigaku daiun design. |
 | Boundary regression samples for 節入り・立春・土用・board switching | `accepted`, `implementation_pending`, `source_review_required` | Test matrix not implemented yet | Required for authoritative expected values | High-priority test design task. |
 | 天道・土用殺・方位殺・candidate-rank fortune basis | `source_review_required` | Do not change logic until reviewed | Required | Keep current behavior documented as code behavior only. |
 | 本命星 handling | `source_review_required`, `pending` | Do not change personal-star logic until reviewed | Required | Current code derives from birth row year 九星. |
@@ -101,3 +112,5 @@ Use these exact status labels across docs when describing product and rule decis
 | P-0006 | Whether `birthGender=male` default is a final product decision | Product behavior | Before changing birth/profile forms | Current behavior defaults to male unless `female` is specified. |
 | P-0007 | Whether 天赦日 can remain an almanac-only candidate without direction tags | Fortune/product behavior | Before changing monthly best-candidate logic | Needs source/product confirmation. |
 | P-0008 | Whether using birth row year 九星 as 本命星 is final for all users | Fortune/source confirmation | Before changing personal-star calculations | Current behavior is documented but not confirmed as final. |
+| P-0009 | Sanmeigaku time-pillar source rules | Fortune/source confirmation | Before adding `birthTime` to calculation | Includes time branch ranges, 子刻, day boundary, true solar time, longitude, timezone, DST, overseas births, and unknown time. |
+| P-0010 | Sanmeigaku daiun source rules | Fortune/source confirmation | Before implementing daiun | Includes forward/reverse direction, gender relation, stem yin/yang basis, start age, rounding, counted/full age, and stem/branch progression. |

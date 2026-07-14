@@ -1,6 +1,6 @@
 # Screen Design
 
-Last updated: 2026-07-12
+Last updated: 2026-07-14
 
 ## General UI Direction
 
@@ -137,6 +137,19 @@ Status: `implemented`
   - 算命学マスター棚卸し.
 - The old `陽占マスター接続予定` page section was removed because 陽占, 十大主星, 十二大従星, and star detail pages are already connected.
 - User-facing result sections remain always visible: 生年月日入力, 陰占表, 陰占の柱カード, 陽占 人体星図, 総エネルギー, 身弱・身中・身強判定, and star detail links.
+
+### Future Input Form Direction
+
+Status: `design_documented`, `implementation_pending`
+
+Detailed ledger: `docs/sanmeigaku-input-and-time-pillar-research.md`
+
+- Keep the existing `birthDate` input and existing `birthDate`-only URL behavior.
+- Future minimal input candidates are birth time, birth time unknown, and Sanmeigaku gender.
+- Birth place and timezone are reserved for a later correction phase; do not add them to the first form without a source and UX decision.
+- If gender is added to `/sanmeigaku`, the UI must support an unspecified state rather than defaulting silently to male.
+- Birth time input should be allowed to remain informational until time-pillar and true-solar-time rules are confirmed.
+- Future dashboard and animation UI should consume a view model from the calculation layer, not implement fortune calculation inside presentation components.
 
 ### TODO
 

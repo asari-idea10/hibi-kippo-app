@@ -1,6 +1,6 @@
 # URL Parameters
 
-Last updated: 2026-07-12
+Last updated: 2026-07-14
 
 ## `/purpose-calendar`
 
@@ -74,6 +74,27 @@ Last updated: 2026-07-12
 | Parameter | Values / format | Current default / fallback | Current use |
 | --- | --- | --- | --- |
 | `birthDate` | `YYYY-MM-DD` | Empty string | When present, builds and displays the 算命学 profile. When absent, shows empty-state guidance. |
+
+### Candidate Future Parameters
+
+Status: `candidate_only`, `implementation_pending`, `source_review_required`
+
+Detailed ledger: `docs/sanmeigaku-input-and-time-pillar-research.md`
+
+| Candidate parameter | Values / format | Current status | Notes |
+| --- | --- | --- | --- |
+| `birthTime` | Candidate: `HH:mm` | Not implemented | Must not affect time pillar until source rules and regression samples are confirmed. |
+| `birthTimeUnknown` | Undecided | Not implemented | Value format is not decided; may be omitted, `on`, or `true`. |
+| `birthGender` | Candidate: `male`, `female`, `unspecified` | Not implemented for `/sanmeigaku` | Do not silently normalize unspecified gender to `male` for Sanmeigaku daiun design. |
+| `birthPlace` | Undecided | Not implemented | Reserved for later place/time-correction design. |
+| `timezone` | Undecided | Not implemented | Do not use a silent timezone default in calculation before policy is confirmed. |
+
+Compatibility notes:
+
+- Existing `/sanmeigaku?birthDate=YYYY-MM-DD` URLs must keep working.
+- Missing future parameters must preserve current output.
+- These candidates are not implemented URL behavior.
+- URL values must be finalized before any input form or calculation change.
 
 ## `/calendar-notes/sanmeigaku/[name]`
 
