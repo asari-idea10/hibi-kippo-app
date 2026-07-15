@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vitest";
+import { beforeAll, describe, expect, test } from "vitest";
 
 import {
   getJuudaiShusei,
@@ -391,3 +391,197 @@ describe.each(expectedJuunidaiByDayStem)(
     });
   },
 );
+
+const expectedEnergyMatrix = {
+  甲: {
+    子: 7,
+    丑: 10,
+    寅: 11,
+    卯: 12,
+    辰: 8,
+    巳: 4,
+    午: 2,
+    未: 5,
+    申: 1,
+    酉: 3,
+    戌: 6,
+    亥: 9,
+  },
+  乙: {
+    子: 4,
+    丑: 8,
+    寅: 12,
+    卯: 11,
+    辰: 10,
+    巳: 7,
+    午: 9,
+    未: 6,
+    申: 3,
+    酉: 1,
+    戌: 5,
+    亥: 2,
+  },
+  丙: {
+    子: 3,
+    丑: 6,
+    寅: 9,
+    卯: 7,
+    辰: 10,
+    巳: 11,
+    午: 12,
+    未: 8,
+    申: 4,
+    酉: 2,
+    戌: 5,
+    亥: 1,
+  },
+  丁: {
+    子: 1,
+    丑: 5,
+    寅: 2,
+    卯: 4,
+    辰: 8,
+    巳: 12,
+    午: 11,
+    未: 10,
+    申: 7,
+    酉: 9,
+    戌: 6,
+    亥: 3,
+  },
+  戊: {
+    子: 3,
+    丑: 6,
+    寅: 9,
+    卯: 7,
+    辰: 10,
+    巳: 11,
+    午: 12,
+    未: 8,
+    申: 4,
+    酉: 2,
+    戌: 5,
+    亥: 1,
+  },
+  己: {
+    子: 1,
+    丑: 5,
+    寅: 2,
+    卯: 4,
+    辰: 8,
+    巳: 12,
+    午: 11,
+    未: 10,
+    申: 7,
+    酉: 9,
+    戌: 6,
+    亥: 3,
+  },
+  庚: {
+    子: 2,
+    丑: 5,
+    寅: 1,
+    卯: 3,
+    辰: 6,
+    巳: 9,
+    午: 7,
+    未: 10,
+    申: 11,
+    酉: 12,
+    戌: 8,
+    亥: 4,
+  },
+  辛: {
+    子: 9,
+    丑: 6,
+    寅: 3,
+    卯: 1,
+    辰: 5,
+    巳: 2,
+    午: 4,
+    未: 8,
+    申: 12,
+    酉: 11,
+    戌: 10,
+    亥: 7,
+  },
+  壬: {
+    子: 12,
+    丑: 8,
+    寅: 4,
+    卯: 2,
+    辰: 5,
+    巳: 1,
+    午: 3,
+    未: 6,
+    申: 9,
+    酉: 7,
+    戌: 10,
+    亥: 11,
+  },
+  癸: {
+    子: 11,
+    丑: 10,
+    寅: 7,
+    卯: 9,
+    辰: 6,
+    巳: 3,
+    午: 1,
+    未: 5,
+    申: 2,
+    酉: 4,
+    戌: 8,
+    亥: 12,
+  },
+} as const satisfies Record<
+  HeavenlyStem,
+  Record<EarthlyBranch, number>
+>;
+
+const expectedEnergyCases = stemOrder.flatMap((dayStem) =>
+  branchOrder.map((targetBranch) => ({
+    dayStem,
+    targetBranch,
+    expectedEnergy: expectedEnergyMatrix[dayStem][targetBranch],
+    caseKey: `${dayStem}:${targetBranch}`,
+  })),
+);
+
+describe("十二大従星 エネルギー値", () => {
+  beforeAll(() => {
+    expect(Object.keys(expectedEnergyMatrix)).toEqual(stemOrder);
+
+    for (const dayStem of stemOrder) {
+      expect(Object.keys(expectedEnergyMatrix[dayStem])).toEqual(branchOrder);
+    }
+
+    expect(expectedEnergyCases).toHaveLength(120);
+    expect(
+      new Set(expectedEnergyCases.map(({ caseKey }) => caseKey)).size,
+    ).toBe(120);
+
+    const expectedEnergies = expectedEnergyCases.map(
+      ({ expectedEnergy }) => expectedEnergy,
+    );
+
+    expect(expectedEnergies.every((energy) => energy !== undefined)).toBe(true);
+    expect(expectedEnergies.every((energy) => Number.isInteger(energy))).toBe(
+      true,
+    );
+    expect(
+      expectedEnergies.every((energy) => energy >= 1 && energy <= 12),
+    ).toBe(true);
+    expect([...new Set(expectedEnergies)].sort((a, b) => a - b)).toEqual([
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+    ]);
+  });
+
+  test.each(expectedEnergyCases)(
+    "$dayStem × $targetBranch は $expectedEnergy",
+    ({ dayStem, targetBranch, expectedEnergy }) => {
+      expect(getJuunidaiJusei(dayStem, targetBranch).energy).toBe(
+        expectedEnergy,
+      );
+    },
+  );
+});
