@@ -1037,3 +1037,29 @@ Verification scope:
 - Documentation only. No production source, tests, data, scripts, package files, UI, URL, API, calendar DB, solar-term master, or boundary logic changes.
 - Existing 494 tests are unchanged and do not need to be rerun for this task.
 - `git diff --check` must pass. Google Drive sync and Vercel Preview are not required on this feature branch.
+
+## Step 5B-3A-1 Tendo, Tentoku, and Trine Handoff
+
+Date: 2026-07-16
+
+Summary:
+
+- Step 5B-3 read-only comparison is complete for this scope. The currently used concepts are Tendo, Tentoku, and trine.
+- Tendo has two current paths: a single-direction path and a trine-based three-direction path. They share the same name but differ in output grain and UI use, so do not merge, rename, or delete them before source review.
+- Single-direction Tendo and Tentoku have the same normalized 8-direction result across all 55,152 calendar rows and all 12 solar months. Their detailed mountain, name, and basis differ, and the formal relationship is unresolved.
+- The original Tendo, Tentoku, and trine marker values have not been completely transcribed. Do not add concrete-direction expectation tests from the current observed values.
+- The pure four-trine branch structure and current policy behavior are future tests-only candidates: labels coexist, strong 五黄殺・暗剣殺・破 remain blocking, and Tendo / Tentoku do not directly change the numeric candidate rank.
+- Next is Step 5B-3A-2 for Tentoku-go, Gettoku, Gettoku-go, and Seiki. Do not change direction values, candidate logic, rank logic, labels, IDs, or warning codes.
+
+Changed docs:
+
+- `docs/mannenreki-additional-masters-research.md`
+- `docs/decision-log.md`
+- `docs/task-board.md`
+- `docs/ai-handoff.md`
+
+Verification scope:
+
+- Documentation only. No production source, tests, data, scripts, package files, UI, URL, API, calendar DB, master, label, warning code, candidate judgement, or rank logic changes.
+- Existing 693 tests are unchanged and do not need to be rerun for this task.
+- Google Drive sync, NotebookLM addition, and Vercel Preview are not required on this feature branch.

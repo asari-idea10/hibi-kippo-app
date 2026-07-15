@@ -36,6 +36,11 @@ Last updated: 2026-07-16
 - Step 5B-2 confirmed internal consistency for all 324 palace placements: no duplicate star, missing star, center mismatch, or differing placement from the same center star.
 - Step 5B-2 confirmed full-range internal consistency for monthly 五黄殺, 暗剣殺, and 月破, including four five-yellow-center cases and preservation of overlapping warning labels.
 - Step 5B-2 recorded the user-provided-image research for June and July 2026: 芒種 2026-06-06 00:48 and 小暑 2026-07-07 10:57 are time-precision boundary candidates, while current code remains date-precision.
+- Step 5B-2B protected the independent 36 monthly-board centers, 324 palace values, monthly 五黄殺・暗剣殺・月破, overlap preservation, orientation independence, and the date-level 2026-07-06→07-07 switch; the total suite is 693 tests.
+- Step 5B-3 read-only comparison completed for the direction-deity layer.
+- Step 5B-3 confirmed two current Tendo paths: one single 8-direction path and one trine-based 3-direction path.
+- Step 5B-3 confirmed that single-direction Tendo and Tentoku share the same 8-direction result across all 55,152 rows, while their formal relationship remains `source_review_required`.
+- Step 5B-3 confirmed the pure four-trine branch structure and aggregated current overlaps with 五黄殺・暗剣殺・破 without changing candidate policy.
 
 ## Next
 
@@ -45,13 +50,16 @@ Last updated: 2026-07-16
 | P0 | Design and implement independent `candidateCondition` handling | Medium | High | URL/product implementation | `accepted`, `implementation_pending`: keep `actionScale` for action burden; use `candidateCondition` for filtering. |
 | P0 | Draft boundary regression sample matrix for 節入り・立春・土用・年盤/月盤/日盤 switching | Medium | High | Test design | `accepted`, `implementation_pending`, `source_review_required`: expected values need source confirmation before tests are authoritative. |
 | P0 | Research six Getsumei / setsuiri boundary-date differences | High | High | Source research | Keep separate from value regression tests. Do not declare either calendar DB or official solar-term master wrong, and do not replace boundary logic before review. |
-| P0 | Step 5B-2B monthly-plate value regression tests | Medium | High | Test implementation | Protect independent 36 center mappings, 324 palace invariants, three-warning internal consistency, overlap preservation, orientation independence, and the date-level 2026-07-06→07-07 switch. Exclude time boundaries and the six disputed dates. |
 | P0 | Reconfirm original 324 monthly-plate cells and all markers | High | High | Source research | The original-image cells and direction markers remain `manual_transcription_review_required` / `source_review_required`; do not claim complete source agreement from internal consistency alone. |
+| P0 | Step 5B-3A-2 document Tentoku-go, Gettoku, Gettoku-go, and Seiki findings | Medium | High | Documentation / research ledger | Keep direction deities distinct from similarly named selected-day rules and preserve unresolved source status. |
+| P0 | Step 5B-3A-3 document remaining Seiki / Sango purpose differences and unresolved direction-deity findings | Medium | High | Documentation / research ledger | Separate same-name rules by input basis, output grain, UI use, and judgement use. |
+| P0 | Reconfirm original Tendo, Tentoku, and trine monthly-plate markers | High | High | Source research | Do not freeze the observed 12-direction values or merge the two Tendo paths before complete source transcription. |
 | P1 | Confirm `birthTime`-missing setsuiri fallback specification | Medium | High | Product / source decision | Current personal-star precision is date-only. Decide exact-time, timezone, overseas-birth, and unknown-time handling before boundary implementation. |
 | P1 | Define future setsuiri time-precision requirements | High | High | Product / source decision | Preserve exact source times when birth time is available; keep current date-level behavior unchanged until fallback, timezone, overseas-birth, and true-solar-time rules are decided. |
 | P1 | Decide the upper monthly-board representative-date UI | Medium | Medium | Product / UI decision | Current order is `selectedDate` → current day in displayed month → month start. Decide whether and how to label the board as “M/D時点”. |
 | P1 | Design monthly-plate JSON verification API after regression tests | Medium | High | API design | Prefer `date` input. If `year` / `month` is supported, return period-based `segments[]` instead of inventing one representative plate. Do not implement before Step 5B-2B. |
-| P1 | Step 5B-3 direction-deity read-only comparison | High | High | Research / code inventory | Compare the next selected direction-deity layer separately from monthly center, palace, and three-warning value protection. |
+| P1 | Step 5B-3B protect confirmed trine structure and current direction-deity policy | Medium | High | Tests-only candidate | Limit expectations to pure four-trine structure, unique group selection, label coexistence, strong-warning priority, active / blocked separation, and no direct candidate-rank change. Do not freeze concrete Tendo or Tentoku directions. |
+| P1 | Decide whether the two Tendo paths are separate concepts or an implementation duplication | High | High | Product / source decision | Current single-direction and trine paths overlap but differ in grain and UI use; do not rename, merge, or delete before source review. |
 | P1 | Continue Step 5B read-only comparison for remaining additional Mannenreki masters | Medium | High | Research / code inventory | Continue selected days, sexagenary internal relations, spirits, and body correspondence after the monthly-plate inventory. |
 | P1 | Confirm NotebookLM source list after new docs are synced | Low | Medium | AI orchestration docs | New Drive files require manual NotebookLM source addition; existing sources update through Drive sync. |
 | P1 | Add initial non-authoritative regression fixtures for boundary dates | Medium | High | Test/docs | Mark expected values TODO until source-confirmed. |
