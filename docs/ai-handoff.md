@@ -1,6 +1,6 @@
 # AI Handoff
 
-Last updated: 2026-07-15
+Last updated: 2026-07-16
 
 This file is the shared handoff log for Codex, ChatGPT, and Gemini.
 
@@ -1010,3 +1010,30 @@ Verification scope:
 
 - Documentation only. No source, tests, data, scripts, package files, UI, URL, calculation logic, or boundary logic changes.
 - Existing 343 tests are unchanged and do not need to be rerun for this task.
+
+## Step 5B-2 Monthly Plate Comparison Handoff
+
+Date: 2026-07-16
+
+Summary:
+
+- Step 5B-2 read-only comparison is complete. Year-branch groups match all 55,152 calendar rows, monthly-board centers match 36 / 36 independent mappings, and all 324 palace placements satisfy the current formula invariants.
+- Monthly 五黄殺, 暗剣殺, and 月破 match independently derived placement, opposite-palace, and branch-opposition values across all 55,152 rows. Four five-yellow-center cases have no 五黄殺 or 暗剣殺 direction; overlapping warning labels are preserved rather than overwritten.
+- The source remains「ユーザー提供画像をChatGPTが読解・整理した研究記録」. Codex did not directly inspect, transcribe, or OCR the original images, and complete agreement with the original 324 cells and all markers remains unconfirmed.
+- The June and July 2026 image research records 芒種 2026-06-06 00:48 and 小暑 2026-07-07 10:57. A Gregorian month can therefore contain two solar-month plates; the current implementation changes the daily plate at date precision and does not distinguish before/after the setsuiri time on the same day.
+- Future birth-time support must preserve actual setsuiri-time precision rather than rounding the whole boundary day without a decision. `birthTime`-missing fallback, timezone, overseas birth, and true solar time remain separate source/product decisions. Do not change the current date-level boundary or the six disputed boundary dates.
+- Without `selectedDate`, the upper monthly plate uses the current day when it lies in the displayed month, otherwise the month start. Fixed verification should use `selectedDate` or a future `date`-based API input.
+- Next is Step 5B-2B regression protection for confirmed monthly-plate values only. Do not implement a verification API, UI change, time-precision change, or boundary replacement in that step.
+
+Changed docs:
+
+- `docs/mannenreki-additional-masters-research.md`
+- `docs/decision-log.md`
+- `docs/task-board.md`
+- `docs/ai-handoff.md`
+
+Verification scope:
+
+- Documentation only. No production source, tests, data, scripts, package files, UI, URL, API, calendar DB, solar-term master, or boundary logic changes.
+- Existing 494 tests are unchanged and do not need to be rerun for this task.
+- `git diff --check` must pass. Google Drive sync and Vercel Preview are not required on this feature branch.

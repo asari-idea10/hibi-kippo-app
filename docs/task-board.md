@@ -1,6 +1,6 @@
 # Task Board
 
-Last updated: 2026-07-15
+Last updated: 2026-07-16
 
 ## Done
 
@@ -31,6 +31,11 @@ Last updated: 2026-07-15
 - Step 5A additional 『改訂版 平成萬年暦』 research ledger documented in `docs/mannenreki-additional-masters-research.md`, separating existing-code comparison targets from possible new-master candidates without implementation.
 - Step 5B-1 read-only comparison completed: Getsumei 36 / 36 and expanded 108 / 108 inputs match the current calendar DB, with no mismatch, undefined value, multiple output, or non-nine-star output.
 - Step 5B-1 traced the current Getsumei-equivalent path and usage: daily `monthKyusei` feeds the self keisha profile; direct Getsumei display, companion judgement, Getsumei-satsu, and candidate ranking are not current uses.
+- Step 5B-1B protected the Getsumei 36 mappings and 108 expanded inputs with independent static Vitest expectations; the total suite is 494 tests.
+- Step 5B-2 read-only comparison completed: year-branch groups match all 55,152 calendar rows, and monthly-board centers match 36 / 36 independent mappings with no mismatch, undefined value, multiple output, or full-range exception.
+- Step 5B-2 confirmed internal consistency for all 324 palace placements: no duplicate star, missing star, center mismatch, or differing placement from the same center star.
+- Step 5B-2 confirmed full-range internal consistency for monthly 五黄殺, 暗剣殺, and 月破, including four five-yellow-center cases and preservation of overlapping warning labels.
+- Step 5B-2 recorded the user-provided-image research for June and July 2026: 芒種 2026-06-06 00:48 and 小暑 2026-07-07 10:57 are time-precision boundary candidates, while current code remains date-precision.
 
 ## Next
 
@@ -39,10 +44,14 @@ Last updated: 2026-07-15
 | P0 | Design and implement `purpose` default migration | Medium | High | URL/product implementation | `accepted`, `implementation_pending`: keep explicit `purpose=travel`; move omitted purpose toward `yuki_tori`. |
 | P0 | Design and implement independent `candidateCondition` handling | Medium | High | URL/product implementation | `accepted`, `implementation_pending`: keep `actionScale` for action burden; use `candidateCondition` for filtering. |
 | P0 | Draft boundary regression sample matrix for 節入り・立春・土用・年盤/月盤/日盤 switching | Medium | High | Test design | `accepted`, `implementation_pending`, `source_review_required`: expected values need source confirmation before tests are authoritative. |
-| P0 | Step 5B-1B Getsumei value regression tests | Medium | High | Test implementation | Add independent static expectations for 36 mappings and 108 inputs, same-group invariance, no undefined values, nine-star range, and representative non-boundary birth dates. Do not generate expectations from the current implementation. |
 | P0 | Research six Getsumei / setsuiri boundary-date differences | High | High | Source research | Keep separate from value regression tests. Do not declare either calendar DB or official solar-term master wrong, and do not replace boundary logic before review. |
-| P0 | Step 5B-2 read-only comparison for 36 Nine-Star monthly plates | Medium | High | Research / code inventory | Compare the 36 monthly-board centers, palace placements, and recorded direction-deity markers without implementation changes. |
+| P0 | Step 5B-2B monthly-plate value regression tests | Medium | High | Test implementation | Protect independent 36 center mappings, 324 palace invariants, three-warning internal consistency, overlap preservation, orientation independence, and the date-level 2026-07-06→07-07 switch. Exclude time boundaries and the six disputed dates. |
+| P0 | Reconfirm original 324 monthly-plate cells and all markers | High | High | Source research | The original-image cells and direction markers remain `manual_transcription_review_required` / `source_review_required`; do not claim complete source agreement from internal consistency alone. |
 | P1 | Confirm `birthTime`-missing setsuiri fallback specification | Medium | High | Product / source decision | Current personal-star precision is date-only. Decide exact-time, timezone, overseas-birth, and unknown-time handling before boundary implementation. |
+| P1 | Define future setsuiri time-precision requirements | High | High | Product / source decision | Preserve exact source times when birth time is available; keep current date-level behavior unchanged until fallback, timezone, overseas-birth, and true-solar-time rules are decided. |
+| P1 | Decide the upper monthly-board representative-date UI | Medium | Medium | Product / UI decision | Current order is `selectedDate` → current day in displayed month → month start. Decide whether and how to label the board as “M/D時点”. |
+| P1 | Design monthly-plate JSON verification API after regression tests | Medium | High | API design | Prefer `date` input. If `year` / `month` is supported, return period-based `segments[]` instead of inventing one representative plate. Do not implement before Step 5B-2B. |
+| P1 | Step 5B-3 direction-deity read-only comparison | High | High | Research / code inventory | Compare the next selected direction-deity layer separately from monthly center, palace, and three-warning value protection. |
 | P1 | Continue Step 5B read-only comparison for remaining additional Mannenreki masters | Medium | High | Research / code inventory | Continue selected days, sexagenary internal relations, spirits, and body correspondence after the monthly-plate inventory. |
 | P1 | Confirm NotebookLM source list after new docs are synced | Low | Medium | AI orchestration docs | New Drive files require manual NotebookLM source addition; existing sources update through Drive sync. |
 | P1 | Add initial non-authoritative regression fixtures for boundary dates | Medium | High | Test/docs | Mark expected values TODO until source-confirmed. |
@@ -75,6 +84,9 @@ Last updated: 2026-07-15
 - `source_review_required`: Authoritative source for each fortune/calendar rule.
 - `provisional`, `source_review_required`: Whether current companion judgement modes match intended product behavior.
 - `source_review_required`: Official expected values for 節入り, 立春, 土用, and board-switching regression samples.
+- `source_review_required`: Complete transcription of the original 36 monthly plates, 324 palace cells, and all direction markers.
+- `pending`, `source_review_required`: Upper monthly-board representative date, fixed-verification URL behavior, and future verification API contract.
+- `pending`, `source_review_required`: Setsuiri time precision, `birthTime`-missing fallback, timezone, overseas birth, and true solar time. Keep the six date differences isolated.
 - `pending`, `source_review_required`: Whether birth row year 九星 as 本命星 is final for all users.
 - `pending`, `source_review_required`: Getsumei UI scope, companion use, Getsumei-satsu / Getsumei-tekisatsu, and candidate-rank effects.
 - `pending`, `source_review_required`: Whether 天赦日 can be an almanac-only candidate without direction tags.
@@ -88,6 +100,7 @@ Last updated: 2026-07-15
 - `accepted`, `implementation_pending`: `purpose` compatibility/default direction and `candidateCondition` vs `actionScale` separation.
 - `provisional`, `source_review_required`: companion-mode meanings.
 - `accepted`, `implementation_pending`, `source_review_required`: candidate rank split.
+- `accepted`, `documentation_only`, `implementation_pending`, `source_review_required`: protect Step 5B-2 monthly-plate values first; defer time-precision, representative-date, and API changes.
 - `accepted`, `documentation_only`, `implementation_pending`, `source_review_required`: common-master Step 4A boundary. Step 4B starts with regression tests, not refactors.
 - Implement next: `purpose` migration and independent `candidateCondition` behavior after compatibility plan.
 - Can wait: route screenshots, architecture diagram, public product wording.

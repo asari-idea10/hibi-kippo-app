@@ -1,6 +1,6 @@
 # Decision Log
 
-Last updated: 2026-07-15
+Last updated: 2026-07-16
 
 Record product, architecture, and rule decisions here. Do not use this file to justify guessed fortune logic.
 
@@ -120,6 +120,18 @@ Use these exact status labels across docs when describing product and rule decis
 - Reason: 一致した現在値を安全に保護しながら、日付単位と時刻単位の境界問題を未確認のまま固定または変更しないため。
 - Implementation note: This decision records docs only. No source code, data, tests, master, UI, URL behavior, or calculation logic was changed.
 
+### D-0012: Protect verified monthly-plate values while deferring time-precision changes
+
+- Date: 2026-07-16
+- Status: `accepted`, `documentation_only`, `implementation_pending`, `source_review_required`
+- Decision: Step 5B-2で一致した年支3グループ、月盤中宮36対応、洛書定位による324宮の内部配置、五黄殺・暗剣殺・月破の全期間内部整合を、独立期待値による回帰テストの保護対象とする。
+- Decision: 「ユーザー提供画像をChatGPTが読解・整理した研究記録」として、2026年6月の芒種00:48と7月の小暑10:57を含む節入り時刻候補を記録する。Codexが原画像を直接確認したとは扱わない。
+- Decision: Gregorian月には節入りを境に複数月盤が含まれ得る。固定検証には `selectedDate` または `date` を使い、`year` / `month` だけから単一代表盤を確定する検証APIを先行実装しない。
+- Decision: 将来の出生時刻対応では節入り当日を雑に日単位へ丸めず、実際の節入り時刻との前後を扱う設計候補を保持する。ただし `birthTime` なしfallback、timezone、海外出生、真太陽時は別途仕様確認する。
+- Decision: 現時点では既存の日付単位境界、既存URL、既存判定結果を変更しない。原資料324セル・全マーカーと境界6件の研究を分離し、次工程は確認済み月盤値の回帰テストとする。
+- Reason: 確認済み値を保護しながら、原資料転記、時刻精度、代表日、API contractを未確定のまま既存計算へ混入させないため。
+- Implementation note: This decision records docs only. No source code, tests, data, master, UI, URL, API, or boundary logic was changed.
+
 ## Decision Status Matrix
 
 | Topic | Status | Implementation status | Source review | Notes |
@@ -133,7 +145,8 @@ Use these exact status labels across docs when describing product and rule decis
 | Sanmeigaku input model before time pillar / daiun | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Docs-only model recorded | Required before time/daiun calculation | Missing gender must not silently become male for Sanmeigaku daiun design. |
 | Sanmeigaku calculation-core protection before common-master implementation | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Docs-only architecture boundary recorded | Required before unresolved common-master rule adoption | Start Step 4B with regression tests for 十大主星 100 and 十二大従星 120. |
 | Shichu Suimei / Sanmeigaku coexistence and additional-master ledger | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Step 5A docs-only ledger recorded | Required per individual item | Keep shared foundations and system-specific rules explicit; Step 5B confirms code presence. |
-| Getsumei 36 / 108 value protection and boundary isolation | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Values documented; regression tests not added yet | Required for formal semantics and six boundary differences | Protect exact value mappings independently; do not replace boundary logic. |
+| Getsumei 36 / 108 value protection and boundary isolation | `accepted`, `documentation_only`, `source_review_required` | Independent value regression tests added | Required for formal semantics and six boundary differences | Protect exact value mappings independently; do not replace boundary logic. |
+| Monthly-plate 36 / 324 value protection and future time precision | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Step 5B-2 values documented; regression tests pending | Required for original 324 cells, markers, representative date, and time boundary | Keep current date-precision behavior; test values before API or time-precision work. |
 | Boundary regression samples for 節入り・立春・土用・board switching | `accepted`, `implementation_pending`, `source_review_required` | Test matrix not implemented yet | Required for authoritative expected values | High-priority test design task. |
 | 天道・土用殺・方位殺・candidate-rank fortune basis | `source_review_required` | Do not change logic until reviewed | Required | Keep current behavior documented as code behavior only. |
 | 本命星 handling | `source_review_required`, `pending` | Do not change personal-star logic until reviewed | Required | Current code derives from birth row year 九星. |
