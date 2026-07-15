@@ -109,6 +109,17 @@ Use these exact status labels across docs when describing product and rule decis
 - Reason: 共有構造を再利用可能にしつつ、体系差、未確認の成立条件、安全上の制限を曖昧にしないため。
 - Implementation note: This decision records docs only. No source code, data, tests, master, UI, URL behavior, or calculation logic was changed.
 
+### D-0011: Protect matched Getsumei values while isolating boundary research
+
+- Date: 2026-07-15
+- Status: `accepted`, `documentation_only`, `implementation_pending`, `source_review_required`
+- Decision: 月命星相当の36対応と、本命星9種類 × 月支12種類の108入力は、研究台帳の独立期待値と既存暦DBで全件一致したため、現在値を回帰テストの保護対象とする。
+- Decision: 次工程では値の36対応・108入力だけを独立期待値で回帰テスト化し、既存実装から期待値を生成しない。
+- Decision: 節入り境界、本命星としての `yearKyusei`、月命星としての `monthKyusei` の意味上の正式定義は未確定とし、境界ロジックを置換・統合しない。
+- Decision: 暦DBと公式節入りmasterの6件の境界日差は、値の回帰テストから隔離した別研究課題とする。どちらかを誤りと断定しない。
+- Reason: 一致した現在値を安全に保護しながら、日付単位と時刻単位の境界問題を未確認のまま固定または変更しないため。
+- Implementation note: This decision records docs only. No source code, data, tests, master, UI, URL behavior, or calculation logic was changed.
+
 ## Decision Status Matrix
 
 | Topic | Status | Implementation status | Source review | Notes |
@@ -122,6 +133,7 @@ Use these exact status labels across docs when describing product and rule decis
 | Sanmeigaku input model before time pillar / daiun | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Docs-only model recorded | Required before time/daiun calculation | Missing gender must not silently become male for Sanmeigaku daiun design. |
 | Sanmeigaku calculation-core protection before common-master implementation | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Docs-only architecture boundary recorded | Required before unresolved common-master rule adoption | Start Step 4B with regression tests for 十大主星 100 and 十二大従星 120. |
 | Shichu Suimei / Sanmeigaku coexistence and additional-master ledger | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Step 5A docs-only ledger recorded | Required per individual item | Keep shared foundations and system-specific rules explicit; Step 5B confirms code presence. |
+| Getsumei 36 / 108 value protection and boundary isolation | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Values documented; regression tests not added yet | Required for formal semantics and six boundary differences | Protect exact value mappings independently; do not replace boundary logic. |
 | Boundary regression samples for 節入り・立春・土用・board switching | `accepted`, `implementation_pending`, `source_review_required` | Test matrix not implemented yet | Required for authoritative expected values | High-priority test design task. |
 | 天道・土用殺・方位殺・candidate-rank fortune basis | `source_review_required` | Do not change logic until reviewed | Required | Keep current behavior documented as code behavior only. |
 | 本命星 handling | `source_review_required`, `pending` | Do not change personal-star logic until reviewed | Required | Current code derives from birth row year 九星. |

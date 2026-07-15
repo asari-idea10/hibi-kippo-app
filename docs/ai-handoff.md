@@ -985,3 +985,28 @@ Unresolved / TODO:
 - Reconfirm the complete table cells and exact source pages; only 小児殺 page 19 and 干支相生・相剋表 page 23 are recorded as page candidates.
 - Source-review成立条件、対象柱、節入り境界、陽遁・陰遁切替、子刻の日界、真太陽時、地域補正、意味、強度、優先順位。
 - After Drive sync, manually add the new Markdown file to the NotebookLM source list.
+
+## Step 5B-1 Getsumei Comparison Handoff
+
+Date: 2026-07-15
+
+Summary:
+
+- Step 5B-1 read-only comparison is complete. The research-ledger Getsumei mapping matches the current calendar DB for 36 / 36 grouped mappings and 108 / 108 expanded inputs; mismatches and undefined values are zero.
+- Current personal-star values are read from daily calendar DB rows. `yearKyusei` and `monthKyusei` feed `buildPersonalProfile` and `getKeishaProfile`; there is no standalone Getsumei calculator or static 36-entry master.
+- Getsumei-equivalent `monthKyusei` currently supports the self keisha profile. It is not directly displayed as 月命星 and is not currently used for companion judgement, 月命殺・月命的殺, or candidate ranking.
+- All 12 setsuiri boundaries switch the month branch and month star at date precision. Birth-time precision is not used, and six boundary dates differ between the calendar DB and official solar-term master.
+- Do not replace or normalize boundary logic from this result. Step 5B-1B should protect only the matched 36 / 108 values with independent expectations; isolate the six boundary differences for source review.
+- The original source remains「ユーザー提供画像をChatGPTが読解・整理した研究記録」. Codex did not directly inspect or OCR the original images.
+
+Changed docs:
+
+- `docs/mannenreki-additional-masters-research.md`
+- `docs/decision-log.md`
+- `docs/task-board.md`
+- `docs/ai-handoff.md`
+
+Verification scope:
+
+- Documentation only. No source, tests, data, scripts, package files, UI, URL, calculation logic, or boundary logic changes.
+- Existing 343 tests are unchanged and do not need to be rerun for this task.

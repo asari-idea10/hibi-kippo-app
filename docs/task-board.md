@@ -29,6 +29,8 @@ Last updated: 2026-07-15
 - Step 4B-1D fixed 初年運 = 年支, 中年運 = 月支, and 老年運 = 日支 placement across three static profile regression cases, completing Step 4B-1 calculation-core protection.
 - Vercel Preview public review workflow confirmed: Preview URLs can be shared directly with ChatGPT/Gemini after `HTTP 200` and no SSO redirect are verified.
 - Step 5A additional 『改訂版 平成萬年暦』 research ledger documented in `docs/mannenreki-additional-masters-research.md`, separating existing-code comparison targets from possible new-master candidates without implementation.
+- Step 5B-1 read-only comparison completed: Getsumei 36 / 36 and expanded 108 / 108 inputs match the current calendar DB, with no mismatch, undefined value, multiple output, or non-nine-star output.
+- Step 5B-1 traced the current Getsumei-equivalent path and usage: daily `monthKyusei` feeds the self keisha profile; direct Getsumei display, companion judgement, Getsumei-satsu, and candidate ranking are not current uses.
 
 ## Next
 
@@ -37,7 +39,11 @@ Last updated: 2026-07-15
 | P0 | Design and implement `purpose` default migration | Medium | High | URL/product implementation | `accepted`, `implementation_pending`: keep explicit `purpose=travel`; move omitted purpose toward `yuki_tori`. |
 | P0 | Design and implement independent `candidateCondition` handling | Medium | High | URL/product implementation | `accepted`, `implementation_pending`: keep `actionScale` for action burden; use `candidateCondition` for filtering. |
 | P0 | Draft boundary regression sample matrix for 節入り・立春・土用・年盤/月盤/日盤 switching | Medium | High | Test design | `accepted`, `implementation_pending`, `source_review_required`: expected values need source confirmation before tests are authoritative. |
-| P0 | Step 5B read-only comparison for additional Mannenreki masters | Medium | High | Research / code inventory | Compare 月命星、九星月盤、選日、六十干支内部関係、神殺、身体対応 with current code/master/tests; do not implement or declare missing items before the inventory. |
+| P0 | Step 5B-1B Getsumei value regression tests | Medium | High | Test implementation | Add independent static expectations for 36 mappings and 108 inputs, same-group invariance, no undefined values, nine-star range, and representative non-boundary birth dates. Do not generate expectations from the current implementation. |
+| P0 | Research six Getsumei / setsuiri boundary-date differences | High | High | Source research | Keep separate from value regression tests. Do not declare either calendar DB or official solar-term master wrong, and do not replace boundary logic before review. |
+| P0 | Step 5B-2 read-only comparison for 36 Nine-Star monthly plates | Medium | High | Research / code inventory | Compare the 36 monthly-board centers, palace placements, and recorded direction-deity markers without implementation changes. |
+| P1 | Confirm `birthTime`-missing setsuiri fallback specification | Medium | High | Product / source decision | Current personal-star precision is date-only. Decide exact-time, timezone, overseas-birth, and unknown-time handling before boundary implementation. |
+| P1 | Continue Step 5B read-only comparison for remaining additional Mannenreki masters | Medium | High | Research / code inventory | Continue selected days, sexagenary internal relations, spirits, and body correspondence after the monthly-plate inventory. |
 | P1 | Confirm NotebookLM source list after new docs are synced | Low | Medium | AI orchestration docs | New Drive files require manual NotebookLM source addition; existing sources update through Drive sync. |
 | P1 | Add initial non-authoritative regression fixtures for boundary dates | Medium | High | Test/docs | Mark expected values TODO until source-confirmed. |
 | P1 | Audit `calendar-db` form parameters and complete URL table | Low | Medium | Docs | Helps API/page consistency. |
@@ -70,6 +76,7 @@ Last updated: 2026-07-15
 - `provisional`, `source_review_required`: Whether current companion judgement modes match intended product behavior.
 - `source_review_required`: Official expected values for 節入り, 立春, 土用, and board-switching regression samples.
 - `pending`, `source_review_required`: Whether birth row year 九星 as 本命星 is final for all users.
+- `pending`, `source_review_required`: Getsumei UI scope, companion use, Getsumei-satsu / Getsumei-tekisatsu, and candidate-rank effects.
 - `pending`, `source_review_required`: Whether 天赦日 can be an almanac-only candidate without direction tags.
 - `source_review_required`: Sanmeigaku time-pillar, true-solar-time, child-hour, date-boundary, timezone, DST, overseas-birth, and unknown-time rules.
 - `source_review_required`: Sanmeigaku daiun forward/reverse, gender relation, start-age, rounding, counted/full-age, and stem/branch progression rules.
