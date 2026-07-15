@@ -98,6 +98,17 @@ Use these exact status labels across docs when describing product and rule decis
 - Reason: Step 3 found strong evidence that existing Sanmeigaku star calculations are already aligned with the research ledger, while unresolved areas are architectural and source-review problems rather than immediate calculation fixes.
 - Implementation note: This decision records docs only. No source code, data, tests, UI, URL behavior, or calculation logic was changed.
 
+### D-0010: Keep Shichu Suimei and Sanmeigaku coexisting with explicit correspondence status
+
+- Date: 2026-07-15
+- Status: `accepted`, `documentation_only`, `implementation_pending`, `source_review_required`
+- Decision: 四柱推命と算命学は排他的に扱わず、十干・十二支・陰陽五行の共有基盤を認め、名称・表現・解釈差を明示しながら併用・併記する。
+- Decision: 個別項目は `equivalent`、`partially_equivalent`、`shared_foundation`、`shichu_only`、`sanmeigaku_only`、`source_review_required` で対応状態を記録し、完全一致を推測で断定しない。
+- Decision: Step 5Aの追加資料は `docs/mannenreki-additional-masters-research.md` に集約し、既存コード照合対象と新規master候補を分離する。コード上の存在有無はStep 5Bのread-only調査で確定する。
+- Decision: 医療診断、発症予測、死亡・寿命、子どもの事故・病気、神殺単独の人格・人生断定、古典的差別表現、現代医療の代替は採用しない。
+- Reason: 共有構造を再利用可能にしつつ、体系差、未確認の成立条件、安全上の制限を曖昧にしないため。
+- Implementation note: This decision records docs only. No source code, data, tests, master, UI, URL behavior, or calculation logic was changed.
+
 ## Decision Status Matrix
 
 | Topic | Status | Implementation status | Source review | Notes |
@@ -110,6 +121,7 @@ Use these exact status labels across docs when describing product and rule decis
 | Split candidate rank into fortune rank / practical rank | `accepted`, `implementation_pending`, `source_review_required` | Not implemented yet | Required for fortune-rank factors | Practical-rank design can proceed separately from fortune-source confirmation. |
 | Sanmeigaku input model before time pillar / daiun | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Docs-only model recorded | Required before time/daiun calculation | Missing gender must not silently become male for Sanmeigaku daiun design. |
 | Sanmeigaku calculation-core protection before common-master implementation | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Docs-only architecture boundary recorded | Required before unresolved common-master rule adoption | Start Step 4B with regression tests for 十大主星 100 and 十二大従星 120. |
+| Shichu Suimei / Sanmeigaku coexistence and additional-master ledger | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Step 5A docs-only ledger recorded | Required per individual item | Keep shared foundations and system-specific rules explicit; Step 5B confirms code presence. |
 | Boundary regression samples for 節入り・立春・土用・board switching | `accepted`, `implementation_pending`, `source_review_required` | Test matrix not implemented yet | Required for authoritative expected values | High-priority test design task. |
 | 天道・土用殺・方位殺・candidate-rank fortune basis | `source_review_required` | Do not change logic until reviewed | Required | Keep current behavior documented as code behavior only. |
 | 本命星 handling | `source_review_required`, `pending` | Do not change personal-star logic until reviewed | Required | Current code derives from birth row year 九星. |

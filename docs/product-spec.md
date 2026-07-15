@@ -127,6 +127,7 @@ Status: `accepted`, `documentation_only`, `implementation_pending`, `source_revi
 
 Detailed ledger: `docs/sanmeigaku-input-and-time-pillar-research.md`
 Common master research ledger: `docs/mannenreki-common-master-research.md`
+Additional master research ledger: `docs/mannenreki-additional-masters-research.md`
 Common master architecture decision: `docs/common-master-architecture-decision.md`
 
 - `/sanmeigaku` currently uses only `birthDate`; this existing behavior and existing `birthDate` URLs must remain compatible.
@@ -136,6 +137,8 @@ Common master architecture decision: `docs/common-master-architecture-decision.m
 - Time-pillar, true-solar-time, and daiun rules are `source_review_required` before implementation.
 - Dashboard and animation work should consume calculation results through a view model. Animation must not own or duplicate calculation rules.
 - 『改訂版 平成萬年暦』由来の四柱推命系マスター研究は、算命学の正式仕様としては未採用。Step 4A では、十大主星 100 対応と十二大従星 120 対応を現行計算核の保護対象として扱い、通変星・十二運を UI へ追加しない方針を記録している。
+- 四柱推命と算命学は排他的に扱わず、十干・十二支・陰陽五行の共有基盤を認め、名称・表現・解釈差を明示して併用・併記する。個別項目の完全一致、成立条件、対象柱、表示用途は資料ごとの照合前に断定しない。
+- 追加萬年暦資料は、既存コード照合対象と新規master候補を分けて研究する。Step 5Aではコード上の存在有無を断定せず、Step 5Bのread-only検索後に判断する。
 
 ### Input Model V0
 

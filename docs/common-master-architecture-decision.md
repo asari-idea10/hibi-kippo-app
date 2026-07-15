@@ -23,6 +23,7 @@ Step 4A の目的は、Step 3「重複と矛盾の照合」で確認した一致
 
 - `AGENTS.md`
 - `docs/mannenreki-common-master-research.md`
+- `docs/mannenreki-additional-masters-research.md`
 - `docs/product-spec.md`
 - `docs/fortune-rules.md`
 - `docs/ai-handoff.md`
@@ -175,6 +176,8 @@ Step 4B 以降で共通基盤化を検討できる候補は、評価・吉凶・
 - 九星側の既存ロジックを壊す可能性があるため、支関係を一括統合しない。
 
 ## 8. 研究継続領域
+
+Step 5Aで整理した追加資料群は `docs/mannenreki-additional-masters-research.md` を正本台帳とする。四柱推命と算命学は共有基盤を認めて併用・併記するが、個別項目は成立条件を照合するまで同等と断定しない。また、同台帳の「既存コード照合対象」と「新規候補」は、Step 5Bのread-only調査が完了するまで実装境界へ昇格させない。
 
 次の領域は Step 4B で実装しない。研究台帳とソースレビューを継続する。
 

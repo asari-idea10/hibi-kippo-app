@@ -28,6 +28,8 @@ Scope:
 
 This is a docs-only handoff for the next research/code-comparison step. It does not change app behavior, calculation logic, data masters, TypeScript types, UI, URLs, or Sanmeigaku results.
 
+追加で確認された身体対応、小児殺、貴人神殺、特殊神殺・特殊日、季節別選日、九星刻盤、六十干支内部関係、九星月盤、月命星の詳細は、重複を避けて `docs/mannenreki-additional-masters-research.md` に集約する。
+
 ## 2. Source Handling
 
 Primary source handling:

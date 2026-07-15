@@ -186,7 +186,9 @@ The effective candidate condition is currently derived from `actionScale`.
 - 十大主星・十二大従星の星名 detail routes are available under `/calendar-notes/sanmeigaku/[name]`.
 - Current star detail pages display source-connected spreadsheet explanation masters when available.
 - Common master research for 十干・十二支・月建・通変星・十二運・干合・支関係 is tracked in `docs/mannenreki-common-master-research.md`; it is a ChatGPT-organized record from user-provided material and does not define implemented fortune rules.
+- Additional research for 身体対応、小児殺、貴人神殺、特殊神殺・特殊日、季節別選日、九星刻盤、六十干支内部関係、九星月盤、月命星 is tracked in `docs/mannenreki-additional-masters-research.md`; it records「ユーザー提供画像をChatGPTが読解・整理した研究記録」であり、実装済みルールを定義しない。
 - Step 4A common-master architecture boundaries are tracked in `docs/common-master-architecture-decision.md`; 十大主星 100 対応 and 十二大従星 120 対応 are treated as protected current calculation results, while 通変星・十二運 remain research comparison terms rather than UI or rule additions.
+- 四柱推命・算命学の名称は共有基盤を明示して併記できるが、個別の神殺、選日、身体対応、成立条件を推測で同一視しない。医療診断、発症予測、死亡・寿命、子どもの事故・病気、神殺単独の人格・人生断定は採用しない。
 
 ### Star Link Phase 1
 

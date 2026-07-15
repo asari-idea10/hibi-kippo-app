@@ -28,6 +28,7 @@ Last updated: 2026-07-15
 - Step 4B-1C fixed all 120 日干 × 対象支 energy values as static Vitest regression cases without changing the current calculation results.
 - Step 4B-1D fixed 初年運 = 年支, 中年運 = 月支, and 老年運 = 日支 placement across three static profile regression cases, completing Step 4B-1 calculation-core protection.
 - Vercel Preview public review workflow confirmed: Preview URLs can be shared directly with ChatGPT/Gemini after `HTTP 200` and no SSO redirect are verified.
+- Step 5A additional 『改訂版 平成萬年暦』 research ledger documented in `docs/mannenreki-additional-masters-research.md`, separating existing-code comparison targets from possible new-master candidates without implementation.
 
 ## Next
 
@@ -36,6 +37,7 @@ Last updated: 2026-07-15
 | P0 | Design and implement `purpose` default migration | Medium | High | URL/product implementation | `accepted`, `implementation_pending`: keep explicit `purpose=travel`; move omitted purpose toward `yuki_tori`. |
 | P0 | Design and implement independent `candidateCondition` handling | Medium | High | URL/product implementation | `accepted`, `implementation_pending`: keep `actionScale` for action burden; use `candidateCondition` for filtering. |
 | P0 | Draft boundary regression sample matrix for 節入り・立春・土用・年盤/月盤/日盤 switching | Medium | High | Test design | `accepted`, `implementation_pending`, `source_review_required`: expected values need source confirmation before tests are authoritative. |
+| P0 | Step 5B read-only comparison for additional Mannenreki masters | Medium | High | Research / code inventory | Compare 月命星、九星月盤、選日、六十干支内部関係、神殺、身体対応 with current code/master/tests; do not implement or declare missing items before the inventory. |
 | P1 | Confirm NotebookLM source list after new docs are synced | Low | Medium | AI orchestration docs | New Drive files require manual NotebookLM source addition; existing sources update through Drive sync. |
 | P1 | Add initial non-authoritative regression fixtures for boundary dates | Medium | High | Test/docs | Mark expected values TODO until source-confirmed. |
 | P1 | Audit `calendar-db` form parameters and complete URL table | Low | Medium | Docs | Helps API/page consistency. |

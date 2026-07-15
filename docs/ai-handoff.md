@@ -947,3 +947,41 @@ Verification:
 Unresolved / TODO:
 
 - Continue Step 4B with 身弱・身中・身強 boundary regression tests before common-master refactoring.
+
+## Step 5A Additional Mannenreki Masters Research Handoff
+
+Date: 2026-07-15
+
+Summary:
+
+- Added `docs/mannenreki-additional-masters-research.md` as the formal docs-only ledger for additional 『改訂版 平成萬年暦』 research.
+- The source is described only as「ユーザー提供画像をChatGPTが読解・整理した研究記録」; Codex did not inspect or OCR the original images and no images/PDFs were added.
+- Separated P0/P1/P2 existing-code comparison targets from possible new-master candidates. Step 5A does not declare that candidates are absent from the current code; Step 5B will perform read-only comparison.
+- Recorded the product decision that Shichu Suimei and Sanmeigaku coexist through shared foundations with explicit correspondence status, without inferring complete equivalence.
+- Recorded safety restrictions against medical diagnosis, onset prediction, death/lifespan claims, child accident/illness claims, deterministic spirit-only judgements, discriminatory wording, and substitution for modern medicine.
+
+Changed docs:
+
+- `docs/mannenreki-additional-masters-research.md`
+- `docs/mannenreki-common-master-research.md`
+- `docs/common-master-architecture-decision.md`
+- `docs/product-spec.md`
+- `docs/fortune-rules.md`
+- `docs/decision-log.md`
+- `docs/task-board.md`
+- `docs/ai-handoff.md`
+
+Verification:
+
+- Documentation-only change; no source, test, data, script, package, UI, URL, calculation, or existing-master change.
+- `git diff -- src`, `git diff -- tests`, and `git diff -- data` must remain empty.
+- Existing 343 tests are unchanged and are not required to rerun for this docs-only task.
+- `git diff --check` must pass.
+- Vercel Preview is not required.
+
+Unresolved / TODO:
+
+- Step 5B read-only search must confirm which comparison targets and new-master candidates already exist in code, data masters, or tests.
+- Reconfirm the complete table cells and exact source pages; only 小児殺 page 19 and 干支相生・相剋表 page 23 are recorded as page candidates.
+- Source-review成立条件、対象柱、節入り境界、陽遁・陰遁切替、子刻の日界、真太陽時、地域補正、意味、強度、優先順位。
+- After Drive sync, manually add the new Markdown file to the NotebookLM source list.
