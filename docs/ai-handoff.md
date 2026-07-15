@@ -1063,3 +1063,28 @@ Verification scope:
 - Documentation only. No production source, tests, data, scripts, package files, UI, URL, API, calendar DB, master, label, warning code, candidate judgement, or rank logic changes.
 - Existing 693 tests are unchanged and do not need to be rerun for this task.
 - Google Drive sync, NotebookLM addition, and Vercel Preview are not required on this feature branch.
+
+## Step 5B-3A-2 Virtue Day and Direction Concept Separation Handoff
+
+Date: 2026-07-16
+
+Summary:
+
+- Step 5B-3A-2 is complete. Monthly direction-deity Tentoku-go, Gettoku direction, and Gettoku-go are not currently implemented.
+- Current Gettoku is the selected day `月徳日`, stored in daily legacy summary text and displayed as an almanac note. It is not a direction value.
+- Current Seiki is a five-element palace blend: the palace element generates the visiting-star element. It is not confirmed as the monthly direction-deity marker or an Eight Mansions rule.
+- Do not reuse same-name selected-day, natal-spirit, palace-blend, or direction-deity concepts. Do not create inferred masters, candidate bonuses, or bad-direction cancellation.
+- Next is Step 5B-3A-3 for Gekku and Teii Taichu. Concrete monthly marker and 24-mountain values remain source-review work.
+
+Changed docs:
+
+- `docs/mannenreki-additional-masters-research.md`
+- `docs/decision-log.md`
+- `docs/task-board.md`
+- `docs/ai-handoff.md`
+
+Verification scope:
+
+- Documentation only. No production source, tests, data, scripts, package/config files, calendar DB, master, UI, URL, API, ID, label, warning code, candidate judgement, rank logic, good-spirit scoring, or bad-direction cancellation changes.
+- Existing 693 tests are unchanged and do not need to be rerun for this task.
+- Google Drive sync, NotebookLM addition, and Vercel Preview are not required on this feature branch.

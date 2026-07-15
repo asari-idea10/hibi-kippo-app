@@ -144,6 +144,18 @@ Use these exact status labels across docs when describing product and rule decis
 - Reason: 同名の重複経路と全期間一致を根拠に早期統合や具体値固定を行うと、原資料差、粒度差、用途差を失うため。
 - Implementation note: This decision records docs only. No source code, tests, data, master, UI, URL, label, warning code, candidate judgement, or rank logic was changed.
 
+### D-0014: Separate virtue-day, direction-deity, natal-spirit, and palace-blend concepts
+
+- Date: 2026-07-16
+- Status: `accepted`, `documentation_only`, `implementation_pending`, `source_review_required`
+- Decision: 月盤方位神としての天徳合・月徳・月徳合は現時点で未実装とする。現在コードに存在する月徳は選日「月徳日」であり、月徳方位として扱わない。
+- Decision: 現行の生気は、宮の五行が回座星の五行を生じる五行ブレンドであり、月盤方位神や八宅等の同名概念とは別に管理する。
+- Decision: 月盤方位神、選日、命理神殺、五行ブレンドの同名概念を流用しない。天徳・月徳・命理神殺・生気blendから未確認の方位値を推測せず、原資料確認前に方位神masterを作らない。
+- Decision: 天徳合・月徳方位・月徳合・方位神生気を候補ランク、吉神加点、凶殺相殺へ接続しない。現行生気の内部 `score: 2` は候補数値ランクとは別値として扱う。
+- Decision: 次のdocs整理は月空・定位対冲を対象とし、原資料マーカー確認後に方位神としての実装可否をプロダクトオーナーが判断する。
+- Reason: 同名・類似名を根拠に異なる入力基準、用途、粒度の値を流用すると、未確認の方位神を既存選日・命理・五行blendから誤生成するため。
+- Implementation note: This decision records docs only. No source code, tests, data, master, UI, URL, API, ID, label, warning code, candidate judgement, rank logic, good-spirit scoring, or bad-direction cancellation was changed.
+
 ## Decision Status Matrix
 
 | Topic | Status | Implementation status | Source review | Notes |
@@ -160,6 +172,7 @@ Use these exact status labels across docs when describing product and rule decis
 | Getsumei 36 / 108 value protection and boundary isolation | `accepted`, `documentation_only`, `source_review_required` | Independent value regression tests added | Required for formal semantics and six boundary differences | Protect exact value mappings independently; do not replace boundary logic. |
 | Monthly-plate 36 / 324 value protection and future time precision | `accepted`, `documentation_only`, `source_review_required` | Independent value and invariant regression tests added | Required for original 324 cells, markers, representative date, and time boundary | Keep current date-precision behavior; do not mix API or time-precision work into the protected values. |
 | Tendo / Tentoku duplicate-path isolation and trine structural protection | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Two Tendo paths and current policy documented; concrete directions not fixed | Required for original Tendo, Tentoku, and trine markers and 24-mountain detail | Do not merge the two Tendo paths or freeze Tendo / Tentoku directions before source review. |
+| Tentoku-go / Gettoku / Gettoku-go / Seiki purpose separation | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Getsutoku day and palace-blend Seiki documented as other-purpose implementations; monthly direction deities remain unimplemented | Required for original monthly markers, 24-mountain detail, and formal derivation rules | Do not derive directions from selected days, natal spirits, Tentoku / Gettoku, or palace-blend Seiki. |
 | Boundary regression samples for 節入り・立春・土用・board switching | `accepted`, `implementation_pending`, `source_review_required` | Test matrix not implemented yet | Required for authoritative expected values | High-priority test design task. |
 | 天道・土用殺・方位殺・candidate-rank fortune basis | `source_review_required` | Do not change logic until reviewed | Required | Keep current behavior documented as code behavior only. |
 | 本命星 handling | `source_review_required`, `pending` | Do not change personal-star logic until reviewed | Required | Current code derives from birth row year 九星. |
@@ -179,3 +192,4 @@ Use these exact status labels across docs when describing product and rule decis
 | P-0010 | Sanmeigaku daiun source rules | Fortune/source confirmation | Before implementing daiun | Includes forward/reverse direction, gender relation, stem yin/yang basis, start age, rounding, counted/full age, and stem/branch progression. |
 | P-0011 | Common-master Step 4B regression-test scope | Test design + architecture | Before commonizing shared masters | Start with 十大主星 100, 十二大従星 120, energy values, 初中老年, and 身強弱 boundaries before refactoring. |
 | P-0012 | Relationship among single-direction Tendo, trine Tendo, and Tentoku | Fortune/source confirmation + product architecture | Before renaming, merging, deleting, or freezing direction expectations | Current values overlap across all 55,152 rows, but concept, source granularity, and intended UI meaning remain unresolved. |
+| P-0013 | Whether and how Tentoku-go, Gettoku direction, Gettoku-go, and direction-deity Seiki should be adopted | Fortune/source confirmation + product decision | After original monthly markers and derivation rules are confirmed | Keep selected-day Gettoku, natal-spirit candidates, palace-blend Seiki, and monthly direction deities separate. |
