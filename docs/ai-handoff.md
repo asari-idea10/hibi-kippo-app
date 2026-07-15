@@ -918,3 +918,32 @@ Unresolved / TODO:
 
 - Continue Step 4B with 初年・中年・老年 placement regression tests, then 身弱・身中・身強 boundary regression tests.
 - Do not begin common-master refactoring until the remaining protected calculation-core tests are fixed.
+
+## Step 4B-1D Life Stage Placement Regression Handoff
+
+Date: 2026-07-15
+
+Summary:
+
+- Added three profile-level regression cases that run through `getSanmeigakuProfile` and fix 初年運 = 年支, 中年運 = 月支, and 老年運 = 日支.
+- Each case has distinct year, month, and day branches, stars, and energy values so position swaps fail the test.
+- Fixed the three life-stage stars and energy values, their total energy, and representative 身弱・身中・身強 results with static expectations.
+- Step 4B-1 calculation-core protection is complete without changing current calculation results, production code, UI, URL, or data.
+
+Changed files:
+
+- `src/lib/sanmeigaku-profile.test.ts`
+- `docs/task-board.md`
+- `docs/ai-handoff.md`
+
+Verification:
+
+- Target test: 1 test file passed, 3 tests passed.
+- `npm test`: 2 test files passed, 343 tests passed (existing 340 + new 3).
+- `npm run lint`: passed.
+- `npm run build`: passed with Next.js 16.2.6.
+- `git diff --check`: passed.
+
+Unresolved / TODO:
+
+- Continue Step 4B with 身弱・身中・身強 boundary regression tests before common-master refactoring.
