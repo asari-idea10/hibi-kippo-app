@@ -138,6 +138,10 @@ beforeAll(() => {
           continue;
         }
 
+        if (kind !== "doyo_satsu" && judgment.entry.code !== "tentoku") {
+          continue;
+        }
+
         const hasTargetConflict = judgment.conflicts.some(
           (conflict) => conflict.kind === kind,
         );
@@ -234,7 +238,7 @@ describe("三合4局の確認済み構造", () => {
 
 describe("吉神ラベルと凶殺ラベルの併存", () => {
   it.each(matrixConflictKinds)(
-    "%s が重なる公開結果で吉神・凶殺の両ラベルを上書きしない",
+    "天徳と%sが重なる公開結果で両ラベルを上書きしない",
     (kind) => {
       const { day, judgment } = requireConflictSample(kind);
       const result = searchCalendarDb({
@@ -250,7 +254,8 @@ describe("吉神ラベルと凶殺ラベルの併存", () => {
 
       expect(row).toBeDefined();
       expect(targetConflicts.length).toBeGreaterThan(0);
-      expect(judgment.entry.name).not.toBe("");
+      expect(judgment.entry.code).toBe("tentoku");
+      expect(judgment.entry.name).toBe("天徳");
 
       const boardCells = Object.values(
         row.directionBoardValues[
@@ -267,6 +272,7 @@ describe("吉神ラベルと凶殺ラベルの併存", () => {
         ),
       ).toBe(true);
       for (const conflict of targetConflicts) {
+        expect(conflict.direction).toBe(judgment.normalizedDirection);
         expect(labels).toContain(conflict.name);
       }
       for (const cell of boardCells) {
@@ -279,7 +285,7 @@ describe("吉神ラベルと凶殺ラベルの併存", () => {
 
 describe("吉神より凶殺を優先する現行policy", () => {
   it.each(["gohosatsu", "ankensatsu", "ha"] as const)(
-    "%s は吉神が同一方位にあってもblockedを維持する",
+    "天徳と%sが同一方位にあってもblockedを維持する",
     (kind) => {
       const { judgment } = requireConflictSample(kind);
 
@@ -288,7 +294,8 @@ describe("吉神より凶殺を優先する現行policy", () => {
           expect.objectContaining({ kind, severity: "strong" }),
         ]),
       );
-      expect(judgment.entry.name).not.toBe("");
+      expect(judgment.entry.code).toBe("tentoku");
+      expect(judgment.entry.name).toBe("天徳");
       expect(judgment.recommendation).toBe("blocked");
       expect(judgment.recommendation).not.toBe("recommended");
     },
