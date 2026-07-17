@@ -168,6 +168,17 @@ Use these exact status labels across docs when describing product and rule decis
 - Reason: 個人向け固定サンプル、五黄の対宮、十二支の冲、九星定位を同じ「対向」構造として流用すると、未確認の月空・定位対冲を誤実装するため。
 - Implementation note: This decision records docs only. No source code, tests, data, scripts, package/config files, calendar DB, master, UI, URL, API, ID, label, warning code, candidate judgement, rank logic, fixed-profile condition, month-break logic, Anketsu logic, or branch-opposition map was changed.
 
+### D-0016: Register page 24 as the pilot source without promoting it to a master
+
+- Date: 2026-07-17
+- Status: `accepted`, `documentation_only`, `manual_transcription_review_required`, `source_review_required`
+- Decision: ユーザー提供の『改訂版 平成・萬年暦』p.24画像で、年支3グループ×12月＝36月盤、側部凡例、寅月の八白・五黄・二黒中宮3盤を確認した。p.24原資料画像を現行コードより優先する比較元として登録する。
+- Decision: 原資料の原記号、印刷ページ上の原位置、24山解釈、8方位派生、現行コード比較を別フィールドとして保持する。現行コードとの一致を使って原資料の方位基準や判読不能記号を逆算しない。
+- Decision: p.24画像は `user_provided_image`、転記値は `manual_transcription_review_required` とする。手動転記の二重確認とプロダクトオーナー判断前に正式masterへ昇格しない。
+- Decision: 不鮮明な小記号、24山、方位基準は推測補完しない。まず寅月3盤のpilotを接写で二重確認し、成功確認後にのみ36盤全件転記、現行コード全件比較、source master設計へ進む。
+- Reason: 原資料と実装値、原位置と派生方位、確定値と判読候補を混ぜず、36盤転記前に画像品質と転記手順を検証するため。
+- Implementation note: This decision records docs only. No production source, tests, data, master, scripts, package/config files, UI, API, URL, candidate logic, rank logic, warning code, image asset, or OCR artifact was changed.
+
 ## Decision Status Matrix
 
 | Topic | Status | Implementation status | Source review | Notes |
@@ -183,6 +194,7 @@ Use these exact status labels across docs when describing product and rule decis
 | Shichu Suimei / Sanmeigaku coexistence and additional-master ledger | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Step 5A docs-only ledger recorded | Required per individual item | Keep shared foundations and system-specific rules explicit; Step 5B confirms code presence. |
 | Getsumei 36 / 108 value protection and boundary isolation | `accepted`, `documentation_only`, `source_review_required` | Independent value regression tests added | Required for formal semantics and six boundary differences | Protect exact value mappings independently; do not replace boundary logic. |
 | Monthly-plate 36 / 324 value protection and future time precision | `accepted`, `documentation_only`, `source_review_required` | Independent value and invariant regression tests added | Required for original 324 cells, markers, representative date, and time boundary | Keep current date-precision behavior; do not mix API or time-precision work into the protected values. |
+| p.24 monthly-plate marker transcription pilot | `accepted`, `documentation_only`, `manual_transcription_review_required`, `source_review_required` | Three Tiger-month plates recorded as a pilot; no master or runtime change | Close-up double review required before all 36 plates | Preserve original symbols and page-relative positions; derive neither 24 mountains nor 8 directions from current code. |
 | Tendo / Tentoku duplicate-path isolation and trine structural protection | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Two Tendo paths and current policy documented; concrete directions not fixed | Required for original Tendo, Tentoku, and trine markers and 24-mountain detail | Do not merge the two Tendo paths or freeze Tendo / Tentoku directions before source review. |
 | Tentoku-go / Gettoku / Gettoku-go / Seiki purpose separation | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Getsutoku day and palace-blend Seiki documented as other-purpose implementations; monthly direction deities remain unimplemented | Required for original monthly markers, 24-mountain detail, and formal derivation rules | Do not derive directions from selected days, natal spirits, Tentoku / Gettoku, or palace-blend Seiki. |
 | Gekku fixed-profile display / Teii Taichu separation | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Gekku exists only as a fixed-profile display; general Gekku and Teii Taichu are unimplemented | Required for original monthly markers, formal definitions, target plate, action, and 24-mountain detail | Do not generalize the fixed sample or derive Teii Taichu from Anketsu, branch opposition, or the nine-star fixed-position table. |

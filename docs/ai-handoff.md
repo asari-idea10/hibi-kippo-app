@@ -1112,3 +1112,28 @@ Verification scope:
 - Documentation only. No production source, tests, data, scripts, package/config files, calendar DB, master, UI, URL, API, ID, label, warning code, candidate judgement, rank logic, fixed-profile condition, month-break logic, Anketsu logic, or branch-opposition map changes.
 - Existing 693 tests are unchanged and do not need to be rerun for this task.
 - Google Drive sync, NotebookLM addition, and Vercel Preview are not required on this feature branch.
+
+## Step 5B-3C-1 Almanac Page 24 Pilot Handoff
+
+Date: 2026-07-17
+
+Summary:
+
+- The user-provided p.24 images from 『改訂版 平成・萬年暦』 were manually reviewed and registered as the source for this pilot; the images were not added to Git.
+- p.24 contains three year-branch groups × 12 months = 36 monthly plates. The Tiger-month Eight White, Five Yellow, and Two Black center plates were transcribed as the pilot.
+- Preserve the original symbol, printed-page position, 24-mountain interpretation, 8-direction derivation, and current-code comparison as separate fields. Do not fill unreadable markers from symmetry, current code, OCR, or other plates.
+- Center stars and large nine-star positions are readable. Small direction-deity markers are only partly readable; 24 mountains and the source-defined compass basis remain unconfirmed.
+- Production source, tests, data, masters, UI, API, URL, candidate logic, rank logic, warning codes, and images are unchanged.
+- Next is an independent double-check using straight-on close-ups of the three pilot plates. Only after that should all 36 plates be transcribed and compared.
+
+Changed docs:
+
+- `docs/mannenreki-additional-masters-research.md`
+- `docs/decision-log.md`
+- `docs/task-board.md`
+- `docs/ai-handoff.md`
+
+Verification scope:
+
+- Documentation only. Existing 707 tests are unchanged and do not need to be rerun.
+- Google Drive sync, NotebookLM operations, Vercel Preview, and production merge are not part of this feature branch.

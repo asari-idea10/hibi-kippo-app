@@ -50,6 +50,10 @@ Last updated: 2026-07-17
 - Step 5B-3A-3 classified current Gekku as a fixed personal-profile display, not a general monthly rule.
 - Step 5B-3A-3 recorded that general Gekku and Teii Taichu are unimplemented.
 - Step 5B-3A-3 separated Anketsu opposite-palace logic, the six branch oppositions, and the unconfirmed nine-star Teii Taichu concept.
+- Step 5B-3C-1 located and registered the user-provided p.24 images without adding them to Git.
+- Step 5B-3C-1 confirmed the p.24 structure as three year-branch groups × 12 months = 36 monthly plates.
+- Step 5B-3C-1 completed a first-pass transcription of the side legend while preserving original notation such as `冲` and unresolved compound symbols.
+- Step 5B-3C-1 completed the Tiger-month pilot for the Eight White, Five Yellow, and Two Black center plates. Large-star positions are recorded page-relatively; 24 mountains, 8-direction derivation, and unclear small markers remain unconfirmed.
 
 ## Next
 
@@ -60,7 +64,8 @@ Last updated: 2026-07-17
 | P0 | Draft boundary regression sample matrix for 節入り・立春・土用・年盤/月盤/日盤 switching | Medium | High | Test design | `accepted`, `implementation_pending`, `source_review_required`: expected values need source confirmation before tests are authoritative. |
 | P0 | Research six Getsumei / setsuiri boundary-date differences | High | High | Source research | Keep separate from value regression tests. Do not declare either calendar DB or official solar-term master wrong, and do not replace boundary logic before review. |
 | P0 | Reconfirm original 324 monthly-plate cells and all markers | High | High | Source research | The original-image cells and direction markers remain `manual_transcription_review_required` / `source_review_required`; do not claim complete source agreement from internal consistency alone. |
-| P0 | Step 5B-3C reconfirm original monthly direction-deity markers | High | High | Source research | Confirm Tentoku-go, Gettoku direction, Gettoku-go, Seiki, Gekku, and Teii Taichu before creating masters or freezing direction values. |
+| P0 | Step 5B-3C-1 double-check the three Tiger-month pilot plates | High | High | Source research | Obtain straight-on close-ups and independently verify every small marker before promoting any value. Keep 24 mountains and 8 directions unset until the source establishes orientation. |
+| P0 | Step 5B-3C transcribe all 36 monthly plates | High | High | Source research | Start only after the pilot double-check. Preserve original symbol and page position, then independently review, compare current code, obtain PO adoption, design a source master, and add tests-only protection in separate stages. |
 | P0 | Reconfirm original Tendo, Tentoku, and trine monthly-plate markers | High | High | Source research | Do not freeze the observed 12-direction values or merge the two Tendo paths before complete source transcription. |
 | P1 | Confirm `birthTime`-missing setsuiri fallback specification | Medium | High | Product / source decision | Current personal-star precision is date-only. Decide exact-time, timezone, overseas-birth, and unknown-time handling before boundary implementation. |
 | P1 | Define future setsuiri time-precision requirements | High | High | Product / source decision | Preserve exact source times when birth time is available; keep current date-level behavior unchanged until fallback, timezone, overseas-birth, and true-solar-time rules are decided. |

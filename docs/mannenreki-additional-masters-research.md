@@ -1,6 +1,6 @@
 # 改訂版 平成萬年暦 追加マスター研究台帳
 
-Last updated: 2026-07-16
+Last updated: 2026-07-17
 
 Status: `documentation_only`, `implementation_pending`, `source_review_required`
 
@@ -22,11 +22,11 @@ Status: `documentation_only`, `implementation_pending`, `source_review_required`
 - 資料名: 『改訂版 平成萬年暦』
 - 所有者: ユーザー
 - 研究記録の由来: 「ユーザー提供画像をChatGPTが読解・整理した研究記録」
-- Codex による画像原本の確認: 未実施
+- Codex による画像原本の確認: p.24のみStep 5B-3C-1で手動確認済み。その他ページは未実施
 - Git 管理: 画像・PDFを追加しない
 - 完全一致保証: 行わない
 
-本台帳は、Codex が画像を確認、精読、OCRした記録ではない。各表の存在、転記候補、構造候補を区別し、ページ・見出し・旧字体・古い病名・判読困難語・セル値・補足記号が未確認の場合はTODOとして残す。
+本台帳の既存部分は、Codex が画像を確認、精読、OCRした記録ではない。Step 5B-3C-1のp.24節だけは、ユーザー提供画像をChatGPTおよびCodexが手動確認した記録である。各表の存在、転記候補、構造候補を区別し、ページ・見出し・旧字体・古い病名・判読困難語・セル値・補足記号が未確認の場合はTODOとして残す。
 
 確認済みページ候補:
 
@@ -34,6 +34,7 @@ Status: `documentation_only`, `implementation_pending`, `source_review_required`
 | --- | ---: | --- |
 | 小児殺（小月建） | 19 | `source_confirmed_candidate` |
 | 干支相生・相剋表 | 23 | `source_confirmed_candidate` |
+| 月盤36図 | 24 | `user_provided_image`, `manual_transcription_review_required` |
 | その他の追加資料群 | TODO | `source_review_required` |
 
 ## 3. Product Decision: Shichu Suimei and Sanmeigaku Coexistence
@@ -59,6 +60,7 @@ Status: `documentation_only`, `implementation_pending`, `source_review_required`
 
 | Label | Meaning |
 | --- | --- |
+| `user_provided_image` | ユーザーが提供したローカル画像を原資料候補として登録した。Git管理や正式master昇格を意味しない。 |
 | `source_confirmed_candidate` | ChatGPTが整理した研究記録上で、表、項目、または候補値の存在が確認された。現行コードや原画像との再照合は未完了。 |
 | `manual_transcription_review_required` | 表のセル、旧字体、記号、注記、語句を人手で再確認する必要がある。 |
 | `code_comparison_required` | 既存コード・既存master・既存テストとの read-only 照合が必要。 |
@@ -1067,6 +1069,207 @@ birthDate = 1976-03-19
 - 原資料確認とプロダクトオーナー採用判断後にのみ作成を検討する専用方位神master
 
 現行の固定文字列、暗剣殺map、十二支対冲map、九星定位表は、月空・定位対冲の正式な正本として扱わない。
+
+### Step 5B-3C-1 平成・萬年暦p.24 月盤36図・3盤pilot
+
+#### 原資料登録
+
+本節は、ユーザー提供画像をChatGPTおよびCodexが手動確認した一次転記pilotである。OCRだけで文字を確定せず、原画像はGitへ追加しない。
+
+| Field | Value |
+| --- | --- |
+| source_id | `HMA-P24-IMG-20260715` |
+| 書名 | 『改訂版 平成・萬年暦』 |
+| 発行主体 | 天象学会 |
+| 収録期間 | 表紙記載「明治30年〜平成75年」 |
+| 対象ページ | p.24 |
+| ページ種別 | 月盤36図 |
+| 画像提供者 | ユーザー |
+| 読解者 | ChatGPTおよびCodexによる手動確認 |
+| source status | `user_provided_image`, `manual_transcription_review_required` |
+| primary image 1 | `/Users/asaritoshiyuki/Desktop/2026-07-15_20-12-03_483.jpeg` |
+| primary image 2 | `/Users/asaritoshiyuki/Desktop/2026-07-15_20-12-09_296.jpeg` |
+| image dimensions | 両画像とも4032×3024 JPEG |
+| image SHA-256 | image 1: `0f08abdb2889b2c1872b731f221d03a08475cdec5d6f551de2841cecf49a2314`; image 2: `b9df50a7c2351dbeeba962aaf0368bcf81f76cacfa8583d771bc30222ddb51c5` |
+| 版・発行年・ISBN | 画像から確認できず。推測しない |
+
+`Desktop/AmazonPhotos/`にも同一SHA-256の複製があるが、別sourceとして数えない。画像1でGroup A・Bとページ番号「-24-」、画像2でGroup Cを確認した。
+
+#### p.24の構成
+
+| Group | 原資料見出し | 月盤 |
+| --- | --- | --- |
+| A | 年の酉・午・卯・子 / 赤七・緑四・白一 | 12 |
+| B | 年の戌・未・辰・丑 / 紫九・白六・碧三 | 12 |
+| C | 年の亥・申・巳・寅 / 白八・黄五・黒二 | 12 |
+
+各グループに `寅2`、`卯3`、`辰4`、`巳5`、`午6`、`未7`、`申8`、`酉9`、`戌10`、`亥11`、`子12`、`丑1` の12盤があり、合計36盤である。
+
+#### 方位神凡例の一次転記
+
+紙面側部の縦書き凡例を、紙面上のまとまりごとに転記した。厳密な一次元の読み順や、複合略号が各名称へ一対一対応するかは二重確認前のため固定しない。
+
+| paper grouping | original_symbol | source_label | normalized candidate | confidence | notes |
+| --- | --- | --- | --- | --- | --- |
+| 上部 | `天月` | 天道・天徳・月徳 | 未確定 | probable | 複合略号と3名称の個別対応は未確定 |
+| 上部 | `月合` | 月徳合 | 月徳合 | confirmed | 盤内の細字位置は別途確認 |
+| 次段 | `天` | 天道・天徳 | 未確定 | probable | 天道と天徳のどちらか、または共用か未確定 |
+| 次段 | `生` | 生気 | 生気 | confirmed | 方位神としての生気。現行blendとは別概念 |
+| 次段 | `月` | 月徳 | 月徳 | confirmed | 月徳日とは別概念 |
+| 次段 | `冲` | 定位対冲 | 定位対冲 | confirmed | 原資料表記の「冲」を保持し「沖」へ統一しない |
+| 次段 | `天合` | 天徳合 | 天徳合 | confirmed | 命理神殺の同名概念から補完しない |
+| 次段 | `三合` | 三合 | 三合 | confirmed | 現行4局構造から盤内位置を生成しない |
+| 下部 | `破` | 月破 | 月破 | confirmed | 盤内で判読できた記号あり |
+| 下部 | `ア` | 暗剣殺 | 暗剣殺 | confirmed | 個別盤の位置は不鮮明箇所あり |
+| 下部 | `空` | 月空 | 月空 | confirmed | 現行固定プロフィール表示から補完しない |
+
+凡例文字は読めるが、盤内略号の全出現位置と一対一対応は `manual_transcription_review_required` のままである。
+
+#### 転記座標と派生値の境界
+
+- 原位置は、印刷ページを正立させた図に対する `top`、`upper_right`、`right`、`lower_right`、`bottom`、`lower_left`、`left`、`upper_left`、`center` で記録する。
+- p.24画像内では北・南等の明示ラベルを確認できない。現行コードとの一致を使って原資料の方位基準を逆算しない。
+- 24山ラベルと山内の精密位置は読めないため、pilotの `mountain_24` は `unreadable` とする。
+- 24山または方位基準が原資料から確定するまで、`direction_8` は派生させない。
+
+#### Pilot A
+
+| field | value |
+| --- | --- |
+| source_id | `HMA-P24-IMG-20260715` |
+| page | 24 |
+| year_branch_group | 酉午卯子 |
+| month_branch | 寅 |
+| month_number | 2 |
+| center_star | 八白 |
+| palace | 8外区画＋中宮 |
+| original_position | 印刷ページ正立時の相対9位置。下表参照 |
+| original_symbol | 大字九星は判読可。`破`、`月合`等の小記号は一部判読可 |
+| interpreted_marker | 九星配置、月破、一部方位神。小記号全件は未確定 |
+| mountain_24 | unreadable |
+| direction_8 | unreadable |
+| confidence | confirmed（盤識別・中宮・大字九星）/ probable・unreadable（小記号） |
+| comparison_status | unclear |
+| notes | 方位変換禁止。小記号は `needs_closeup` |
+
+| original_position | original_symbol | interpreted_marker | confidence | notes |
+| --- | --- | --- | --- | --- |
+| top | 三 | 九星 | confirmed | 原位置のみ |
+| upper_right | 五、破 | 九星、月破 | confirmed | 24山不明 |
+| right | 一、月合 | 九星、月徳合 | probable | `月合`の字形は読めるが位置の接写確認が必要 |
+| lower_right | 九 | 九星 | confirmed | 小記号は未転記 |
+| bottom | 四、unreadable | 九星、小記号未確定 | unreadable | `needs_closeup`。他の凡例・盤から補完しない |
+| lower_left | 二 | 九星 | confirmed | 小記号は未転記 |
+| left | 七 | 九星 | confirmed | 小記号は未転記 |
+| upper_left | 六 | 九星 | confirmed | 小記号は未転記 |
+| center | 八 | 八白中宮 | confirmed |  |
+| unresolved | unreadable | 暗剣殺等の未判読小記号 | unreadable | `needs_closeup` |
+
+#### Pilot B
+
+| field | value |
+| --- | --- |
+| source_id | `HMA-P24-IMG-20260715` |
+| page | 24 |
+| year_branch_group | 戌未辰丑 |
+| month_branch | 寅 |
+| month_number | 2 |
+| center_star | 五黄 |
+| palace | 8外区画＋中宮 |
+| original_position | 印刷ページ正立時の相対9位置。下表参照 |
+| original_symbol | 大字九星は判読可。`破`、`月合`等の小記号は一部判読可 |
+| interpreted_marker | 九星配置、月破、一部方位神。小記号全件は未確定 |
+| mountain_24 | unreadable |
+| direction_8 | unreadable |
+| confidence | confirmed（盤識別・中宮・大字九星）/ probable・unreadable（小記号） |
+| comparison_status | unclear |
+| notes | 五黄中宮。方位変換禁止。小記号は `needs_closeup` |
+
+| original_position | original_symbol | interpreted_marker | confidence | notes |
+| --- | --- | --- | --- | --- |
+| top | 九 | 九星 | confirmed | 原位置のみ |
+| upper_right | 二、破 | 九星、月破 | confirmed | 24山不明 |
+| right | 七、月合 | 九星、月徳合 | probable | `月合`の字形は読めるが位置の接写確認が必要 |
+| lower_right | 六 | 九星 | confirmed | 小記号は未転記 |
+| bottom | 一、unreadable | 九星、小記号未確定 | unreadable | `needs_closeup`。他の凡例・盤から補完しない |
+| lower_left | 八 | 九星 | confirmed | 小記号は未転記 |
+| left | 四 | 九星 | confirmed | 小記号は未転記 |
+| upper_left | 三 | 九星 | confirmed | 小記号は未転記 |
+| center | 五 | 五黄中宮 | confirmed |  |
+| unresolved | unreadable | 暗剣殺等の未判読小記号 | unreadable | `needs_closeup` |
+
+#### Pilot C
+
+| field | value |
+| --- | --- |
+| source_id | `HMA-P24-IMG-20260715` |
+| page | 24 |
+| year_branch_group | 亥申巳寅 |
+| month_branch | 寅 |
+| month_number | 2 |
+| center_star | 二黒 |
+| palace | 8外区画＋中宮 |
+| original_position | 印刷ページ正立時の相対9位置。下表参照 |
+| original_symbol | 大字九星は判読可。小記号は画像の向きと縮尺により判読難度が高い |
+| interpreted_marker | 九星配置。月破と一部方位神は接写二重確認待ち |
+| mountain_24 | unreadable |
+| direction_8 | unreadable |
+| confidence | confirmed（盤識別・中宮・大字九星）/ unreadable（小記号の多く） |
+| comparison_status | unclear |
+| notes | 元写真が横向き。印刷ページ正立基準へ戻して記録。`needs_closeup` |
+
+| original_position | original_symbol | interpreted_marker | confidence | notes |
+| --- | --- | --- | --- | --- |
+| top | 六 | 九星 | confirmed | 原位置のみ |
+| upper_right | 八、unreadable | 九星、月破候補 | probable | `needs_closeup` |
+| right | 四、unreadable | 九星、月徳合候補 | probable | `needs_closeup` |
+| lower_right | 三 | 九星 | confirmed | 小記号は未転記 |
+| bottom | 七、unreadable | 九星、小記号未確定 | unreadable | `needs_closeup` |
+| lower_left | 五 | 九星 | confirmed | 小記号は未転記 |
+| left | 一 | 九星 | confirmed | 小記号は未転記 |
+| upper_left | 九 | 九星 | confirmed | 小記号は未転記 |
+| center | 二 | 二黒中宮 | confirmed |  |
+| unresolved | unreadable | 暗剣殺等の未判読小記号 | unreadable | `needs_closeup` |
+
+#### 現行コード比較
+
+原資料から先に相対位置を転記した後で比較した。現行コードの方向値を使って原資料側の方位を確定していない。
+
+| pilot | item | source_value | current_value | result | confidence | notes |
+| --- | --- | --- | --- | --- | --- | --- |
+| A | 月盤中宮 | 八白 | 8 | match | confirmed | 概念・値とも一致 |
+| B | 月盤中宮 | 五黄 | 5 | match | confirmed | 概念・値とも一致 |
+| C | 月盤中宮 | 二黒 | 2 | match | confirmed | 概念・値とも一致 |
+| A | 九星配置 | 相対位置 `三,五,一,九,四,二,七,六,八` | 中宮8の8方位配置 | not_compared | confirmed | sourceの方位基準がないため方向別matchにしない |
+| B | 九星配置 | 相対位置 `九,二,七,六,一,八,四,三,五` | 中宮5の8方位配置 | not_compared | confirmed | sourceの方位基準がないため方向別matchにしない |
+| C | 九星配置 | 相対位置 `六,八,四,三,七,五,一,九,二` | 中宮2の8方位配置 | not_compared | confirmed | sourceの方位基準がないため方向別matchにしない |
+| A | 五黄殺 | 大字「五」はupper_right | 南西 | not_compared | probable | 五黄回座位置と五黄殺概念の同一性、方位変換をsourceだけで確定できない |
+| B | 五黄殺 | 五黄中宮 | 方位なし | not_compared | confirmed | source側に独立五黄殺凡例はない |
+| C | 五黄殺 | 大字「五」はlower_left | 北東 | not_compared | probable | 方位変換をsourceだけで確定できない |
+| A | 暗剣殺 | unreadable | 北東 | source_unreadable | unreadable | `ア`の個別位置は接写待ち |
+| B | 暗剣殺 | unreadable | 方位なし | source_unreadable | unreadable | 五黄中宮でもsource記号の有無を推測しない |
+| C | 暗剣殺 | unreadable | 南西 | source_unreadable | unreadable | `ア`の個別位置は接写待ち |
+| A/B/C | 月破 | upper_rightの`破` | 南西 | not_compared | A/B confirmed、C probable | sourceの方位基準が未確定 |
+| A/B/C | 単一天道 | 個別位置unreadable | 南（午） | source_unreadable | unreadable | 寅月の現行値。天徳と統合しない |
+| A/B/C | 天徳 | 個別位置unreadable | 南（丁） | source_unreadable | unreadable | 寅月の現行値。24山を固定しない |
+| A/B/C | 三合天道 | 個別位置unreadable | 北東・南・北西（三合火局） | source_unreadable | unreadable | 盤内三合マーカーを現行4局から生成しない |
+| A/B/C | 天徳合・月徳・月徳合・定位対冲 | 一部略号候補は見えるが全位置未確定 | 専用月盤値なし | current_missing | probable / unreadable | 同名の別用途実装を比較値に使わない |
+| A/B/C | 生気 | 月盤側部凡例の方位神。個別位置未確定 | 五行palace blend | concept_mismatch | confirmed（用途差） | 方位神とblendを同一扱いしない |
+| A/B/C | 月空 | 月盤側部凡例。個別位置未確定 | 特定プロフィール固定表示 | concept_mismatch | confirmed（用途差） | 一般月空規則と固定表示を同一扱いしない |
+
+`match` は中宮3件だけである。`concept_mismatch` は生気と月空の用途差2件、`mismatch` は0件である。方向別九星配置、五黄殺、暗剣殺、月破、天道、天徳、三合を `match` とせず、判読・方位基準不足を差異と誤認しない。
+
+#### 判読限界、接写依頼、pilot判定
+
+追加確認が必要な箇所:
+
+- p.24全景をページ正立・四隅・ページ番号・側部凡例込みで撮影した反射なし画像
+- Pilot A/B/Cを各1盤ずつ、盤が画像幅1500px以上になる正対接写
+- 各盤の8外区画を2〜4分割し、`天月`、`天`、`月合`、`天合`、`生`、`月`、`三合`、`破`、`ア`、`空`、`冲`が潰れない接写
+- 方位基準、24山、天干・十二支・卦を示す同ページまたは凡例ページの全景と接写
+- 表紙・奥付の版、発行年、出版社表記が読める画像
+
+pilot判定は `pilot_success_with_followup_required` とする。3盤の識別、中宮、大字九星配置、月破と一部吉神略号、原位置を保持した比較方法は成立した。一方、24山、8方位派生、暗剣殺を含む小記号全位置は未確定であり、正式master、36盤全件転記、production実装、tests追加へは進めない。次は接写によるpilot二重確認である。
 
 ## 16. Getsumei Star Table
 
