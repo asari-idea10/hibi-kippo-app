@@ -1156,14 +1156,14 @@ birthDate = 1976-03-19
 | --- | --- | --- | --- | --- |
 | top | 三 | 九星 | confirmed | 原位置のみ |
 | upper_right | 五、破 | 九星、月破 | confirmed | 24山不明 |
-| right | 一、月合 | 九星、月徳合 | probable | `月合`の字形は読めるが位置の接写確認が必要 |
+| right | 一、月合 | 九星、月徳合 | confirmed | Step 5B-3C-2の独立crop再読解で字形と原位置を二重確認 |
 | lower_right | 九 | 九星 | confirmed | 小記号は未転記 |
-| bottom | 四、unreadable | 九星、小記号未確定 | unreadable | `needs_closeup`。他の凡例・盤から補完しない |
-| lower_left | 二 | 九星 | confirmed | 小記号は未転記 |
+| bottom | 四、空、生、天合 | 九星、月空、生気、天徳合 | confirmed | 原記号と原位置のみ。方位へ派生しない |
+| lower_left | 二、冲 | 九星、定位対冲 | confirmed | 原記号と原位置のみ。方位へ派生しない |
 | left | 七 | 九星 | confirmed | 小記号は未転記 |
 | upper_left | 六 | 九星 | confirmed | 小記号は未転記 |
 | center | 八 | 八白中宮 | confirmed |  |
-| unresolved | unreadable | 暗剣殺等の未判読小記号 | unreadable | `needs_closeup` |
+| unresolved | unreadable | top区画の細字群、暗剣殺等 | unreadable | top区画のみ `needs_closeup` |
 
 #### Pilot B
 
@@ -1189,14 +1189,14 @@ birthDate = 1976-03-19
 | --- | --- | --- | --- | --- |
 | top | 九 | 九星 | confirmed | 原位置のみ |
 | upper_right | 二、破 | 九星、月破 | confirmed | 24山不明 |
-| right | 七、月合 | 九星、月徳合 | probable | `月合`の字形は読めるが位置の接写確認が必要 |
+| right | 七、月合 | 九星、月徳合 | confirmed | Step 5B-3C-2の独立crop再読解で字形と原位置を二重確認 |
 | lower_right | 六 | 九星 | confirmed | 小記号は未転記 |
-| bottom | 一、unreadable | 九星、小記号未確定 | unreadable | `needs_closeup`。他の凡例・盤から補完しない |
+| bottom | 一、空、生、天合 | 九星、月空、生気、天徳合 | confirmed | 原記号と原位置のみ。方位へ派生しない |
 | lower_left | 八 | 九星 | confirmed | 小記号は未転記 |
-| left | 四 | 九星 | confirmed | 小記号は未転記 |
-| upper_left | 三 | 九星 | confirmed | 小記号は未転記 |
+| left | 三 | 九星 | confirmed | Step 5B-3C-2で一次転記の位置入れ替わりを訂正 |
+| upper_left | 四 | 九星 | confirmed | Step 5B-3C-2で一次転記の位置入れ替わりを訂正 |
 | center | 五 | 五黄中宮 | confirmed |  |
-| unresolved | unreadable | 暗剣殺等の未判読小記号 | unreadable | `needs_closeup` |
+| unresolved | unreadable | top区画の細字群、暗剣殺等 | unreadable | top区画のみ `needs_closeup` |
 
 #### Pilot C
 
@@ -1221,15 +1221,15 @@ birthDate = 1976-03-19
 | original_position | original_symbol | interpreted_marker | confidence | notes |
 | --- | --- | --- | --- | --- |
 | top | 六 | 九星 | confirmed | 原位置のみ |
-| upper_right | 八、unreadable | 九星、月破候補 | probable | `needs_closeup` |
-| right | 四、unreadable | 九星、月徳合候補 | probable | `needs_closeup` |
+| upper_right | 八、冲、破 | 九星、定位対冲、月破 | confirmed | Step 5B-3C-2の独立crop再読解で字形と原位置を二重確認 |
+| right | 四 | 九星 | confirmed | crop上で小記号なし。一次転記の`月合`候補は過大判定として撤回 |
 | lower_right | 三 | 九星 | confirmed | 小記号は未転記 |
-| bottom | 七、unreadable | 九星、小記号未確定 | unreadable | `needs_closeup` |
+| bottom | 七、空、生、天合 | 九星、月空、生気、天徳合 | confirmed | 原記号と原位置のみ。方位へ派生しない |
 | lower_left | 五 | 九星 | confirmed | 小記号は未転記 |
-| left | 一 | 九星 | confirmed | 小記号は未転記 |
-| upper_left | 九 | 九星 | confirmed | 小記号は未転記 |
+| left | 九 | 九星 | confirmed | Step 5B-3C-2で一次転記の位置入れ替わりを訂正 |
+| upper_left | 一 | 九星 | confirmed | Step 5B-3C-2で一次転記の位置入れ替わりを訂正 |
 | center | 二 | 二黒中宮 | confirmed |  |
-| unresolved | unreadable | 暗剣殺等の未判読小記号 | unreadable | `needs_closeup` |
+| unresolved | unreadable | top区画の細字群、暗剣殺等 | unreadable | top区画のみ `needs_closeup` |
 
 #### 現行コード比較
 
@@ -1241,15 +1241,15 @@ birthDate = 1976-03-19
 | B | 月盤中宮 | 五黄 | 5 | match | confirmed | 概念・値とも一致 |
 | C | 月盤中宮 | 二黒 | 2 | match | confirmed | 概念・値とも一致 |
 | A | 九星配置 | 相対位置 `三,五,一,九,四,二,七,六,八` | 中宮8の8方位配置 | not_compared | confirmed | sourceの方位基準がないため方向別matchにしない |
-| B | 九星配置 | 相対位置 `九,二,七,六,一,八,四,三,五` | 中宮5の8方位配置 | not_compared | confirmed | sourceの方位基準がないため方向別matchにしない |
-| C | 九星配置 | 相対位置 `六,八,四,三,七,五,一,九,二` | 中宮2の8方位配置 | not_compared | confirmed | sourceの方位基準がないため方向別matchにしない |
+| B | 九星配置 | 相対位置 `九,二,七,六,一,八,三,四,五` | 中宮5の8方位配置 | not_compared | confirmed | Step 5B-3C-2でleft / upper_leftを訂正。sourceの方位基準がないため方向別matchにしない |
+| C | 九星配置 | 相対位置 `六,八,四,三,七,五,九,一,二` | 中宮2の8方位配置 | not_compared | confirmed | Step 5B-3C-2でleft / upper_leftを訂正。sourceの方位基準がないため方向別matchにしない |
 | A | 五黄殺 | 大字「五」はupper_right | 南西 | not_compared | probable | 五黄回座位置と五黄殺概念の同一性、方位変換をsourceだけで確定できない |
 | B | 五黄殺 | 五黄中宮 | 方位なし | not_compared | confirmed | source側に独立五黄殺凡例はない |
 | C | 五黄殺 | 大字「五」はlower_left | 北東 | not_compared | probable | 方位変換をsourceだけで確定できない |
 | A | 暗剣殺 | unreadable | 北東 | source_unreadable | unreadable | `ア`の個別位置は接写待ち |
 | B | 暗剣殺 | unreadable | 方位なし | source_unreadable | unreadable | 五黄中宮でもsource記号の有無を推測しない |
 | C | 暗剣殺 | unreadable | 南西 | source_unreadable | unreadable | `ア`の個別位置は接写待ち |
-| A/B/C | 月破 | upper_rightの`破` | 南西 | not_compared | A/B confirmed、C probable | sourceの方位基準が未確定 |
+| A/B/C | 月破 | upper_rightの`破` | 南西 | not_compared | confirmed | 3盤とも原記号・原位置を二重確認したが、sourceの方位基準は未確定 |
 | A/B/C | 単一天道 | 個別位置unreadable | 南（午） | source_unreadable | unreadable | 寅月の現行値。天徳と統合しない |
 | A/B/C | 天徳 | 個別位置unreadable | 南（丁） | source_unreadable | unreadable | 寅月の現行値。24山を固定しない |
 | A/B/C | 三合天道 | 個別位置unreadable | 北東・南・北西（三合火局） | source_unreadable | unreadable | 盤内三合マーカーを現行4局から生成しない |
@@ -1269,7 +1269,108 @@ birthDate = 1976-03-19
 - 方位基準、24山、天干・十二支・卦を示す同ページまたは凡例ページの全景と接写
 - 表紙・奥付の版、発行年、出版社表記が読める画像
 
-pilot判定は `pilot_success_with_followup_required` とする。3盤の識別、中宮、大字九星配置、月破と一部吉神略号、原位置を保持した比較方法は成立した。一方、24山、8方位派生、暗剣殺を含む小記号全位置は未確定であり、正式master、36盤全件転記、production実装、tests追加へは進めない。次は接写によるpilot二重確認である。
+pilot判定は `pilot_success_with_followup_required` とする。3盤の識別、中宮、大字九星配置、月破と一部吉神略号、原位置を保持した比較方法は成立した。一方、24山、8方位派生、暗剣殺を含む小記号全位置は未確定であり、正式master、36盤全件転記、production実装、tests追加へは進めない。Step 5B-3C-2で原画像cropによる二重確認を行い、訂正結果は次節に記録する。
+
+### Step 5B-3C-2 p.24寅月3盤pilot 独立二重確認
+
+#### 手順と一時crop
+
+原画像2点のSHA-256がStep 5B-3C-1登録値と一致することを確認後、リポジトリ外のOS一時領域へ原寸cropを作成した。cropは矩形切り出しと紙面正立のための回転だけを行い、リサイズ、シャープ処理、AI補完、超解像、描き直し、OCR確定には使用していない。独立転記が終わるまでStep 5B-3C-1のPilot具体値表と現行コード値を参照せず、原画像とcropだけを読解した。一時cropは正本ではなく、Git・Driveへ追加しない。
+
+#### 独立再読解
+
+`crop_reference` は作業時の一時ファイル識別名であり、永続パスやsource識別子ではない。
+
+##### Pilot A
+
+| original_position | large_star | small_original_symbol | interpreted_marker_candidate | confidence | crop_reference | notes |
+| --- | --- | --- | --- | --- | --- | --- |
+| top | 三 | unreadable | 未確定 | unreadable | `pilot-a-whole.png` | 細字群のみ限定接写が必要 |
+| upper_right | 五 | `破` | 月破 | confirmed | `pilot-a-right.png` | 原位置のみ確定 |
+| right | 一 | `月合` | 月徳合 | confirmed | `pilot-a-right.png` | 一次のprobableから二重確認で昇格 |
+| lower_right | 九 | なし | なし | confirmed | `pilot-a-whole.png` | 見える範囲に小記号なし |
+| bottom | 四 | `空`, `生`, `天合` | 月空、生気、天徳合 | confirmed | `pilot-a-bottom.png` | 原記号の並記を保持 |
+| lower_left | 二 | `冲` | 定位対冲 | confirmed | `pilot-a-bottom.png` | 原表記`冲`を保持 |
+| left | 七 | なし | なし | confirmed | `pilot-a-whole.png` | 見える範囲に小記号なし |
+| upper_left | 六 | なし | なし | confirmed | `pilot-a-whole.png` | 見える範囲に小記号なし |
+| center | 八 | なし | 八白中宮 | confirmed | `pilot-a-whole.png` |  |
+
+##### Pilot B
+
+| original_position | large_star | small_original_symbol | interpreted_marker_candidate | confidence | crop_reference | notes |
+| --- | --- | --- | --- | --- | --- | --- |
+| top | 九 | unreadable | 未確定 | unreadable | `pilot-b-whole.png` | 細字群のみ限定接写が必要 |
+| upper_right | 二 | `破` | 月破 | confirmed | `pilot-b-whole.png` | 原位置のみ確定 |
+| right | 七 | `月合` | 月徳合 | confirmed | `pilot-b-right.png` | 一次のprobableから二重確認で昇格 |
+| lower_right | 六 | なし | なし | confirmed | `pilot-b-whole.png` | 見える範囲に小記号なし |
+| bottom | 一 | `空`, `生`, `天合` | 月空、生気、天徳合 | confirmed | `pilot-b-bottom.png` | 原記号の並記を保持 |
+| lower_left | 八 | なし | なし | confirmed | `pilot-b-whole.png` | 見える範囲に小記号なし |
+| left | 三 | なし | なし | confirmed | `pilot-b-whole.png` | 一次の`四`から訂正 |
+| upper_left | 四 | なし | なし | confirmed | `pilot-b-whole.png` | 一次の`三`から訂正 |
+| center | 五 | なし | 五黄中宮 | confirmed | `pilot-b-whole.png` | 五黄中宮から暗剣殺有無を推測しない |
+
+##### Pilot C
+
+| original_position | large_star | small_original_symbol | interpreted_marker_candidate | confidence | crop_reference | notes |
+| --- | --- | --- | --- | --- | --- | --- |
+| top | 六 | unreadable | 未確定 | unreadable | `pilot-c-whole.png` | 細字群のみ限定接写が必要 |
+| upper_right | 八 | `冲`, `破` | 定位対冲、月破 | confirmed | `pilot-c-whole.png` | 一次の月破候補を確認し、`冲`も確認 |
+| right | 四 | なし | なし | confirmed | `pilot-c-whole.png` | 一次の`月合`候補は画像上で確認できず撤回 |
+| lower_right | 三 | なし | なし | confirmed | `pilot-c-whole.png` | 見える範囲に小記号なし |
+| bottom | 七 | `空`, `生`, `天合` | 月空、生気、天徳合 | confirmed | `pilot-c-whole.png` | 原記号の並記を保持 |
+| lower_left | 五 | なし | なし | confirmed | `pilot-c-whole.png` | 見える範囲に小記号なし |
+| left | 九 | なし | なし | confirmed | `pilot-c-whole.png` | 一次の`一`から訂正 |
+| upper_left | 一 | なし | なし | confirmed | `pilot-c-whole.png` | 一次の`九`から訂正 |
+| center | 二 | なし | 二黒中宮 | confirmed | `pilot-c-whole.png` |  |
+
+#### 側部凡例の二重確認
+
+画像1の側部凡例で、紙面の横方向対応を次のとおり再確認した。画像2には側部凡例が写っていない。
+
+| original_symbol | source_label | final_confidence | notes |
+| --- | --- | --- | --- |
+| `天月` | 天道・天徳・月徳 | probable | 印字と名称群の対応は読めるが、単一複合略号か複数記号か、各名称への個別対応は未確定 |
+| `月合` | 月徳合 | confirmed |  |
+| `天` | 天道・天徳 | probable | 名称群への対応は読めるが、天道・天徳の個別対応または共用かは未確定 |
+| `生` | 生気 | confirmed |  |
+| `月` | 月徳 | confirmed |  |
+| `冲` | 定位対冲 | confirmed | `沖`へ正規化しない |
+| `天合` | 天徳合 | confirmed |  |
+| `三合` | 三合 | confirmed |  |
+| `破` | 月破 | confirmed |  |
+| `ア` | 暗剣殺 | confirmed | 凡例対応のみ。3 pilot内の個別位置は未確認 |
+| `空` | 月空 | confirmed |  |
+
+#### 一次転記との差分
+
+| pilot | position_or_item | first_pass | second_pass | result | final_confidence | notes |
+| --- | --- | --- | --- | --- | --- | --- |
+| A | 大字9位置 | `三,五,一,九,四,二,七,六,八` | 同じ | confirmed_same | confirmed |  |
+| A | upper_right `破` | confirmed | confirmed | confirmed_same | confirmed |  |
+| A | right `月合` | probable | confirmed | second_pass_clearer | confirmed |  |
+| A | lower_left / bottom小記号 | 未転記・unreadable | `冲` / `空,生,天合` | second_pass_clearer | confirmed |  |
+| B | 大字left / upper_left | `四` / `三` | `三` / `四` | conflict | confirmed | 原画像cropを優先して一次表を訂正 |
+| B | その他の大字7位置 | 一致 | 一致 | confirmed_same | confirmed |  |
+| B | upper_right `破` | confirmed | confirmed | confirmed_same | confirmed |  |
+| B | right `月合` | probable | confirmed | second_pass_clearer | confirmed |  |
+| B | bottom小記号 | unreadable | `空,生,天合` | second_pass_clearer | confirmed |  |
+| C | 大字left / upper_left | `一` / `九` | `九` / `一` | conflict | confirmed | 原画像cropを優先して一次表を訂正 |
+| C | その他の大字7位置 | 一致 | 一致 | confirmed_same | confirmed |  |
+| C | upper_right | 月破候補probable | `冲`, `破` | second_pass_clearer | confirmed |  |
+| C | right `月合`候補 | probable | 小記号なし | first_pass_overstated | confirmed | 候補を撤回し、別位置や他盤から補完しない |
+| C | bottom小記号 | unreadable | `空,生,天合` | second_pass_clearer | confirmed |  |
+| A/B/C | top細字群 | unreadable | unreadable | still_unreadable | unreadable | 各pilotのtop区画だけ限定接写が必要 |
+
+大字のconflictは2 pilot各2区画、`first_pass_overstated`はPilot C rightの`月合`候補1件である。画像から異なる確定文字を得た小記号conflictはない。
+
+#### 方位、現行コード比較、次工程判定
+
+- p.24内に北・南、24山、天干・十二支・卦との対応を確定できる新しい方向基準は発見していない。紙面相対位置を正本とし、`mountain_24` と `direction_8` は引き続き `unreadable` とする。
+- 現行コード比較の`match`は月盤中宮3件だけを維持する。大字九星配置、五黄殺、月破は方位基準不足のため`not_compared`、暗剣殺・天道・天徳・三合は`source_unreadable`を維持する。
+- 生気と月空の`concept_mismatch`は数値不一致ではなく、原資料方位神と現行の別用途実装との概念差2件を示す。
+- 追加接写はPilot A/B/Cの各top細字群に限定する。方位派生には別途、方位基準と24山を明示するページの全景・接写が必要である。
+- pilotの二重確認方法は成立したが、2 pilotの大字原位置訂正、1件の過大判定、top細字群、方位基準、24山が未解決である。36盤全件転記はまだ開始せず、限定接写と方位基準資料の確認後に開始可否を再判定する。
+- source statusは `manual_transcription_review_required` のままとし、正式master、production、tests、dataへ昇格しない。
 
 ## 16. Getsumei Star Table
 

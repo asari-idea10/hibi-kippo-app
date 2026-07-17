@@ -54,6 +54,10 @@ Last updated: 2026-07-17
 - Step 5B-3C-1 confirmed the p.24 structure as three year-branch groups × 12 months = 36 monthly plates.
 - Step 5B-3C-1 completed a first-pass transcription of the side legend while preserving original notation such as `冲` and unresolved compound symbols.
 - Step 5B-3C-1 completed the Tiger-month pilot for the Eight White, Five Yellow, and Two Black center plates. Large-star positions are recorded page-relatively; 24 mountains, 8-direction derivation, and unclear small markers remain unconfirmed.
+- Step 5B-3C-2 independently reread the three Tiger-month pilots from original-resolution crops before consulting the first-pass tables or current code.
+- Step 5B-3C-2 confirmed Pilot A's large-star placement, corrected Pilot B left / upper-left to `三` / `四`, corrected Pilot C left / upper-left to `九` / `一`, and withdrew Pilot C right `月合` as an overstated first-pass candidate.
+- Step 5B-3C-2 double-checked the printed side-legend pairings and confirmed readable pilot markers while keeping `天月`, individual `天` semantics, the top-sector fine print, source orientation, and 24 mountains unresolved.
+- Step 5B-3C-2 limited new close-up needs to the top fine-print sector of each pilot plus separate source evidence for orientation and 24 mountains. All 36 plates remain blocked pending those checks.
 
 ## Next
 
@@ -64,8 +68,9 @@ Last updated: 2026-07-17
 | P0 | Draft boundary regression sample matrix for 節入り・立春・土用・年盤/月盤/日盤 switching | Medium | High | Test design | `accepted`, `implementation_pending`, `source_review_required`: expected values need source confirmation before tests are authoritative. |
 | P0 | Research six Getsumei / setsuiri boundary-date differences | High | High | Source research | Keep separate from value regression tests. Do not declare either calendar DB or official solar-term master wrong, and do not replace boundary logic before review. |
 | P0 | Reconfirm original 324 monthly-plate cells and all markers | High | High | Source research | The original-image cells and direction markers remain `manual_transcription_review_required` / `source_review_required`; do not claim complete source agreement from internal consistency alone. |
-| P0 | Step 5B-3C-1 double-check the three Tiger-month pilot plates | High | High | Source research | Obtain straight-on close-ups and independently verify every small marker before promoting any value. Keep 24 mountains and 8 directions unset until the source establishes orientation. |
-| P0 | Step 5B-3C transcribe all 36 monthly plates | High | High | Source research | Start only after the pilot double-check. Preserve original symbol and page position, then independently review, compare current code, obtain PO adoption, design a source master, and add tests-only protection in separate stages. |
+| P0 | Obtain limited Step 5B-3C-2 follow-up source images | Medium | High | Source research | Capture only the top fine-print sector of Pilot A/B/C and the separate page that establishes orientation / 24 mountains. Do not infer unresolved symbols from other plates. |
+| P0 | Finalize the page 24 pilot after limited source review | Medium | High | Source research | Recheck the three top sectors, source orientation, and 24 mountains; keep corrected B/C positions and the withdrawn C `月合` candidate unless the source itself disproves them. |
+| P0 | Step 5B-3C transcribe all 36 monthly plates | High | High | Source research | Do not start until the limited pilot follow-up is resolved. Preserve original symbol and page position, then independently review, compare current code, obtain PO adoption, design a source master, and add tests-only protection in separate stages. |
 | P0 | Reconfirm original Tendo, Tentoku, and trine monthly-plate markers | High | High | Source research | Do not freeze the observed 12-direction values or merge the two Tendo paths before complete source transcription. |
 | P1 | Confirm `birthTime`-missing setsuiri fallback specification | Medium | High | Product / source decision | Current personal-star precision is date-only. Decide exact-time, timezone, overseas-birth, and unknown-time handling before boundary implementation. |
 | P1 | Define future setsuiri time-precision requirements | High | High | Product / source decision | Preserve exact source times when birth time is available; keep current date-level behavior unchanged until fallback, timezone, overseas-birth, and true-solar-time rules are decided. |

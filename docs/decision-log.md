@@ -179,6 +179,19 @@ Use these exact status labels across docs when describing product and rule decis
 - Reason: 原資料と実装値、原位置と派生方位、確定値と判読候補を混ぜず、36盤転記前に画像品質と転記手順を検証するため。
 - Implementation note: This decision records docs only. No production source, tests, data, master, scripts, package/config files, UI, API, URL, candidate logic, rank logic, warning code, image asset, or OCR artifact was changed.
 
+### D-0017: Correct the page 24 pilot from an independent crop review
+
+- Date: 2026-07-17
+- Status: `accepted`, `documentation_only`, `manual_transcription_review_required`, `source_review_required`
+- Decision: 登録済み原画像と同一SHA-256の画像から、リポジトリ外へ原寸cropを作成し、Step 5B-3C-1のPilot具体値表と現行コードを見ずに寅月3盤と側部凡例を独立再読解した。cropは読解補助であり、Git・Drive・正本へ追加しない。
+- Decision: Pilot Aの大字9位置は一次転記と一致した。Pilot Bのleft / upper_leftは`三` / `四`、Pilot Cのleft / upper_leftは`九` / `一`へ原画像に基づき訂正する。Pilot C rightの`月合`候補は過大判定として撤回する。
+- Decision: 3盤のupper_right `破`、Pilot A/B right `月合`、Pilot A lower_leftおよびPilot C upper_rightの`冲`、3盤bottomの`空`・`生`・`天合`を原位置付きでconfirmedとする。ただし名称対応、原位置、24山、8方位派生、現行コード比較を分離し、方位値や作用へ昇格しない。
+- Decision: 側部凡例の印字対応を二重確認したが、`天月`が単一複合略号か複数記号か、`天`の天道・天徳への個別対応は未確定のままとする。各pilotのtop細字群、方位基準、24山は推測せず、必要な追加撮影をその箇所に限定する。
+- Decision: 現行コード比較の`match`は中宮3件のみ、生気と月空の`concept_mismatch`は用途差2件のままとする。方位基準がないため、その他を方向別`match`へ昇格しない。
+- Decision: 2 pilotの大字原位置訂正、Pilot Cの過大判定、top細字群、方位基準、24山が未解決であるため、36盤全件転記は開始しない。限定接写と方位基準資料の確認後に開始可否を再判定する。
+- Reason: 一次転記の記録を維持することよりも原画像の独立再読解を優先し、誤った原位置や不確かな略号を36盤転記へ伝播させないため。
+- Implementation note: This decision records docs only. No production source, tests, data, master, scripts, package/config files, UI, API, URL, candidate logic, rank logic, warning code, image asset, crop, or OCR artifact was changed.
+
 ## Decision Status Matrix
 
 | Topic | Status | Implementation status | Source review | Notes |
@@ -194,7 +207,7 @@ Use these exact status labels across docs when describing product and rule decis
 | Shichu Suimei / Sanmeigaku coexistence and additional-master ledger | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Step 5A docs-only ledger recorded | Required per individual item | Keep shared foundations and system-specific rules explicit; Step 5B confirms code presence. |
 | Getsumei 36 / 108 value protection and boundary isolation | `accepted`, `documentation_only`, `source_review_required` | Independent value regression tests added | Required for formal semantics and six boundary differences | Protect exact value mappings independently; do not replace boundary logic. |
 | Monthly-plate 36 / 324 value protection and future time precision | `accepted`, `documentation_only`, `source_review_required` | Independent value and invariant regression tests added | Required for original 324 cells, markers, representative date, and time boundary | Keep current date-precision behavior; do not mix API or time-precision work into the protected values. |
-| p.24 monthly-plate marker transcription pilot | `accepted`, `documentation_only`, `manual_transcription_review_required`, `source_review_required` | Three Tiger-month plates recorded as a pilot; no master or runtime change | Close-up double review required before all 36 plates | Preserve original symbols and page-relative positions; derive neither 24 mountains nor 8 directions from current code. |
+| p.24 monthly-plate marker transcription pilot | `accepted`, `documentation_only`, `manual_transcription_review_required`, `source_review_required` | Independent crop review corrected Pilot B/C page positions and withdrew one Pilot C marker candidate; no master or runtime change | Top-sector close-ups and source orientation / 24-mountain evidence required before all 36 plates | Preserve original symbols and page-relative positions; derive neither 24 mountains nor 8 directions from current code. |
 | Tendo / Tentoku duplicate-path isolation and trine structural protection | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Two Tendo paths and current policy documented; concrete directions not fixed | Required for original Tendo, Tentoku, and trine markers and 24-mountain detail | Do not merge the two Tendo paths or freeze Tendo / Tentoku directions before source review. |
 | Tentoku-go / Gettoku / Gettoku-go / Seiki purpose separation | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Getsutoku day and palace-blend Seiki documented as other-purpose implementations; monthly direction deities remain unimplemented | Required for original monthly markers, 24-mountain detail, and formal derivation rules | Do not derive directions from selected days, natal spirits, Tentoku / Gettoku, or palace-blend Seiki. |
 | Gekku fixed-profile display / Teii Taichu separation | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Gekku exists only as a fixed-profile display; general Gekku and Teii Taichu are unimplemented | Required for original monthly markers, formal definitions, target plate, action, and 24-mountain detail | Do not generalize the fixed sample or derive Teii Taichu from Anketsu, branch opposition, or the nine-star fixed-position table. |

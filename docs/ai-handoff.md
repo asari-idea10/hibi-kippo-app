@@ -1137,3 +1137,29 @@ Verification scope:
 
 - Documentation only. Existing 707 tests are unchanged and do not need to be rerun.
 - Google Drive sync, NotebookLM operations, Vercel Preview, and production merge are not part of this feature branch.
+
+## Step 5B-3C-2 Page 24 Pilot Independent Double-Check Handoff
+
+Date: 2026-07-17
+
+Summary:
+
+- Step 5B-3C-2 independently reread original-resolution crops before consulting the first-pass pilot tables or current code. Crops remain temporary, outside the repository, and are not source assets.
+- Pilot A's large-star positions were confirmed. Pilot B left / upper-left were corrected to `三` / `四`; Pilot C left / upper-left were corrected to `九` / `一`.
+- Pilot A/B `月合`, all three `破`, Pilot A and C `冲`, and all three bottom `空` / `生` / `天合` groups are confirmed at page-relative positions. Pilot C right `月合` was an overstated first-pass candidate and has been withdrawn.
+- The printed legend pairings are readable, but `天月` as one compound versus multiple symbols and the individual meaning of `天` remain unresolved. Each pilot's top fine-print group is still unreadable.
+- Source orientation, 24 mountains, and 8-direction derivation remain unconfirmed. Current-code `match` remains limited to the three center stars; the two `concept_mismatch` entries remain purpose differences, not numeric mismatches.
+- Obtain limited close-ups of only the three top sectors and separate source evidence for orientation / 24 mountains. Do not begin all 36 plates yet.
+- Production source, tests, data, masters, UI, API, URL, candidate logic, rank logic, warning codes, original images, and crops are unchanged.
+
+Changed docs:
+
+- `docs/mannenreki-additional-masters-research.md`
+- `docs/decision-log.md`
+- `docs/task-board.md`
+- `docs/ai-handoff.md`
+
+Verification scope:
+
+- Documentation only. Existing 707 tests are unchanged and do not need to be rerun.
+- Google Drive sync, NotebookLM operations, Vercel Preview, and production merge are not part of this feature branch.
