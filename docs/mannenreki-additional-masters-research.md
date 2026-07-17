@@ -1144,13 +1144,13 @@ birthDate = 1976-03-19
 | center_star | 八白 |
 | palace | 8外区画＋中宮 |
 | original_position | 印刷ページ正立時の相対9位置。下表参照 |
-| original_symbol | 大字九星は判読可。`破`、`月合`等の小記号は一部判読可 |
-| interpreted_marker | 九星配置、月破、一部方位神。小記号全件は未確定 |
+| original_symbol | 大字九星9位置と`破`、`月合`、`冲`、`空`、`生`、`天合`はconfirmed。top細字群はunreadable |
+| interpreted_marker | 九星配置、月破、月徳合、定位対冲、月空、生気、天徳合を原位置付きで確認。top細字群は未確定 |
 | mountain_24 | unreadable |
 | direction_8 | unreadable |
-| confidence | confirmed（盤識別・中宮・大字九星）/ probable・unreadable（小記号） |
+| confidence | confirmed（盤識別・大字九星9位置・上記小記号）/ unreadable（top細字群） |
 | comparison_status | unclear |
-| notes | 方位変換禁止。小記号は `needs_closeup` |
+| notes | 方位変換禁止。`needs_closeup`はtop細字群のみ |
 
 | original_position | original_symbol | interpreted_marker | confidence | notes |
 | --- | --- | --- | --- | --- |
@@ -1177,13 +1177,13 @@ birthDate = 1976-03-19
 | center_star | 五黄 |
 | palace | 8外区画＋中宮 |
 | original_position | 印刷ページ正立時の相対9位置。下表参照 |
-| original_symbol | 大字九星は判読可。`破`、`月合`等の小記号は一部判読可 |
-| interpreted_marker | 九星配置、月破、一部方位神。小記号全件は未確定 |
+| original_symbol | 大字九星9位置と`破`、`月合`、`空`、`生`、`天合`はconfirmed。top細字群はunreadable |
+| interpreted_marker | 九星配置、月破、月徳合、月空、生気、天徳合を原位置付きで確認。top細字群は未確定 |
 | mountain_24 | unreadable |
 | direction_8 | unreadable |
-| confidence | confirmed（盤識別・中宮・大字九星）/ probable・unreadable（小記号） |
+| confidence | confirmed（盤識別・大字九星9位置・上記小記号）/ unreadable（top細字群） |
 | comparison_status | unclear |
-| notes | 五黄中宮。方位変換禁止。小記号は `needs_closeup` |
+| notes | 五黄中宮から記号を推測しない。方位変換禁止。`needs_closeup`はtop細字群のみ |
 
 | original_position | original_symbol | interpreted_marker | confidence | notes |
 | --- | --- | --- | --- | --- |
@@ -1193,8 +1193,8 @@ birthDate = 1976-03-19
 | lower_right | 六 | 九星 | confirmed | 小記号は未転記 |
 | bottom | 一、空、生、天合 | 九星、月空、生気、天徳合 | confirmed | 原記号と原位置のみ。方位へ派生しない |
 | lower_left | 八 | 九星 | confirmed | 小記号は未転記 |
-| left | 三 | 九星 | confirmed | Step 5B-3C-2で一次転記の位置入れ替わりを訂正 |
-| upper_left | 四 | 九星 | confirmed | Step 5B-3C-2で一次転記の位置入れ替わりを訂正 |
+| left | 三 | 九星 | confirmed | Step 5B-3C-2の独立crop再読解で原位置を二重確認 |
+| upper_left | 四 | 九星 | confirmed | Step 5B-3C-2の独立crop再読解で原位置を二重確認 |
 | center | 五 | 五黄中宮 | confirmed |  |
 | unresolved | unreadable | top区画の細字群、暗剣殺等 | unreadable | top区画のみ `needs_closeup` |
 
@@ -1210,24 +1210,24 @@ birthDate = 1976-03-19
 | center_star | 二黒 |
 | palace | 8外区画＋中宮 |
 | original_position | 印刷ページ正立時の相対9位置。下表参照 |
-| original_symbol | 大字九星は判読可。小記号は画像の向きと縮尺により判読難度が高い |
-| interpreted_marker | 九星配置。月破と一部方位神は接写二重確認待ち |
+| original_symbol | 大字九星9位置、upper_rightの`冲`・`破`、bottomの`空`・`生`・`天合`はconfirmed。top細字群はunreadable |
+| interpreted_marker | 九星配置、定位対冲、月破、月空、生気、天徳合を原位置付きで確認。top細字群は未確定 |
 | mountain_24 | unreadable |
 | direction_8 | unreadable |
-| confidence | confirmed（盤識別・中宮・大字九星）/ unreadable（小記号の多く） |
+| confidence | confirmed（盤識別・大字九星9位置・上記小記号）/ unreadable（top細字群） |
 | comparison_status | unclear |
-| notes | 元写真が横向き。印刷ページ正立基準へ戻して記録。`needs_closeup` |
+| notes | 元写真を印刷ページ正立基準へ戻して記録。現行コードから向きを逆算しない。`needs_closeup`はtop細字群のみ |
 
 | original_position | original_symbol | interpreted_marker | confidence | notes |
 | --- | --- | --- | --- | --- |
 | top | 六 | 九星 | confirmed | 原位置のみ |
 | upper_right | 八、冲、破 | 九星、定位対冲、月破 | confirmed | Step 5B-3C-2の独立crop再読解で字形と原位置を二重確認 |
-| right | 四 | 九星 | confirmed | crop上で小記号なし。一次転記の`月合`候補は過大判定として撤回 |
+| right | 四 | 九星 | confirmed | crop上で小記号なし |
 | lower_right | 三 | 九星 | confirmed | 小記号は未転記 |
 | bottom | 七、空、生、天合 | 九星、月空、生気、天徳合 | confirmed | 原記号と原位置のみ。方位へ派生しない |
 | lower_left | 五 | 九星 | confirmed | 小記号は未転記 |
-| left | 九 | 九星 | confirmed | Step 5B-3C-2で一次転記の位置入れ替わりを訂正 |
-| upper_left | 一 | 九星 | confirmed | Step 5B-3C-2で一次転記の位置入れ替わりを訂正 |
+| left | 九 | 九星 | confirmed | Step 5B-3C-2の独立crop再読解で原位置を二重確認 |
+| upper_left | 一 | 九星 | confirmed | Step 5B-3C-2の独立crop再読解で原位置を二重確認 |
 | center | 二 | 二黒中宮 | confirmed |  |
 | unresolved | unreadable | top区画の細字群、暗剣殺等 | unreadable | top区画のみ `needs_closeup` |
 
@@ -1263,13 +1263,15 @@ birthDate = 1976-03-19
 
 追加確認が必要な箇所:
 
-- p.24全景をページ正立・四隅・ページ番号・側部凡例込みで撮影した反射なし画像
-- Pilot A/B/Cを各1盤ずつ、盤が画像幅1500px以上になる正対接写
-- 各盤の8外区画を2〜4分割し、`天月`、`天`、`月合`、`天合`、`生`、`月`、`三合`、`破`、`ア`、`空`、`冲`が潰れない接写
-- 方位基準、24山、天干・十二支・卦を示す同ページまたは凡例ページの全景と接写
-- 表紙・奥付の版、発行年、出版社表記が読める画像
+- Pilot Aのtop細字群
+- Pilot Bのtop細字群
+- Pilot Cのtop細字群
+- 方位基準を示すページまたは図の全景・接写
+- 24山を示すページまたは図の全景・接写
 
-pilot判定は `pilot_success_with_followup_required` とする。3盤の識別、中宮、大字九星配置、月破と一部吉神略号、原位置を保持した比較方法は成立した。一方、24山、8方位派生、暗剣殺を含む小記号全位置は未確定であり、正式master、36盤全件転記、production実装、tests追加へは進めない。Step 5B-3C-2で原画像cropによる二重確認を行い、訂正結果は次節に記録する。
+元画像cropでconfirmedとなったA/Bの`月合`、Aの`冲`、Cの`冲`・`破`、3盤の`空`・`生`・`天合`、各盤の大字九星配置は再撮影不要である。
+
+pilot判定は `pilot_success_with_followup_required` とする。3盤の識別、中宮、大字九星配置、上記小記号、原位置を保持した比較方法は成立した。一方、top細字群、暗剣殺の個別位置、24山、8方位派生は未確定であり、正式master、36盤全件転記、production実装、tests追加へは進めない。Step 5B-3C-2の独立二重確認結果と一次転記との差分履歴は次節に記録する。
 
 ### Step 5B-3C-2 p.24寅月3盤pilot 独立二重確認
 
