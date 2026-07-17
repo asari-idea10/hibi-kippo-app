@@ -156,6 +156,18 @@ Use these exact status labels across docs when describing product and rule decis
 - Reason: 同名・類似名を根拠に異なる入力基準、用途、粒度の値を流用すると、未確認の方位神を既存選日・命理・五行blendから誤生成するため。
 - Implementation note: This decision records docs only. No source code, tests, data, master, UI, URL, API, ID, label, warning code, candidate judgement, rank logic, good-spirit scoring, or bad-direction cancellation was changed.
 
+### D-0015: Keep fixed-profile Gekku separate from unimplemented Teii Taichu
+
+- Date: 2026-07-17
+- Status: `accepted`, `documentation_only`, `implementation_pending`, `source_review_required`
+- Decision: 現行の月空は、`birthDate=1976-03-19` かつ本命星6の個人プロフィールに `月破` と併記する固定表示であり、月支・節入り・旬空・空亡・月盤から算出する一般月空規則ではない。月盤方位神の実装済み値として扱わず、固定条件を占術規則として一般化しない。
+- Decision: 定位対冲は現時点でproduction未実装とする。暗剣殺の五黄殺対宮、月破等に使う十二支の冲、未確認の九星定位対冲を別概念として管理する。
+- Decision: 月空・定位対冲の原資料マーカー、正式定義、対象盤、方位粒度、作用を確認するまで、固定プロフィール表示、暗剣殺map、十二支対冲map、九星定位表から計算式・master・warning・blockingを推測生成しない。
+- Decision: 月空・定位対冲を候補判定、候補ランク、吉神加点、凶殺相殺へ接続しない。これは現工程での変更禁止であり、将来の採用可否と作用は原資料確認後にプロダクトオーナーが判断する。
+- Decision: 次はStep 5B-3Bで安全な構造・policy tests-only範囲を確定し、Step 5B-3Cで原資料マーカーを確認する。一般月空規則、定位対冲計算、具体方位、24山値は固定しない。
+- Reason: 個人向け固定サンプル、五黄の対宮、十二支の冲、九星定位を同じ「対向」構造として流用すると、未確認の月空・定位対冲を誤実装するため。
+- Implementation note: This decision records docs only. No source code, tests, data, scripts, package/config files, calendar DB, master, UI, URL, API, ID, label, warning code, candidate judgement, rank logic, fixed-profile condition, month-break logic, Anketsu logic, or branch-opposition map was changed.
+
 ## Decision Status Matrix
 
 | Topic | Status | Implementation status | Source review | Notes |
@@ -173,6 +185,7 @@ Use these exact status labels across docs when describing product and rule decis
 | Monthly-plate 36 / 324 value protection and future time precision | `accepted`, `documentation_only`, `source_review_required` | Independent value and invariant regression tests added | Required for original 324 cells, markers, representative date, and time boundary | Keep current date-precision behavior; do not mix API or time-precision work into the protected values. |
 | Tendo / Tentoku duplicate-path isolation and trine structural protection | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Two Tendo paths and current policy documented; concrete directions not fixed | Required for original Tendo, Tentoku, and trine markers and 24-mountain detail | Do not merge the two Tendo paths or freeze Tendo / Tentoku directions before source review. |
 | Tentoku-go / Gettoku / Gettoku-go / Seiki purpose separation | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Getsutoku day and palace-blend Seiki documented as other-purpose implementations; monthly direction deities remain unimplemented | Required for original monthly markers, 24-mountain detail, and formal derivation rules | Do not derive directions from selected days, natal spirits, Tentoku / Gettoku, or palace-blend Seiki. |
+| Gekku fixed-profile display / Teii Taichu separation | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Gekku exists only as a fixed-profile display; general Gekku and Teii Taichu are unimplemented | Required for original monthly markers, formal definitions, target plate, action, and 24-mountain detail | Do not generalize the fixed sample or derive Teii Taichu from Anketsu, branch opposition, or the nine-star fixed-position table. |
 | Boundary regression samples for 節入り・立春・土用・board switching | `accepted`, `implementation_pending`, `source_review_required` | Test matrix not implemented yet | Required for authoritative expected values | High-priority test design task. |
 | 天道・土用殺・方位殺・candidate-rank fortune basis | `source_review_required` | Do not change logic until reviewed | Required | Keep current behavior documented as code behavior only. |
 | 本命星 handling | `source_review_required`, `pending` | Do not change personal-star logic until reviewed | Required | Current code derives from birth row year 九星. |
@@ -193,3 +206,4 @@ Use these exact status labels across docs when describing product and rule decis
 | P-0011 | Common-master Step 4B regression-test scope | Test design + architecture | Before commonizing shared masters | Start with 十大主星 100, 十二大従星 120, energy values, 初中老年, and 身強弱 boundaries before refactoring. |
 | P-0012 | Relationship among single-direction Tendo, trine Tendo, and Tentoku | Fortune/source confirmation + product architecture | Before renaming, merging, deleting, or freezing direction expectations | Current values overlap across all 55,152 rows, but concept, source granularity, and intended UI meaning remain unresolved. |
 | P-0013 | Whether and how Tentoku-go, Gettoku direction, Gettoku-go, and direction-deity Seiki should be adopted | Fortune/source confirmation + product decision | After original monthly markers and derivation rules are confirmed | Keep selected-day Gettoku, natal-spirit candidates, palace-blend Seiki, and monthly direction deities separate. |
+| P-0014 | Whether and how Gekku and Teii Taichu should be adopted | Fortune/source confirmation + product decision | After the fixed-profile Gekku origin, original monthly markers, formal definitions, target plate, and derivation rules are confirmed | Keep fixed-profile Gekku, general Gekku, Anketsu opposite-palace logic, branch opposition, and Teii Taichu separate. |

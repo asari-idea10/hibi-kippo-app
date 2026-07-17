@@ -1,6 +1,6 @@
 # Task Board
 
-Last updated: 2026-07-16
+Last updated: 2026-07-17
 
 ## Done
 
@@ -46,6 +46,10 @@ Last updated: 2026-07-16
 - Step 5B-3A-2 separated selected-day Gettoku-nichi from the unimplemented Gettoku direction.
 - Step 5B-3A-2 confirmed that monthly direction-deity Gettoku-go is unimplemented.
 - Step 5B-3A-2 separated the current five-element palace-blend Seiki from the unconfirmed monthly direction-deity Seiki.
+- Step 5B-3A-3 documented Gekku and Teii Taichu without implementation.
+- Step 5B-3A-3 classified current Gekku as a fixed personal-profile display, not a general monthly rule.
+- Step 5B-3A-3 recorded that general Gekku and Teii Taichu are unimplemented.
+- Step 5B-3A-3 separated Anketsu opposite-palace logic, the six branch oppositions, and the unconfirmed nine-star Teii Taichu concept.
 
 ## Next
 
@@ -56,18 +60,21 @@ Last updated: 2026-07-16
 | P0 | Draft boundary regression sample matrix for 節入り・立春・土用・年盤/月盤/日盤 switching | Medium | High | Test design | `accepted`, `implementation_pending`, `source_review_required`: expected values need source confirmation before tests are authoritative. |
 | P0 | Research six Getsumei / setsuiri boundary-date differences | High | High | Source research | Keep separate from value regression tests. Do not declare either calendar DB or official solar-term master wrong, and do not replace boundary logic before review. |
 | P0 | Reconfirm original 324 monthly-plate cells and all markers | High | High | Source research | The original-image cells and direction markers remain `manual_transcription_review_required` / `source_review_required`; do not claim complete source agreement from internal consistency alone. |
-| P0 | Step 5B-3A-3 document Gekku and Teii Taichu findings | Medium | High | Documentation / research ledger | Separate monthly void, fixed-position opposition, Anketsu opposite-palace logic, and branch opposition without inferred rules. |
 | P0 | Step 5B-3C reconfirm original monthly direction-deity markers | High | High | Source research | Confirm Tentoku-go, Gettoku direction, Gettoku-go, Seiki, Gekku, and Teii Taichu before creating masters or freezing direction values. |
 | P0 | Reconfirm original Tendo, Tentoku, and trine monthly-plate markers | High | High | Source research | Do not freeze the observed 12-direction values or merge the two Tendo paths before complete source transcription. |
 | P1 | Confirm `birthTime`-missing setsuiri fallback specification | Medium | High | Product / source decision | Current personal-star precision is date-only. Decide exact-time, timezone, overseas-birth, and unknown-time handling before boundary implementation. |
 | P1 | Define future setsuiri time-precision requirements | High | High | Product / source decision | Preserve exact source times when birth time is available; keep current date-level behavior unchanged until fallback, timezone, overseas-birth, and true-solar-time rules are decided. |
 | P1 | Decide the upper monthly-board representative-date UI | Medium | Medium | Product / UI decision | Current order is `selectedDate` → current day in displayed month → month start. Decide whether and how to label the board as “M/D時点”. |
 | P1 | Design monthly-plate JSON verification API after regression tests | Medium | High | API design | Prefer `date` input. If `year` / `month` is supported, return period-based `segments[]` instead of inventing one representative plate. Do not implement before Step 5B-2B. |
-| P1 | Step 5B-3B protect confirmed trine structure and current direction-deity policy | Medium | High | Tests-only candidate | Limit expectations to pure four-trine structure, unique group selection, label coexistence, strong-warning priority, active / blocked separation, and no direct candidate-rank change. Do not freeze concrete Tendo or Tentoku directions. |
+| P1 | Step 5B-3B define structure / policy tests-only scope | Medium | High | Tests-only candidate | Limit expectations to confirmed trine structure, current label / warning priority, no direct candidate-rank change, Gekku display isolation, and prevention of inferred Teii Taichu runtime values. Do not permanently freeze the fixed Gekku profile condition or concrete unconfirmed directions. |
 | P1 | Decide whether the two Tendo paths are separate concepts or an implementation duplication | High | High | Product / source decision | Current single-direction and trine paths overlap but differ in grain and UI use; do not rename, merge, or delete before source review. |
 | P1 | Confirm source relationship between Gettoku-nichi and Gettoku direction | High | High | Source research | The selected day exists, but the monthly direction is unimplemented; do not derive one from the other. |
 | P1 | Decide which Seiki system, if any, the product should adopt as a direction deity | High | High | Product / source decision | Current palace-blend Seiki is another-purpose implementation. Keep monthly-marker and Eight Mansions concepts separate until reviewed. |
-| P1 | Keep unconfirmed direction-deity values out of fixed expectations | Medium | High | Test / source boundary | Do not freeze Tentoku-go, Gettoku direction, Gettoku-go, direction-deity Seiki, or 24-mountain values before source review. |
+| P1 | Research the origin of the fixed Gekku profile condition | Medium | High | Source / implementation-history research | Determine why `1976-03-19` and Honmei star 6 return the fixed labels. Do not generalize, delete, or replace the sample before review. |
+| P1 | Confirm Gekku formal rule, school differences, and strength | High | High | Source research | Confirm month basis, void relationship, direction grain, action, boundary, and school differences before implementation. |
+| P1 | Confirm the formal definition of Teii Taichu | High | High | Source research | Confirm target plate, target stars, direction count, center handling, relation to five-yellow and Anketsu, action, and original marker positions. |
+| P1 | Make the Gekku / Teii Taichu product decision | High | High | Product / source decision | After source review, the product owner decides whether to adopt either item and whether it affects display, warning, blocking, or rank. |
+| P1 | Keep unconfirmed direction-deity values out of fixed expectations | Medium | High | Test / source boundary | Do not freeze Tentoku-go, Gettoku direction, Gettoku-go, direction-deity Seiki, Gekku, Teii Taichu, or 24-mountain values before source review. |
 | P1 | Continue Step 5B read-only comparison for remaining additional Mannenreki masters | Medium | High | Research / code inventory | Continue selected days, sexagenary internal relations, spirits, and body correspondence after the monthly-plate inventory. |
 | P1 | Confirm NotebookLM source list after new docs are synced | Low | Medium | AI orchestration docs | New Drive files require manual NotebookLM source addition; existing sources update through Drive sync. |
 | P1 | Add initial non-authoritative regression fixtures for boundary dates | Medium | High | Test/docs | Mark expected values TODO until source-confirmed. |

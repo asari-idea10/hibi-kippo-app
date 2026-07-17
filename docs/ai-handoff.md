@@ -1088,3 +1088,27 @@ Verification scope:
 - Documentation only. No production source, tests, data, scripts, package/config files, calendar DB, master, UI, URL, API, ID, label, warning code, candidate judgement, rank logic, good-spirit scoring, or bad-direction cancellation changes.
 - Existing 693 tests are unchanged and do not need to be rerun for this task.
 - Google Drive sync, NotebookLM addition, and Vercel Preview are not required on this feature branch.
+
+## Step 5B-3A-3 Gekku and Teii Taichu Status Handoff
+
+Date: 2026-07-17
+
+Summary:
+
+- Step 5B-3A-3 is complete. Current Gekku is only the fixed personal-profile display `birthDate=1976-03-19` and Honmei star 6 returning `月破` / `月空`; it is not a general Gekku calculation or direction value.
+- Teii Taichu is not implemented in production. Keep it separate from existing Anketsu opposite-palace logic and the six branch-opposition pairs used by month break and related structures.
+- The original Gekku / Teii Taichu markers and formal rules are unconfirmed. Do not create inferred masters, warning codes, blocking, candidate-rank connections, or direction values.
+- Next is Step 5B-3B to define the safe structure / policy tests-only scope. Do not permanently freeze the fixed Gekku profile condition as an official fortune rule.
+
+Changed docs:
+
+- `docs/mannenreki-additional-masters-research.md`
+- `docs/decision-log.md`
+- `docs/task-board.md`
+- `docs/ai-handoff.md`
+
+Verification scope:
+
+- Documentation only. No production source, tests, data, scripts, package/config files, calendar DB, master, UI, URL, API, ID, label, warning code, candidate judgement, rank logic, fixed-profile condition, month-break logic, Anketsu logic, or branch-opposition map changes.
+- Existing 693 tests are unchanged and do not need to be rerun for this task.
+- Google Drive sync, NotebookLM addition, and Vercel Preview are not required on this feature branch.
