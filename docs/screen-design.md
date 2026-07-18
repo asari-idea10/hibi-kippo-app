@@ -179,12 +179,16 @@ Detailed ledger: `docs/sanmeigaku-input-and-time-pillar-research.md`
   - 十二大従星 detail pages under `/calendar-notes/sanmeigaku/[星名]`
 - The 算命学 category uses compact term chips with meta labels: `陽占`, `十大主星`, and `十二大従星`.
 - 身弱・身中・身強 is not listed in the `/calendar-notes` index because it is currently a `/sanmeigaku` whole-chart helper judgement and its meaning text is not connected as a dictionary term.
-- `adoption-status` is a verification and source-status screen.
+- `adoption-status` is a verification and source-status screen. It keeps source/provenance readiness, calculation verification, production connection, and UI visibility as separate progress axes.
+- Its completion table includes monthly-plate Level 1 closure, monthly-plate Level 2 research, limited personal-star provenance, visible hour-board/personal-direction scope, and the not-yet-created photographed-Mannenreki source manifest.
+- Monthly-plate Level 1 may be shown as complete inside its declared scope while its production connection remains intentionally absent. Level 2 fine markers and directional deities remain a separate ongoing research item.
+- `READY_WITH_LIMITATIONS` and provenance completion must not be presented as production-ready. The page expands compound status details below the affected item rather than collapsing them into a single completion label.
+- Visible annual/directional deities and unconnected monthly fine-marker deities are separate registry rows. Same-name concepts such as 月徳日/方位, 月空, 生気, and 三合 are not merged by the screen.
 - `direction-palace-blends` is a master/reference screen.
 
 ### TODO
 
-- Add more screen-level structure for `adoption-status` and `direction-palace-blends` when they are next edited.
+- Add more screen-level structure for `direction-palace-blends` when it is next edited.
 
 ## UI Change Rules
 

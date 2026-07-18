@@ -1345,3 +1345,38 @@ Verification scope:
 - `npm run build`: passed with Next.js 16.2.6.
 - `git diff --check`: passed.
 - Vercel Preview is not required because production and UI behavior remain unchanged.
+
+## Adoption Status Current-State Sync Handoff
+
+Date: 2026-07-18
+
+Summary:
+
+- `/adoption-status` now separates provenance/calculation verification from production connection and UI visibility instead of treating them as one completion state.
+- Added separate rows for completed monthly-plate Level 1, ongoing monthly-plate Level 2 fine-marker research, limited personal-star provenance, and the not-yet-created photographed-Mannenreki source manifest.
+- Monthly-plate Level 1 remains complete only inside its declared scope and intentionally unconnected to production. Level 2 retains the C-Tiger Gettoku-go discrepancy, the source-trine concept mismatch, source-orientation verification 5/9, 296 transcribed fine-marker cells pending promotion, and unreadable 24-mountain positions.
+- Honmei remains `READY`; Getsumei remains `READY_WITH_LIMITATIONS`. Their provenance is not connected to production, candidate, ranking, warning, UI, or the existing personal-direction behavior.
+- Updated the hour-board and personal-direction rows to acknowledge their existing `/purpose-calendar` display while keeping automatic departure-time proposals, Getsumei taboos, rank effects, and provenance binding as separate future work.
+- Split visible annual/directional deities from unconnected monthly fine-marker deities. Do not merge 月徳日/方位, 月空, 生気, or source 三合 markers with same-name current features.
+- Next order is: (1) create the photographed-Mannenreki source manifest, then (2) use manifest-addressable confirmed data for the first monthly-plate Level 2 UI reflection.
+
+Changed files:
+
+- `src/app/adoption-status/page.tsx`
+- `src/lib/adoption-status.ts`
+- `src/lib/common-calendar-completion.ts`
+- `src/lib/common-calendar-completion.test.ts`
+- `src/lib/verification-registry.ts`
+- `docs/screen-design.md`
+- `docs/task-board.md`
+- `docs/ai-handoff.md`
+
+Verification scope:
+
+- Status/UI metadata and its regression tests only. `/purpose-calendar`, fortune calculations, calendar/master/generated data, candidate, ranking, warning, API, and URL/query behavior are unchanged.
+- New adoption-status regression test: 13 / 13 passed.
+- Full Vitest: 8 files, 768 / 768 passed (baseline 755 + 13).
+- `npm run lint`: passed without warnings.
+- `npm run build`: passed with Next.js 16.2.6.
+- `git diff --check`: passed.
+- Commit, push, main merge, Drive sync, NotebookLM operations, Vercel deployment, and Google Sheet operations are not part of this step.

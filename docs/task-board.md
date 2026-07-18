@@ -1,6 +1,6 @@
 # Task Board
 
-Last updated: 2026-07-17
+Last updated: 2026-07-18
 
 ## Done
 
@@ -57,20 +57,22 @@ Last updated: 2026-07-17
 - Step 5B-3C-2 independently reread the three Tiger-month pilots from original-resolution crops before consulting the first-pass tables or current code.
 - Step 5B-3C-2 confirmed Pilot A's large-star placement, corrected Pilot B left / upper-left to `三` / `四`, corrected Pilot C left / upper-left to `九` / `一`, and withdrew Pilot C right `月合` as an overstated first-pass candidate.
 - Step 5B-3C-2 double-checked the printed side-legend pairings and confirmed readable pilot markers while keeping `天月`, individual `天` semantics, the top-sector fine print, source orientation, and 24 mountains unresolved.
-- Step 5B-3C-2 limited new close-up needs to the top fine-print sector of each pilot plus separate source evidence for orientation and 24 mountains. All 36 plates remain blocked pending those checks.
+- Step 5B-3C-2 limited new close-up needs to the top fine-print sector of each pilot plus separate source evidence for orientation and 24 mountains. Those checks remain Level 2 promotion gates and do not reopen completed Level 1 values.
+- Monthly-plate Level 1 closed within its declared scope; provenance registry, static fixture, CalculationTrace, and 24 / 24 tests are complete while production connection remains intentionally absent.
+- Limited personal-star provenance registered Honmei as `READY` and Getsumei as `READY_WITH_LIMITATIONS`; its 24 / 24 tests pass and no app/client/candidate/ranking/warning connection was added.
+- `/adoption-status` synchronized the monthly-plate Level 1 closure, separate Level 2 research, limited personal-star provenance, already-visible hour-board/personal-direction scope, visible directional deities, and the missing photographed-Mannenreki manifest.
 
 ## Next
 
 | Priority | Task | Difficulty | Impact | Type | Notes |
 | --- | --- | --- | --- | --- | --- |
+| P0 | Create the photographed-Mannenreki source manifest | Medium | High | Source registry | Connect external image filename, page, theme, SHA-256, source ID, transcription target, and implementation target without adding images to Git. |
+| P0 | Implement the first monthly-plate Level 2 UI reflection from the manifest | High | High | Source/UI implementation | Start only from manifest-addressable, source-confirmed data. Preserve C寅月徳合, the source-trine concept mismatch, orientation 5/9, and 24-mountain unknowns. |
 | P0 | Design and implement `purpose` default migration | Medium | High | URL/product implementation | `accepted`, `implementation_pending`: keep explicit `purpose=travel`; move omitted purpose toward `yuki_tori`. |
 | P0 | Design and implement independent `candidateCondition` handling | Medium | High | URL/product implementation | `accepted`, `implementation_pending`: keep `actionScale` for action burden; use `candidateCondition` for filtering. |
 | P0 | Draft boundary regression sample matrix for 節入り・立春・土用・年盤/月盤/日盤 switching | Medium | High | Test design | `accepted`, `implementation_pending`, `source_review_required`: expected values need source confirmation before tests are authoritative. |
 | P0 | Research six Getsumei / setsuiri boundary-date differences | High | High | Source research | Keep separate from value regression tests. Do not declare either calendar DB or official solar-term master wrong, and do not replace boundary logic before review. |
-| P0 | Reconfirm original 324 monthly-plate cells and all markers | High | High | Source research | The original-image cells and direction markers remain `manual_transcription_review_required` / `source_review_required`; do not claim complete source agreement from internal consistency alone. |
-| P0 | Obtain limited Step 5B-3C-2 follow-up source images | Medium | High | Source research | Capture only the top fine-print sector of Pilot A/B/C and the separate page that establishes orientation / 24 mountains. Do not infer unresolved symbols from other plates. |
-| P0 | Finalize the page 24 pilot after limited source review | Medium | High | Source research | Recheck the three top sectors, source orientation, and 24 mountains; keep corrected B/C positions and the withdrawn C `月合` candidate unless the source itself disproves them. |
-| P0 | Step 5B-3C transcribe all 36 monthly plates | High | High | Source research | Do not start until the limited pilot follow-up is resolved. Preserve original symbol and page position, then independently review, compare current code, obtain PO adoption, design a source master, and add tests-only protection in separate stages. |
+| P0 | Continue monthly-plate Level 2 fine-marker source review | High | High | Source research | The 36 plates and 296 fine-marker cells are transcribed research data, but source orientation, 24 mountains, `天月`/`天`, and independent fine-marker confirmation remain separate promotion gates. Do not reopen completed Level 1 values. |
 | P0 | Reconfirm original Tendo, Tentoku, and trine monthly-plate markers | High | High | Source research | Do not freeze the observed 12-direction values or merge the two Tendo paths before complete source transcription. |
 | P1 | Confirm `birthTime`-missing setsuiri fallback specification | Medium | High | Product / source decision | Current personal-star precision is date-only. Decide exact-time, timezone, overseas-birth, and unknown-time handling before boundary implementation. |
 | P1 | Define future setsuiri time-precision requirements | High | High | Product / source decision | Preserve exact source times when birth time is available; keep current date-level behavior unchanged until fallback, timezone, overseas-birth, and true-solar-time rules are decided. |
@@ -117,7 +119,7 @@ Last updated: 2026-07-17
 - `source_review_required`: Authoritative source for each fortune/calendar rule.
 - `provisional`, `source_review_required`: Whether current companion judgement modes match intended product behavior.
 - `source_review_required`: Official expected values for 節入り, 立春, 土用, and board-switching regression samples.
-- `source_review_required`: Complete transcription of the original 36 monthly plates, 324 palace cells, and all direction markers.
+- `source_review_required`: Independent promotion review for the 296 transcribed fine-marker cells, source orientation, and 24-mountain positions. The 36 centers and 324 large-star palace values remain closed as Level 1.
 - `pending`, `source_review_required`: Upper monthly-board representative date, fixed-verification URL behavior, and future verification API contract.
 - `pending`, `source_review_required`: Setsuiri time precision, `birthTime`-missing fallback, timezone, overseas birth, and true solar time. Keep the six date differences isolated.
 - `pending`, `source_review_required`: Whether birth row year 九星 as 本命星 is final for all users.
