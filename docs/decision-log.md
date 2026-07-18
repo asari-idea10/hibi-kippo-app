@@ -192,6 +192,18 @@ Use these exact status labels across docs when describing product and rule decis
 - Reason: 一次転記の記録を維持することよりも原画像の独立再読解を優先し、誤った原位置や不確かな略号を36盤転記へ伝播させないため。
 - Implementation note: This decision records docs only. No production source, tests, data, master, scripts, package/config files, UI, API, URL, candidate logic, rank logic, warning code, image asset, crop, or OCR artifact was changed.
 
+### D-0018: Keep the completed monthly-plate research ledger out of production until promotion gates pass
+
+- Date: 2026-07-18
+- Status: `accepted`, `documentation_only`, `manual_transcription_review_required`, `source_review_required`, `implementation_pending`
+- Decision: Googleスプレッドシート「月盤研究台帳」の3グループ×12か月×9区画=324行をread-only監査した。一次転記完了をproduction master昇格完了とは扱わず、研究原本とGitHub正式masterを分離する。
+- Decision: 年支3グループ、月盤中宮36対応、九星1〜9一意性、五黄殺、暗剣殺、月破をLevel 1正式採用候補とする。ただし今回productionへ昇格せず、原資料marker全件確認とPO判断を別工程にする。
+- Decision: 大字九星は322/324が現行式と一致するが、A寅の東・南東2区画が不一致であるため、324区画静的masterの一括採用を停止する。C寅の月徳合も、12か月期待値と盤内markerの差を解消するまで正式採用しない。
+- Decision: `天月`・`天`と天道・天徳の8方位位置はLevel 2候補とするが、萬年暦本文の略記定義確認前は`source_unconfirmed`を維持する。月徳、天徳合、月徳合、月空、生気、定位対冲、三合はLevel 3研究データまたは差異解消までLevel 4とし、同名既存コードから補完しない。
+- Decision: 将来構造は、九星配置を計算生成、方位神を原記号・原位置・24山・8方位派生が分離されたsource master候補、36盤台帳を比較・回帰fixture候補とするハイブリッド型を第一候補にする。正式採用は別Decisionとする。
+- Reason: 324行のうち296行が`user_transcribed`で独立原画像照合前であり、台帳内・現行実装間の未解決差を含むため。計算整合と原資料確定、原記号と正規化名称、研究fixtureとproduction正本を混ぜないため。
+- Implementation note: This decision records docs only. No production source, tests, data, master, scripts, package/config files, UI, API, URL, candidate logic, rank logic, warning code, Google Sheet value, image, crop, or OCR artifact was changed.
+
 ## Decision Status Matrix
 
 | Topic | Status | Implementation status | Source review | Notes |

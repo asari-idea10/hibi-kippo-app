@@ -1163,3 +1163,31 @@ Verification scope:
 
 - Documentation only. Existing 707 tests are unchanged and do not need to be rerun.
 - Google Drive sync, NotebookLM operations, Vercel Preview, and production merge are not part of this feature branch.
+
+## Monthly Plate Research Ledger Promotion Audit Handoff
+
+Date: 2026-07-18
+
+Summary:
+
+- Read-only audited all 324 rows in Google Sheets `月盤研究台帳` and the related dictionary, validation, list, and 12-month expectation tabs. The Sheet remains a research source, not a production master.
+- All 36 center stars, 36 per-plate star-uniqueness checks, 36 Ankensatsu cases, and 36 month-break cases match current behavior. Large-star placement matches 322/324 cells; A-Tiger East and Southeast are unresolved mismatches.
+- The ledger contains 28 image-confirmed cells and 296 `user_transcribed` cells. A/B/C validation result cells are manually entered research records, not independent formula verification.
+- Tendo and Tentoku positions align 36/36 with the current single-direction path, but `天月` and `天` remain `source_unconfirmed` until the almanac text defines the abbreviations. Do not promote them from positional agreement alone.
+- C-Tiger has no West `月合`, while the 12-month expectation tab records Tiger-month Gettoku-go as West. Resolve this source-ledger conflict before promoting Gettoku-go.
+- General Gekku and Teii Taichu are not implemented. Direction-deity Seiki and printed San-go remain conceptually separate from current palace blend and current three-direction trine logic.
+- D-0018 recommends a hybrid design: calculate Kyusei placement, keep direction-deity source values and original symbols in a separate reviewed layer, and use the 36-plate ledger as a comparison/regression fixture candidate.
+- Research-ledger first-pass completion does not equal production-master promotion. Next source work is limited to A-Tiger East/Southeast, C-Tiger Gettoku-go, the `天月`/`天` definition, and independent review of the 296 user-transcribed cells.
+
+Changed docs:
+
+- `docs/monthly-plate-promotion-audit.md`
+- `docs/decision-log.md`
+- `docs/ai-handoff.md`
+
+Verification scope:
+
+- Documentation only. Existing tests were not run; baseline remains 707/707.
+- Production source, tests, data, masters, scripts, package/config, UI, API, URL parameters, and Google Sheet values are unchanged.
+- Vercel Preview is not required because there are no production or UI changes.
+- Commit, push, main merge, Drive sync, and NotebookLM operations require the next approved workflow step.
