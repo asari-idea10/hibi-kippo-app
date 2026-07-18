@@ -4,14 +4,17 @@ export type EvidenceReferenceType =
   | "modern_reference"
   | "dictionary"
   | "official_dataset"
+  | "institutional_specialist_source"
   | "project_research_ledger"
   | "po_confirmed"
   | "project_policy";
 
 export type SourceVerificationStatus =
   | "confirmed"
+  | "confirmed_for_named_lineage"
   | "partially_confirmed"
   | "conflict"
+  | "source_review_required"
   | "unresolved";
 
 export type ProjectAdoptionStatus =
@@ -29,14 +32,27 @@ export type PrecisionStatus =
 
 export type EffectiveResolution = "second" | "minute" | "date";
 
+export type ProductionConnectionStatus =
+  | "not_connected"
+  | "existing_date_binding"
+  | "exact_timestamp_connected";
+
 export type SourceClaim = {
   claimId: string;
   sourceClaimVersion: string;
   sourceId: string;
   sourceType: EvidenceReferenceType;
-  claimType: "source_fact" | "interpretation" | "calculation_rule";
+  claimType:
+    | "source_fact"
+    | "interpretation"
+    | "calculation_rule"
+    | "bibliographic_scope";
   summary: string;
   sourceVerificationStatus: SourceVerificationStatus;
+  materialType?: "institutional_specialist_article" | "book" | "dataset";
+  institution?: string;
+  lineageRelevance?: "trusted_for_project";
+  bodyContentVerified?: boolean;
   pageOrRange?: string;
   notes: readonly string[];
 };
@@ -47,19 +63,40 @@ export type ProjectClaim = {
   claimType: "po_specification" | "application_policy";
   summary: string;
   projectAdoptionStatus: ProjectAdoptionStatus;
+  productionConnectionStatus?: ProductionConnectionStatus;
   relatedSourceClaimIds: readonly string[];
+};
+
+export type LineageContext = {
+  lineageContextId: string;
+  lineageContextVersion: string;
+  subjectIds: readonly string[];
+  status: "po_confirmed_lineage_context";
+  summary: string;
+  relatedSourceIds: readonly string[];
+  relatedSourceClaimIds: readonly string[];
+  doesNotAssert: readonly string[];
 };
 
 export type BoundaryRuleDefinition = {
   boundaryRuleId: string;
   boundaryVersion: string;
   label: string;
-  boundaryType: "timezone" | "setsuiri_month" | "implementation_resolution";
+  boundaryType:
+    | "timezone"
+    | "personal_input"
+    | "risshun_year"
+    | "setsuiri_month"
+    | "implementation_resolution";
   precisionStatus: PrecisionStatus;
   effectiveResolution: EffectiveResolution;
   implementationResolution?: EffectiveResolution;
   exactTimestampSupport: boolean;
+  exactTimestampSupportScope?: "schema_and_trace_only";
   timezonePolicy: string;
+  sourceVerificationStatus?: SourceVerificationStatus;
+  projectAdoptionStatus?: ProjectAdoptionStatus;
+  productionConnectionStatus?: ProductionConnectionStatus;
   sourceClaimIds: readonly string[];
   projectClaimIds: readonly string[];
   implementationBindingIds: readonly string[];
@@ -71,7 +108,12 @@ export type CalculationStepDefinition = {
   stepId: string;
   label: string;
   inputFieldIds: readonly string[];
-  operation: "lookup" | "date_boundary" | "normalization" | "aggregation";
+  operation:
+    | "lookup"
+    | "date_boundary"
+    | "normalization"
+    | "role_binding"
+    | "aggregation";
   ruleReferenceIds: readonly string[];
   outputFieldIds: readonly string[];
 };
@@ -125,6 +167,9 @@ export type WorkflowAggregateDefinition = {
   techniqueIds: readonly string[];
   applicationPolicyIds: readonly string[];
   effectType: "none";
+  candidateConnected?: false;
+  rankingConnected?: false;
+  warningConnected?: false;
   resultFieldIds: readonly string[];
 };
 
@@ -166,6 +211,27 @@ export type ConflictReference = {
   summary: string;
   excludedFromLevel1Result: true;
   prohibitedResolution: readonly string[];
+};
+
+export type ConflictRecord = {
+  conflictId: string;
+  conflictVersion: string;
+  status: "open" | "conflicting";
+  summary: string;
+  variants: readonly string[];
+  projectCurrentSelection?: {
+    value: string;
+    projectAdoptionStatus: ProjectAdoptionStatus;
+  };
+  relatedSourceClaimIds: readonly string[];
+  prohibitedResolution: readonly string[];
+};
+
+export type FutureRuleReference = {
+  ruleId: string;
+  status: "hold";
+  registeredAsExecutableRule: false;
+  summary: string;
 };
 
 export type ProhibitedInference = {
