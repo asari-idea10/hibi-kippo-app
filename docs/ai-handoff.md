@@ -1279,3 +1279,32 @@ Verification scope:
 - Documentation only. No production source, tests, data, generated files, scripts, package/config, API, URL/query, UI, family/companion behavior, candidate, ranking, warning, monthly provenance, Sanmeigaku logic, Google Sheet, or Vercel change.
 - Monthly provenance test was 24/24 and Getsumei regression was 151/151 during the preceding read-only audit; the full current baseline remains 731/731.
 - Commit, push, main merge, Drive sync, NotebookLM operations, and Vercel Preview are not part of this step.
+
+## Honmei / Getsumei Source Ledger Handoff
+
+Date: 2026-07-18
+
+Summary:
+
+- This section supersedes only the source-status sentence in the preceding implementation-audit handoff. The earlier current-binding and boundary-observation record remains historical evidence.
+- Added separate source ledgers for Honmei and Getsumei. The inspected sources are modern-era Japanese historical specialist materials, not ancient classics and not proof of a universal all-lineage rule.
+- Sonoda Shinjiro's 1934 fourth edition of *Kaisei Hoi Meikan* supports treating the birth-year center star as Honmei and dividing the adopted year at the exact Risshun time. The source status is `confirmed_for_sonoda_lineage`; project adoption remains `provisional` and production remains `not_connected`.
+- The 1935 Jingukan source confirms the three year-branch groups, the 3 x 12 monthly-nine-star table, and switching by the twelve Setsu rather than lunar-month starts. The 36 values match the current static fixture.
+- Exact-timestamp switching for all twelve Setsu remains `partially_confirmed`. The modern conceptual binding from `monthly household nine-star` to a person's `Getsumei star` remains `source_review_required` pending specialist-book body review.
+- Keep monthly-plate center star and Getsumei as shared-value, distinct-role techniques. Shared rules/lookups are allowed; TechniqueDefinition merging is not.
+- Keep source claims, provisional project claims, and current daily-master bindings separate. The current implementation remains date-resolution only, ignores birth time and location/timezone, and is not fortune-source evidence.
+- A boundary-date birth without `birthTime` remains `date_only / exactBoundaryResult: unresolved / fallbackStar: none`. Missing timezone remains `assumed_jst`; overseas birth, DST, longitude correction, true solar time, and equation of time remain unsupported.
+- P0 source work is an independent specialist source explicitly stating exact-time switching for all twelve Setsu and a specialist-book body defining the modern Getsumei concept. Do not connect these ledgers to production before that review and a separate approval step.
+
+Changed docs:
+
+- `docs/research/personal-stars/honmei-source-research.md`
+- `docs/research/personal-stars/getsumei-source-research.md`
+- `docs/research/personal-stars/honmei-getsumei-audit.md`
+- `docs/ai-handoff.md`
+
+Verification scope:
+
+- Documentation only. Production source, provenance code, tests, data, generated files, scripts, package/config, API, URL/query, UI, candidate, ranking, warning, Google Sheet, and Vercel are unchanged.
+- Tests were not run; baseline remains 731/731.
+- Commit, push, main merge, Drive sync, NotebookLM operations, and Vercel Preview are not part of this step.

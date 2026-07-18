@@ -5,6 +5,11 @@
 Decision基盤: D-0020
 production変更: なし
 
+Source ledger更新: 2026-07-18
+
+- `docs/research/personal-stars/honmei-source-research.md`
+- `docs/research/personal-stars/getsumei-source-research.md`
+
 ## 1. 目的と監査境界
 
 本命星・月命星をD-0020共通provenance schemaへ将来登録するため、現行production binding、境界精度、source確認状態、POの暫定採用方針、production接続範囲を分離して記録する。
@@ -88,25 +93,28 @@ getsumeiEquivalentBinding:
 
 ### 4.1 本命星
 
-精密計算の目標は、立春の正確なJST時刻で採用年を切り替える方向とする。ただし、原典上の正式規則およびproduction採用は未確定である。
+精密計算の目標は、立春の正確なJST時刻で採用年を切り替える方向とする。園田真次郎編『改正方位明鑑』第4版（1934年）については、立春時刻前後で年月の分界を定める規則を確認した。ただし全流派共通とはせず、project adoptionおよびproduction接続は未確定である。
 
 ```yaml
 honmeiBoundaryTarget:
   targetBoundary: exact_risshun_timestamp_jst
   projectAdoptionStatus: provisional
-  sourceVerificationStatus: unresolved
+  sourceVerificationStatus: confirmed_for_sonoda_lineage
   productionConnectionStatus: not_connected
 ```
 
 ### 4.2 月命星
 
-精密計算の目標は、12節の正確なJST時刻で採用月支を切り替える方向とする。月盤の節入りeventを参照できるが、月盤ProjectClaimと月命星ProjectClaimを同一claimにしない。
+精密計算の目標は、12節の正確なJST時刻で採用月支を切り替える方向とする。高島易断所本部神宮館編纂『九星暦術一代運気活断口伝書』（1935年）で、月家九星が朔日ではなく12節の節替りで交替することは確認した。全12節のexact timestampと現代の月命星概念への接続は引き続き確認が必要である。月盤の節入りeventを参照できるが、月盤ProjectClaimと月命星ProjectClaimを同一claimにしない。
 
 ```yaml
 getsumeiBoundaryTarget:
   targetBoundary: exact_setsuiri_timestamp_jst
   projectAdoptionStatus: provisional
-  sourceVerificationStatus: source_review_required
+  usesTwelveSetsuNotChuki: confirmed
+  switchesAtLunarMonthStart: rejected
+  exactTimestampForAllTwelveSetsu: partially_confirmed
+  modernGetsumeiConceptBinding: source_review_required
   productionConnectionStatus: not_connected
 ```
 
@@ -180,7 +188,7 @@ timezoneResolution: assumed_jst
 | 2025 | `2025-02-03T23:10:28+09:00` | 2月3日終日を新値として使用 |
 | 2026 | `2026-02-04T05:02:08+09:00` | 2月4日終日を新値として使用 |
 
-同日切替150件ではexact時刻より前、1900年1件ではexact時刻以後から翌日0時まで、精密境界候補とcurrent implementationの差が生じ得る。ただし精密境界のsource ruleは未確認で、差を理由にdaily masterを変更しない。
+同日切替150件ではexact時刻より前、1900年1件ではexact時刻以後から翌日0時まで、source ruleとcurrent implementationの差が生じ得る。source ruleは園田系統について確認済みだが、project adoptionは`provisional`、productionは`not_connected`であり、差を理由にdaily masterを変更しない。
 
 ### 6.2 節入り月界
 
@@ -252,35 +260,30 @@ birth-datetime-normalization
 Rule ID:
 
 - `rule.personal.birth-datetime-normalization.v1`
-- `rule.honmei.period.risshun.v1`
-- `rule.getsumei.period.setsuiri.v1`
-- `rule.honmei.star-from-adopted-year.v1`
-- `rule.getsumei.star-by-honmei-group-and-month-branch.v1`
+- `rule.personal.year-nine-star-cycle.v1`
+- `rule.personal.honmei-from-adopted-year-star.v1`
+- `rule.personal.getsumei-from-year-group-and-setsu-month.v1`
+- `rule.personal.getsumei-role-binding.v1`
 
 Lookup ID:
 
-- `lookup.getsumei.by-honmei-group-and-month-branch.v1`
-- `lookup.honmei.year-star-cycle.v1`
+- `lookup.personal.annual-nine-star-cycle.v1`
+- `lookup.personal.getsumei-year-groups.v1`
+- `lookup.personal.getsumei-36.v1`
 
-本命星のyear-star cycleは原典確認前に正式lookupへ昇格させない。
+月盤中宮星と月命星は36値を共有できるが、人物属性化を別Rule・別Techniqueとして保持する。今回は候補IDの台帳化だけで、正式lookupまたはprovenance codeへ登録しない。
 
-## 10. SourceClaim候補
+## 10. SourceClaim台帳
 
-- `source-claim.honmei-star-year-boundary.v1`
-- `source-claim.honmei-star-calculation.v1`
-- `source-claim.getsumei-star-month-boundary.v1`
-- `source-claim.getsumei-star-calculation.v1`
-- `source-claim.solar-term-timestamps.v1`
-
-初期status:
-
-| claim | source verification |
-| --- | --- |
-| honmei year boundary | `unresolved` |
-| honmei calculation | `unresolved` |
-| getsumei month boundary | `source_review_required` |
-| getsumei 36 mapping | `partially_confirmed / source_review_required`。研究転記と36/108 implementation matchを分離して保持 |
-| solar-term timestamps | 既存verified claimを参照 |
+| claim ID | source verification | scope |
+| --- | --- | --- |
+| `source-claim.sonoda-1934.honmei-birth-center.v1` | `confirmed_for_sonoda_lineage` | 出生年星を人物の本命として扱う |
+| `source-claim.sonoda-1934.risshun-timestamp-boundary.v1` | `confirmed_for_sonoda_lineage` | 立春時刻前後による年界 |
+| `source-claim.jingukan-1935.annual-nine-star-cycle.v1` | `confirmed` | 年家九星cycle |
+| `source-claim.jingukan-1935.monthly-nine-star-36.v1` | `confirmed` | 3年支群×12月の月家九星36対応 |
+| `source-claim.jingukan-1935.monthly-setsu-boundary.v1` | 12節採用`confirmed`、全12節exact timestamp`partially_confirmed` | 朔日ではなく節替り |
+| `source-claim.naoj.solar-term-instants.v1` | `confirmed` | 節気eventの公式時刻dataset |
+| `source-claim.modern-getsumei-terminology.v1` | `source_review_required` | 月家九星から現代月命星への人物属性化 |
 
 daily master、`yearKyusei`、`monthKyusei`、`searchCalendarDb`、existing implementationは`SourceClaim`にせず、`ImplementationBinding`または`ImplementationObservation`へ登録する。
 
@@ -296,9 +299,10 @@ daily master、`yearKyusei`、`monthKyusei`、`searchCalendarDb`、existing impl
 
 | concepts | status / restriction |
 | --- | --- |
-| `yearKyusei` vs 本命星 | current bindingは存在するがsource上の同一性は未確認 |
-| `monthKyusei` vs 月命星 | 36/108値一致と概念同一性を分離 |
-| `monthKyusei` vs 月盤中宮 | 同じ列でもTechniqueを統合しない |
+| `yearKyusei` vs 年盤中宮星 | `same_value_same_concept` |
+| `yearKyusei` vs 本命星 | `same_value_distinct_role`。人物Techniqueへ固定する役割を分離 |
+| `monthKyusei` vs 月盤中宮 | `same_value_same_concept` |
+| `monthKyusei` vs 月命星 | `same_value_distinct_role`。現代月命星bindingはsource review required |
 | 出生日daily row vs 出生日時 | date-resolutionとtimestamp-resolutionを分離 |
 | 本命星名 vs 年盤上の九星 | 同じ九星IDでも人物占技と盤上配置を分離 |
 | 算命学の年/月九星binding | 同じdaily masterを使う別system binding |
@@ -357,12 +361,14 @@ daily master、`yearKyusei`、`monthKyusei`、`searchCalendarDb`、existing impl
 
 ```text
 2025-02-03T23:10:27+09:00
-→ provisional exact-boundary lane: 旧年九星3候補
+→ Sonoda source-rule lane: 旧年九星3
+→ provisional project lane: 旧年九星3候補
 → current implementation lane: 新年九星2
-→ difference: open / source rule unresolved
+→ difference: open / production not connected
 
 2025-02-03T23:10:28+09:00
-→ provisional exact-boundary lane: 新年九星2候補
+→ Sonoda source-rule lane: 新年九星2
+→ provisional project lane: 新年九星2候補
 → current implementation lane: 新年九星2
 ```
 
@@ -401,11 +407,12 @@ daily master、`yearKyusei`、`monthKyusei`、`searchCalendarDb`、existing impl
 
 ## 16. 未解決事項と次工程
 
-1. 本命星の立春境界とyear-star cycleの原典・版・頁を確認する。
-2. 月命星の節入り境界と36対応の原典定義を独立確認する。
-3. `monthKyusei`、月命星、月盤中宮の概念関係をsource claim単位で判定する。
-4. `birthTime`なし境界日の将来UI・API表現を決める。
-5. JST以外、海外出生、DST、経度補正、真太陽時を扱う別工程の入力modelを設計する。
-6. 原典確認後にTechniqueDefinition、BoundaryRule、fixture、traceを実装するかPO判断する。
+1. P0: 全12節のexact timestamp切替を明記した独立専門資料を確認する。
+2. P0: 現代の月命星概念と月家九星の人物属性化を説明する専門書本文を確認する。
+3. P1: 園田1934年とは独立した本命星立春時刻資料を確認する。
+4. P1: 西暦簡略計算式と歴史資料の九星cycleの同値を確認する。
+5. `birthTime`なし境界日の将来UI・API表現を決める。
+6. JST以外、海外出生、DST、経度補正、真太陽時を扱う別工程の入力modelを設計する。
+7. SourceClaimとPO statusの承認後にTechniqueDefinition、BoundaryRule、fixture、traceを実装するか判断する。
 
 今回のprovisional方針だけを理由に、existing production result、daily master、candidate、ranking、warning、本命殺・的殺、同行者判定を変更しない。
