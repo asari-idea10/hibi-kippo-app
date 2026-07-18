@@ -489,3 +489,62 @@ BoundaryRule:
 - 既存月盤計算、calendar master、generated data、既存月盤test、URL、UI、candidate、ranking、warningは変更しない。
 - C寅月徳合、原資料三合、296細字区画のconflict / evidence limitationは参照として保持するが、Level 1結果へ混入させない。
 - source orientationはA寅2セル・C寅3セルのPO確認を根拠とする`partially_confirmed`であり、24山確認済みへ昇格しない。
+
+## 16. 月盤Level 1完了判定
+
+Date: 2026-07-18
+Scope: D-0020 monthly-plate Level 1 closure
+
+月盤Level 1は、定義した対象範囲について完了と判定する。これは月盤全体、方位神研究、細字marker研究、24山研究、またはexact timestampのproduction対応を単一の`completed`へ統合する判断ではない。
+
+```yaml
+monthlyPlateLevel1:
+  design: completed
+  provenanceRegistry: completed
+  regressionFixture: completed
+  calculationTrace: completed
+  productionConnection: intentionally_not_connected
+  sourceOrientationMapping: registered_partially_confirmed
+  unresolvedMarkerResearch: ongoing
+  exactTimestampProductionSupport: not_implemented
+```
+
+### 16.1 Level 1完了範囲
+
+- 年支3グループと月支12区分。
+- 中宮星36/36、九星配置324/324、九星1〜9の一意性36/36。
+- 五黄殺36/36（32方位と五黄中宮4盤）、暗剣殺36/36、月破36/36。
+- 紙面原位置から8方位への変換表。変換表のregistry登録は完了しているが、原資料方位基準の独立verificationは5/9セルで`partially_confirmed`を維持する。
+- A寅の東6・南東7、C寅の南6・南西8・西4というPO確認値。
+- 8 `TechniqueDefinition`と、独立した吉凶効果を持たない`monthly-plate-level1-workflow`。
+- `SourceClaim`、`ProjectClaim`、`ImplementationBinding`の分離。
+- 3 `BoundaryRule`、source rule / project adopted / current implementationのdual-lane trace。
+- 公式節入り1,812件に対する、同日切替1,806件・翌日切替6件・missing 0件のimplementation観測。
+- provenance test 24/24と、app・API・client component・既存production moduleからのimport 0件。
+
+`productionConnection: intentionally_not_connected`は失敗や実装漏れではない。Level 1 registryを既存candidate、ranking、warning、UI、API、月盤計算へ接続しないことを、今回の完了条件として選択した状態である。
+
+### 16.2 Level 2以降の研究継続範囲
+
+次はLevel 1の未完了理由へ戻さず、方位神・原資料・時刻精度の後続研究として保持する。解決済みとも扱わない。
+
+- 天道、天徳、月徳、天徳合、月徳合。
+- 月空、生気、定位対冲、原資料三合marker。
+- `天月`、`天`、`月`のraw markerとsemantic expansionのsource定義。
+- 24山細位置とsource orientationの独立確認。
+- 296 `user_transcribed`細字区画の独立二重照合。
+- C寅月徳合の未解決資料間不一致。月徳合を西へ推測補完しない。
+- 原資料三合markerと現行三合4局・三合天道の`concept_mismatch`。両経路を統合しない。
+- 公式節入り日の翌日にdaily masterが切り替わる6件の理由。丸め、timezone、source誤りを推測しない。
+- exact timestampによる月盤切替のproduction対応。
+
+### 16.3 月盤テーマの次回再開地点
+
+1. source orientationと24山を示す資料の独立確認。
+2. 296細字区画の二重照合とreview status更新。
+3. C寅月徳合の追加原典調査。
+4. 原資料三合markerの概念・粒度整理。
+5. 確認済み方位神だけを対象とするLevel 2 fixture設計。
+6. exact timestamp production仕様と、現行date-resolution fallbackの設計。
+
+本節を月盤Level 1 closureの正本とし、専用closure文書は重複作成しない。

@@ -1252,3 +1252,30 @@ Verification scope:
 - `npm run build`: passed with Next.js 16.2.6.
 - `git diff --check`: passed.
 - Vercel Preview is not required because production and UI behavior are unchanged.
+
+## Monthly Plate Level 1 Closure / Personal Stars Audit Handoff
+
+Date: 2026-07-18
+
+Summary:
+
+- Closed monthly-plate Level 1 only within its declared scope: design, provenance registry, static regression fixture, and CalculationTrace are complete; production connection remains intentionally absent.
+- Source orientation mapping remains `registered_partially_confirmed` at 5/9 PO-confirmed direction cells. Direction deities, 296 fine-marker cells, 24 mountains, the C-Tiger Gettoku-go conflict, source-trine concept mismatch, six next-day switches, and exact-timestamp production support remain later research and are not Level 1 blockers.
+- Added `docs/research/personal-stars/honmei-getsumei-audit.md`. Current Honmei uses the birth-date daily-master row's `yearKyusei`; current Getsumei-equivalent binding passes `monthKyusei` to `getKeishaProfile`. Neither has a dedicated production calculator.
+- The target precise boundaries are provisionally exact Risshun JST for Honmei and exact setsuiri JST for Getsumei. Source verification remains unresolved / source-review-required, and neither target rule is production-connected.
+- Current production remains date-resolution only. Risshun observation is 150 same-day switches, one next-day switch, and zero missing across 151 entries. Monthly setsuiri remains 1,806 same-day, six next-day, and zero missing across 1,812 entries.
+- A boundary-date input without `birthTime` keeps `precisionStatus: date_only` and `exactBoundaryResult: unresolved`; no default clock time is inferred. Missing timezone is recorded as `assumed_jst`, not a location-confirmed timezone.
+- Overseas birth, DST, longitude correction, true solar time, and equation of time remain unsupported. The supported verified-master range is 1900-2050.
+- Keep `yearKyusei` separate from the source concept of Honmei and `monthKyusei` separate from Getsumei and monthly-plate center-star concepts until source review. Existing implementation remains an implementation binding, not source evidence.
+
+Changed docs:
+
+- `docs/monthly-plate-promotion-audit.md`
+- `docs/research/personal-stars/honmei-getsumei-audit.md`
+- `docs/ai-handoff.md`
+
+Verification scope:
+
+- Documentation only. No production source, tests, data, generated files, scripts, package/config, API, URL/query, UI, family/companion behavior, candidate, ranking, warning, monthly provenance, Sanmeigaku logic, Google Sheet, or Vercel change.
+- Monthly provenance test was 24/24 and Getsumei regression was 151/151 during the preceding read-only audit; the full current baseline remains 731/731.
+- Commit, push, main merge, Drive sync, NotebookLM operations, and Vercel Preview are not part of this step.
