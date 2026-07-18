@@ -114,7 +114,7 @@ getsumeiBoundaryTarget:
   usesTwelveSetsuNotChuki: confirmed
   switchesAtLunarMonthStart: rejected
   exactTimestampForAllTwelveSetsu: partially_confirmed
-  modernGetsumeiConceptBinding: source_review_required
+  modernGetsumeiConceptBinding: partially_confirmed
   productionConnectionStatus: not_connected
 ```
 
@@ -283,7 +283,9 @@ Lookup ID:
 | `source-claim.jingukan-1935.monthly-nine-star-36.v1` | `confirmed` | 3年支群×12月の月家九星36対応 |
 | `source-claim.jingukan-1935.monthly-setsu-boundary.v1` | 12節採用`confirmed`、全12節exact timestamp`partially_confirmed` | 朔日ではなく節替り |
 | `source-claim.naoj.solar-term-instants.v1` | `confirmed` | 節気eventの公式時刻dataset |
-| `source-claim.modern-getsumei-terminology.v1` | `source_review_required` | 月家九星から現代月命星への人物属性化 |
+| `source-claim.tomihisa-institutional.getsumei-personal-role.v1` | `partially_confirmed` | 東洋運勢学会記事本文による月家九星から人物属性へのrole binding |
+| `source-claim.tomihisa-institutional.getsumei-keisha-table.v1` | `partially_confirmed` | 本命星・月命星の108入力相当表。傾斜Rule実装の根拠には未接続 |
+| `source-claim.tomihisa-2000.keisha-book-scope.v1` | `partially_confirmed` | 書誌・目次scopeのみ。本文未確認 |
 
 daily master、`yearKyusei`、`monthKyusei`、`searchCalendarDb`、existing implementationは`SourceClaim`にせず、`ImplementationBinding`または`ImplementationObservation`へ登録する。
 
@@ -293,7 +295,7 @@ daily master、`yearKyusei`、`monthKyusei`、`searchCalendarDb`、existing impl
 - `project-claim.getsumei-boundary-at-setsuiri.v1`
 - `project-claim.personal-star-scope.v1`
 
-今回の状態は`provisional`であり、`production adopted`または`production connected`へ昇格させない。原典確認後にDecision追加の要否を判断する。
+本命星・月命星の境界と`assumed_jst`は`provisional`であり、`production adopted`または`production connected`へ昇格させない。月命星role bindingはprovenance構造として`adopted`だが、production connectionは`not_connected`である。
 
 ## 12. concept mismatch・統合禁止
 
@@ -408,11 +410,52 @@ daily master、`yearKyusei`、`monthKyusei`、`searchCalendarDb`、existing impl
 ## 16. 未解決事項と次工程
 
 1. P0: 全12節のexact timestamp切替を明記した独立専門資料を確認する。
-2. P0: 現代の月命星概念と月家九星の人物属性化を説明する専門書本文を確認する。
+2. P0: 東洋運勢学会記事で`partially_confirmed`となった月命星人物属性化を、専門書本文で独立補強する。
 3. P1: 園田1934年とは独立した本命星立春時刻資料を確認する。
 4. P1: 西暦簡略計算式と歴史資料の九星cycleの同値を確認する。
 5. `birthTime`なし境界日の将来UI・API表現を決める。
 6. JST以外、海外出生、DST、経度補正、真太陽時を扱う別工程の入力modelを設計する。
-7. SourceClaimとPO statusの承認後にTechniqueDefinition、BoundaryRule、fixture、traceを実装するか判断する。
+7. 制限付きregistryの次は、HOLD中のexact timestamp production接続、自然時補正、傾斜計算、月命殺・月命的殺を別工程で判断する。
 
 今回のprovisional方針だけを理由に、existing production result、daily master、candidate、ranking、warning、本命殺・的殺、同行者判定を変更しない。
+
+## 17. D-0021 制限付きprovenance実装
+
+D-0020の共通schemaに、本命星・月命星をproduction非接続の完全サンプルとして追加した。
+
+登録範囲:
+
+- 5 `TechniqueDefinition`: 出生日時正規化、出生年期間決定、出生月期間決定、本命星決定、月命星決定。
+- 1 effect-free `personal-star-profile-workflow`。Techniqueとして重複登録せず、candidate・ranking・warningへ接続しない。
+- 本命星用年家九星cycle、月命星用3群×12節月の36 lookup、108入力展開検証。
+- source rule / project provisional / current daily masterの3 lane trace。
+- `institutional_specialist_source`、`LineageContext`、一般化した時刻基準`ConflictRecord`。
+- 立春151件、節入り1,812件、daily master 55,152日のimplementation observation。
+
+境界状態:
+
+```yaml
+honmeiExactBoundary:
+  sourceVerificationStatus: confirmed_for_named_lineage
+  projectAdoptionStatus: provisional
+  productionConnectionStatus: not_connected
+getsumeiExactBoundary:
+  sourceVerificationStatus: partially_confirmed
+  projectAdoptionStatus: provisional
+  productionConnectionStatus: not_connected
+  exactTimestampSupportMeaning: schema_and_trace_only
+currentImplementation:
+  effectiveResolution: date
+  exactTimestampSupport: false
+  status: implementation_observed
+```
+
+月命星は月盤中宮値とlookup・計算Ruleを共有できるが、人物属性への`getsumei role binding`を持つ別Techniqueである。富久純光系統は`po_confirmed_lineage_context`として保存し、未確認本文や学会の未記載見解をSourceClaimへ変換しない。source typeから数値scoreを生成せず、conflictを自動解決しない。
+
+HOLD:
+
+- exact timestampのproduction接続。
+- local natural time、経度、DST、真太陽時、均時差。
+- 傾斜計算Ruleと中宮傾斜の流派選択。
+- 月命殺・月命的殺、本命殺・本命的殺。
+- candidate、ranking、warning、同行者、UI、API、URL。

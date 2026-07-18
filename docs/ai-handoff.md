@@ -1308,3 +1308,40 @@ Verification scope:
 - Documentation only. Production source, provenance code, tests, data, generated files, scripts, package/config, API, URL/query, UI, candidate, ranking, warning, Google Sheet, and Vercel are unchanged.
 - Tests were not run; baseline remains 731/731.
 - Commit, push, main merge, Drive sync, NotebookLM operations, and Vercel Preview are not part of this step.
+
+## Limited Personal-Star Provenance Handoff
+
+Date: 2026-07-18
+
+Summary:
+
+- D-0021 adds five personal-star TechniqueDefinitions and the effect-free `personal-star-profile-workflow` aggregate. The registry is not imported by app, API, client components, candidate, ranking, warning, or existing production modules.
+- Honmei registers the annual-nine-star cycle, exact Risshun candidate boundary, and a separate `annualNineStar → honmei role binding → honmeiStar` trace. Source verification is limited to the named Sonoda lineage; project adoption is provisional and production remains date-bound.
+- Getsumei registers the confirmed 3-group x 12-Setsu 36 lookup and the separate `monthlyPlateCenterStar → getsumei role binding → getsumeiStar` step. The Technique is `READY_WITH_LIMITATIONS`; lookup/rule sharing with the monthly plate is allowed, but Technique merging is prohibited.
+- Toyo Unseigakkai article claims use `institutional_specialist_source`. Tomihisa lineage relevance is a separate `po_confirmed_lineage_context`; it does not assert nationality, invention priority, unreviewed book body, or unwritten institutional positions. No source weight or conflict auto-resolution was added.
+- Exact Getsumei boundary support means schema/trace can represent seconds. Source verification remains `partially_confirmed`, project adoption `provisional`, and production connection `not_connected`. The current implementation remains date-resolution with exact timestamp support false.
+- The JST versus local-natural-time variants remain an unresolved conflict. Missing birth time creates no fallback star; existing daily-master output is available only in a separate current-implementation lane.
+- Keisha execution, Chugu-Keisha lineage choice, exact timestamp production connection, natural-time correction, Honmei/Getsumei taboo connections, candidate, ranking, warning, companion behavior, UI, API, and URL remain HOLD.
+
+Changed files:
+
+- `src/lib/divination-provenance/types.ts`
+- `src/lib/divination-provenance/personal-stars/definitions.ts`
+- `src/lib/divination-provenance/personal-stars/fixtures.ts`
+- `src/lib/divination-provenance/personal-stars/trace.ts`
+- `src/lib/divination-provenance/personal-stars/personal-stars-provenance.test.ts`
+- `docs/research/personal-stars/honmei-source-research.md`
+- `docs/research/personal-stars/getsumei-source-research.md`
+- `docs/research/personal-stars/honmei-getsumei-audit.md`
+- `docs/decision-log.md`
+- `docs/ai-handoff.md`
+
+Verification scope:
+
+- New personal-star provenance test: 24 / 24 passed.
+- Existing monthly-plate provenance test: 24 / 24 passed.
+- Full Vitest: 7 files, 755 / 755 passed (baseline 731 + 24).
+- `npm run lint`: passed without warnings.
+- `npm run build`: passed with Next.js 16.2.6.
+- `git diff --check`: passed.
+- Vercel Preview is not required because production and UI behavior remain unchanged.

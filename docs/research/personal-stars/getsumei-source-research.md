@@ -2,15 +2,15 @@
 
 調査日: 2026-07-18
 
-作業区分: `documentation_only`
+作業区分: `source_ledger` / D-0021 `provenance_registry`
 
-Decision基盤: D-0020
+Decision基盤: D-0020 / D-0021
 
 状態: `source_ledger` / production未接続
 
 ## 1. 目的と境界
 
-月家九星の36対応、12節による月替わり、現代の月命星への人物属性化を別claimとして保存する。本台帳はsource調査記録であり、月盤中宮星と月命星を同一TechniqueDefinitionへ統合せず、provenance code、production、傾斜、candidate、ranking、warning、UIを変更しない。
+月家九星の36対応、12節による月替わり、現代の月命星への人物属性化を別claimとして保存する。本台帳はsource調査記録を正本とし、D-0021で制限付きprovenance registryへ接続した。月盤中宮星と月命星を同一TechniqueDefinitionへ統合せず、production、傾斜、candidate、ranking、warning、UIは変更しない。
 
 確認資料は近代日本の気学専門資料であり、古代古典または全流派共通規則とは扱わない。
 
@@ -63,7 +63,7 @@ yearGroupByTwelveBranches: confirmed
 monthlyNineStarTable36: confirmed
 currentFixtureMatch: confirmed
 inputExpansion9HonmeiBy12Months: verified_as_108_to_36_value_mapping
-modernGetsumeiConceptBinding: source_review_required
+modernGetsumeiConceptBinding: partially_confirmed
 ```
 
 9本命星×12月支の108入力が36値へ集約されることは、現行fixtureとのimplementation verificationである。原資料が「本命星groupから現代の月命星を求める」と説明した証拠には置き換えない。
@@ -101,16 +101,20 @@ productionConnectionStatus: not_connected
 ### 4.3 現代の月命星用語・人物属性化
 
 ```yaml
-claimId: source-claim.modern-getsumei-terminology.v1
+claimId: source-claim.tomihisa-institutional.getsumei-personal-role.v1
 sourceClaimVersion: v1
-claimType: interpretation
+sourceType: institutional_specialist_source
+materialType: institutional_specialist_article
+institution: 一般財団法人 東洋運勢学会
+lineageRelevance: trusted_for_project
+claimType: source_fact
 claim: 出生月の月家九星を現代の月命星として人物属性化する
-sourceVerificationStatus: source_review_required
-projectAdoptionStatus: provisional
+sourceVerificationStatus: partially_confirmed
+projectAdoptionStatus: adopted
 productionConnectionStatus: not_connected
 ```
 
-現代専門書の本文確認まで`confirmed`へ昇格しない。
+東洋運勢学会の記事本文から、月命星を出生月の人物属性として扱い、本命星との組合せを傾斜判断へ用いる関係を確認した。専門書本文の確認前なので`confirmed`には上げない。旧候補`source-claim.modern-getsumei-terminology.v1`は本台帳の探索履歴として残るが、実装registryでは記事本文claimへ置き換え、同学会の未記載見解を補完しない。
 
 ### 4.4 節気時刻dataset
 
@@ -138,7 +142,7 @@ productionConnectionStatus: not_connected
 | --- | --- | --- | --- | --- |
 | `monthKyusei` vs monthly plate center star | `same_value` | `same_concept` | allowed | month-period側で可 |
 | `monthKyusei` vs getsumei star | `same_value` | `distinct_role` | allowed | not allowed |
-| monthly plate center star vs getsumei star | `same_value` | `distinct_role` | allowed | not allowed |
+| monthly plate center star vs getsumei star | `same_value` | `derived_personal_attribute` / `distinct_role` | allowed | not allowed |
 
 ```text
 月盤中宮星
@@ -165,7 +169,7 @@ productionConnectionStatus: not_connected
 usesTwelveSetsuNotChuki: confirmed
 switchesAtLunarMonthStart: rejected
 exactTimestampForAllTwelveSetsu: partially_confirmed
-modernGetsumeiConceptBinding: source_review_required
+modernGetsumeiConceptBinding: partially_confirmed
 projectAdoptionStatus: provisional
 productionConnectionStatus: not_connected
 ```
@@ -231,7 +235,7 @@ overseas birth、DST、longitude correction、true solar time、equation of time
 ### P0
 
 1. 全12節について、月家九星が各節の正確な時刻に切り替わることを明記した独立専門資料。
-2. 現代の`月命星`概念と、出生月の月家九星を人物属性として固定する体系を説明する専門書本文。
+2. 現代の`月命星`概念と人物属性化をさらに裏付ける専門書本文。東洋運勢学会記事による`partially_confirmed`を独立資料で補強する。
 
 ### P1
 
@@ -242,9 +246,40 @@ overseas birth、DST、longitude correction、true solar time、equation of time
 ## 10. 未解決事項
 
 - 全12節のexact timestamp切替。
-- `月家九星`から現代の`月命星`への概念接続。
+- `月家九星`から現代の`月命星`への概念接続の専門書本文による独立補強。記事本文により`partially_confirmed`だが、完全確認済みではない。
 - 出生時刻不明時についての資料上の正式処理。
 - 節入り翌日切替6件の理由。
 - 1900〜2050年外の暦法・timezone・epoch policy。
 
 確認済み36対応をこれらの解決待ちで未確認へ戻さない。一方、36対応の一致から未解決claimを推測補完しない。
+
+## 11. D-0021 制限付きprovenance登録
+
+東洋運勢学会の記事本文を`institutional_specialist_source`として登録し、富久純光系統へのPO評価は別の`LineageContext`に分離した。source typeは分類情報であり数値weightではなく、資料間conflictを自動解決しない。
+
+```yaml
+implementationReadiness:
+  getsumei36Lookup: READY
+  getsumeiTechniqueDefinition: READY_WITH_LIMITATIONS
+  exactTimestampProductionConnection: HOLD
+  naturalTimeCorrection: HOLD
+  keishaProductionChange: HOLD
+  chuguKeishaLineageChoice: HOLD
+  getsumeiSatsuAndTekisatsu: HOLD
+```
+
+登録した関係:
+
+```yaml
+monthlyPlateCenterStarToGetsumeiStar:
+  valueRelation: same_value
+  conceptRelation: derived_personal_attribute
+  roleRelation: distinct_role
+  sharedLookup: allowed
+  sharedRule: allowed
+  techniqueMerge: prohibited
+```
+
+`boundary.getsumei-setsuiri-timestamp.v1`の`exactTimestampSupport: true`はschema・traceが秒精度を表現できる意味に限定する。全12節のsource確認は`partially_confirmed`、project採用は`provisional`、productionは`not_connected`のままである。`assumed_jst`と自然時補正は`conflict.personal-stars.time-basis.v1`で併存させ、どちらかを資料weightで自動採用しない。
+
+実装registryは36 lookupと人物role bindingまでを含む。傾斜計算Rule、月命殺・月命的殺、candidate、ranking、warning、UI、API、URLへは接続しない。

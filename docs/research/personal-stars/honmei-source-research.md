@@ -2,15 +2,15 @@
 
 調査日: 2026-07-18
 
-作業区分: `documentation_only`
+作業区分: `source_ledger` / D-0021 `provenance_registry`
 
-Decision基盤: D-0020
+Decision基盤: D-0020 / D-0021
 
 状態: `source_ledger` / production未接続
 
 ## 1. 目的と境界
 
-本命星について、歴史的専門資料の記述、PO/project方針、現行daily master bindingを分離して保存する。本台帳は`SourceClaim`の調査記録であり、`RuleDefinition`、production master、API、UI、本命殺・本命的殺、candidate、ranking、warningを実装・変更しない。
+本命星について、歴史的専門資料の記述、PO/project方針、現行daily master bindingを分離して保存する。本台帳は`SourceClaim`の調査記録を正本とし、D-0021で制限付き`RuleDefinition`とtraceへ接続した。production master、API、UI、本命殺・本命的殺、candidate、ranking、warningは実装・変更しない。
 
 確認資料は近代日本の気学専門資料であり、古代古典または全流派共通規則とは扱わない。
 
@@ -204,3 +204,20 @@ overseas birth、DST、longitude correction、true solar time、equation of time
 - 流派差と例外規則の整理。
 
 これらは本source ledgerの作成を妨げないが、全流派共通claim、production接続、range拡張の根拠には使用しない。
+
+## 10. D-0021 制限付きprovenance登録
+
+本命星は`READY`として、年家九星cycle、立春時刻による採用年候補、年家九星から人物本命へのrole bindingを別stepで静的registryへ登録した。
+
+```yaml
+honmeiProvenance:
+  readiness: READY
+  sourceVerificationStatus: confirmed_for_sonoda_lineage
+  projectAdoptionStatus: provisional
+  productionConnectionStatus: not_connected
+  exactTimestampProductionConnection: HOLD
+```
+
+`annualNineStar → honmei role binding → honmeiStar`をtrace上で分離し、年盤Techniqueと本命星Techniqueは統合しない。現行daily masterは`ImplementationBinding`とdate-resolution laneにのみ保持し、SourceClaimへ昇格させていない。出生時刻不明時はexact resultを`unresolved`、fallbackを`null`とし、current implementation resultは別laneに限る。
+
+この登録はproduction本命星計算、本命殺・本命的殺、同行者、candidate、ranking、warning、UI、API、URLを変更しない。

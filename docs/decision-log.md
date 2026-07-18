@@ -230,6 +230,20 @@ Use these exact status labels across docs when describing product and rule decis
 - Reason: 結果だけでなく、入力、暦境界、原資料、計算rule、中間値、アプリ採用方針、production作用、未確定事項を機械的に追跡し、AIや実装者がコード・master・同名概念から不足値を推測補完することを防ぐため。
 - Implementation note: This decision and its four research docs change documentation only. No production source, tests, data, generated files, master, scripts, package/config, API, URL/query, UI, candidate, ranking, warning, Google Sheet, or Vercel configuration was changed.
 
+### D-0021: Adopt trusted lineage context and limited personal-star provenance scope
+
+- Date: 2026-07-18
+- Status: `accepted`, `provenance_registry`, `production_not_connected`, `source_review_required`
+- Decision: 東洋運勢学会を、本プロジェクトの月命星・傾斜法研究における`institutional_specialist_source`として扱う。記事本文で直接確認できたclaimだけをSourceClaimとし、未記載事項を同学会の見解として補完しない。source typeは分類情報であり、数値weight、score、資料間conflictの自動解決には使わない。
+- Decision: 富久純光系統を`po_confirmed_lineage_context`として扱い、PO確認、書誌確認、本文確認を別recordにする。国籍、傾斜法の最初の発明者であること、未確認書籍本文、東洋運勢学会全体の未記載見解をlineage metadataから推測しない。
+- Decision: 本命星provenanceを`READY`、月命星TechniqueDefinitionを`READY_WITH_LIMITATIONS`として登録する。月盤中宮星と月命星は同じ値・lookup・計算Ruleを共有できるが、月命星は出生人物へ固定する`derived_personal_attribute`かつ`distinct_role`であり、TechniqueDefinitionを統合しない。
+- Decision: 本命星・月命星の静的registry、fixture、CalculationTrace、verificationだけを登録する。`personal-star-profile-workflow`はeffect-free aggregateとし、独立した吉凶効果、加点、candidate、ranking、warningを持たせない。
+- Decision: 本命星の立春時刻境界は園田系統について`confirmed_for_named_lineage`、月命星の全12節exact timestamp境界は`partially_confirmed`とする。project adoptionはいずれも`provisional`、production connectionは`not_connected`とする。`exactTimestampSupport: true`はschema・traceが秒精度を表現可能という意味に限定し、全12節確認済みまたはproduction対応済みを意味しない。
+- Decision: timezone未指定時の`assumed_jst`はprovisional project policyであり、唯一のsource truthとはしない。standard JSTとlocal natural time correctionの方式差をopen conflictとして保持し、海外出生、DST、経度補正、真太陽時、均時差を推測実装しない。出生時刻不明の境界日はexact resultを`unresolved`、fallbackを`null`とする。
+- Decision: exact timestamp production接続、自然時補正、傾斜計算変更、中宮傾斜の流派選択、本命殺・本命的殺、月命殺・月命的殺、candidate、ranking、warning、同行者、UI、API、URLへの接続をHOLDとする。傾斜Ruleは将来参照に留め、executable ruleとして登録しない。
+- Reason: 信頼する専門系譜と本文で確認できたclaimを活用しつつ、人物属性へのrole binding、境界の資料状態、PO方針、現行daily master、派生占技の流派差を混同せず、production挙動を変えずに追跡可能にするため。
+- Implementation note: D-0020 schemaの後方互換拡張と、`src/lib/divination-provenance/personal-stars/`配下の静的registry・fixture・trace・test、および関連docsだけを追加する。既存production計算、calendar master、generated data、既存傾斜ロジック、API、URL/query、UI、candidate、ranking、warning、Google Sheet、Vercelは変更しない。
+
 ## Decision Status Matrix
 
 | Topic | Status | Implementation status | Source review | Notes |
