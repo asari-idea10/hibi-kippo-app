@@ -1171,13 +1171,13 @@ Date: 2026-07-18
 Summary:
 
 - Read-only audited all 324 rows in Google Sheets `月盤研究台帳` and the related dictionary, validation, list, and 12-month expectation tabs. The Sheet remains a research source, not a production master.
-- All 36 center stars, 36 per-plate star-uniqueness checks, 36 Ankensatsu cases, and 36 month-break cases match current behavior. Large-star placement matches 322/324 cells; A-Tiger East and Southeast are unresolved mismatches.
+- All 36 center stars, 36 per-plate star-uniqueness checks, 36 Ankensatsu cases, and 36 month-break cases match current behavior. The initial audit found 322/324 large-star matches; PO source review confirmed A-Tiger East=Six White and Southeast=Seven Red, identifying the two Sheet values as transcription errors and updating the result to 324/324.
 - The ledger contains 28 image-confirmed cells and 296 `user_transcribed` cells. A/B/C validation result cells are manually entered research records, not independent formula verification.
 - Tendo and Tentoku positions align 36/36 with the current single-direction path, but `天月` and `天` remain `source_unconfirmed` until the almanac text defines the abbreviations. Do not promote them from positional agreement alone.
-- C-Tiger has no West `月合`, while the 12-month expectation tab records Tiger-month Gettoku-go as West. Resolve this source-ledger conflict before promoting Gettoku-go.
+- PO source review confirmed C-Tiger South=Six White with `天月 / 三合`, Southwest=Eight White with `ア / 破 / 冲`, and West=Four Green with no symbol. No `月合` appears elsewhere in the plate. This is not a transcription omission; it remains an unresolved discrepancy against the classical expectation Gettoku-go=辛=West. Do not infer which source is wrong or fill West in production.
 - General Gekku and Teii Taichu are not implemented. Direction-deity Seiki and printed San-go remain conceptually separate from current palace blend and current three-direction trine logic.
 - D-0018 recommends a hybrid design: calculate Kyusei placement, keep direction-deity source values and original symbols in a separate reviewed layer, and use the 36-plate ledger as a comparison/regression fixture candidate.
-- Research-ledger first-pass completion does not equal production-master promotion. Next source work is limited to A-Tiger East/Southeast, C-Tiger Gettoku-go, the `天月`/`天` definition, and independent review of the 296 user-transcribed cells.
+- Research-ledger first-pass completion does not equal production-master promotion. A-Tiger is resolved; next source work is the C-Tiger Gettoku-go source discrepancy, the `天月`/`天` definition, and independent review of the 296 user-transcribed cells.
 
 Changed docs:
 

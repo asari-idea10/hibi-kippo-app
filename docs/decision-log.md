@@ -204,6 +204,17 @@ Use these exact status labels across docs when describing product and rule decis
 - Reason: 324行のうち296行が`user_transcribed`で独立原画像照合前であり、台帳内・現行実装間の未解決差を含むため。計算整合と原資料確定、原記号と正規化名称、研究fixtureとproduction正本を混ぜないため。
 - Implementation note: This decision records docs only. No production source, tests, data, master, scripts, package/config files, UI, API, URL, candidate logic, rank logic, warning code, Google Sheet value, image, crop, or OCR artifact was changed.
 
+### D-0019: Resolve the A-Tiger transcription error while preserving the C-Tiger source discrepancy
+
+- Date: 2026-07-18
+- Status: `accepted`, `documentation_only`, `manual_transcription_review_required`, `source_review_required`, `implementation_pending`
+- Decision: POが原資料現物を目視し、A寅の東=六白・原記号なし、南東=七赤・原記号なしを確認した。D-0018時点の研究台帳にあった東=7、南東=6は転記誤りであり、原資料と現行実装は一致する。大字九星比較を322/324から324/324一致へ更新する。
+- Decision: POがC寅の南=六白・`天月 / 三合`、南西=八白・`ア / 破 / 冲`、西=四緑・原記号なしを確認し、C寅盤内の他区画にも`月合`表示がないことを確認した。
+- Decision: C寅の月徳合は転記漏れではなく、古典期待値「月徳合=辛=西」と萬年暦盤面markerなしの未解決資料間不一致とする。古典側または萬年暦側のどちらが誤りかを推測で断定せず、月徳合を西としてproductionへ補完しない。
+- Decision: 年支3グループ、中宮36対応、九星配置324/324、九星一意性36/36、五黄殺、暗剣殺36/36、月破36/36をLevel 1候補とする。月徳合はLevel 3研究保持とし、324区画全体のproduction master一括昇格、`天月`・`天`の本文定義確定、三合の現行3方向への統合は行わない。
+- Reason: PO現物目視で解消できた転記誤りと、複数資料間でなお解消していない概念・表示差を分離し、確認済み九星配置だけを昇格候補へ更新するため。
+- Implementation note: This decision records docs only. No production source, tests, data, master, scripts, package/config files, UI, API, URL, candidate logic, rank logic, warning code, Google Sheet value, image, crop, or OCR artifact was changed.
+
 ## Decision Status Matrix
 
 | Topic | Status | Implementation status | Source review | Notes |
