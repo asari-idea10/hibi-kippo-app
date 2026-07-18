@@ -1380,3 +1380,31 @@ Verification scope:
 - `npm run build`: passed with Next.js 16.2.6.
 - `git diff --check`: passed.
 - Commit, push, main merge, Drive sync, NotebookLM operations, Vercel deployment, and Google Sheet operations are not part of this step.
+
+## Photographed Mannenreki Source Manifest Handoff
+
+Date: 2026-07-18
+
+Summary:
+
+- Added `docs/research/mannenreki-source-manifest.md` as the Markdown source of truth for the photographed 『改訂版 平成・萬年暦』 inventory.
+- Registered 29 external image files as 27 unique SHA-256 image assets and 23 source records. Two duplicate p.24 paths are aliases rather than additional sources.
+- The 27-to-23 difference is intentional: 22 assets each have one source ID, while five p.24 assets share the pre-existing page-level source `HMA-P24-IMG-20260715`. No unique asset is missing a source assignment, and duplicate aliases are not counted among the 27.
+- Preserved the existing `HMA-P24-IMG-20260715` source ID and its two registered SHA values. Five unique p.24 assets, including close views and the side legend, are grouped under that source without treating different crops as duplicate aliases.
+- Assigned 22 new manifest source IDs. Unknown pages remain `PUNK`; no page number, edition, rule, or meaning was inferred from current code.
+- All 27 assets have an identified theme. The p.23 干支相生・相剋表 uses `stem_branch_generating_overcoming_relations`; theme `unknown` count is zero.
+- Recorded transcription, normalization, verification, registry, production, and UI states independently. Existing same-theme logic is marked `connected_by_existing_logic`, not `connected_from_this_source`.
+- p.24 is the only directly addressable source set for the next monthly Level 2 research step. C-Tiger Gettoku-go, source-trine concept mismatch, orientation 5/9, 296 fine-marker evidence, and 24-mountain unknowns remain open.
+- p.25 Getsumei lookup is manifest-addressable and linked to the personal-star audit, but the photographed image is not promoted into the independent specialist source claims or production.
+
+Changed files:
+
+- `docs/research/mannenreki-source-manifest.md`
+- `docs/task-board.md`
+- `docs/ai-handoff.md`
+
+Verification scope:
+
+- Documentation and external-file inventory only. Images were read-only and remain outside Git.
+- No production, UI, API, URL/query, candidate, ranking, warning, master, generated data, provenance registry, Decision Log, Google Sheet, or Vercel changes.
+- Next work: choose the first manifest-addressable, source-confirmed monthly Level 2 item for UI design without reopening monthly Level 1.

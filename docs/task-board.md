@@ -61,12 +61,12 @@ Last updated: 2026-07-18
 - Monthly-plate Level 1 closed within its declared scope; provenance registry, static fixture, CalculationTrace, and 24 / 24 tests are complete while production connection remains intentionally absent.
 - Limited personal-star provenance registered Honmei as `READY` and Getsumei as `READY_WITH_LIMITATIONS`; its 24 / 24 tests pass and no app/client/candidate/ranking/warning connection was added.
 - `/adoption-status` synchronized the monthly-plate Level 1 closure, separate Level 2 research, limited personal-star provenance, already-visible hour-board/personal-direction scope, visible directional deities, and the missing photographed-Mannenreki manifest.
+- Photographed-Mannenreki source manifest completed: 29 external files / 27 unique SHA-256 assets / 23 source records. Twenty-two assets have individual source IDs; five p.24 assets share the existing page-level `HMA-P24-IMG-20260715`. Two duplicate aliases are excluded from the unique count, all themes are identified, and images remain outside Git. Production and UI are unchanged.
 
 ## Next
 
 | Priority | Task | Difficulty | Impact | Type | Notes |
 | --- | --- | --- | --- | --- | --- |
-| P0 | Create the photographed-Mannenreki source manifest | Medium | High | Source registry | Connect external image filename, page, theme, SHA-256, source ID, transcription target, and implementation target without adding images to Git. |
 | P0 | Implement the first monthly-plate Level 2 UI reflection from the manifest | High | High | Source/UI implementation | Start only from manifest-addressable, source-confirmed data. Preserve C寅月徳合, the source-trine concept mismatch, orientation 5/9, and 24-mountain unknowns. |
 | P0 | Design and implement `purpose` default migration | Medium | High | URL/product implementation | `accepted`, `implementation_pending`: keep explicit `purpose=travel`; move omitted purpose toward `yuki_tori`. |
 | P0 | Design and implement independent `candidateCondition` handling | Medium | High | URL/product implementation | `accepted`, `implementation_pending`: keep `actionScale` for action burden; use `candidateCondition` for filtering. |
