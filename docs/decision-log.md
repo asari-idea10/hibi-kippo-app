@@ -215,6 +215,21 @@ Use these exact status labels across docs when describing product and rule decis
 - Reason: PO現物目視で解消できた転記誤りと、複数資料間でなお解消していない概念・表示差を分離し、確認済み九星配置だけを昇格候補へ更新するため。
 - Implementation note: This decision records docs only. No production source, tests, data, master, scripts, package/config files, UI, API, URL, candidate logic, rank logic, warning code, Google Sheet value, image, crop, or OCR artifact was changed.
 
+### D-0020: Adopt a shared provenance schema and independent verification axes for all divination techniques
+
+- Date: 2026-07-18
+- Status: `accepted`, `documentation_only`, `implementation_pending`
+- Decision: hibi-kippo-appの全占技、暦情報、方位・人物・candidate・ranking policyへ適用する共通provenance schemaをPO仕様として採用する。静的な占技定義、source claim、PO/project claim、rule、boundary、implementation binding、application policy、verification、conflict、禁止推論と、個別入力に対する実行時`CalculationTrace`を分離する。
+- Decision: `existing_implementation`は占術上の根拠にせず、現在挙動のimplementation binding、原典・資料・PO仕様との比較対象、回帰テスト対象に限定する。コードやmasterが存在することだけで正式占術仕様へ昇格させない。
+- Decision: source verification、calculation verification、implementation match、project adoption、production connection、UI enablement、ranking connectionを独立statusとして保持し、「正式採用」という単一statusへ統合しない。PO採用仕様と原典確認済みclaimも分離する。
+- Decision: 萬年暦raw markerは保持し、`天月=天道+天徳+月徳`、`天=天道+天徳`、`月=月徳`、`天合=天徳合`、`月合=月徳合`を`semanticExpansionStatus: po_confirmed_interpretation`として採用する一方、`sourceDefinitionStatus: source_unconfirmed`を維持する。独立吉神化、独自効果、一括加点、構成吉神の自動効果合算は行わない。
+- Decision: 通常利用では説明traceをオンデマンド生成し、調査・監査モードでは完全traceを生成可能にする。完全traceは原則恒久保存せず、registryには入力の型と用途を記録して個人情報の実値を保存しない。
+- Decision: `techniqueVersion`、`ruleVersion`、`sourceClaimVersion`、`projectClaimVersion`、`applicationPolicyVersion`、`traceVersion`を追跡し、過去結果を現在ruleで上書き再計算せず、使用時点のversionを参照可能にする。UI根拠表示は通常表示と詳細・研究モードの二層を前提とするが、今回UIは変更しない。
+- Decision: 現行候補scoreは削除・変更せず`applicationPolicyStatus: provisional_existing_policy`として記録する。production使用中だが古典根拠・正式採点仕様とはせず、将来の占術rankと実用rankの分離対象とする。
+- Decision: 一次棚卸し194 trace unitsを基準にする。正式registryでは同一占技の複数経路を`implementationBindings`で束ね、同名別概念、C寅月徳合の資料間不一致、既知の`concept_mismatch`を統合・上書きしない。
+- Reason: 結果だけでなく、入力、暦境界、原資料、計算rule、中間値、アプリ採用方針、production作用、未確定事項を機械的に追跡し、AIや実装者がコード・master・同名概念から不足値を推測補完することを防ぐため。
+- Implementation note: This decision and its four research docs change documentation only. No production source, tests, data, generated files, master, scripts, package/config, API, URL/query, UI, candidate, ranking, warning, Google Sheet, or Vercel configuration was changed.
+
 ## Decision Status Matrix
 
 | Topic | Status | Implementation status | Source review | Notes |
@@ -230,6 +245,7 @@ Use these exact status labels across docs when describing product and rule decis
 | Shichu Suimei / Sanmeigaku coexistence and additional-master ledger | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Step 5A docs-only ledger recorded | Required per individual item | Keep shared foundations and system-specific rules explicit; Step 5B confirms code presence. |
 | Getsumei 36 / 108 value protection and boundary isolation | `accepted`, `documentation_only`, `source_review_required` | Independent value regression tests added | Required for formal semantics and six boundary differences | Protect exact value mappings independently; do not replace boundary logic. |
 | Monthly-plate 36 / 324 value protection and future time precision | `accepted`, `documentation_only`, `source_review_required` | Independent value and invariant regression tests added | Required for original 324 cells, markers, representative date, and time boundary | Keep current date-precision behavior; do not mix API or time-precision work into the protected values. |
+| Shared divination provenance schema and independent verification axes | `accepted`, `documentation_only`, `implementation_pending` | Four architecture/research docs added; runtime registry and trace are not implemented | Source review remains per technique and claim | Existing implementation is a binding/comparison target, not fortune-source evidence; preserve conflicts and independent statuses. |
 | p.24 monthly-plate marker transcription pilot | `accepted`, `documentation_only`, `manual_transcription_review_required`, `source_review_required` | Independent crop review corrected Pilot B/C page positions and withdrew one Pilot C marker candidate; no master or runtime change | Top-sector close-ups and source orientation / 24-mountain evidence required before all 36 plates | Preserve original symbols and page-relative positions; derive neither 24 mountains nor 8 directions from current code. |
 | Tendo / Tentoku duplicate-path isolation and trine structural protection | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Two Tendo paths and current policy documented; concrete directions not fixed | Required for original Tendo, Tentoku, and trine markers and 24-mountain detail | Do not merge the two Tendo paths or freeze Tendo / Tentoku directions before source review. |
 | Tentoku-go / Gettoku / Gettoku-go / Seiki purpose separation | `accepted`, `documentation_only`, `implementation_pending`, `source_review_required` | Getsutoku day and palace-blend Seiki documented as other-purpose implementations; monthly direction deities remain unimplemented | Required for original monthly markers, 24-mountain detail, and formal derivation rules | Do not derive directions from selected days, natal spirits, Tentoku / Gettoku, or palace-blend Seiki. |

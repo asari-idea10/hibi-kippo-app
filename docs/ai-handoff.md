@@ -1191,3 +1191,31 @@ Verification scope:
 - Production source, tests, data, masters, scripts, package/config, UI, API, URL parameters, and Google Sheet values are unchanged.
 - Vercel Preview is not required because there are no production or UI changes.
 - Commit, push, main merge, Drive sync, and NotebookLM operations require the next approved workflow step.
+
+## Divination Technique Provenance Architecture Handoff
+
+Date: 2026-07-18
+
+Summary:
+
+- D-0020 adopts a shared provenance architecture for all divination, calendar, direction, compatibility, candidate, ranking, and future Sanmeigaku rules. The first-pass inventory contains 194 trace units; duplicate code paths for one technique must be grouped under `implementationBindings`.
+- Keep source claims, PO/project claims, calculation rules, boundaries, implementation bindings, application policies, verification axes, conflicts, and runtime `CalculationTrace` separate. `existing_implementation` is not fortune-source evidence.
+- Keep source verification, calculation verification, implementation match, project adoption, production connection, UI enablement, and ranking connection as independent statuses. Preserve version references for technique, rule, source claim, project claim, application policy, and trace.
+- Raw markers remain intact. `天月` / `天` / `月` / `天合` / `月合` use PO-confirmed semantic expansion while their almanac source-definition status remains unconfirmed; do not create compound effects or automatic scoring.
+- Existing candidate score remains connected without code changes as `provisional_existing_policy`; it is not an authoritative classical scoring rule and is intended to be separated later into fortune rank and practical rank.
+- Preserve all documented concept mismatches and the unresolved C-Tiger Gettoku-go source discrepancy. The monthly-plate Level 1 set is the first future full schema sample, not a monthly-plate-only architecture.
+
+Changed docs:
+
+- `docs/research/divination-techniques/inventory.md`
+- `docs/research/divination-techniques/calculation-provenance-schema.md`
+- `docs/research/divination-techniques/source-evidence-policy.md`
+- `docs/research/divination-techniques/implementation-gap-audit.md`
+- `docs/decision-log.md`
+- `docs/ai-handoff.md`
+
+Verification scope:
+
+- Documentation only. Tests were not run; baseline remains 707/707.
+- Production source, tests, data, generated files, masters, scripts, package/config, API, URL/query, UI, candidate, ranking, warning, Google Sheet, and Vercel configuration are unchanged.
+- Commit, push, main merge, Drive sync, NotebookLM operations, and Vercel Preview are not part of this step.
