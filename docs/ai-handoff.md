@@ -1219,3 +1219,36 @@ Verification scope:
 - Documentation only. Tests were not run; baseline remains 707/707.
 - Production source, tests, data, generated files, masters, scripts, package/config, API, URL/query, UI, candidate, ranking, warning, Google Sheet, and Vercel configuration are unchanged.
 - Commit, push, main merge, Drive sync, NotebookLM operations, and Vercel Preview are not part of this step.
+
+## Monthly Plate Level 1 Provenance Sample Handoff
+
+Date: 2026-07-18
+
+Summary:
+
+- Implemented D-0020's first complete sample as eight monthly-plate TechniqueDefinitions plus the effect-free `monthly-plate-level1-workflow` aggregate.
+- Registered 36 static Level 1 fixtures covering 324 palace stars, centers, year groups, Gohosatsu, Ankensatsu, month breaker, and source orientation. The fixtures are not generated from production formulas or the daily master.
+- Kept the source-rule claim for the setsuiri boundary separate from the adopted project claim. Runtime traces also keep source rule, project adopted, and current daily-master lanes separate.
+- The current implementation remains date-resolution only and uses one daily-master value for the whole day. Across 1,812 official setsuiri timestamps, 1,806 switch on the official date and six switch on the next date; the six reasons remain unresolved.
+- Added the 2026-07-08 normal trace and three 2026-07-07 Shosho boundary traces. The pre-boundary difference remains an open implementation gap and does not change production behavior.
+- Preserved the C-Tiger Gettoku-go conflict, the source-trine concept mismatch, and the 296 fine-marker evidence limitation without adding any unresolved marker to Level 1 results.
+- No app, API, client component, candidate, ranking, warning, UI, URL, existing monthly calculation, calendar master, generated data, or existing monthly regression test imports the new registry.
+
+Changed files:
+
+- `src/lib/divination-provenance/types.ts`
+- `src/lib/divination-provenance/monthly-plate/definitions.ts`
+- `src/lib/divination-provenance/monthly-plate/fixtures.ts`
+- `src/lib/divination-provenance/monthly-plate/trace.ts`
+- `src/lib/divination-provenance/monthly-plate/monthly-plate-provenance.test.ts`
+- `docs/monthly-plate-promotion-audit.md`
+- `docs/ai-handoff.md`
+
+Verification scope:
+
+- New provenance test: 24 tests passed.
+- Full Vitest: 6 files passed, 731 / 731 tests passed (baseline 707 + 24).
+- `npm run lint`: passed.
+- `npm run build`: passed with Next.js 16.2.6.
+- `git diff --check`: passed.
+- Vercel Preview is not required because production and UI behavior are unchanged.

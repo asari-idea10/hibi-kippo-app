@@ -431,3 +431,61 @@ baseline: 707/707
 7. 未実装方位神は項目別にsource master候補を作り、候補rank・相殺・warning接続を別Decisionにする。
 
 Googleスプレッドシートは研究原本であり、GitHubの正式masterではない。今回の監査はproduction採用を実施せず、昇格可否と停止条件を整理したものである。
+
+## 15. 月盤Level 1 provenance完全サンプル
+
+Date: 2026-07-18
+Decision: D-0020 implementation
+
+月盤Level 1を全占技共通provenance schemaの最初の完全サンプルとして、production非接続の静的registryへ登録した。
+
+登録Technique:
+
+- `monthly-period-resolution`
+- `monthly-year-group-resolution`
+- `monthly-center-star`
+- `monthly-nine-palace-placement`
+- `monthly-gohosatsu`
+- `monthly-ankensatsu`
+- `monthly-breaker`
+- `monthly-source-orientation`
+
+`monthly-plate-level1-workflow`は8 Techniqueを束ねるaggregateであり、独立した吉凶効果、candidate、ranking、warning、UI effectを持たない。
+
+### 15.1 Level 1 fixture
+
+- 3年支group × 12月 = 36 fixture。
+- 36 × 9宮 = 324大字九星。
+- 年支group、月支、月番号、中宮、9宮配置、五黄殺、暗剣殺、月破、紙面原位置から8方位への対応だけを含む。
+- A寅は東6・南東7、C寅は南6・南西8・西4のPO確認値を保持する。
+- 細字marker、C寅月徳合、三合、24山、raw marker意味展開、application policyはfixtureへ含めない。
+- fixtureはproduction計算式やdaily masterから生成せず、Level 1の静的期待値として保持する。
+
+### 15.2 節入り境界のdual lane
+
+| lane | boundary | status |
+| --- | --- | --- |
+| source rule | 節入り時刻を月界とする資料・占術rule | `partially_confirmed`。古典一次資料の書誌・頁claimは未登録 |
+| project adopted | 正確なJST節入り時刻で切替 | `adopted` |
+| current implementation | 1日1行のdaily master値を終日使用 | `implementation_observed` / `date` / exact timestamp support false |
+
+BoundaryRule:
+
+- `boundary.jst-normalization.v1`
+- `boundary.monthly-setsuiri-timestamp.v1`
+- `boundary.monthly-daily-master-resolution.v1`
+
+公式節入り1,812件に対する現行daily masterの観測は、同日切替1,806件、翌日切替6件、missing 0件である。翌日切替6件の丸め、timezone、source由来の理由は`unresolved`とし、generated masterを自動修正しない。
+
+### 15.3 CalculationTrace
+
+- 通常例は2026-07-08 JST。小暑`2026-07-07T10:56:57+09:00`、未月、午年group A、中宮3、五黄殺西、暗剣殺東、月破北東と9宮配置をstep別に保持する。
+- 境界例は2026-07-07 10:56:56 / 10:56:57 / 10:56:58 JSTについて、source rule、project adopted、current implementationを別laneで保持する。
+- 10:56:56時点の午月・中宮4と、daily masterの未月・中宮3の差はopen `ImplementationGap`であり、production挙動を変更しない。
+
+### 15.4 非接続と未解決事項
+
+- 新規registryはapp、API、client component、既存production moduleからimportしない。
+- 既存月盤計算、calendar master、generated data、既存月盤test、URL、UI、candidate、ranking、warningは変更しない。
+- C寅月徳合、原資料三合、296細字区画のconflict / evidence limitationは参照として保持するが、Level 1結果へ混入させない。
+- source orientationはA寅2セル・C寅3セルのPO確認を根拠とする`partially_confirmed`であり、24山確認済みへ昇格しない。
