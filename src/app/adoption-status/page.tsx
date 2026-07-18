@@ -75,6 +75,12 @@ export default function AdoptionStatusPage() {
           いま入っている要素を大きく棚卸しします。共通暦、個人命式入口、上級候補を含め、
           次に何を固めるべきかを見るための全体表です。
         </p>
+        <p>
+          <strong>
+            検証・provenance完了は、自動的なproduction接続を意味しません。
+          </strong>
+          本ページでは、根拠整備、計算検証、production接続、UI表示を別の進捗軸として管理します。
+        </p>
         <div className="sourceGrid">
           <div>
             <span>総項目</span>
@@ -84,7 +90,7 @@ export default function AdoptionStatusPage() {
           <div>
             <span>実装済み</span>
             <strong>{commonCalendarCompletionSummary.implemented}件</strong>
-            <p>本体表示またはAPIに接続済み</p>
+            <p>定義範囲完了または本体・APIに接続済み</p>
           </div>
           <div>
             <span>v0検証中</span>
@@ -124,6 +130,14 @@ export default function AdoptionStatusPage() {
                       <small className="stackedValue">
                         {item.categoryLabel} / {item.note}
                       </small>
+                      {item.progressDetails?.map((detail) => (
+                        <small
+                          className="stackedValue"
+                          key={`${item.id}-${detail}`}
+                        >
+                          {detail}
+                        </small>
+                      ))}
                     </td>
                     <td>
                       <span

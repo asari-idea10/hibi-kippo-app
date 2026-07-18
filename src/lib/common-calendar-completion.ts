@@ -13,6 +13,7 @@ export type CommonCalendarCompletionItem = {
     | "direction"
     | "macro"
     | "personal_next"
+    | "source_registry"
     | "ai_prompt"
     | "advanced_later";
   name: string;
@@ -22,6 +23,7 @@ export type CommonCalendarCompletionItem = {
   source: string;
   nextAction: string;
   note: string;
+  progressDetails?: readonly string[];
 };
 
 const items: CommonCalendarCompletionItem[] = [
@@ -114,6 +116,26 @@ const items: CommonCalendarCompletionItem[] = [
     nextAction: "表示精度、丸め方、参照元を決める",
     note:
       "旧暦・六曜と相性がよい追加表示。暦サマリーに月齢を出せると、日々の暦としての完成度が上がる。",
+  },
+  {
+    id: "mannenreki_source_manifest",
+    category: "source_registry",
+    name: "撮影萬年暦 source manifest",
+    status: "not_implemented",
+    adoptionStatus: "not_connected",
+    scope:
+      "撮影画像のファイル名・頁・テーマ・SHA-256・source ID・転記先・実装接続先",
+    source: "PO撮影画像 / HMA-P24-IMG-20260715",
+    nextAction:
+      "撮影済み画像のファイル名、頁、テーマ、SHA-256、source ID、転記先、実装接続先を結ぶmanifestを作成する。",
+    note:
+      "撮影画像はリポジトリ外に存在し、p.24のみ正式source ID付与済み。manifest作成は画像をGitへ追加することを意味しない。",
+    progressDetails: [
+      "photographed: available_outside_repository",
+      "p.24 source ID: HMA-P24-IMG-20260715",
+      "full-page manifest: not_implemented",
+      "image Git addition: prohibited",
+    ],
   },
   {
     id: "junichoku",
@@ -220,6 +242,56 @@ const items: CommonCalendarCompletionItem[] = [
     note: "吉神競合判定の土台。",
   },
   {
+    id: "monthly_plate_level1",
+    category: "direction",
+    name: "月盤Level 1",
+    status: "implemented",
+    adoptionStatus: "provenance_complete_not_connected",
+    scope:
+      "3年支group / 36中宮 / 九星配置324宮 / 五黄殺・暗剣殺・月破36盤 / provenance・fixture・trace",
+    source:
+      "HMA-P24-IMG-20260715 / 月盤研究台帳 / D-0020 / PO原資料確認",
+    nextAction:
+      "Level 1はclosure済みとして維持し、Level 2の細字方位神とexact timestamp production対応を別工程で進める。",
+    note:
+      "定義したLevel 1範囲は完了。provenance registryはproduction UI・候補判定へ意図的に接続していない。",
+    progressDetails: [
+      "design: completed",
+      "provenance registry: completed",
+      "regression fixture: completed",
+      "calculation trace: completed",
+      "production connection: intentionally_not_connected",
+      "source orientation: registered_partially_confirmed",
+      "Level 2 marker research: ongoing",
+      "exact timestamp production: not_implemented",
+      "verification: 36 centers / 324 palace stars / 36 Gohosatsu / 36 Ankensatsu / 36 month breakers",
+      "registry: 8 TechniqueDefinitions / effect-free workflow / dual-lane trace / 1,812 boundary observations / 24 provenance tests",
+    ],
+  },
+  {
+    id: "monthly_plate_level2",
+    category: "direction",
+    name: "月盤Level 2・細字方位神",
+    status: "v0_verifying",
+    adoptionStatus: "research_ongoing",
+    scope:
+      "天道・天徳・月徳・天徳合・月徳合・月空・生気・定位対冲・三合・raw marker・296細字区画・24山細位置",
+    source: "改訂版 平成・萬年暦 p.24 / 月盤研究台帳",
+    nextAction:
+      "撮影萬年暦source manifestを作成後、source orientation・24山・細字区画を原資料単位で確認する。",
+    note:
+      "Level 1の未完了理由ではない継続研究。C寅月徳合、原資料三合markerとの概念差、orientation 5/9、296細字区画の証拠レベルを保持する。",
+    progressDetails: [
+      "status: research_ongoing",
+      "production connection: not_connected",
+      "C寅月徳合: unresolved source discrepancy",
+      "原資料三合marker vs 現行三合4局・三合天道: concept_mismatch",
+      "source orientation independent verification: 5/9",
+      "296 fine-marker cells: transcribed, promotion pending",
+      "24-mountain fine positions: unreadable",
+    ],
+  },
+  {
     id: "yakumoin_benchmark",
     category: "direction",
     name: "八雲院ベンチマーク",
@@ -235,13 +307,16 @@ const items: CommonCalendarCompletionItem[] = [
   {
     id: "good_fortune_directions",
     category: "direction",
-    name: "吉神方位",
+    name: "年神・表示済み方位神",
     status: "v0_verifying",
     adoptionStatus: "rule_v0",
-    scope: "歳徳・太歳・天徳・天道",
+    scope:
+      "歳徳神・太歳神・歳破神・八将神・金神・現行天道・現行三合局 / purpose-calendar表示済み",
     source: "外部資料をもとにルール化",
-    nextAction: "手元万年暦で年/月のサンプリング検証を行う",
-    note: "開運行動の候補方位として表示。",
+    nextAction:
+      "表示済み年神・天道・三合局の原資料照合を継続し、月盤Level 2の細字方位神とは別項目で管理する。",
+    note:
+      "24山リングとpurpose-calendarへ表示済み。月徳方位・月空方位神・生気方位神・原資料三合markerはこの項目へ統合しない。",
   },
   {
     id: "good_fortune_policy",
@@ -282,11 +357,13 @@ const items: CommonCalendarCompletionItem[] = [
     name: "時盤・刻の九星と干支",
     status: "v0_verifying",
     adoptionStatus: "rule_generated_from_sheet_v0",
-    scope: "2時間区切り / 子刻〜亥刻 / 時盤九星 / 五黄殺・暗剣殺・破",
+    scope:
+      "2時間区切り / 子刻〜亥刻 / 時盤九星 / 五黄殺・暗剣殺・破 / 日付詳細表示",
     source: "風水計算 > 時盤 A:V",
-    nextAction: "日付詳細から時盤を展開し、時刻指定・出発時刻提案へ接続する",
+    nextAction:
+      "時盤表示は接続済み。時刻指定検索、出発時刻の自動提案、個人条件を含む四盤候補の精度検証を継続する。",
     note:
-      "個人条件列 W:BH は後段扱い。まず共通時盤として日九星・遁甲・十二刻から生成する。",
+      "共通時盤はpurpose-calendarに表示済み。production表示済みと、正式採用・精密提案は別状態として管理する。個人条件列 W:BH は後段扱い。",
   },
   {
     id: "western_astrology_events",
@@ -339,14 +416,41 @@ const items: CommonCalendarCompletionItem[] = [
     category: "personal_next",
     name: "個人別方位",
     status: "v0_verifying",
-    adoptionStatus: "personal_direction_v0 / 本命殺・的殺接続済み",
+    adoptionStatus: "personal_direction_visible_v0",
     scope: "本命殺・的殺・最大吉方候補・吉方候補・比和・相剋注意 / 年盤・月盤・日盤",
     source:
       "個人命式 + 風水計算シート B1:I10 / C12:M24 / A29:F37 + 方位参考シート",
     nextAction:
-      "風水計算シートの相性表をもとに、吉方位側のラベルを九星ビューへ追加する",
+      "既存表示を維持したまま、月命殺・月命的殺の正式規則、同行者mode、候補rankへの影響を別工程で確認する。",
     note:
-      "ベストデー検索の精度を上げる中核。記号ではなく表示ラベルを正本にする。点数化は後回しにし、凶方位優先のまま最大吉方候補・吉方候補・比和・相剋注意を表示する。",
+      "最大吉方候補・吉方候補・比和・相剋注意、本命殺・本命的殺、本人・同行者判定はpurpose-calendarに表示済み。未接続なのは月命系個人殺と新provenance registryからのproduction binding。",
+  },
+  {
+    id: "personal_star_provenance",
+    category: "personal_next",
+    name: "本命星・月命星 provenance",
+    status: "v0_verifying",
+    adoptionStatus: "provenance_limited_not_connected",
+    scope:
+      "本命星READY / 月命星READY_WITH_LIMITATIONS / role binding / source・project・lineage分離 / boundary trace",
+    source: "D-0021 / personal-stars provenance registry / specialist source ledgers",
+    nextAction:
+      "exact timestamp、自然時補正、海外出生、月命系個人殺、傾斜production変更はHOLDのまま、source reviewを継続する。",
+    note:
+      "24/24検証済みの静的provenance。READY_WITH_LIMITATIONSはproduction-readyを意味せず、candidate・ranking・warning・UIへ接続していない。",
+    progressDetails: [
+      "honmei: READY",
+      "getsumei: READY_WITH_LIMITATIONS",
+      "provenance tests: 24/24",
+      "production connection: not_connected",
+      "candidate connection: not_connected",
+      "ranking connection: not_connected",
+      "warning connection: not_connected",
+      "monthly plate center vs getsumei: same value / distinct role",
+      "birthTime unknown: no fallback",
+      "JST vs natural time: conflict retained",
+      "HOLD: exact timestamp production / natural time / overseas birth / DST / longitude / true solar time / equation of time / getsumei-satsu / getsumei-tekisatsu / keisha production change",
+    ],
   },
   {
     id: "keisha_profile",
@@ -475,6 +579,7 @@ const categoryLabels: Record<CommonCalendarCompletionItem["category"], string> =
   direction: "方位",
   macro: "マクロ時代運",
   personal_next: "個人命式フェーズ",
+  source_registry: "出典・資料台帳",
   ai_prompt: "AIプロンプト提供",
   advanced_later: "上級/後回し",
 };

@@ -174,10 +174,11 @@ export const verificationRegistryItems: VerificationRegistryItem[] = [
   {
     id: "direction-deities",
     category: "方位神",
-    target: "天道・太歳・歳破・大将軍・小児殺",
-    status: "外部照合待ち",
+    target: "年神・表示済み方位神",
+    status: "サンプル検証中",
     priority: "高",
-    scope: "24山リングと方位神盤の表示。年神・月神・日神の採用範囲。",
+    scope:
+      "24山リングとpurpose-calendarへ表示済みの歳徳神・太歳神・歳破神・八将神・金神・現行天道・現行三合局。",
     internalRoute: "/purpose-calendar",
     internalApis: ["/api/direction-deities", "/api/child-satsu"],
     sources: [
@@ -202,7 +203,37 @@ export const verificationRegistryItems: VerificationRegistryItem[] = [
     ],
     samplePolicy:
       "天道該当日、天道なしの日、三合局ごとの代表日、凶方位と重なる日を固定する。",
-    nextAction: "年神・月神・日神の採用ステータスを分け、参照資料ごとに照合する。",
+    nextAction:
+      "表示済み年神・天道・三合局の照合を継続し、月盤Level 2の細字方位神とは別レコードで管理する。",
+  },
+  {
+    id: "monthly-plate-level2-direction-deities",
+    category: "方位神",
+    target: "月盤Level 2・細字方位神",
+    status: "外部照合待ち",
+    priority: "高",
+    scope:
+      "天道・天徳・月徳・天徳合・月徳合・月空・生気・定位対冲・三合・raw marker・296細字区画・24山細位置。production未接続。",
+    internalRoute: "/adoption-status",
+    internalApis: [],
+    sources: [
+      {
+        label: "改訂版 平成・萬年暦 p.24",
+        url: null,
+        role: "月盤36図・細字marker・側部凡例の原資料",
+        sourceType: "manual_almanac",
+      },
+      {
+        label: "月盤研究台帳",
+        url: null,
+        role: "324区画・原記号・正規化候補の研究転記",
+        sourceType: "spreadsheet",
+      },
+    ],
+    samplePolicy:
+      "Level 1を再検証対象へ戻さず、C寅月徳合、三合concept mismatch、orientation 5/9、296細字区画、24山細位置を個別に保持する。",
+    nextAction:
+      "撮影萬年暦source manifestを作成し、頁・画像・SHA・source IDを確定してからLevel 2照合を進める。",
   },
   {
     id: "zokan-sanmeigaku",

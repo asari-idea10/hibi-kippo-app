@@ -273,6 +273,50 @@ const statusMap: Record<string, AdoptionStatusInfo> = {
     note: "本体採用前に参照体系と検証方針を決める必要がある。",
     nextAction: "採用可否を検討する。",
   },
+  provenance_complete_not_connected: {
+    status: "provenance_complete_not_connected",
+    label: "provenance完了・意図的未接続",
+    sourceName: "検証済みprovenance registry",
+    sourceType: "generated",
+    reliability: "定義範囲完了",
+    tone: "ok",
+    note:
+      "根拠・fixture・traceの登録は完了しているが、production結果をregistry値で上書きしない。",
+    nextAction: "未接続を維持し、次の研究レベルを別工程で進める。",
+  },
+  provenance_limited_not_connected: {
+    status: "provenance_limited_not_connected",
+    label: "制限付きprovenance・未接続",
+    sourceName: "personal-stars provenance registry",
+    sourceType: "generated",
+    reliability: "READY_WITH_LIMITATIONS",
+    tone: "warn",
+    note:
+      "確認済み範囲を追跡できるが、境界・流派差・HOLD項目を残しproductionへ接続していない。",
+    nextAction: "source reviewと境界仕様を確認後、接続可否を別途判断する。",
+  },
+  research_ongoing: {
+    status: "research_ongoing",
+    label: "研究継続・未接続",
+    sourceName: "原資料・研究台帳",
+    sourceType: "manual_almanac",
+    reliability: "正式昇格前",
+    tone: "warn",
+    note:
+      "転記・部分照合は存在するが、原資料確認・概念整理・派生規則が完了していない。",
+    nextAction: "未解決事項を保持し、原資料単位で検証を続ける。",
+  },
+  personal_direction_visible_v0: {
+    status: "personal_direction_visible_v0",
+    label: "個人別方位 v0・表示接続済み",
+    sourceName: "既存個人別方位ロジック",
+    sourceType: "generated",
+    reliability: "v0検証中",
+    tone: "warn",
+    note:
+      "本命殺・本命的殺・吉方候補は表示済み。月命系個人殺と新provenance bindingは未接続。",
+    nextAction: "表示済み範囲を維持し、未接続範囲を別工程で確認する。",
+  },
   planned_later: {
     status: "planned_later",
     label: "後回し",
