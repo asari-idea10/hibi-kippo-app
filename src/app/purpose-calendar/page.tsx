@@ -13,6 +13,7 @@ import {
   type DirectionMountainRingTendoTriangle,
   type DirectionMountainRingVoid,
 } from "@/components/direction-mountain-ring";
+import { MonthlyPlateSourceCoverage } from "@/components/monthly-plate-source-markers";
 import { SiteSectionNav } from "@/components/site-section-nav";
 import {
   calendarNoteDefinitions,
@@ -44,6 +45,10 @@ import {
 } from "@/lib/personal-star-compatibility-master";
 import type { DirectionMountain } from "@/lib/direction-mountains";
 import { getJapaneseEraDateContext } from "@/lib/japanese-era";
+import {
+  getMonthlyPlateSourceMarkerGroupForYearBranch,
+  getMonthlyPlateSourceCoverageForDisplay,
+} from "@/lib/monthly-plate-source-marker-display";
 
 type PurposeCalendarPageProps = {
   searchParams?: Promise<{
@@ -2959,6 +2964,14 @@ export default async function PurposeCalendarPage({
   const yearKanshi = formatKanshiWithNacchin(anchorKanshi.year);
   const monthKanshi = formatKanshiWithNacchin(monthPremiseKanshiParts.month);
   const premiseDayKanshi = formatKanshiWithNacchin(premiseDayKanshiParts.day);
+  const monthlySourceMarkerYearGroup =
+    getMonthlyPlateSourceMarkerGroupForYearBranch(
+      anchorKanshi.year.slice(1, 2),
+    );
+  const monthlySourceCoverage = getMonthlyPlateSourceCoverageForDisplay({
+    yearBranchGroup: monthlySourceMarkerYearGroup,
+    monthBranch: monthPremiseKanshiParts.month.slice(1, 2),
+  });
   const premiseJunichoku = premiseDayRow?.values["十二直"] ?? "-";
   const premiseNijuhachishuku = premiseDayRow?.values["二十八宿"] ?? "-";
   const premiseDoyoPeriodChip = getDoyoPeriodChip(premiseDayRow?.values["土用"]);
@@ -3770,6 +3783,7 @@ export default async function PurposeCalendarPage({
                       {directionMountainScopeCopy.month.note}
                     </small>
                   </div>
+                  <MonthlyPlateSourceCoverage coverage={monthlySourceCoverage} />
                   <DirectionCompass
                     centerLabel="月盤"
                     centerValue={monthBoardNumber}

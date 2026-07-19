@@ -278,9 +278,9 @@ const items: CommonCalendarCompletionItem[] = [
       "天道・天徳・月徳・天徳合・月徳合・月空・生気・定位対冲・三合・raw marker・296細字区画・24山細位置",
     source: "改訂版 平成・萬年暦 p.24 / 月盤研究台帳",
     nextAction:
-      "撮影萬年暦source manifestを作成後、source orientation・24山・細字区画を原資料単位で確認する。",
+      "確認済みPilotを増やし、撮影萬年暦manifestから月盤Level 2の照合範囲を段階的に拡張する。",
     note:
-      "Level 1の未完了理由ではない継続研究。C寅月徳合、原資料三合markerとの概念差、orientation 5/9、296細字区画の証拠レベルを保持する。",
+      "寅月Pilotの天合・冲を原典確認用として月盤カードへ表示済み。全月で基本盤の照合状態と追加markerの確認状態を表示する。Level 1の未完了理由ではない継続研究として、C寅月徳合、原資料三合markerとの概念差、orientation 5/9、296細字区画の証拠レベルを保持する。",
     progressDetails: [
       "status: research_ongoing",
       "production connection: not_connected",
@@ -289,6 +289,7 @@ const items: CommonCalendarCompletionItem[] = [
       "source orientation independent verification: 5/9",
       "296 fine-marker cells: transcribed, promotion pending",
       "24-mountain fine positions: unreadable",
+      "UI: all months show source-review coverage; Tiger pilots show 天合・冲 evidence details",
     ],
   },
   {

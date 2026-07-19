@@ -4157,6 +4157,114 @@ a.purposeCalendarPremiseDetailChip:focus-visible {
   font-size: 9.5px;
 }
 
+.purposeCalendarSourceCoverage {
+  display: grid;
+  gap: 7px;
+  justify-self: stretch;
+  padding: 8px;
+  border: 1px solid rgba(41, 72, 63, 0.14);
+  background: rgba(244, 239, 227, 0.3);
+  color: rgba(41, 72, 63, 0.78);
+  font-size: 11px;
+}
+
+.purposeCalendarSourceCoverageTitle {
+  color: var(--moss);
+  font-weight: 950;
+  letter-spacing: 0.02em;
+}
+
+.purposeCalendarSourceCoverageRows {
+  display: grid;
+  gap: 5px;
+}
+
+.purposeCalendarSourceCoverageRows > div {
+  display: grid;
+  gap: 1px;
+  padding-left: 7px;
+  border-left: 2px solid rgba(41, 72, 63, 0.2);
+}
+
+.purposeCalendarSourceCoverageRows strong {
+  color: rgba(41, 72, 63, 0.82);
+  font-size: 10.5px;
+}
+
+.purposeCalendarSourceCoverageRows small {
+  color: rgba(41, 72, 63, 0.62);
+  font-size: 9.5px;
+  line-height: 1.45;
+}
+
+.purposeCalendarSourceMarkers {
+  justify-self: stretch;
+  border: 1px solid rgba(165, 123, 59, 0.24);
+  background: rgba(255, 253, 247, 0.68);
+  color: rgba(41, 72, 63, 0.78);
+  font-size: 11px;
+}
+
+.purposeCalendarSourceMarkers summary {
+  padding: 7px 8px;
+  color: var(--moss);
+  cursor: pointer;
+  font-weight: 950;
+  letter-spacing: 0.02em;
+}
+
+.purposeCalendarSourceMarkerBody {
+  display: grid;
+  gap: 9px;
+  padding: 0 8px 8px;
+  border-top: 1px solid rgba(165, 123, 59, 0.14);
+}
+
+.purposeCalendarSourceMarkerList {
+  display: grid;
+  gap: 8px;
+  padding-top: 8px;
+}
+
+.purposeCalendarSourceMarkerList dl {
+  display: grid;
+  gap: 3px;
+  margin: 0;
+  padding: 7px;
+  border: 1px solid rgba(41, 72, 63, 0.1);
+  background: rgba(244, 239, 227, 0.34);
+}
+
+.purposeCalendarSourceMarkerList dl > div {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 6px;
+}
+
+.purposeCalendarSourceMarkerList dt {
+  color: rgba(41, 72, 63, 0.58);
+  font-weight: 850;
+}
+
+.purposeCalendarSourceMarkerList dd {
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: rgba(41, 72, 63, 0.86);
+  font-weight: 800;
+}
+
+.purposeCalendarSourceMarkerNotice {
+  margin: 0;
+  padding: 7px;
+  border-left: 3px solid rgba(165, 123, 59, 0.44);
+  background: rgba(244, 239, 227, 0.5);
+  color: rgba(41, 72, 63, 0.68);
+  font-size: 10px;
+  font-weight: 750;
+  line-height: 1.55;
+}
+
 .purposeCalendarBoardMeta strong a,
 .purposeCalendarBoardMeta small a,
 .purposeCalendarKanshi a,

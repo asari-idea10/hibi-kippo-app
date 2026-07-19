@@ -233,7 +233,7 @@ export const verificationRegistryItems: VerificationRegistryItem[] = [
     samplePolicy:
       "Level 1を再検証対象へ戻さず、C寅月徳合、三合concept mismatch、orientation 5/9、296細字区画、24山細位置を個別に保持する。",
     nextAction:
-      "撮影萬年暦source manifestを作成し、頁・画像・SHA・source IDを確定してからLevel 2照合を進める。",
+      "寅月Pilotの天合・冲表示を起点に、撮影萬年暦manifestから確認済み月・markerの照合範囲を段階的に拡張する。",
   },
   {
     id: "zokan-sanmeigaku",

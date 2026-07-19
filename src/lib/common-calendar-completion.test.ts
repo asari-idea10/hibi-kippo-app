@@ -56,12 +56,16 @@ describe("adoption-status current progress", () => {
 
     expect(item.status).toBe("v0_verifying");
     expect(item.adoptionStatus).toBe("research_ongoing");
+    expect(item.note).toContain("寅月Pilotの天合・冲");
+    expect(item.note).toContain("全月で基本盤の照合状態");
+    expect(item.nextAction).toContain("照合範囲を段階的に拡張");
     expect(item.progressDetails).toEqual(
       expect.arrayContaining([
         "C寅月徳合: unresolved source discrepancy",
         "原資料三合marker vs 現行三合4局・三合天道: concept_mismatch",
         "296 fine-marker cells: transcribed, promotion pending",
         "24-mountain fine positions: unreadable",
+        "UI: all months show source-review coverage; Tiger pilots show 天合・冲 evidence details",
       ]),
     );
   });
