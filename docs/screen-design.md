@@ -180,11 +180,24 @@ Detailed ledger: `docs/sanmeigaku-input-and-time-pillar-research.md`
 - The 算命学 category uses compact term chips with meta labels: `陽占`, `十大主星`, and `十二大従星`.
 - 身弱・身中・身強 is not listed in the `/calendar-notes` index because it is currently a `/sanmeigaku` whole-chart helper judgement and its meaning text is not connected as a dictionary term.
 - `adoption-status` is a verification and source-status screen. It keeps source/provenance readiness, calculation verification, production connection, and UI visibility as separate progress axes.
-- Its completion table includes monthly-plate Level 1 closure, monthly-plate Level 2 research, limited personal-star provenance, visible hour-board/personal-direction scope, and the not-yet-created photographed-Mannenreki source manifest.
+- Its completion table includes monthly-plate Level 1 closure, monthly-plate Level 2 research, limited personal-star provenance, visible hour-board/personal-direction scope, and the photographed-Mannenreki source manifest.
 - Monthly-plate Level 1 may be shown as complete inside its declared scope while its production connection remains intentionally absent. Level 2 fine markers and directional deities remain a separate ongoing research item.
 - `READY_WITH_LIMITATIONS` and provenance completion must not be presented as production-ready. The page expands compound status details below the affected item rather than collapsing them into a single completion label.
 - Visible annual/directional deities and unconnected monthly fine-marker deities are separate registry rows. Same-name concepts such as 月徳日/方位, 月空, 生気, and 三合 are not merged by the screen.
 - `direction-palace-blends` is a master/reference screen.
+
+### Monthly Plate Source Marker Evidence
+
+Status: `implemented_for_verified_pilots`, `display_only`
+
+- Every selected-date monthly-board card includes `月盤原典の照合状況` immediately after the monthly-board metadata and before the monthly compass.
+- The status always shows `基本盤：照合済み` with 中宮・九星配置・五黄殺・暗剣殺・月破. A source-confirmed Tiger pilot shows `追加marker：Pilot確認あり`; any other month shows `追加marker：この月は未照合` and says that fine-marker review is proceeding from the Tiger pilots.
+- When the selected date resolves to one of the source-confirmed Tiger-month A/B/C pilots, the status includes a closed `月盤原典marker（検証中）` details panel.
+- The initial scope is exactly five static records: `天合` for A/B/C and `冲` for A/C.
+- Each record displays the raw marker, page-relative position, side-legend correspondence, photo-verification status, pilot group, p.24 source, and `HMA-P24-IMG-20260715`.
+- Page-relative positions use `紙面上`等の固定表示 only. They are not converted to north/south/east/west or 24 mountains.
+- The panel explicitly states that the markers are source evidence and are not used for candidate, rank, warning, or fortune judgement.
+- Marker details are absent when no verified pilot matches, but the all-month coverage status remains visible. Neither status nor details are rendered in calendar cells, candidate lists/reasons, the direction compass, the 24-mountain ring, direction blends, companion judgement, or URL controls.
 
 ### TODO
 

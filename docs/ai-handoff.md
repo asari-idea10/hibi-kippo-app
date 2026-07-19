@@ -1408,3 +1408,40 @@ Verification scope:
 - Documentation and external-file inventory only. Images were read-only and remain outside Git.
 - No production, UI, API, URL/query, candidate, ranking, warning, master, generated data, provenance registry, Decision Log, Google Sheet, or Vercel changes.
 - Next work: choose the first manifest-addressable, source-confirmed monthly Level 2 item for UI design without reopening monthly Level 1.
+
+## Monthly Plate Source Marker Evidence Handoff
+
+Date: 2026-07-19
+
+Summary:
+
+- Added `月盤原典の照合状況` to every selected-date monthly-board card. All months show `基本盤：照合済み` for 中宮・九星配置・五黄殺・暗剣殺・月破.
+- Tiger-pilot matches show `追加marker：Pilot確認あり` followed by the closed-by-default `月盤原典marker（検証中）` panel. Other months show `追加marker：この月は未照合` and explain that fine markers are being reviewed from the Tiger pilots; they do not imply that no marker exists.
+- The static initial fixture contains five photo-confirmed Tiger-pilot records only: A `天合/bottom`, A `冲/lower_left`, B `天合/bottom`, C `天合/bottom`, and C `冲/upper_right`.
+- Asset bindings are A=`hma-p24-01/03/05`, B=`hma-p24-01/05`, and C=`hma-p24-02/04/05`, all under `HMA-P24-IMG-20260715`.
+- The panel retains raw labels and page-relative positions, shows the confirmed side-legend correspondence, and explicitly says the records do not affect candidate, rank, warning, or fortune judgement.
+- `direction8` and `mountain24` remain `null`. No compass, 24-mountain, API, URL, calendar master, generated data, Level 1 provenance, SourceClaim, ProjectClaim, or Decision Log change was made.
+- Marker details remain absent outside the verified Tiger fixtures, while the coverage status remains visible. C寅月徳合, `天月`, source `三合`, 296 transcribed fine-marker cells, orientation 5/9, and 24-mountain detail remain outside the initial display scope.
+
+Changed files:
+
+- `src/lib/monthly-plate-source-marker-display.ts`
+- `src/lib/monthly-plate-source-marker-display.test.tsx`
+- `src/components/monthly-plate-source-markers.tsx`
+- `src/app/purpose-calendar/page.tsx`
+- `src/app/globals.css`
+- `docs/mannenreki-additional-masters-research.md`
+- `docs/screen-design.md`
+- `docs/task-board.md`
+- `docs/ai-handoff.md`
+
+Verification status before commit:
+
+- Dedicated source-marker tests: 16 / 16 passed. Adoption-status regression tests: 13 / 13 passed.
+- Full Vitest: 9 files, 784 / 784 passed (baseline 768 + 16). Existing monthly-plate provenance 24 / 24 and personal-star provenance 24 / 24 remain green.
+- `npm run lint`: passed without warnings.
+- `npm run build`: passed with Next.js 16.2.6.
+- Local production SSR: the 2026-07-19 URL shows the all-month coverage, Level 1 summary, and `この月は未照合` without marker details or source ID. The 2026-02-05 Tiger URL shows `Pilot確認あり`, `天合・冲`, the evidence details, paper positions, source ID, and non-judgement notice.
+- Browser screenshot was unavailable in the local environment: `SCREENSHOT_GAP`. Vercel Preview and Production were not operated before commit.
+- Vercel Preview: `https://hibi-kippo-app-git-feat-monthly-source-marke-e59d0e-toshi-mar19.vercel.app`
+- Preview HTTP/SSR verification passed for 2026-07-19, 2026-02-05, and `/adoption-status`. July shows the coverage and `この月は未照合` without marker details/source ID; February shows the Pilot markers and source evidence; adoption status remains 41 items with the updated Level 2 scope. Browser screenshots remain unavailable: `COMPLETE_WITH_SCREENSHOT_GAP`.
